@@ -216,3 +216,23 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# ---------------------------------------------------
+# Hort-IA Custom Exclusions
+# ---------------------------------------------------
+
+# Ignore raw/processed datasets and images
+# (Prevent pushing large pest/disease datasets to git)
+data/
+
+# Ignore trained model weights (PyTorch, ONNX, etc)
+# (These files are usually very large)
+models/*.pt
+models/*.pth
+models/*.onnx
+models/*.pkl
+models/*.joblib
+
+# Ignore IDE settings
+.vscode/
+.idea/

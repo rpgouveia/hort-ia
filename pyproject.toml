@@ -1,0 +1,29 @@
+[project]
+name = "hort-ia"
+version = "0.1.0"
+description = "Artificial intelligence module for community garden management"
+authors = [
+    { name = "Angelo Jorgeto", email = "angelo.jorgeto@pucpr.edu.br" },
+    { name = "Fernando Alonso", email = "fernando.alonso@pucpr.edu.br" },
+    { name = "Jafte Fagundes", email = "jafte.fagundes@pucpr.edu.br" },
+    { name = "Nicolas Hrescak", email = "nicolas.hrescak@pucpr.edu.br" },
+    { name = "Renato Gouveia", email = "gouveia.renato@pucpr.edu.br" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "fastapi>=0.142.2",
+    "opencv-python>=5.0.0.93",
+    "pandas>=3.0.6",
+    "pytest>=9.1.1",
+    "scikit-learn>=1.9.1",
+    "torch>=2.14.1",
+    "torchvision>=0.29.1",
+    "uvicorn>=0.54.0",
+]
+
+[project.scripts]
+hort-ia = "hort_ia:main"
+
+[build-system]
+requires = ["uv_build>=0.12.21,<0.13.0"]
+build-backend = "uv_build"
