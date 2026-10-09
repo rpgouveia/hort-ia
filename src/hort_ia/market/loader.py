@@ -1,4 +1,7 @@
-"""Load and validate the market dataset from data/knowledge/market/.
+"""Load and validate the market dataset from data/market/.
+
+The dataset has its own source registry (`sources.json` in the same directory); it
+only touches the agronomic knowledge base to check `crop_id` links in the report.
 
 Run `python -m hort_ia.market` to print a coverage report.
 """
@@ -28,7 +31,7 @@ from .models import (
 )
 
 # src/hort_ia/market/loader.py -> repository root is parents[3]
-DEFAULT_MARKET_DIR = Path(__file__).resolve().parents[3] / "data" / "knowledge" / "market"
+DEFAULT_MARKET_DIR = Path(__file__).resolve().parents[3] / "data" / "market"
 
 
 def market_dir() -> Path:
@@ -62,8 +65,7 @@ def _read_csv(path: Path, model: type) -> list[Any]:
 
 def load_market_dataset(directory: Path | None = None) -> MarketDataset:
     directory = directory or market_dir()
-    # One source registry for the whole project, shared with the agronomic base.
-    sources = [Source(**s) for s in _read_json_list(directory.parent / "sources.json")]
+    sources = [Source(**s) for s in _read_json_list(directory / "sources.json")]
     products = [MarketProduct(**p) for p in _read_json_list(directory / "products.json")]
     entrepostos = [Entrepost(**e) for e in _read_json_list(directory / "entrepostos.json")]
     return MarketDataset(

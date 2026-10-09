@@ -206,9 +206,8 @@ def test_dataset_loads_without_the_knowledge_base(dataset):
 
 @pytest.fixture
 def dataset_copy(tmp_path: Path) -> Path:
-    target = tmp_path / "knowledge" / "market"
+    target = tmp_path / "market"
     shutil.copytree(DEFAULT_MARKET_DIR, target)
-    shutil.copy(DEFAULT_MARKET_DIR.parent / "sources.json", target.parent)
     return target
 
 

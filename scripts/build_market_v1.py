@@ -1,7 +1,7 @@
 """One-off generator for the first version of the market dataset (kept for traceability).
 
 Source: Conab, Boletim Hortigranjeiro — tabelas de dados, edição setembro de 2026.
-The raw .xlsx is not versioned (see data/knowledge/market/README.md); pass its path
+The raw .xlsx is not versioned (see data/market/README.md); pass its path
 as the first argument.
 
     uv run python scripts/build_market_v1.py caminho/para/boletim.xlsx
@@ -428,4 +428,4 @@ if __name__ == "__main__":
             "Baixe as tabelas de dados do Boletim Hortigranjeiro (Conab/Prohort) e passe o "
             "caminho como primeiro argumento."
         )
-    main(xlsx, Path(__file__).resolve().parents[1] / "data" / "knowledge" / "market")
+    main(xlsx, Path(__file__).resolve().parents[1] / "data" / "market")
