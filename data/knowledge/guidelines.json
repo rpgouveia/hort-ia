@@ -149,5 +149,23 @@
       "pages": "2"
     },
     "validation_status": "draft"
+  },
+  {
+    "id": "irrigacao_manjericao",
+    "topic": "irrigation",
+    "statement_pt": "Manjericão deve ser irrigado ao menos uma vez por dia, de preferência no começo da manhã ou no fim da tarde.",
+    "applies_to_groups": [],
+    "applies_to_crops": [
+      "manjericao"
+    ],
+    "values": {
+      "interval_days_min": 1,
+      "interval_days_max": 1
+    },
+    "source": {
+      "source_id": "embrapa_doc136_manjericao",
+      "pages": "20"
+    },
+    "validation_status": "draft"
   }
 ]

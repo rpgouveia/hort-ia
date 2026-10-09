@@ -78,5 +78,25 @@
     "license": null,
     "verified": false,
     "notes": "Origem dos rótulos cv_label de pragas."
+  },
+  {
+    "id": "embrapa_folder_manjericao",
+    "title": "Manjericão (folder da Série Plantas Medicinais, Condimentares e Aromáticas)",
+    "publisher": "Embrapa Pantanal / Embrapa Transferência de Tecnologia",
+    "year": 2006,
+    "url": null,
+    "license": null,
+    "verified": true,
+    "notes": "Folder de 2 páginas; projeto com unidades em MS, PE e SC (Canoinhas). Ano pela data do arquivo PDF; confirmar na publicação. Base da janela de plantio do Sul."
+  },
+  {
+    "id": "embrapa_doc136_manjericao",
+    "title": "Manjericão: cultivo e utilização (Documentos 136, ISSN 2179-8184)",
+    "publisher": "Embrapa Agroindústria Tropical (Pereira, R. C. A.; Moreira, A. L. M.)",
+    "year": 2011,
+    "url": null,
+    "license": "Todos os direitos reservados: armazenar apenas dados factuais, sem copiar texto",
+    "verified": true,
+    "notes": "Foco no Nordeste. Páginas = número impresso (PDF = impresso - 2)."
   }
 ]
