@@ -1720,7 +1720,10 @@
     "family": "Lamiaceae",
     "aliases": [
       "alfavaca",
-      "basilicão"
+      "basilicão",
+      "manjericão italiano",
+      "manjericão toscano",
+      "manjericão branco"
     ],
     "names_en": [
       "basil"
@@ -1729,7 +1732,8 @@
       "condiment"
     ],
     "propagation": [
-      "seedling"
+      "seedling",
+      "direct"
     ],
     "seedling_days": {
       "min": 30,
@@ -1776,6 +1780,24 @@
           "source_id": "embrapa_horta_pequenos_espacos",
           "pages": "35"
         }
+      },
+      {
+        "variant": null,
+        "months_by_region": {
+          "sul": [
+            11,
+            12
+          ]
+        },
+        "harvest_start_days": {
+          "min": 60,
+          "max": 70
+        },
+        "source": {
+          "source_id": "embrapa_folder_manjericao",
+          "pages": "1"
+        },
+        "notes": "A fonte indica semeadura no 'final da primavera', interpretado como novembro-dezembro. Início de colheita tomado do HPE (p. 35), pois o folder não informa. Doc. 136 (p. 20) corrobora: em campo aberto, cultivar no período quente."
       }
     ],
     "spacing": {
@@ -1804,10 +1826,18 @@
       {
         "source_id": "embrapa_horta_pequenos_espacos",
         "pages": "27"
+      },
+      {
+        "source_id": "embrapa_doc136_manjericao",
+        "pages": "10, 20-23"
+      },
+      {
+        "source_id": "embrapa_folder_manjericao",
+        "pages": "1"
       }
     ],
     "validation_status": "draft",
-    "notes": "Não consta no Catálogo. Época 'ano todo' do HPE vale para Sudeste, Centro-Oeste, norte da região Sul e sul do Nordeste; Sul ficou sem dado. 'Alfavaca' também designa outras espécies de Ocimum."
+    "notes": "Não consta no Catálogo. Sudeste e Centro-Oeste: época 'ano todo' do HPE (que também vale para o norte do Sul e o sul do Nordeste). Sul: final da primavera (folder Embrapa). Nordeste e Norte sem janela mensal: o Doc. 136 só diz que, em campo aberto, o cultivo deve ser no período quente. Em vasos ou viveiros, o plantio pode ser feito o ano todo (Doc. 136, p. 20). Espaçamento do HPE corroborado pelo Doc. 136 (60 x 30-40 cm, p. 21-23). Propagação por sementes ou estacas (folder; Doc. 136). Colher as folhas pouco antes do florescimento. 'Alfavaca' também designa outras espécies de Ocimum; 'manjericão-doce' ficou fora dos aliases porque o Doc. 136 usa o nome para O. gratissimum."
   },
   {
     "id": "abobrinha",

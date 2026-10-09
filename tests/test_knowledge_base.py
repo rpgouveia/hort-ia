@@ -182,3 +182,42 @@ def test_small_space_spacing_is_smaller_than_conventional(kb):
             conv, small = crop.spacing.conventional, crop.spacing.small_spaces
             assert small.between_rows_cm <= conv.between_rows_cm, crop.id
             assert small.between_plants_cm <= conv.between_plants_cm, crop.id
+
+
+# --- Gap coverage -----------------------------------------------------------------
+
+# Known gaps, documented in data/knowledge/README.md. Remove a crop from here when its gap is closed.
+KNOWN_IRRIGATION_GAPS = {"batata"}
+
+
+def test_every_crop_has_an_irrigation_guideline(kb):
+    irrigation = [g for g in kb.guidelines.values() if g.topic == "irrigation"]
+    uncovered = set()
+    for crop in kb.crops.values():
+        covered = any(
+            crop.id in g.applies_to_crops
+            or set(crop.crop_groups) & set(g.applies_to_groups)
+            for g in irrigation
+            if g.applies_to_crops or g.applies_to_groups  # skip rules that only give volumes
+        )
+        if not covered:
+            uncovered.add(crop.id)
+    assert uncovered == KNOWN_IRRIGATION_GAPS
+
+
+def test_manjericao_has_window_for_sul(kb):
+    windows = kb.crops["manjericao"].planting_windows
+    sul = [w for w in windows if "sul" in w.months_by_region]
+    assert len(sul) == 1
+    assert sul[0].months_by_region["sul"] == [11, 12]
+
+
+def test_overlapping_windows_are_rejected():
+    window = {
+        "months_by_region": {"sul": [11, 12]},
+        "harvest_start_days": {"min": 60, "max": 70},
+        "source": {"source_id": "embrapa_folder_manjericao", "pages": "1"},
+    }
+    with pytest.raises(ValidationError, match="defined twice"):
+        Crop(id="manjericao", name_pt="Manjericão", scientific_name="Ocimum basilicum",
+             family="Lamiaceae", planting_windows=[window, window])

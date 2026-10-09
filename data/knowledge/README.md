@@ -26,12 +26,16 @@ independentes: `hort_ia.knowledge` para esta, `hort_ia.market` para a de mercado
    tempo de mudas. Sua época de plantio vale só para Sudeste, Centro-Oeste, norte do Sul e sul do
    Nordeste, por isso não é usada quando o Catálogo tem o dado.
 3. **Circular Técnica 47 (2007)**: produtividade em 10 m², grupos de hortaliças e regras gerais.
+4. **Fontes específicas por cultura**, apenas onde as três anteriores não têm dado. Hoje: manjericão
+   (folder Embrapa Pantanal, 2006; Documentos 136 da Embrapa Agroindústria Tropical, 2011).
 
 ## Convenções
 
 - Espaçamento em cm, na ordem *entre linhas × entre plantas*.
 - `months_by_region`: região com `[]` = "não recomendável" na fonte; região ausente = sem dado.
 - `pages` usa o número **impresso** na página.
+- Uma cultura pode combinar janelas de fontes diferentes, desde que cada região apareça uma só vez
+  por tipo de cultivar. Interpretações da fonte (ex.: "final da primavera" = nov-dez) ficam em `notes`.
 - O HPE tem todos os direitos reservados: guardar apenas dados factuais e texto parafraseado.
 - O script `scripts/build_crops_v1.py` registra como a primeira versão foi transcrita.
 
@@ -47,7 +51,20 @@ independentes: `hort_ia.knowledge` para esta, `hort_ia.market` para a de mercado
 
 ## Lacunas conhecidas
 
-- **Manjericão** não está no Catálogo: sem janela de plantio para Sul, Nordeste e Norte.
-- **Batata** não está na Tabela 2 do HPE: sem espaçamento para pequenos espaços.
-- Nenhuma fonte traz exigência de sol ou água **por cultura**; isso fica em `guidelines.json`, por grupo.
-- Rúcula e manjericão sem produtividade de referência (ausentes no CT 47).
+- **Batata**: sem espaçamento para pequenos espaços (ausente na Tabela 2 do HPE) e sem diretriz de
+  irrigação (grupo "tubérculo" não coberto pelo CT 47).
+- **Manjericão**: sem janela mensal para Nordeste e Norte. A única orientação disponível (Doc. 136) é
+  cultivar em campo aberto no período quente, ou em vasos o ano todo.
+- **Rúcula e manjericão**: sem produtividade de referência. Para rúcula, só foram encontrados
+  experimentos isolados, com resultados de 0,7 a 3,3 kg/m² conforme o manejo, que não servem como
+  valor de referência; para manjericão, nenhuma das fontes informa produtividade. Se a base financeira
+  precisar desses números, eles devem entrar lá como premissa documentada.
+- Nenhuma fonte traz exigência de sol ou água **por cultura**; isso fica em `guidelines.json`, por grupo
+  (e por cultura, quando a fonte é específica).
+
+## Lacunas resolvidas
+
+| Data | Lacuna | Resolução |
+|---|---|---|
+| 2026-10 | Manjericão sem janela no Sul | Folder Embrapa (2006): final da primavera → nov-dez |
+| 2026-10 | Manjericão sem diretriz de irrigação | Doc. 136, p. 20: irrigação diária |

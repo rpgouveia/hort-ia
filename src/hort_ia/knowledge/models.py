@@ -141,6 +141,7 @@ class PlantingWindow(KBModel):
     months_by_region: dict[Region, list[int]]
     harvest_start_days: IntRange  # "início de colheita (após o plantio)"
     source: SourceRef
+    notes: str | None = None  # interpretation of the source, secondary sources
 
     @field_validator("months_by_region")
     @classmethod
@@ -196,10 +197,16 @@ class Crop(KBModel):
 
     @field_validator("planting_windows")
     @classmethod
-    def _unique_variants(cls, value: list[PlantingWindow]) -> list[PlantingWindow]:
-        variants = [w.variant for w in value]
-        if len(set(variants)) != len(variants):
-            raise ValueError(f"duplicate planting window variants: {variants}")
+    def _no_overlapping_windows(cls, value: list[PlantingWindow]) -> list[PlantingWindow]:
+        """A crop may combine windows from several sources, but each
+        (variant, region) pair must be defined by exactly one of them."""
+        seen: set[tuple[str | None, Region]] = set()
+        for window in value:
+            for region in window.months_by_region:
+                key = (window.variant, region)
+                if key in seen:
+                    raise ValueError(f"region '{region}' defined twice for variant '{window.variant}'")
+                seen.add(key)
         return value
 
     def all_source_refs(self) -> list[SourceRef]:
@@ -244,7 +251,8 @@ class Guideline(KBModel):
     id: str = Field(pattern=ID_PATTERN)
     topic: str
     statement_pt: str  # paraphrased, never copied verbatim from the source
-    applies_to_groups: list[CropGroup] = []  # empty = all crops
+    applies_to_groups: list[CropGroup] = []  # empty (and no crops) = all crops
+    applies_to_crops: list[str] = []  # crop-specific rule (takes precedence over group rules)
     values: dict[str, float | int | str] = {}
     source: SourceRef
     validation_status: ValidationStatus = ValidationStatus.DRAFT
@@ -351,6 +359,8 @@ class KnowledgeBase(KBModel):
 
         for guideline in self.guidelines.values():
             check_source(guideline.source.source_id, f"guideline '{guideline.id}'")
+            for crop_id in guideline.applies_to_crops:
+                check_crop(crop_id, f"guideline '{guideline.id}'")
 
         labels: set[tuple[str, str]] = set()
         for entry in self.pests_diseases.values():
