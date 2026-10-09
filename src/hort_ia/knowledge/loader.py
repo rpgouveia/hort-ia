@@ -1,6 +1,6 @@
 """Load and validate the knowledge base from data/knowledge/.
 
-Run `python -m hortia.knowledge` to print a completeness report.
+Run `python -m hort_ia.knowledge` to print a completeness report.
 """
 
 from __future__ import annotations
@@ -23,7 +23,7 @@ from .models import (
     ValidationStatus,
 )
 
-# src/hortia/knowledge/loader.py -> repository root is parents[3]
+# src/hort_ia/knowledge/loader.py -> repository root is parents[3]
 DEFAULT_KB_DIR = Path(__file__).resolve().parents[3] / "data" / "knowledge"
 
 

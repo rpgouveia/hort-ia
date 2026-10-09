@@ -1,4 +1,4 @@
-"""Print the knowledge base completeness report: `python -m hortia.knowledge`."""
+"""Print the knowledge base completeness report: `python -m hort_ia.knowledge`."""
 
 from .loader import completeness_report, load_knowledge_base
 

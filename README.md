@@ -22,14 +22,16 @@ hort-ia/
 ├── docs/                 # Project documentation (TAP, WBS, etc.)
 ├── notebooks/            # Jupyter notebooks for EDA and model training
 ├── models/               # Saved model weights (.pt, .onnx)
-├── src/                  # Main source code
-│   ├── api/              # FastAPI routes and schemas
-│   ├── cv/               # Computer vision for pest/disease detection
-│   ├── recommender/      # Agronomic recommendation engine
-│   ├── nlp/              # Conversational assistant logic
-│   ├── commercial/       # Commercial matching and pricing
-│   ├── finance/          # Financial predictive models
-│   └── core/             # Telemetry, logging, and utilities
+├── src/
+│   └── hort_ia/          # Main package
+│       ├── api/          # FastAPI routes and schemas
+│       ├── knowledge/    # Shared agronomic knowledge base (used by recommender, nlp and cv)
+│       ├── cv/           # Computer vision for pest/disease detection
+│       ├── recommender/  # Agronomic recommendation engine
+│       ├── nlp/          # Conversational assistant logic
+│       ├── commercial/   # Commercial matching and pricing
+│       ├── finance/      # Financial predictive models
+│       └── core/         # Telemetry, logging, and utilities
 ├── tests/                # Unit and integration tests (pytest)
 ├── pyproject.toml        # Dependencies configuration (managed by uv)
 └── uv.lock               # Dependency lockfile
@@ -55,6 +57,14 @@ Run the FastAPI server using `uvicorn`. We recommend using port 8080 to avoid co
 uv run uvicorn hort_ia.api.main:app --reload --port 8080
 ```
 
+Alternatively, use the project entry point (no auto-reload):
+
+```bash
+uv run hort-ia
+```
+
+> **Note:** in non-editable installs (e.g. Docker with `uv sync --no-editable`), set the `HORTIA_KB_DIR` environment variable to the `data/knowledge` directory so the knowledge base can be found.
+
 Access the interactive API documentation (Swagger UI) at: `http://localhost:8080/docs`
 
 ## Testing
@@ -63,4 +73,9 @@ Run unit and integration tests using `pytest`:
 Example command to run tests for the knowledge base module:
 ```bash
 uv run pytest tests/test_knowledge_base.py -v
+```
+
+Print the knowledge base completeness report:
+```bash
+uv run python -m hort_ia.knowledge
 ```
