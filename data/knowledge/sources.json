@@ -32,22 +32,12 @@
   {
     "id": "kaggle_companion_plants",
     "title": "Companion Plants",
-    "publisher": "Kaggle (aritchat)",
+    "publisher": "Kaggle (aramacus), derivado da Wikipedia 'List of companion plants'",
     "year": null,
-    "url": "https://www.kaggle.com/datasets/aritchat/companion-plants",
-    "license": null,
-    "verified": false,
-    "notes": "Derivado da Wikipedia (EN). Conferir licença na página do dataset."
-  },
-  {
-    "id": "growli_open_gardening",
-    "title": "Growli Open Gardening Dataset",
-    "publisher": "Growli",
-    "year": null,
-    "url": "https://growli.io",
-    "license": "CC-BY-4.0 (não confirmada)",
-    "verified": false,
-    "notes": "Existência e licença ainda não confirmadas. Não referenciar até verificar."
+    "url": "https://www.kaggle.com/datasets/aramacus/companion-plants",
+    "license": "CC BY-SA (herdada da Wikipedia): manter atribuição no arquivo derivado",
+    "verified": true,
+    "notes": "995 relações (helps, helped_by, avoid) sem mecanismo. Convertido por scripts/build_companions_v1.py; todas as linhas com evidence='traditional'."
   },
   {
     "id": "zarc_mapa",

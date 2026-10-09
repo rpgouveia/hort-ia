@@ -78,6 +78,28 @@ class CompanionRelation(StrEnum):
     HARMS = "harms"
 
 
+class Evidence(StrEnum):
+    """How well supported a statement is, from strongest to weakest."""
+
+    TECHNICAL = "technical"  # official technical publication (e.g. Embrapa)
+    RESEARCH = "research"  # field trial or peer-reviewed study
+    TRADITIONAL = "traditional"  # gardening tradition (e.g. Wikipedia list)
+
+
+class CompanionMechanism(StrEnum):
+    PEST_REPELLENT = "pest_repellent"
+    BENEFICIAL_HABITAT = "beneficial_habitat"  # shelter for natural enemies, pollinators
+    SPACE_USE = "space_use"  # intercropping that uses space/time better
+    ALLELOPATHY = "allelopathy"
+    COMPETITION = "competition"
+    SHARED_PESTS = "shared_pests"
+    UNKNOWN = "unknown"
+
+
+class CompanionRoleType(StrEnum):
+    PEST_REPELLENT = "pest_repellent"
+
+
 class KBModel(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
 
@@ -175,6 +197,14 @@ class YieldEstimate(KBModel):
     source: SourceRef
 
 
+class CompanionRole(KBModel):
+    """A role the crop plays for the garden as a whole, not for a specific partner."""
+
+    role: CompanionRoleType
+    evidence: Evidence
+    source: SourceRef
+
+
 class Crop(KBModel):
     id: str = Field(pattern=ID_PATTERN)
     name_pt: str
@@ -191,6 +221,7 @@ class Crop(KBModel):
     frost_tolerance: FrostTolerance | None = None
     small_space_recommended: bool | None = None
     yield_estimate: YieldEstimate | None = None
+    companion_roles: list[CompanionRole] = []  # role in the garden as a whole
     sources: list[SourceRef] = []  # sources for the descriptive fields
     validation_status: ValidationStatus = ValidationStatus.DRAFT
     notes: str | None = None
@@ -216,6 +247,7 @@ class Crop(KBModel):
             refs.append(self.spacing.source)
         if self.yield_estimate:
             refs.append(self.yield_estimate.source)
+        refs += [r.source for r in self.companion_roles]
         return refs
 
     def missing_fields(self) -> list[str]:
@@ -315,12 +347,16 @@ class PestDisease(KBModel):
 
 
 class Companion(KBModel):
-    """Directed relation: `crop_a` helps/harms `crop_b`."""
+    """`crop_a` helps/harms `crop_b`; with `mutual`, the relation holds both ways."""
 
     crop_a: str
     crop_b: str
     relation: CompanionRelation
+    mutual: bool = False
+    mechanism: CompanionMechanism = CompanionMechanism.UNKNOWN
+    evidence: Evidence
     source_id: str
+    pages: str | None = None
     validation_status: ValidationStatus = ValidationStatus.DRAFT
     notes: str | None = None
 
@@ -329,6 +365,12 @@ class Companion(KBModel):
         if self.crop_a == self.crop_b:
             raise ValueError(f"companion relation with itself: '{self.crop_a}'")
         return self
+
+    def involves(self, crop_a: str, crop_b: str) -> bool:
+        """True if this relation applies from `crop_a` to `crop_b`."""
+        if (self.crop_a, self.crop_b) == (crop_a, crop_b):
+            return True
+        return self.mutual and (self.crop_b, self.crop_a) == (crop_a, crop_b)
 
 
 # --- Aggregate ---------------------------------------------------------------
@@ -376,20 +418,25 @@ class KnowledgeBase(KBModel):
             for action in entry.management:
                 check_source(action.source.source_id, owner)
 
-        pairs: set[tuple[str, str]] = set()
+        pairs: set[tuple[tuple[str, ...], str]] = set()
         for i, comp in enumerate(self.companions, start=2):  # CSV line number
             owner = f"companions.csv line {i}"
             check_crop(comp.crop_a, owner)
             check_crop(comp.crop_b, owner)
             check_source(comp.source_id, owner)
-            pair = (comp.crop_a, comp.crop_b)
-            if pair in pairs:
-                errors.append(f"{owner}: duplicate pair {pair}")
-            pairs.add(pair)
+            pair = tuple(sorted((comp.crop_a, comp.crop_b)))
+            key = (pair, comp.source_id)
+            if key in pairs:
+                errors.append(f"{owner}: pair {pair} appears twice for source '{comp.source_id}'")
+            pairs.add(key)
 
         if errors:
             raise ValueError("referential integrity errors:\n- " + "\n- ".join(errors))
         return self
+
+    def companions_of(self, crop_id: str) -> list[Companion]:
+        """Relations in which `crop_id` affects or is affected by another crop."""
+        return [c for c in self.companions if crop_id in (c.crop_a, c.crop_b)]
 
     def by_cv_label(self, cv_label: str) -> PestDisease | None:
         """Resolve a CV model output to its knowledge base entry."""

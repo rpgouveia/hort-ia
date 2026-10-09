@@ -96,7 +96,14 @@ def completeness_report(kb: KnowledgeBase) -> str:
     ]
     lines.append(f"Complete drafts awaiting review ({len(ready)}): {', '.join(ready)}")
     lines.append(f"Guidelines: {len(kb.guidelines)}")
-    lines.append(f"Companion relations: {len(kb.companions)}")
+    evidence = Counter(c.evidence for c in kb.companions)
+    lines.append(
+        f"Companion relations: {len(kb.companions)} | "
+        + " | ".join(f"{e}: {n}" for e, n in sorted(evidence.items()))
+    )
+    without = [c for c in kb.crops if not kb.companions_of(c)]
+    if without:
+        lines.append(f"  crops without companion relations: {', '.join(without)}")
     unverified = [s.id for s in kb.sources.values() if not s.verified]
     lines.append(f"Unverified sources ({len(unverified)}): {', '.join(unverified)}")
     return "\n".join(lines)

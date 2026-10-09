@@ -1,1 +1,38 @@
-crop_a,crop_b,relation,source_id,validation_status,notes
+crop_a,crop_b,relation,mutual,mechanism,evidence,source_id,pages,validation_status,notes
+abobrinha,batata,harms,true,unknown,traditional,kaggle_companion_plants,,draft,
+abobrinha,tomate,helps,false,unknown,traditional,kaggle_companion_plants,,draft,
+alface,beterraba,helps,true,unknown,traditional,kaggle_companion_plants,,draft,
+alface,cenoura,helps,true,unknown,traditional,kaggle_companion_plants,,draft,
+alface,rabanete,helps,true,unknown,traditional,kaggle_companion_plants,,draft,
+alface,repolho,harms,true,unknown,traditional,kaggle_companion_plants,,draft,
+alface,salsa,harms,true,unknown,traditional,kaggle_companion_plants,,draft,
+batata,cenoura,harms,true,unknown,traditional,kaggle_companion_plants,,draft,Conflito no dataset: relação direta prevaleceu sobre a herdada de grupo.
+batata,morango,harms,true,unknown,traditional,kaggle_companion_plants,,draft,
+batata,tomate,harms,true,unknown,traditional,kaggle_companion_plants,,draft,
+beterraba,couve,helps,true,unknown,traditional,kaggle_companion_plants,,draft,Expandido de grupo 'brassicas' no dataset.
+beterraba,repolho,helps,true,unknown,traditional,kaggle_companion_plants,,draft,
+beterraba,tomate,harms,true,unknown,traditional,kaggle_companion_plants,,draft,
+cebolinha,batata,helps,false,unknown,traditional,kaggle_companion_plants,,draft,Expandido de grupo 'alliums'; grupo 'alliums' + grupo 'nightshades' no dataset.
+cebolinha,cenoura,helps,true,unknown,traditional,kaggle_companion_plants,,draft,
+cebolinha,couve,helps,false,unknown,traditional,kaggle_companion_plants,,draft,Expandido de grupo 'alliums' + grupo 'brassicas'; grupo 'brassicas' no dataset.
+cebolinha,pimentao,helps,false,unknown,traditional,kaggle_companion_plants,,draft,Expandido de grupo 'alliums'; grupo 'alliums' + grupo 'nightshades' no dataset.
+cebolinha,repolho,helps,false,unknown,traditional,kaggle_companion_plants,,draft,
+cebolinha,salsa,harms,true,unknown,traditional,kaggle_companion_plants,,draft,Expandido de grupo 'alliums' no dataset.
+cebolinha,tomate,helps,true,unknown,traditional,kaggle_companion_plants,,draft,
+cenoura,pimentao,helps,false,unknown,traditional,kaggle_companion_plants,,draft,Expandido de grupo 'nightshades' no dataset.
+cenoura,rabanete,harms,true,unknown,traditional,kaggle_companion_plants,,draft,
+cenoura,tomate,helps,false,unknown,traditional,kaggle_companion_plants,,draft,
+couve,morango,harms,true,unknown,traditional,kaggle_companion_plants,,draft,Expandido de grupo 'brassicas' no dataset.
+couve,pimentao,harms,true,unknown,traditional,kaggle_companion_plants,,draft,
+manjericao,batata,helps,false,unknown,traditional,kaggle_companion_plants,,draft,Expandido de grupo 'nightshades' no dataset.
+manjericao,pimentao,helps,false,unknown,traditional,kaggle_companion_plants,,draft,
+manjericao,tomate,helps,false,unknown,traditional,kaggle_companion_plants,,draft,
+morango,alface,helps,false,unknown,traditional,kaggle_companion_plants,,draft,
+morango,pimentao,harms,true,unknown,traditional,kaggle_companion_plants,,draft,
+morango,repolho,harms,true,unknown,traditional,kaggle_companion_plants,,draft,Expandido de grupo 'brassicas' no dataset.
+morango,tomate,harms,true,unknown,traditional,kaggle_companion_plants,,draft,
+pimentao,repolho,harms,true,unknown,traditional,kaggle_companion_plants,,draft,
+rabanete,abobrinha,helps,false,unknown,traditional,kaggle_companion_plants,,draft,
+tomate,repolho,helps,false,unknown,traditional,kaggle_companion_plants,,draft,Conflito no dataset: relação direta prevaleceu sobre a herdada de grupo.
+salsa,tomate,helps,false,unknown,traditional,kaggle_companion_plants,,draft,
+tomate,pimentao,helps,false,unknown,traditional,kaggle_companion_plants,,draft,

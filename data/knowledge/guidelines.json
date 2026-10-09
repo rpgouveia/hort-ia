@@ -167,5 +167,59 @@
       "pages": "20"
     },
     "validation_status": "draft"
+  },
+  {
+    "id": "rotacao_por_familia",
+    "topic": "rotation",
+    "statement_pt": "Não plantar em sequência, no mesmo canteiro, espécies da mesma família botânica: isso evita esgotar o solo e acumular doenças. Exemplo: depois de repolho, não plantar repolho nem couve, e sim cenoura, abóbora ou outra família.",
+    "applies_to_groups": [],
+    "applies_to_crops": [],
+    "values": {
+      "rule": "different_family"
+    },
+    "source": {
+      "source_id": "embrapa_ct47_cultivo_hortalicas",
+      "pages": "10-11"
+    },
+    "validation_status": "draft"
+  },
+  {
+    "id": "plantas_aromaticas_repelentes",
+    "topic": "companion",
+    "statement_pt": "Plantas aromáticas como manjericão, cebolinha, coentro, orégano, hortelã, alecrim, camomila e cravo-de-defunto podem repelir algumas pragas e ser cultivadas junto às hortaliças.",
+    "applies_to_groups": [],
+    "applies_to_crops": [],
+    "values": {},
+    "source": {
+      "source_id": "embrapa_ct47_cultivo_hortalicas",
+      "pages": "12"
+    },
+    "validation_status": "draft"
+  },
+  {
+    "id": "repelentes_pequenos_espacos",
+    "topic": "companion",
+    "statement_pt": "Em pequenos espaços, plantas repelentes (coentro, cebolinha, cravo-de-defunto, botão-de-ouro, camomila) podem ser cultivadas junto ou em volta do plantio.",
+    "applies_to_groups": [],
+    "applies_to_crops": [],
+    "values": {},
+    "source": {
+      "source_id": "embrapa_horta_pequenos_espacos",
+      "pages": "30"
+    },
+    "validation_status": "draft"
+  },
+  {
+    "id": "flores_abrigo_inimigos_naturais",
+    "topic": "companion",
+    "statement_pt": "Plantar flores em volta da horta oferece abrigo a predadores naturais das pragas, como joaninhas e vespas.",
+    "applies_to_groups": [],
+    "applies_to_crops": [],
+    "values": {},
+    "source": {
+      "source_id": "embrapa_ct47_cultivo_hortalicas",
+      "pages": "12"
+    },
+    "validation_status": "draft"
   }
 ]

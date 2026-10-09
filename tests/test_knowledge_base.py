@@ -116,8 +116,8 @@ def kb_copy(tmp_path: Path) -> Path:
 
 def test_unknown_crop_in_companions_is_rejected(kb_copy):
     (kb_copy / "companions.csv").write_text(
-        "crop_a,crop_b,relation,source_id,validation_status,notes\n"
-        "tomate,mandioca,helps,kaggle_companion_plants,draft,\n",
+        "crop_a,crop_b,relation,mutual,mechanism,evidence,source_id,pages,validation_status,notes\n"
+        "tomate,mandioca,helps,false,unknown,traditional,kaggle_companion_plants,,draft,\n",
         encoding="utf-8",
     )
     with pytest.raises(ValidationError, match="unknown crop 'mandioca'"):
@@ -221,3 +221,49 @@ def test_overlapping_windows_are_rejected():
     with pytest.raises(ValidationError, match="defined twice"):
         Crop(id="manjericao", name_pt="Manjericão", scientific_name="Ocimum basilicum",
              family="Lamiaceae", planting_windows=[window, window])
+
+
+# --- Companion planting -----------------------------------------------------------
+
+
+def test_companions_loaded(kb):
+    assert len(kb.companions) >= 30
+
+
+def test_no_pair_is_both_helpful_and_harmful_in_same_source(kb):
+    relations: dict[tuple, set[str]] = {}
+    for c in kb.companions:
+        key = (tuple(sorted((c.crop_a, c.crop_b))), c.source_id)
+        relations.setdefault(key, set()).add(c.relation)
+    contradictory = [k for k, rels in relations.items() if len(rels) > 1]
+    assert not contradictory, contradictory
+
+
+def test_traditional_relations_have_unknown_mechanism(kb):
+    # The Kaggle/Wikipedia dataset gives no reason for each relation; inventing one is not allowed.
+    for c in kb.companions:
+        if c.source_id == "kaggle_companion_plants":
+            assert c.evidence == "traditional" and c.mechanism == "unknown"
+
+
+def test_mutual_relation_applies_both_ways(kb):
+    harms = next(c for c in kb.companions if c.mutual and c.relation == "harms")
+    assert harms.involves(harms.crop_a, harms.crop_b)
+    assert harms.involves(harms.crop_b, harms.crop_a)
+
+
+def test_repellent_roles_come_from_technical_sources(kb):
+    for crop_id in ("manjericao", "cebolinha"):
+        roles = kb.crops[crop_id].companion_roles
+        assert roles and all(r.evidence == "technical" for r in roles)
+
+
+def test_duplicate_pair_from_same_source_is_rejected(kb_copy):
+    (kb_copy / "companions.csv").write_text(
+        "crop_a,crop_b,relation,mutual,mechanism,evidence,source_id,pages,validation_status,notes\n"
+        "tomate,manjericao,helps,false,unknown,traditional,kaggle_companion_plants,,draft,\n"
+        "manjericao,tomate,helps,false,unknown,traditional,kaggle_companion_plants,,draft,\n",
+        encoding="utf-8",
+    )
+    with pytest.raises(ValidationError, match="appears twice"):
+        load_knowledge_base(kb_copy)

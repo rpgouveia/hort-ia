@@ -9,9 +9,9 @@ demais equipes não definem as bases oficiais. Todo registro cita a fonte e a p�
 | Arquivo | Conteúdo |
 |---|---|
 | `crops.json` | 15 culturas do MVP: janelas de plantio por região, espaçamento, propagação, produtividade |
-| `guidelines.json` | Regras gerais (sol, irrigação, espaçamento em pequenos espaços, pH, clima) |
+| `guidelines.json` | Regras gerais (sol, irrigação, espaçamento em pequenos espaços, pH, clima, rotação, plantas repelentes) |
 | `pests_diseases.json` | Mapeamento das classes do modelo de visão computacional para manejo |
-| `companions.csv` | Relações de plantio companheiro (direcionais: `crop_a` ajuda/prejudica `crop_b`) |
+| `companions.csv` | Relações de plantio companheiro entre as 15 culturas, com nível de evidência |
 | `sources.json` | Registro das fontes citadas (compartilhado com a base de mercado) |
 | `market/` | Base de dados de mercado da Conab (preços, volumes, oferta) — ver `market/README.md` |
 
@@ -39,6 +39,32 @@ independentes: `hort_ia.knowledge` para esta, `hort_ia.market` para a de mercado
 - O HPE tem todos os direitos reservados: guardar apenas dados factuais e texto parafraseado.
 - O script `scripts/build_crops_v1.py` registra como a primeira versão foi transcrita.
 
+## Plantio companheiro
+
+As relações têm três níveis de evidência, que o motor e o assistente devem tratar de forma diferente:
+
+| `evidence` | Origem | Onde fica |
+|---|---|---|
+| `technical` | Publicações da Embrapa | `companion_roles` em `crops.json` e diretrizes em `guidelines.json` |
+| `research` | Estudos de consórcio (ainda não levantados) | `companions.csv` |
+| `traditional` | Wikipedia, via dataset do Kaggle | `companions.csv` |
+
+- As publicações da Embrapa não trazem pares "A ajuda B": trazem **papéis** (manjericão e cebolinha como
+  repelentes, CT 47 p. 12 e HPE p. 30) e **regras** (rotação por família, CT 47 pp. 10-11; flores como
+  abrigo de inimigos naturais). Por isso não viram linhas no `companions.csv`.
+- `mutual=true`: a relação vale nos dois sentidos. Todo "avoid" do dataset é mútuo.
+- `mechanism=unknown` em todas as linhas tradicionais: o dataset não informa o motivo e não inventamos.
+- O mesmo par pode aparecer mais de uma vez, desde que em fontes diferentes.
+
+**Conversão do dataset** (`scripts/build_companions_v1.py`, decisões documentadas no código):
+
+- Nomes agrupados ("brassicas", "nightshades", "alliums", "cucurbits") foram expandidos para as culturas
+  da KB que pertencem a eles; "brassicas" inclui só couve e repolho (rúcula e rabanete não são
+  *Brassica oleracea*).
+- Conflitos: relação sobre a própria cultura prevalece sobre a herdada de grupo. Três pares ficaram
+  de fora por contradição só entre grupos: batata-couve, batata-repolho e couve-tomate.
+- Rúcula ficou sem nenhuma relação: não aparece no dataset.
+
 ## Conflitos entre fontes
 
 | Cultura | Divergência | Decisão |
@@ -51,6 +77,7 @@ independentes: `hort_ia.knowledge` para esta, `hort_ia.market` para a de mercado
 
 ## Lacunas conhecidas
 
+- **Plantio companheiro**: rúcula sem relações; nenhuma relação com evidência `research` ainda.
 - **Batata**: sem espaçamento para pequenos espaços (ausente na Tabela 2 do HPE) e sem diretriz de
   irrigação (grupo "tubérculo" não coberto pelo CT 47).
 - **Manjericão**: sem janela mensal para Nordeste e Norte. A única orientação disponível (Doc. 136) é

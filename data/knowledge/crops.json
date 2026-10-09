@@ -138,7 +138,8 @@
       }
     ],
     "validation_status": "draft",
-    "notes": "No Catálogo consta como Lycopersicon esculentum (sinônimo). HPE indica ciclo de 90-100 dias."
+    "notes": "No Catálogo consta como Lycopersicon esculentum (sinônimo). HPE indica ciclo de 90-100 dias.",
+    "companion_roles": []
   },
   {
     "id": "batata",
@@ -230,7 +231,8 @@
       }
     ],
     "validation_status": "draft",
-    "notes": "Plantio por tubérculo-semente. Não consta na Tabela 2 do HPE; espaçamento do CT 47 (impresso '0,90 x ,030', interpretado como 0,90 x 0,30 m). HPE não recomenda tubérculos em pequenos espaços."
+    "notes": "Plantio por tubérculo-semente. Não consta na Tabela 2 do HPE; espaçamento do CT 47 (impresso '0,90 x ,030', interpretado como 0,90 x 0,30 m). HPE não recomenda tubérculos em pequenos espaços.",
+    "companion_roles": []
   },
   {
     "id": "pimentao",
@@ -355,7 +357,8 @@
       }
     ],
     "validation_status": "draft",
-    "notes": "Requer tutoramento. Catálogo recomenda rotação com outras espécies (ex.: gramíneas)."
+    "notes": "Requer tutoramento. Catálogo recomenda rotação com outras espécies (ex.: gramíneas).",
+    "companion_roles": []
   },
   {
     "id": "morango",
@@ -453,7 +456,8 @@
       }
     ],
     "validation_status": "draft",
-    "notes": "Mudas de estolhos. Grupo 'fruit' atribuído pelo critério de parte comestível (não listado no CT 47). Não citado na lista de pequenos espaços do HPE, embora a Tabela 2 traga espaçamento HPE."
+    "notes": "Mudas de estolhos. Grupo 'fruit' atribuído pelo critério de parte comestível (não listado no CT 47). Não citado na lista de pequenos espaços do HPE, embora a Tabela 2 traga espaçamento HPE.",
+    "companion_roles": []
   },
   {
     "id": "alface",
@@ -664,7 +668,8 @@
       }
     ],
     "validation_status": "draft",
-    "notes": "Época depende da cultivar (de inverno ou de verão)."
+    "notes": "Época depende da cultivar (de inverno ou de verão).",
+    "companion_roles": []
   },
   {
     "id": "couve",
@@ -787,7 +792,8 @@
       }
     ],
     "validation_status": "draft",
-    "notes": "Propagação mais comum por broto lateral. Exigente em boro e molibdênio (Catálogo)."
+    "notes": "Propagação mais comum por broto lateral. Exigente em boro e molibdênio (Catálogo).",
+    "companion_roles": []
   },
   {
     "id": "rucula",
@@ -891,7 +897,8 @@
       }
     ],
     "validation_status": "draft",
-    "notes": "No Catálogo consta como Eruca sativa. CONFLITO: HPE indica ciclo de 25-30 dias; Catálogo, início de colheita em 40-60 dias. Sem produtividade no CT 47."
+    "notes": "No Catálogo consta como Eruca sativa. CONFLITO: HPE indica ciclo de 25-30 dias; Catálogo, início de colheita em 40-60 dias. Sem produtividade no CT 47.",
+    "companion_roles": []
   },
   {
     "id": "repolho",
@@ -1065,7 +1072,8 @@
       }
     ],
     "validation_status": "draft",
-    "notes": "Grupo 'leafy' atribuído pelo critério de parte comestível (não listado no CT 47). Exigente em adubação e água constante."
+    "notes": "Grupo 'leafy' atribuído pelo critério de parte comestível (não listado no CT 47). Exigente em adubação e água constante.",
+    "companion_roles": []
   },
   {
     "id": "cenoura",
@@ -1216,7 +1224,8 @@
       }
     ],
     "validation_status": "draft",
-    "notes": "CONFLITO: CT 47 indica 20 x 5 cm; HPE, 20 x 10 cm (adotado). Germinação ideal 20-30 °C. Solo fofo, sem obstáculos."
+    "notes": "CONFLITO: CT 47 indica 20 x 5 cm; HPE, 20 x 10 cm (adotado). Germinação ideal 20-30 °C. Solo fofo, sem obstáculos.",
+    "companion_roles": []
   },
   {
     "id": "beterraba",
@@ -1344,7 +1353,8 @@
       }
     ],
     "validation_status": "draft",
-    "notes": "Catálogo: semente em local definitivo ou mudas; HPE Tabela 2: mudas. Quebrar dormência (molho 24 h)."
+    "notes": "Catálogo: semente em local definitivo ou mudas; HPE Tabela 2: mudas. Quebrar dormência (molho 24 h).",
+    "companion_roles": []
   },
   {
     "id": "rabanete",
@@ -1460,7 +1470,8 @@
       }
     ],
     "validation_status": "draft",
-    "notes": "Colher antes do tamanho máximo para não ficar esponjoso."
+    "notes": "Colher antes do tamanho máximo para não ficar esponjoso.",
+    "companion_roles": []
   },
   {
     "id": "cebolinha",
@@ -1598,7 +1609,25 @@
       }
     ],
     "validation_status": "draft",
-    "notes": "O Catálogo agrupa as duas espécies como cebolinha. Rebrota: várias colheitas. 'Cheiro-verde' (cebolinha + salsa) deve ser tratado no NLU, não como alias. CONFLITO menor: HPE indica ciclo de 70-90 dias."
+    "notes": "O Catálogo agrupa as duas espécies como cebolinha. Rebrota: várias colheitas. 'Cheiro-verde' (cebolinha + salsa) deve ser tratado no NLU, não como alias. CONFLITO menor: HPE indica ciclo de 70-90 dias.",
+    "companion_roles": [
+      {
+        "role": "pest_repellent",
+        "evidence": "technical",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "12"
+        }
+      },
+      {
+        "role": "pest_repellent",
+        "evidence": "technical",
+        "source": {
+          "source_id": "embrapa_horta_pequenos_espacos",
+          "pages": "30"
+        }
+      }
+    ]
   },
   {
     "id": "salsa",
@@ -1711,7 +1740,8 @@
       }
     ],
     "validation_status": "draft",
-    "notes": "Catálogo: prefere temperaturas em torno de 20 °C. Germinação lenta (molho de uma noite)."
+    "notes": "Catálogo: prefere temperaturas em torno de 20 °C. Germinação lenta (molho de uma noite).",
+    "companion_roles": []
   },
   {
     "id": "manjericao",
@@ -1837,7 +1867,17 @@
       }
     ],
     "validation_status": "draft",
-    "notes": "Não consta no Catálogo. Sudeste e Centro-Oeste: época 'ano todo' do HPE (que também vale para o norte do Sul e o sul do Nordeste). Sul: final da primavera (folder Embrapa). Nordeste e Norte sem janela mensal: o Doc. 136 só diz que, em campo aberto, o cultivo deve ser no período quente. Em vasos ou viveiros, o plantio pode ser feito o ano todo (Doc. 136, p. 20). Espaçamento do HPE corroborado pelo Doc. 136 (60 x 30-40 cm, p. 21-23). Propagação por sementes ou estacas (folder; Doc. 136). Colher as folhas pouco antes do florescimento. 'Alfavaca' também designa outras espécies de Ocimum; 'manjericão-doce' ficou fora dos aliases porque o Doc. 136 usa o nome para O. gratissimum."
+    "notes": "Não consta no Catálogo. Sudeste e Centro-Oeste: época 'ano todo' do HPE (que também vale para o norte do Sul e o sul do Nordeste). Sul: final da primavera (folder Embrapa). Nordeste e Norte sem janela mensal: o Doc. 136 só diz que, em campo aberto, o cultivo deve ser no período quente. Em vasos ou viveiros, o plantio pode ser feito o ano todo (Doc. 136, p. 20). Espaçamento do HPE corroborado pelo Doc. 136 (60 x 30-40 cm, p. 21-23). Propagação por sementes ou estacas (folder; Doc. 136). Colher as folhas pouco antes do florescimento. 'Alfavaca' também designa outras espécies de Ocimum; 'manjericão-doce' ficou fora dos aliases porque o Doc. 136 usa o nome para O. gratissimum.",
+    "companion_roles": [
+      {
+        "role": "pest_repellent",
+        "evidence": "technical",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "12"
+        }
+      }
+    ]
   },
   {
     "id": "abobrinha",
@@ -1974,6 +2014,7 @@
       }
     ],
     "validation_status": "draft",
-    "notes": "Sensível ao transplante e ao excesso de água. Grupo 'fruit' atribuído pelo critério de parte comestível. CONFLITO: HPE indica ciclo de 60-90 dias."
+    "notes": "Sensível ao transplante e ao excesso de água. Grupo 'fruit' atribuído pelo critério de parte comestível. CONFLITO: HPE indica ciclo de 60-90 dias.",
+    "companion_roles": []
   }
 ]
