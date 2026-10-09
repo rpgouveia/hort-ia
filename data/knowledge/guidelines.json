@@ -1,0 +1,153 @@
+[
+  {
+    "id": "sol_local_ensolarado",
+    "topic": "sun",
+    "statement_pt": "A maior parte das hortaliças deve ser cultivada em local bem ensolarado.",
+    "applies_to_groups": [],
+    "values": {},
+    "source": {
+      "source_id": "embrapa_ct47_cultivo_hortalicas",
+      "pages": "3"
+    },
+    "validation_status": "draft"
+  },
+  {
+    "id": "sol_minimo_pequenos_espacos",
+    "topic": "sun",
+    "statement_pt": "Hortas em pequenos espaços precisam de sol direto em parte do dia, cerca de 5 horas.",
+    "applies_to_groups": [],
+    "values": {
+      "min_direct_sun_hours": 5
+    },
+    "source": {
+      "source_id": "embrapa_horta_pequenos_espacos",
+      "pages": "23"
+    },
+    "validation_status": "draft"
+  },
+  {
+    "id": "irrigacao_folhosas",
+    "topic": "irrigation",
+    "statement_pt": "Folhosas e plantas em fase inicial devem ser irrigadas diariamente.",
+    "applies_to_groups": [
+      "leafy"
+    ],
+    "values": {
+      "interval_days_min": 1,
+      "interval_days_max": 1
+    },
+    "source": {
+      "source_id": "embrapa_ct47_cultivo_hortalicas",
+      "pages": "9"
+    },
+    "validation_status": "draft"
+  },
+  {
+    "id": "irrigacao_frutos_raizes",
+    "topic": "irrigation",
+    "statement_pt": "Hortaliças de frutos e de raízes podem ser irrigadas a cada 2 ou 3 dias.",
+    "applies_to_groups": [
+      "fruit",
+      "root"
+    ],
+    "values": {
+      "interval_days_min": 2,
+      "interval_days_max": 3
+    },
+    "source": {
+      "source_id": "embrapa_ct47_cultivo_hortalicas",
+      "pages": "9"
+    },
+    "validation_status": "draft"
+  },
+  {
+    "id": "irrigacao_volume",
+    "topic": "irrigation",
+    "statement_pt": "Aplicar a água devagar: de 4 a 10 litros por m² de canteiro ou de 3 a 5 litros por cova. Em dias quentes e solos arenosos, regar com mais frequência.",
+    "applies_to_groups": [],
+    "values": {
+      "liters_per_m2_min": 4,
+      "liters_per_m2_max": 10,
+      "liters_per_pit_min": 3,
+      "liters_per_pit_max": 5
+    },
+    "source": {
+      "source_id": "embrapa_ct47_cultivo_hortalicas",
+      "pages": "9"
+    },
+    "validation_status": "draft"
+  },
+  {
+    "id": "irrigacao_pequenos_espacos",
+    "topic": "irrigation",
+    "statement_pt": "Em recipientes: sementeiras e mudas duas vezes ao dia (manhã e fim de tarde), plantas jovens uma vez ao dia, plantas adultas 4 a 5 vezes por semana; em calor intenso, regar todo dia.",
+    "applies_to_groups": [],
+    "values": {
+      "adult_times_per_week_min": 4,
+      "adult_times_per_week_max": 5
+    },
+    "source": {
+      "source_id": "embrapa_horta_pequenos_espacos",
+      "pages": "27"
+    },
+    "validation_status": "draft"
+  },
+  {
+    "id": "espacamento_pequenos_espacos",
+    "topic": "spacing",
+    "statement_pt": "Em pequenos espaços, usar cerca de 70% do espaçamento do plantio convencional.",
+    "applies_to_groups": [],
+    "values": {
+      "factor": 0.7
+    },
+    "source": {
+      "source_id": "embrapa_horta_pequenos_espacos",
+      "pages": "27, 34"
+    },
+    "validation_status": "draft"
+  },
+  {
+    "id": "pequenos_espacos_raizes_tuberculos",
+    "topic": "small_spaces",
+    "statement_pt": "Raízes e tubérculos não são recomendados para pequenos espaços por exigirem recipientes profundos e terem ciclo mais longo, embora o cultivo seja possível.",
+    "applies_to_groups": [
+      "root",
+      "tuber"
+    ],
+    "values": {},
+    "source": {
+      "source_id": "embrapa_horta_pequenos_espacos",
+      "pages": "27"
+    },
+    "validation_status": "draft"
+  },
+  {
+    "id": "solo_ph",
+    "topic": "soil",
+    "statement_pt": "A maioria das hortaliças prefere solo com pH entre 6,0 e 6,5; a calagem deve seguir análise de solo.",
+    "applies_to_groups": [],
+    "values": {
+      "ph_min": 6.0,
+      "ph_max": 6.5
+    },
+    "source": {
+      "source_id": "embrapa_ct47_cultivo_hortalicas",
+      "pages": "5"
+    },
+    "validation_status": "draft"
+  },
+  {
+    "id": "clima_regiao_sul",
+    "topic": "climate",
+    "statement_pt": "Na região Sul o inverno é rigoroso, com geadas; outono e primavera têm temperaturas mais amenas, favoráveis às hortaliças.",
+    "applies_to_groups": [],
+    "values": {
+      "region": "sul"
+    },
+    "source": {
+      "source_id": "embrapa_ct47_cultivo_hortalicas",
+      "pages": "2"
+    },
+    "validation_status": "draft"
+  }
+]

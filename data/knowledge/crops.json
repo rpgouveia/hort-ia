@@ -1,0 +1,1949 @@
+[
+  {
+    "id": "tomate",
+    "name_pt": "Tomate",
+    "scientific_name": "Solanum lycopersicum",
+    "family": "Solanaceae",
+    "aliases": [
+      "tomateiro",
+      "tomate-cereja",
+      "tomate italiano",
+      "tomate santa cruz",
+      "pé de tomate"
+    ],
+    "names_en": [
+      "tomato"
+    ],
+    "crop_groups": [
+      "fruit"
+    ],
+    "propagation": [
+      "seedling"
+    ],
+    "seedling_days": {
+      "min": 20,
+      "max": 25
+    },
+    "planting_windows": [
+      {
+        "variant": null,
+        "months_by_region": {
+          "sul": [
+            9,
+            10,
+            11,
+            12,
+            1,
+            2
+          ],
+          "sudeste": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "nordeste": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "centro_oeste": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "norte": [
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        "harvest_start_days": {
+          "min": 100,
+          "max": 120
+        },
+        "source": {
+          "source_id": "embrapa_catalogo_hortalicas",
+          "pages": "57"
+        }
+      }
+    ],
+    "spacing": {
+      "conventional": {
+        "between_rows_cm": 100,
+        "between_plants_cm": 50
+      },
+      "small_spaces": {
+        "between_rows_cm": 70,
+        "between_plants_cm": 35
+      },
+      "source": {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "35"
+      }
+    },
+    "optimal_temp_c": null,
+    "frost_tolerance": null,
+    "small_space_recommended": true,
+    "yield_estimate": {
+      "min": 50,
+      "max": 100,
+      "unit": "kg",
+      "area_m2": 10,
+      "source": {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "4"
+      }
+    },
+    "sources": [
+      {
+        "source_id": "embrapa_catalogo_hortalicas",
+        "pages": "57"
+      },
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "2"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "27"
+      }
+    ],
+    "validation_status": "draft",
+    "notes": "No Catálogo consta como Lycopersicon esculentum (sinônimo). HPE indica ciclo de 90-100 dias."
+  },
+  {
+    "id": "batata",
+    "name_pt": "Batata",
+    "scientific_name": "Solanum tuberosum",
+    "family": "Solanaceae",
+    "aliases": [
+      "batata-inglesa",
+      "batatinha"
+    ],
+    "names_en": [
+      "potato"
+    ],
+    "crop_groups": [
+      "tuber"
+    ],
+    "propagation": [
+      "direct"
+    ],
+    "seedling_days": null,
+    "planting_windows": [
+      {
+        "variant": null,
+        "months_by_region": {
+          "sul": [
+            11,
+            12
+          ],
+          "sudeste": [
+            4,
+            5
+          ],
+          "nordeste": [],
+          "centro_oeste": [
+            4,
+            5
+          ],
+          "norte": []
+        },
+        "harvest_start_days": {
+          "min": 90,
+          "max": 120
+        },
+        "source": {
+          "source_id": "embrapa_catalogo_hortalicas",
+          "pages": "17"
+        }
+      }
+    ],
+    "spacing": {
+      "conventional": {
+        "between_rows_cm": 90,
+        "between_plants_cm": 30
+      },
+      "small_spaces": null,
+      "source": {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "4"
+      }
+    },
+    "optimal_temp_c": {
+      "min": 15,
+      "max": 25
+    },
+    "frost_tolerance": null,
+    "small_space_recommended": false,
+    "yield_estimate": {
+      "min": 20,
+      "max": 30,
+      "unit": "kg",
+      "area_m2": 10,
+      "source": {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "4"
+      }
+    },
+    "sources": [
+      {
+        "source_id": "embrapa_catalogo_hortalicas",
+        "pages": "17"
+      },
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "2"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "27"
+      }
+    ],
+    "validation_status": "draft",
+    "notes": "Plantio por tubérculo-semente. Não consta na Tabela 2 do HPE; espaçamento do CT 47 (impresso '0,90 x ,030', interpretado como 0,90 x 0,30 m). HPE não recomenda tubérculos em pequenos espaços."
+  },
+  {
+    "id": "pimentao",
+    "name_pt": "Pimentão",
+    "scientific_name": "Capsicum annuum",
+    "family": "Solanaceae",
+    "aliases": [
+      "pimentão verde",
+      "pimentão vermelho",
+      "pimentão amarelo"
+    ],
+    "names_en": [
+      "bell pepper",
+      "pepper",
+      "sweet pepper"
+    ],
+    "crop_groups": [
+      "fruit"
+    ],
+    "propagation": [
+      "seedling"
+    ],
+    "seedling_days": {
+      "min": 30,
+      "max": 30
+    },
+    "planting_windows": [
+      {
+        "variant": null,
+        "months_by_region": {
+          "sul": [
+            9,
+            10,
+            11,
+            12,
+            1,
+            2
+          ],
+          "sudeste": [
+            8,
+            9,
+            10,
+            11,
+            12,
+            1,
+            2,
+            3
+          ],
+          "nordeste": [
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "centro_oeste": [
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "norte": [
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        "harvest_start_days": {
+          "min": 100,
+          "max": 120
+        },
+        "source": {
+          "source_id": "embrapa_catalogo_hortalicas",
+          "pages": "49"
+        }
+      }
+    ],
+    "spacing": {
+      "conventional": {
+        "between_rows_cm": 100,
+        "between_plants_cm": 50
+      },
+      "small_spaces": {
+        "between_rows_cm": 70,
+        "between_plants_cm": 35
+      },
+      "source": {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "35"
+      }
+    },
+    "optimal_temp_c": {
+      "min": 15,
+      "max": 25
+    },
+    "frost_tolerance": "none",
+    "small_space_recommended": true,
+    "yield_estimate": {
+      "min": 30,
+      "max": 40,
+      "unit": "kg",
+      "area_m2": 10,
+      "source": {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "4"
+      }
+    },
+    "sources": [
+      {
+        "source_id": "embrapa_catalogo_hortalicas",
+        "pages": "49"
+      },
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "2"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "27"
+      }
+    ],
+    "validation_status": "draft",
+    "notes": "Requer tutoramento. Catálogo recomenda rotação com outras espécies (ex.: gramíneas)."
+  },
+  {
+    "id": "morango",
+    "name_pt": "Morango",
+    "scientific_name": "Fragaria × ananassa",
+    "family": "Rosaceae",
+    "aliases": [
+      "morangueiro",
+      "pé de morango"
+    ],
+    "names_en": [
+      "strawberry"
+    ],
+    "crop_groups": [
+      "fruit"
+    ],
+    "propagation": [
+      "seedling"
+    ],
+    "seedling_days": {
+      "min": 20,
+      "max": 30
+    },
+    "planting_windows": [
+      {
+        "variant": null,
+        "months_by_region": {
+          "sul": [
+            3,
+            4
+          ],
+          "sudeste": [
+            3,
+            4
+          ],
+          "nordeste": [],
+          "centro_oeste": [
+            2,
+            3
+          ],
+          "norte": []
+        },
+        "harvest_start_days": {
+          "min": 70,
+          "max": 80
+        },
+        "source": {
+          "source_id": "embrapa_catalogo_hortalicas",
+          "pages": "44"
+        }
+      }
+    ],
+    "spacing": {
+      "conventional": {
+        "between_rows_cm": 30,
+        "between_plants_cm": 20
+      },
+      "small_spaces": {
+        "between_rows_cm": 21,
+        "between_plants_cm": 14
+      },
+      "source": {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "35"
+      }
+    },
+    "optimal_temp_c": {
+      "min": 15,
+      "max": 25
+    },
+    "frost_tolerance": "none",
+    "small_space_recommended": null,
+    "yield_estimate": {
+      "min": 30,
+      "max": 40,
+      "unit": "kg",
+      "area_m2": 10,
+      "source": {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "4"
+      }
+    },
+    "sources": [
+      {
+        "source_id": "embrapa_catalogo_hortalicas",
+        "pages": "44"
+      },
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "2"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "27"
+      }
+    ],
+    "validation_status": "draft",
+    "notes": "Mudas de estolhos. Grupo 'fruit' atribuído pelo critério de parte comestível (não listado no CT 47). Não citado na lista de pequenos espaços do HPE, embora a Tabela 2 traga espaçamento HPE."
+  },
+  {
+    "id": "alface",
+    "name_pt": "Alface",
+    "scientific_name": "Lactuca sativa",
+    "family": "Asteraceae",
+    "aliases": [
+      "pé de alface",
+      "alface crespa",
+      "alface lisa",
+      "alface americana",
+      "alface roxa"
+    ],
+    "names_en": [
+      "lettuce"
+    ],
+    "crop_groups": [
+      "leafy"
+    ],
+    "propagation": [
+      "seedling"
+    ],
+    "seedling_days": {
+      "min": 20,
+      "max": 25
+    },
+    "planting_windows": [
+      {
+        "variant": "inverno",
+        "months_by_region": {
+          "sul": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "sudeste": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "nordeste": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "centro_oeste": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "norte": [
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        "harvest_start_days": {
+          "min": 60,
+          "max": 80
+        },
+        "source": {
+          "source_id": "embrapa_catalogo_hortalicas",
+          "pages": "13"
+        }
+      },
+      {
+        "variant": "verao",
+        "months_by_region": {
+          "sul": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "sudeste": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "nordeste": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "centro_oeste": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "norte": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ]
+        },
+        "harvest_start_days": {
+          "min": 50,
+          "max": 70
+        },
+        "source": {
+          "source_id": "embrapa_catalogo_hortalicas",
+          "pages": "13"
+        }
+      }
+    ],
+    "spacing": {
+      "conventional": {
+        "between_rows_cm": 25,
+        "between_plants_cm": 25
+      },
+      "small_spaces": {
+        "between_rows_cm": 18,
+        "between_plants_cm": 18
+      },
+      "source": {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "35"
+      }
+    },
+    "optimal_temp_c": null,
+    "frost_tolerance": null,
+    "small_space_recommended": true,
+    "yield_estimate": {
+      "min": 160,
+      "max": 160,
+      "unit": "plants",
+      "area_m2": 10,
+      "source": {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "4"
+      }
+    },
+    "sources": [
+      {
+        "source_id": "embrapa_catalogo_hortalicas",
+        "pages": "13"
+      },
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "2"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "27"
+      }
+    ],
+    "validation_status": "draft",
+    "notes": "Época depende da cultivar (de inverno ou de verão)."
+  },
+  {
+    "id": "couve",
+    "name_pt": "Couve",
+    "scientific_name": "Brassica oleracea var. acephala",
+    "family": "Brassicaceae",
+    "aliases": [
+      "couve-manteiga",
+      "couve manteiga",
+      "couve-de-folha",
+      "couve de folhas"
+    ],
+    "names_en": [
+      "collard greens",
+      "collards",
+      "kale"
+    ],
+    "crop_groups": [
+      "leafy"
+    ],
+    "propagation": [
+      "seedling",
+      "direct"
+    ],
+    "seedling_days": {
+      "min": 30,
+      "max": 30
+    },
+    "planting_windows": [
+      {
+        "variant": null,
+        "months_by_region": {
+          "sul": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "sudeste": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "nordeste": [
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "centro_oeste": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "norte": [
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        "harvest_start_days": {
+          "min": 80,
+          "max": 90
+        },
+        "source": {
+          "source_id": "embrapa_catalogo_hortalicas",
+          "pages": "29"
+        }
+      }
+    ],
+    "spacing": {
+      "conventional": {
+        "between_rows_cm": 90,
+        "between_plants_cm": 50
+      },
+      "small_spaces": {
+        "between_rows_cm": 63,
+        "between_plants_cm": 35
+      },
+      "source": {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "35"
+      }
+    },
+    "optimal_temp_c": null,
+    "frost_tolerance": null,
+    "small_space_recommended": true,
+    "yield_estimate": {
+      "min": 16,
+      "max": 16,
+      "unit": "bunches",
+      "area_m2": 10,
+      "source": {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "4"
+      }
+    },
+    "sources": [
+      {
+        "source_id": "embrapa_catalogo_hortalicas",
+        "pages": "29"
+      },
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "2"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "27"
+      }
+    ],
+    "validation_status": "draft",
+    "notes": "Propagação mais comum por broto lateral. Exigente em boro e molibdênio (Catálogo)."
+  },
+  {
+    "id": "rucula",
+    "name_pt": "Rúcula",
+    "scientific_name": "Eruca vesicaria subsp. sativa",
+    "family": "Brassicaceae",
+    "aliases": [
+      "pinchão",
+      "pé de rúcula"
+    ],
+    "names_en": [
+      "arugula",
+      "rocket"
+    ],
+    "crop_groups": [
+      "leafy"
+    ],
+    "propagation": [
+      "direct"
+    ],
+    "seedling_days": null,
+    "planting_windows": [
+      {
+        "variant": null,
+        "months_by_region": {
+          "sul": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "sudeste": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "nordeste": [
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "centro_oeste": [
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "norte": []
+        },
+        "harvest_start_days": {
+          "min": 40,
+          "max": 60
+        },
+        "source": {
+          "source_id": "embrapa_catalogo_hortalicas",
+          "pages": "53"
+        }
+      }
+    ],
+    "spacing": {
+      "conventional": {
+        "between_rows_cm": 20,
+        "between_plants_cm": 5
+      },
+      "small_spaces": {
+        "between_rows_cm": 14,
+        "between_plants_cm": 4
+      },
+      "source": {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "35"
+      }
+    },
+    "optimal_temp_c": {
+      "min": 15,
+      "max": 25
+    },
+    "frost_tolerance": null,
+    "small_space_recommended": true,
+    "yield_estimate": null,
+    "sources": [
+      {
+        "source_id": "embrapa_catalogo_hortalicas",
+        "pages": "53"
+      },
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "2"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "27"
+      }
+    ],
+    "validation_status": "draft",
+    "notes": "No Catálogo consta como Eruca sativa. CONFLITO: HPE indica ciclo de 25-30 dias; Catálogo, início de colheita em 40-60 dias. Sem produtividade no CT 47."
+  },
+  {
+    "id": "repolho",
+    "name_pt": "Repolho",
+    "scientific_name": "Brassica oleracea var. capitata",
+    "family": "Brassicaceae",
+    "aliases": [
+      "repolho roxo",
+      "repolho verde"
+    ],
+    "names_en": [
+      "cabbage"
+    ],
+    "crop_groups": [
+      "leafy"
+    ],
+    "propagation": [
+      "seedling"
+    ],
+    "seedling_days": {
+      "min": 20,
+      "max": 25
+    },
+    "planting_windows": [
+      {
+        "variant": "inverno",
+        "months_by_region": {
+          "sul": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "sudeste": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "nordeste": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "centro_oeste": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "norte": []
+        },
+        "harvest_start_days": {
+          "min": 90,
+          "max": 110
+        },
+        "source": {
+          "source_id": "embrapa_catalogo_hortalicas",
+          "pages": "52"
+        }
+      },
+      {
+        "variant": "verao",
+        "months_by_region": {
+          "sul": [
+            11,
+            12,
+            1
+          ],
+          "sudeste": [
+            10,
+            11,
+            12,
+            1,
+            2
+          ],
+          "nordeste": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "centro_oeste": [
+            10,
+            11,
+            12,
+            1,
+            2
+          ],
+          "norte": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ]
+        },
+        "harvest_start_days": {
+          "min": 90,
+          "max": 110
+        },
+        "source": {
+          "source_id": "embrapa_catalogo_hortalicas",
+          "pages": "52"
+        }
+      }
+    ],
+    "spacing": {
+      "conventional": {
+        "between_rows_cm": 80,
+        "between_plants_cm": 40
+      },
+      "small_spaces": {
+        "between_rows_cm": 56,
+        "between_plants_cm": 28
+      },
+      "source": {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "35"
+      }
+    },
+    "optimal_temp_c": {
+      "min": 15,
+      "max": 25
+    },
+    "frost_tolerance": "tolerant",
+    "small_space_recommended": null,
+    "yield_estimate": {
+      "min": 30,
+      "max": 60,
+      "unit": "kg",
+      "area_m2": 10,
+      "source": {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "4"
+      }
+    },
+    "sources": [
+      {
+        "source_id": "embrapa_catalogo_hortalicas",
+        "pages": "52"
+      },
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "2"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "27"
+      }
+    ],
+    "validation_status": "draft",
+    "notes": "Grupo 'leafy' atribuído pelo critério de parte comestível (não listado no CT 47). Exigente em adubação e água constante."
+  },
+  {
+    "id": "cenoura",
+    "name_pt": "Cenoura",
+    "scientific_name": "Daucus carota subsp. sativus",
+    "family": "Apiaceae",
+    "aliases": [
+      "pé de cenoura"
+    ],
+    "names_en": [
+      "carrot"
+    ],
+    "crop_groups": [
+      "root"
+    ],
+    "propagation": [
+      "direct"
+    ],
+    "seedling_days": null,
+    "planting_windows": [
+      {
+        "variant": "inverno",
+        "months_by_region": {
+          "sul": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "sudeste": [
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "nordeste": [],
+          "centro_oeste": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "norte": []
+        },
+        "harvest_start_days": {
+          "min": 90,
+          "max": 110
+        },
+        "source": {
+          "source_id": "embrapa_catalogo_hortalicas",
+          "pages": "25"
+        }
+      },
+      {
+        "variant": "verao",
+        "months_by_region": {
+          "sul": [
+            11,
+            12,
+            1
+          ],
+          "sudeste": [
+            10,
+            11,
+            12,
+            1,
+            2,
+            3
+          ],
+          "nordeste": [
+            10,
+            11,
+            12,
+            1,
+            2,
+            3
+          ],
+          "centro_oeste": [
+            10,
+            11,
+            12,
+            1,
+            2,
+            3
+          ],
+          "norte": [
+            10,
+            11,
+            12,
+            1,
+            2,
+            3
+          ]
+        },
+        "harvest_start_days": {
+          "min": 85,
+          "max": 100
+        },
+        "source": {
+          "source_id": "embrapa_catalogo_hortalicas",
+          "pages": "25"
+        }
+      }
+    ],
+    "spacing": {
+      "conventional": {
+        "between_rows_cm": 20,
+        "between_plants_cm": 10
+      },
+      "small_spaces": {
+        "between_rows_cm": 14,
+        "between_plants_cm": 7
+      },
+      "source": {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "35"
+      }
+    },
+    "optimal_temp_c": null,
+    "frost_tolerance": null,
+    "small_space_recommended": false,
+    "yield_estimate": {
+      "min": 20,
+      "max": 30,
+      "unit": "kg",
+      "area_m2": 10,
+      "source": {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "4"
+      }
+    },
+    "sources": [
+      {
+        "source_id": "embrapa_catalogo_hortalicas",
+        "pages": "25"
+      },
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "2"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "27"
+      }
+    ],
+    "validation_status": "draft",
+    "notes": "CONFLITO: CT 47 indica 20 x 5 cm; HPE, 20 x 10 cm (adotado). Germinação ideal 20-30 °C. Solo fofo, sem obstáculos."
+  },
+  {
+    "id": "beterraba",
+    "name_pt": "Beterraba",
+    "scientific_name": "Beta vulgaris",
+    "family": "Amaranthaceae",
+    "aliases": [
+      "pé de beterraba"
+    ],
+    "names_en": [
+      "beet",
+      "beetroot"
+    ],
+    "crop_groups": [
+      "root"
+    ],
+    "propagation": [
+      "seedling",
+      "direct"
+    ],
+    "seedling_days": {
+      "min": 20,
+      "max": 30
+    },
+    "planting_windows": [
+      {
+        "variant": null,
+        "months_by_region": {
+          "sul": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "sudeste": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "nordeste": [
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "centro_oeste": [
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "norte": []
+        },
+        "harvest_start_days": {
+          "min": 60,
+          "max": 70
+        },
+        "source": {
+          "source_id": "embrapa_catalogo_hortalicas",
+          "pages": "21"
+        }
+      }
+    ],
+    "spacing": {
+      "conventional": {
+        "between_rows_cm": 20,
+        "between_plants_cm": 10
+      },
+      "small_spaces": {
+        "between_rows_cm": 14,
+        "between_plants_cm": 7
+      },
+      "source": {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "35"
+      }
+    },
+    "optimal_temp_c": {
+      "min": 15,
+      "max": 25
+    },
+    "frost_tolerance": "tolerant",
+    "small_space_recommended": false,
+    "yield_estimate": {
+      "min": 30,
+      "max": 40,
+      "unit": "kg",
+      "area_m2": 10,
+      "source": {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "4"
+      }
+    },
+    "sources": [
+      {
+        "source_id": "embrapa_catalogo_hortalicas",
+        "pages": "21"
+      },
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "2"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "27"
+      }
+    ],
+    "validation_status": "draft",
+    "notes": "Catálogo: semente em local definitivo ou mudas; HPE Tabela 2: mudas. Quebrar dormência (molho 24 h)."
+  },
+  {
+    "id": "rabanete",
+    "name_pt": "Rabanete",
+    "scientific_name": "Raphanus sativus",
+    "family": "Brassicaceae",
+    "aliases": [
+      "pé de rabanete"
+    ],
+    "names_en": [
+      "radish"
+    ],
+    "crop_groups": [
+      "root"
+    ],
+    "propagation": [
+      "direct"
+    ],
+    "seedling_days": null,
+    "planting_windows": [
+      {
+        "variant": null,
+        "months_by_region": {
+          "sul": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "sudeste": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "nordeste": [
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "centro_oeste": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "norte": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        "harvest_start_days": {
+          "min": 25,
+          "max": 30
+        },
+        "source": {
+          "source_id": "embrapa_catalogo_hortalicas",
+          "pages": "51"
+        }
+      }
+    ],
+    "spacing": {
+      "conventional": {
+        "between_rows_cm": 25,
+        "between_plants_cm": 5
+      },
+      "small_spaces": {
+        "between_rows_cm": 18,
+        "between_plants_cm": 4
+      },
+      "source": {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "35"
+      }
+    },
+    "optimal_temp_c": null,
+    "frost_tolerance": "light",
+    "small_space_recommended": false,
+    "yield_estimate": {
+      "min": 15,
+      "max": 30,
+      "unit": "kg",
+      "area_m2": 10,
+      "source": {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "4"
+      }
+    },
+    "sources": [
+      {
+        "source_id": "embrapa_catalogo_hortalicas",
+        "pages": "51"
+      },
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "2"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "27"
+      }
+    ],
+    "validation_status": "draft",
+    "notes": "Colher antes do tamanho máximo para não ficar esponjoso."
+  },
+  {
+    "id": "cebolinha",
+    "name_pt": "Cebolinha",
+    "scientific_name": "Allium fistulosum / Allium schoenoprasum",
+    "family": "Amaryllidaceae",
+    "aliases": [
+      "cebolinha-verde"
+    ],
+    "names_en": [
+      "welsh onion",
+      "green onion",
+      "scallion",
+      "chives"
+    ],
+    "crop_groups": [
+      "leafy",
+      "condiment"
+    ],
+    "propagation": [
+      "seedling"
+    ],
+    "seedling_days": {
+      "min": 30,
+      "max": 40
+    },
+    "planting_windows": [
+      {
+        "variant": null,
+        "months_by_region": {
+          "sul": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "sudeste": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "nordeste": [
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "centro_oeste": [
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "norte": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ]
+        },
+        "harvest_start_days": {
+          "min": 80,
+          "max": 100
+        },
+        "source": {
+          "source_id": "embrapa_catalogo_hortalicas",
+          "pages": "24"
+        }
+      }
+    ],
+    "spacing": {
+      "conventional": {
+        "between_rows_cm": 25,
+        "between_plants_cm": 15
+      },
+      "small_spaces": {
+        "between_rows_cm": 18,
+        "between_plants_cm": 11
+      },
+      "source": {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "35"
+      }
+    },
+    "optimal_temp_c": {
+      "min": null,
+      "max": 25
+    },
+    "frost_tolerance": null,
+    "small_space_recommended": true,
+    "yield_estimate": {
+      "min": 6,
+      "max": 6,
+      "unit": "kg",
+      "area_m2": 10,
+      "source": {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "4"
+      }
+    },
+    "sources": [
+      {
+        "source_id": "embrapa_catalogo_hortalicas",
+        "pages": "24"
+      },
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "2"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "27"
+      }
+    ],
+    "validation_status": "draft",
+    "notes": "O Catálogo agrupa as duas espécies como cebolinha. Rebrota: várias colheitas. 'Cheiro-verde' (cebolinha + salsa) deve ser tratado no NLU, não como alias. CONFLITO menor: HPE indica ciclo de 70-90 dias."
+  },
+  {
+    "id": "salsa",
+    "name_pt": "Salsa",
+    "scientific_name": "Petroselinum crispum",
+    "family": "Apiaceae",
+    "aliases": [
+      "salsinha"
+    ],
+    "names_en": [
+      "parsley"
+    ],
+    "crop_groups": [
+      "leafy",
+      "condiment"
+    ],
+    "propagation": [
+      "direct"
+    ],
+    "seedling_days": null,
+    "planting_windows": [
+      {
+        "variant": null,
+        "months_by_region": {
+          "sul": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "sudeste": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "nordeste": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "centro_oeste": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "norte": []
+        },
+        "harvest_start_days": {
+          "min": 60,
+          "max": 70
+        },
+        "source": {
+          "source_id": "embrapa_catalogo_hortalicas",
+          "pages": "54"
+        }
+      }
+    ],
+    "spacing": {
+      "conventional": {
+        "between_rows_cm": 25,
+        "between_plants_cm": 10
+      },
+      "small_spaces": {
+        "between_rows_cm": 18,
+        "between_plants_cm": 7
+      },
+      "source": {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "35"
+      }
+    },
+    "optimal_temp_c": null,
+    "frost_tolerance": null,
+    "small_space_recommended": true,
+    "yield_estimate": {
+      "min": 6,
+      "max": 6,
+      "unit": "kg",
+      "area_m2": 10,
+      "source": {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "4"
+      }
+    },
+    "sources": [
+      {
+        "source_id": "embrapa_catalogo_hortalicas",
+        "pages": "54"
+      },
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "2"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "27"
+      }
+    ],
+    "validation_status": "draft",
+    "notes": "Catálogo: prefere temperaturas em torno de 20 °C. Germinação lenta (molho de uma noite)."
+  },
+  {
+    "id": "manjericao",
+    "name_pt": "Manjericão",
+    "scientific_name": "Ocimum basilicum",
+    "family": "Lamiaceae",
+    "aliases": [
+      "alfavaca",
+      "basilicão"
+    ],
+    "names_en": [
+      "basil"
+    ],
+    "crop_groups": [
+      "condiment"
+    ],
+    "propagation": [
+      "seedling"
+    ],
+    "seedling_days": {
+      "min": 30,
+      "max": 35
+    },
+    "planting_windows": [
+      {
+        "variant": null,
+        "months_by_region": {
+          "sudeste": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "centro_oeste": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ]
+        },
+        "harvest_start_days": {
+          "min": 60,
+          "max": 70
+        },
+        "source": {
+          "source_id": "embrapa_horta_pequenos_espacos",
+          "pages": "35"
+        }
+      }
+    ],
+    "spacing": {
+      "conventional": {
+        "between_rows_cm": 60,
+        "between_plants_cm": 40
+      },
+      "small_spaces": {
+        "between_rows_cm": 42,
+        "between_plants_cm": 28
+      },
+      "source": {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "35"
+      }
+    },
+    "optimal_temp_c": null,
+    "frost_tolerance": null,
+    "small_space_recommended": true,
+    "yield_estimate": null,
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "2"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "27"
+      }
+    ],
+    "validation_status": "draft",
+    "notes": "Não consta no Catálogo. Época 'ano todo' do HPE vale para Sudeste, Centro-Oeste, norte da região Sul e sul do Nordeste; Sul ficou sem dado. 'Alfavaca' também designa outras espécies de Ocimum."
+  },
+  {
+    "id": "abobrinha",
+    "name_pt": "Abobrinha",
+    "scientific_name": "Cucurbita pepo",
+    "family": "Cucurbitaceae",
+    "aliases": [
+      "abobrinha italiana",
+      "abobrinha verde"
+    ],
+    "names_en": [
+      "zucchini",
+      "courgette",
+      "summer squash"
+    ],
+    "crop_groups": [
+      "fruit"
+    ],
+    "propagation": [
+      "direct"
+    ],
+    "seedling_days": null,
+    "planting_windows": [
+      {
+        "variant": null,
+        "months_by_region": {
+          "sul": [
+            9,
+            10,
+            11,
+            12,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "sudeste": [
+            8,
+            9,
+            10,
+            11,
+            12,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "nordeste": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "centro_oeste": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "norte": [
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        "harvest_start_days": {
+          "min": 45,
+          "max": 60
+        },
+        "source": {
+          "source_id": "embrapa_catalogo_hortalicas",
+          "pages": "9"
+        }
+      }
+    ],
+    "spacing": {
+      "conventional": {
+        "between_rows_cm": 150,
+        "between_plants_cm": 100
+      },
+      "small_spaces": {
+        "between_rows_cm": 105,
+        "between_plants_cm": 70
+      },
+      "source": {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "35"
+      }
+    },
+    "optimal_temp_c": {
+      "min": 15,
+      "max": 25
+    },
+    "frost_tolerance": "none",
+    "small_space_recommended": null,
+    "yield_estimate": {
+      "min": 10,
+      "max": 15,
+      "unit": "kg",
+      "area_m2": 10,
+      "source": {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "4"
+      }
+    },
+    "sources": [
+      {
+        "source_id": "embrapa_catalogo_hortalicas",
+        "pages": "9"
+      },
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "2"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "27"
+      }
+    ],
+    "validation_status": "draft",
+    "notes": "Sensível ao transplante e ao excesso de água. Grupo 'fruit' atribuído pelo critério de parte comestível. CONFLITO: HPE indica ciclo de 60-90 dias."
+  }
+]

@@ -1,0 +1,82 @@
+[
+  {
+    "id": "embrapa_catalogo_hortalicas",
+    "title": "Catálogo brasileiro de hortaliças: saiba como plantar e aproveitar 50 das espécies mais comercializadas no país",
+    "publisher": "Embrapa Hortaliças / Sebrae (conteúdo: Débora de Faria Albernaz Vieira)",
+    "year": 2010,
+    "url": "https://www.embrapa.br/busca-de-publicacoes/-/publicacao/887213/catalogo-brasileiro-de-hortalicas-saiba-como-plantar-e-aproveitar-50-das-especies-mais-comercializadas-no-pais",
+    "license": "Reprodução parcial ou total permitida, desde que citada a fonte",
+    "verified": true,
+    "notes": "Fonte principal de planting_windows, temperatura e geada. Páginas = número impresso (igual à página do PDF)."
+  },
+  {
+    "id": "embrapa_horta_pequenos_espacos",
+    "title": "Horta em pequenos espaços (ISBN 978-85-7035-047-3)",
+    "publisher": "Embrapa (eds. técnicas: Flávia M. V. T. Clemente, Lenita Lima Haber)",
+    "year": 2012,
+    "url": "https://www.embrapa.br/busca-de-publicacoes/-/publicacao/927690/horta-em-pequenos-espacos",
+    "license": "Todos os direitos reservados: armazenar apenas dados factuais, sem copiar texto",
+    "verified": true,
+    "notes": "Tabela 2 (p. 35): espaçamento, propagação, mudas. Páginas = número impresso (PDF = impresso + 1)."
+  },
+  {
+    "id": "embrapa_ct47_cultivo_hortalicas",
+    "title": "Recomendações técnicas para o cultivo de hortaliças em agricultura familiar (Circular Técnica 47)",
+    "publisher": "Embrapa Hortaliças (Amaro, G. B.; Silva, D. M.; Marinho, A. G.; Nascimento, W. M.)",
+    "year": 2007,
+    "url": "https://www.infoteca.cnptia.embrapa.br/infoteca/handle/doc/781607",
+    "license": null,
+    "verified": true,
+    "notes": "Tabela 1 (p. 4): produtividade e espaçamento; p. 2: grupos; p. 9: irrigação; pp. 11-14: controle fitossanitário (base da Fase 3)."
+  },
+  {
+    "id": "kaggle_companion_plants",
+    "title": "Companion Plants",
+    "publisher": "Kaggle (aritchat)",
+    "year": null,
+    "url": "https://www.kaggle.com/datasets/aritchat/companion-plants",
+    "license": null,
+    "verified": false,
+    "notes": "Derivado da Wikipedia (EN). Conferir licença na página do dataset."
+  },
+  {
+    "id": "growli_open_gardening",
+    "title": "Growli Open Gardening Dataset",
+    "publisher": "Growli",
+    "year": null,
+    "url": "https://growli.io",
+    "license": "CC-BY-4.0 (não confirmada)",
+    "verified": false,
+    "notes": "Existência e licença ainda não confirmadas. Não referenciar até verificar."
+  },
+  {
+    "id": "zarc_mapa",
+    "title": "Zoneamento Agrícola de Risco Climático (ZARC)",
+    "publisher": "Ministério da Agricultura e Pecuária (MAPA)",
+    "year": null,
+    "url": "https://dados.agricultura.gov.br/",
+    "license": null,
+    "verified": false,
+    "notes": "Verificar cobertura das 15 culturas antes de usar em planting_months."
+  },
+  {
+    "id": "new_plant_diseases_dataset",
+    "title": "New Plant Diseases Dataset (PlantVillage aumentado)",
+    "publisher": "Kaggle (vipoooool)",
+    "year": null,
+    "url": "https://www.kaggle.com/datasets/vipoooool/new-plant-diseases-dataset",
+    "license": null,
+    "verified": false,
+    "notes": "Origem dos rótulos cv_label de doenças."
+  },
+  {
+    "id": "agricultural_pests_dataset",
+    "title": "Agricultural Pests Image Dataset",
+    "publisher": "Kaggle (vencerlanz09)",
+    "year": null,
+    "url": "https://www.kaggle.com/datasets/vencerlanz09/agricultural-pests-image-dataset",
+    "license": null,
+    "verified": false,
+    "notes": "Origem dos rótulos cv_label de pragas."
+  }
+]

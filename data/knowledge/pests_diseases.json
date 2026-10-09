@@ -1,0 +1,441 @@
+[
+  {
+    "id": "tomate_mancha_bacteriana",
+    "cv_dataset": "new_plant_diseases_dataset",
+    "cv_label": "Tomato___Bacterial_spot",
+    "type": "disease",
+    "name_pt": "Mancha-bacteriana",
+    "causal_agent": "Xanthomonas spp.",
+    "crop_ids": [
+      "tomate"
+    ],
+    "beneficial": null,
+    "symptoms": null,
+    "management": [],
+    "sources": [],
+    "validation_status": "draft",
+    "notes": null
+  },
+  {
+    "id": "tomate_pinta_preta",
+    "cv_dataset": "new_plant_diseases_dataset",
+    "cv_label": "Tomato___Early_blight",
+    "type": "disease",
+    "name_pt": "Pinta-preta",
+    "causal_agent": "Alternaria spp.",
+    "crop_ids": [
+      "tomate"
+    ],
+    "beneficial": null,
+    "symptoms": null,
+    "management": [],
+    "sources": [],
+    "validation_status": "draft",
+    "notes": null
+  },
+  {
+    "id": "tomate_requeima",
+    "cv_dataset": "new_plant_diseases_dataset",
+    "cv_label": "Tomato___Late_blight",
+    "type": "disease",
+    "name_pt": "Requeima",
+    "causal_agent": "Phytophthora infestans",
+    "crop_ids": [
+      "tomate"
+    ],
+    "beneficial": null,
+    "symptoms": null,
+    "management": [],
+    "sources": [],
+    "validation_status": "draft",
+    "notes": null
+  },
+  {
+    "id": "tomate_cladosporiose",
+    "cv_dataset": "new_plant_diseases_dataset",
+    "cv_label": "Tomato___Leaf_Mold",
+    "type": "disease",
+    "name_pt": "Cladosporiose (mofo-das-folhas)",
+    "causal_agent": "Passalora fulva",
+    "crop_ids": [
+      "tomate"
+    ],
+    "beneficial": null,
+    "symptoms": null,
+    "management": [],
+    "sources": [],
+    "validation_status": "draft",
+    "notes": null
+  },
+  {
+    "id": "tomate_septoriose",
+    "cv_dataset": "new_plant_diseases_dataset",
+    "cv_label": "Tomato___Septoria_leaf_spot",
+    "type": "disease",
+    "name_pt": "Septoriose",
+    "causal_agent": "Septoria lycopersici",
+    "crop_ids": [
+      "tomate"
+    ],
+    "beneficial": null,
+    "symptoms": null,
+    "management": [],
+    "sources": [],
+    "validation_status": "draft",
+    "notes": null
+  },
+  {
+    "id": "tomate_acaro_rajado",
+    "cv_dataset": "new_plant_diseases_dataset",
+    "cv_label": "Tomato___Spider_mites Two-spotted_spider_mite",
+    "type": "pest",
+    "name_pt": "Ácaro-rajado",
+    "causal_agent": "Tetranychus urticae",
+    "crop_ids": [
+      "tomate"
+    ],
+    "beneficial": false,
+    "symptoms": null,
+    "management": [],
+    "sources": [],
+    "validation_status": "draft",
+    "notes": "Classe de praga dentro do dataset de doenças."
+  },
+  {
+    "id": "tomate_mancha_alvo",
+    "cv_dataset": "new_plant_diseases_dataset",
+    "cv_label": "Tomato___Target_Spot",
+    "type": "disease",
+    "name_pt": "Mancha-alvo",
+    "causal_agent": "Corynespora cassiicola",
+    "crop_ids": [
+      "tomate"
+    ],
+    "beneficial": null,
+    "symptoms": null,
+    "management": [],
+    "sources": [],
+    "validation_status": "draft",
+    "notes": null
+  },
+  {
+    "id": "tomate_begomovirose",
+    "cv_dataset": "new_plant_diseases_dataset",
+    "cv_label": "Tomato___Tomato_Yellow_Leaf_Curl_Virus",
+    "type": "disease",
+    "name_pt": "Begomovirose (TYLCV)",
+    "causal_agent": "Tomato yellow leaf curl virus",
+    "crop_ids": [
+      "tomate"
+    ],
+    "beneficial": null,
+    "symptoms": null,
+    "management": [],
+    "sources": [],
+    "validation_status": "draft",
+    "notes": "Virose transmitida por mosca-branca; manejo foca no vetor e na remoção de plantas."
+  },
+  {
+    "id": "tomate_mosaico",
+    "cv_dataset": "new_plant_diseases_dataset",
+    "cv_label": "Tomato___Tomato_mosaic_virus",
+    "type": "disease",
+    "name_pt": "Mosaico do tomateiro (ToMV)",
+    "causal_agent": "Tomato mosaic virus",
+    "crop_ids": [
+      "tomate"
+    ],
+    "beneficial": null,
+    "symptoms": null,
+    "management": [],
+    "sources": [],
+    "validation_status": "draft",
+    "notes": null
+  },
+  {
+    "id": "tomate_saudavel",
+    "cv_dataset": "new_plant_diseases_dataset",
+    "cv_label": "Tomato___healthy",
+    "type": "healthy",
+    "name_pt": "Planta sadia",
+    "causal_agent": null,
+    "crop_ids": [
+      "tomate"
+    ],
+    "beneficial": null,
+    "symptoms": null,
+    "management": [],
+    "sources": [],
+    "validation_status": "draft",
+    "notes": null
+  },
+  {
+    "id": "batata_pinta_preta",
+    "cv_dataset": "new_plant_diseases_dataset",
+    "cv_label": "Potato___Early_blight",
+    "type": "disease",
+    "name_pt": "Pinta-preta",
+    "causal_agent": "Alternaria spp.",
+    "crop_ids": [
+      "batata"
+    ],
+    "beneficial": null,
+    "symptoms": null,
+    "management": [],
+    "sources": [],
+    "validation_status": "draft",
+    "notes": null
+  },
+  {
+    "id": "batata_requeima",
+    "cv_dataset": "new_plant_diseases_dataset",
+    "cv_label": "Potato___Late_blight",
+    "type": "disease",
+    "name_pt": "Requeima",
+    "causal_agent": "Phytophthora infestans",
+    "crop_ids": [
+      "batata"
+    ],
+    "beneficial": null,
+    "symptoms": null,
+    "management": [],
+    "sources": [],
+    "validation_status": "draft",
+    "notes": null
+  },
+  {
+    "id": "batata_saudavel",
+    "cv_dataset": "new_plant_diseases_dataset",
+    "cv_label": "Potato___healthy",
+    "type": "healthy",
+    "name_pt": "Planta sadia",
+    "causal_agent": null,
+    "crop_ids": [
+      "batata"
+    ],
+    "beneficial": null,
+    "symptoms": null,
+    "management": [],
+    "sources": [],
+    "validation_status": "draft",
+    "notes": null
+  },
+  {
+    "id": "pimentao_mancha_bacteriana",
+    "cv_dataset": "new_plant_diseases_dataset",
+    "cv_label": "Pepper,_bell___Bacterial_spot",
+    "type": "disease",
+    "name_pt": "Mancha-bacteriana",
+    "causal_agent": "Xanthomonas spp.",
+    "crop_ids": [
+      "pimentao"
+    ],
+    "beneficial": null,
+    "symptoms": null,
+    "management": [],
+    "sources": [],
+    "validation_status": "draft",
+    "notes": null
+  },
+  {
+    "id": "pimentao_saudavel",
+    "cv_dataset": "new_plant_diseases_dataset",
+    "cv_label": "Pepper,_bell___healthy",
+    "type": "healthy",
+    "name_pt": "Planta sadia",
+    "causal_agent": null,
+    "crop_ids": [
+      "pimentao"
+    ],
+    "beneficial": null,
+    "symptoms": null,
+    "management": [],
+    "sources": [],
+    "validation_status": "draft",
+    "notes": null
+  },
+  {
+    "id": "morango_leaf_scorch",
+    "cv_dataset": "new_plant_diseases_dataset",
+    "cv_label": "Strawberry___Leaf_scorch",
+    "type": "disease",
+    "name_pt": null,
+    "causal_agent": "Diplocarpon earlianum",
+    "crop_ids": [
+      "morango"
+    ],
+    "beneficial": null,
+    "symptoms": null,
+    "management": [],
+    "sources": [],
+    "validation_status": "draft",
+    "notes": "Confirmar nome popular em português na literatura da Embrapa."
+  },
+  {
+    "id": "morango_saudavel",
+    "cv_dataset": "new_plant_diseases_dataset",
+    "cv_label": "Strawberry___healthy",
+    "type": "healthy",
+    "name_pt": "Planta sadia",
+    "causal_agent": null,
+    "crop_ids": [
+      "morango"
+    ],
+    "beneficial": null,
+    "symptoms": null,
+    "management": [],
+    "sources": [],
+    "validation_status": "draft",
+    "notes": null
+  },
+  {
+    "id": "praga_formigas",
+    "cv_dataset": "agricultural_pests_dataset",
+    "cv_label": "ants",
+    "type": "pest",
+    "name_pt": "Formigas",
+    "causal_agent": null,
+    "crop_ids": [],
+    "beneficial": null,
+    "symptoms": null,
+    "management": [],
+    "sources": [],
+    "validation_status": "draft",
+    "notes": "Ambíguo: formigas-cortadeiras são pragas, outras são neutras. Definir antes de revisar."
+  },
+  {
+    "id": "praga_besouros",
+    "cv_dataset": "agricultural_pests_dataset",
+    "cv_label": "beetle",
+    "type": "pest",
+    "name_pt": "Besouros",
+    "causal_agent": null,
+    "crop_ids": [],
+    "beneficial": null,
+    "symptoms": null,
+    "management": [],
+    "sources": [],
+    "validation_status": "draft",
+    "notes": "Ambíguo: a classe pode incluir joaninhas, que são predadoras benéficas."
+  },
+  {
+    "id": "praga_lagartas",
+    "cv_dataset": "agricultural_pests_dataset",
+    "cv_label": "catterpillar",
+    "type": "pest",
+    "name_pt": "Lagartas",
+    "causal_agent": null,
+    "crop_ids": [],
+    "beneficial": false,
+    "symptoms": null,
+    "management": [],
+    "sources": [],
+    "validation_status": "draft",
+    "notes": "Rótulo com grafia do dataset original ('catterpillar'); conferir na pasta baixada."
+  },
+  {
+    "id": "praga_tesourinhas",
+    "cv_dataset": "agricultural_pests_dataset",
+    "cv_label": "earwig",
+    "type": "pest",
+    "name_pt": "Tesourinhas",
+    "causal_agent": null,
+    "crop_ids": [],
+    "beneficial": null,
+    "symptoms": null,
+    "management": [],
+    "sources": [],
+    "validation_status": "draft",
+    "notes": "Podem atuar como predadoras de pulgões; verificar antes de recomendar controle."
+  },
+  {
+    "id": "praga_gafanhotos",
+    "cv_dataset": "agricultural_pests_dataset",
+    "cv_label": "grasshopper",
+    "type": "pest",
+    "name_pt": "Gafanhotos",
+    "causal_agent": null,
+    "crop_ids": [],
+    "beneficial": false,
+    "symptoms": null,
+    "management": [],
+    "sources": [],
+    "validation_status": "draft",
+    "notes": null
+  },
+  {
+    "id": "praga_mariposas",
+    "cv_dataset": "agricultural_pests_dataset",
+    "cv_label": "moth",
+    "type": "pest",
+    "name_pt": "Mariposas",
+    "causal_agent": null,
+    "crop_ids": [],
+    "beneficial": false,
+    "symptoms": null,
+    "management": [],
+    "sources": [],
+    "validation_status": "draft",
+    "notes": "O dano é causado pela fase larval (lagarta)."
+  },
+  {
+    "id": "praga_lesmas",
+    "cv_dataset": "agricultural_pests_dataset",
+    "cv_label": "slug",
+    "type": "pest",
+    "name_pt": "Lesmas",
+    "causal_agent": null,
+    "crop_ids": [],
+    "beneficial": false,
+    "symptoms": null,
+    "management": [],
+    "sources": [],
+    "validation_status": "draft",
+    "notes": null
+  },
+  {
+    "id": "praga_caracois",
+    "cv_dataset": "agricultural_pests_dataset",
+    "cv_label": "snail",
+    "type": "pest",
+    "name_pt": "Caracóis",
+    "causal_agent": null,
+    "crop_ids": [],
+    "beneficial": false,
+    "symptoms": null,
+    "management": [],
+    "sources": [],
+    "validation_status": "draft",
+    "notes": null
+  },
+  {
+    "id": "benefico_vespas",
+    "cv_dataset": "agricultural_pests_dataset",
+    "cv_label": "wasp",
+    "type": "pest",
+    "name_pt": "Vespas",
+    "causal_agent": null,
+    "crop_ids": [],
+    "beneficial": true,
+    "symptoms": null,
+    "management": [],
+    "sources": [],
+    "validation_status": "draft",
+    "notes": "Muitas espécies são predadoras ou parasitoides. Não recomendar controle."
+  },
+  {
+    "id": "praga_gorgulhos",
+    "cv_dataset": "agricultural_pests_dataset",
+    "cv_label": "weevil",
+    "type": "pest",
+    "name_pt": "Gorgulhos",
+    "causal_agent": null,
+    "crop_ids": [],
+    "beneficial": false,
+    "symptoms": null,
+    "management": [],
+    "sources": [],
+    "validation_status": "draft",
+    "notes": null
+  }
+]
