@@ -12,6 +12,7 @@ from typing import Literal, Self
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
+from ..core.geo import Region
 from ..core.sources import ID_PATTERN, Source, SourceRef
 
 
@@ -19,14 +20,6 @@ class ValidationStatus(StrEnum):
     DRAFT = "draft"
     REVIEWED = "reviewed"
     VALIDATED_BY_ATD = "validated_by_atd"
-
-
-class Region(StrEnum):
-    NORTE = "norte"
-    NORDESTE = "nordeste"
-    CENTRO_OESTE = "centro_oeste"
-    SUDESTE = "sudeste"
-    SUL = "sul"
 
 
 class CropGroup(StrEnum):
@@ -220,6 +213,19 @@ class Crop(KBModel):
                     raise ValueError(f"region '{region}' defined twice for variant '{window.variant}'")
                 seen.add(key)
         return value
+
+    def planting_months(self, region: Region | str) -> dict[str | None, list[int]] | None:
+        """Planting months in `region`, by cultivar type (variant).
+
+        Returns None when no source covers the region; a variant mapped to [] means
+        the source marks the region as "não recomendável" for it.
+        """
+        found = {
+            w.variant: w.months_by_region[Region(region)]
+            for w in self.planting_windows
+            if Region(region) in w.months_by_region
+        }
+        return found or None
 
     def all_source_refs(self) -> list[SourceRef]:
         refs = list(self.sources)

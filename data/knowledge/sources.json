@@ -44,10 +44,10 @@
     "title": "Zoneamento Agrícola de Risco Climático (ZARC)",
     "publisher": "Ministério da Agricultura e Pecuária (MAPA)",
     "year": null,
-    "url": "https://dados.agricultura.gov.br/",
+    "url": "https://www.gov.br/agricultura/pt-br/assuntos/riscos-seguro/programa-nacional-de-zoneamento-agricola-de-risco-climatico",
     "license": null,
-    "verified": false,
-    "notes": "Verificar cobertura das 15 culturas antes de usar em planting_months."
+    "verified": true,
+    "notes": "Cobertura verificada em out/2026: entre as 15 culturas do MVP, só a batata tem Zarc (batata mesa e indústria, Portarias SPA/MAPA 222 a 225, de 23/05/2025). Das demais hortaliças, há Zarc de cebola e alho; o de tomate previsto é para processamento industrial. Não usado em planting_windows: ver 'Adaptação regional' no README."
   },
   {
     "id": "new_plant_diseases_dataset",

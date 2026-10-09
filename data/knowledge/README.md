@@ -61,6 +61,29 @@ As relações têm três níveis de evidência, que o motor e o assistente devem
   de fora por contradição só entre grupos: batata-couve, batata-repolho e couve-tomate.
 - Rúcula ficou sem nenhuma relação: não aparece no dataset.
 
+## Adaptação regional
+
+O município informado pelo produtor é convertido em uma das cinco regiões do Catálogo por
+`hort_ia.core.geo.region_from_ibge_code`, sem tabela auxiliar: o código IBGE do município traz a UF
+nos dois primeiros dígitos, e o primeiro dígito da UF é a região (Curitiba, 4106902 → PR → Sul).
+`Crop.planting_months(region)` devolve os meses por tipo de cultivar.
+
+**Por que o ZARC não foi incorporado** (levantamento, seção 2.3). Verificação feita em out/2026:
+
+- Entre as 15 culturas do MVP, só a **batata** tem Zarc (mesa e indústria, Portarias SPA/MAPA 222
+  a 225/2025). As únicas outras hortaliças zoneadas são cebola e alho, e o Zarc de tomate previsto é
+  para **processamento industrial**, não para tomate de mesa.
+- O Zarc foi feito para crédito e seguro rural: dá o risco de perda (20%, 30% ou 40%) por município,
+  decêndio de plantio e classe de água do solo, em lavouras **de sequeiro** na maior parte das
+  portarias. As próprias portarias dizem que lavouras irrigadas não estão presas a esses períodos, e
+  horta urbana é irrigada.
+- Integrá-lo exigiria exportar tabelas do Painel de Indicação de Riscos por município para atender
+  uma única cultura.
+
+Decisão: as janelas continuam vindo do Catálogo (por região). O Zarc fica registrado em
+`sources.json` como fonte verificada, para reavaliação quando houver zoneamento de mais hortaliças
+de mesa.
+
 ## Conflitos entre fontes
 
 | Cultura | Divergência | Decisão |
@@ -73,6 +96,7 @@ As relações têm três níveis de evidência, que o motor e o assistente devem
 
 ## Lacunas conhecidas
 
+- **Adaptação regional**: janelas por macrorregião, não por município (ver acima).
 - **Plantio companheiro**: rúcula sem relações; nenhuma relação com evidência `research` ainda.
 - **Batata**: sem espaçamento para pequenos espaços (ausente na Tabela 2 do HPE) e sem diretriz de
   irrigação (grupo "tubérculo" não coberto pelo CT 47).

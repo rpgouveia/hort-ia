@@ -267,3 +267,23 @@ def test_duplicate_pair_from_same_source_is_rejected(kb_copy):
     )
     with pytest.raises(ValidationError, match="appears twice"):
         load_knowledge_base(kb_copy)
+
+
+# --- Regional adaptation -----------------------------------------------------------
+
+
+def test_planting_months_by_region(kb):
+    # Catálogo p. 13: alface de inverno no Sul de fevereiro a outubro; de verão, o ano todo
+    months = kb.crops["alface"].planting_months("sul")
+    assert months == {"inverno": list(range(2, 11)), "verao": list(range(1, 13))}
+
+
+def test_planting_months_distinguishes_not_recommended_from_no_data(kb):
+    assert kb.crops["batata"].planting_months("norte") == {None: []}  # "não recomendável"
+    assert kb.crops["manjericao"].planting_months("norte") is None  # sem dado
+
+
+def test_every_crop_has_planting_data_for_sul(kb):
+    # Cobertura completa no Sul (manjericão via folder Embrapa); as outras regiões têm lacunas documentadas.
+    missing = [c.id for c in kb.crops.values() if kb.crops[c.id].planting_months("sul") is None]
+    assert not missing, missing

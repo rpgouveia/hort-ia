@@ -5,9 +5,9 @@ name of the workbook sheet the value came from. Unlike the agronomic knowledge b
 market records have no `validation_status`: Conab is an official published bulletin,
 not a team transcription awaiting agronomist review.
 
-Source models come from `hort_ia.core`; only `Region` is imported from the knowledge
-base. The `crop_id` link is deliberately *not* enforced here, so the
-market dataset loads without the agronomic base; `check_crop_links` checks it on demand.
+Source models and `Region` come from `hort_ia.core`. The `crop_id` link is deliberately
+*not* enforced here, so the market dataset loads without the agronomic base;
+`check_crop_links` checks it on demand.
 """
 
 from __future__ import annotations
@@ -18,8 +18,8 @@ from typing import TYPE_CHECKING, Literal, Self
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+from ..core.geo import Region
 from ..core.sources import ID_PATTERN, Source, SourceRef
-from ..knowledge.models import Region
 
 if TYPE_CHECKING:
     from ..knowledge.models import KnowledgeBase
