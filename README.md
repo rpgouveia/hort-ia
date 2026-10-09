@@ -45,14 +45,15 @@ hort-ia/
 
 ## Datasets
 
-Two curated datasets are versioned, each with its own `sources.json` registry and loader:
+Three curated datasets are versioned, each with its own loader:
 
 | Dataset | Directory | Loader | Details |
 |---|---|---|---|
 | Agronomic knowledge base (15 MVP crops, guidelines, pests/diseases, companion planting) | `data/knowledge/` | `hort_ia.knowledge` | [data/knowledge/README.md](data/knowledge/README.md) |
 | Conab market dataset (prices, volumes, supply in 12 Ceasas) | `data/market/` | `hort_ia.market` | [data/market/README.md](data/market/README.md) |
+| NLU dataset for the conversational assistant (8 intents, training + held-out test set) | `data/nlu/` | `hort_ia.nlp` | [data/nlu/README.md](data/nlu/README.md) |
 
-Every record cites its source. The market dataset loads on its own and only touches the knowledge
+The knowledge and market datasets have their own `sources.json` registry, and every record cites its source. The market dataset loads on its own and only touches the knowledge
 base to check its `crop_id` links.
 
 **Regional adaptation.** Planting windows are given per macro-region. `hort_ia.core.geo` converts
@@ -110,6 +111,7 @@ uv run pytest -v
 | `tests/test_knowledge_base.py` | Knowledge base integrity: crop scope, CV label mapping, planting windows, companion relations, regional planting months |
 | `tests/test_market_dataset.py` | Market dataset integrity: scope, reference month, missing data, rounding, `crop_id` links to the knowledge base |
 | `tests/test_geo.py` | IBGE municipality/UF code → region, shared `Region` across datasets |
+| `tests/test_nlu_dataset.py` | NLU dataset: agreed intent set, 30-50 examples per intent, duplicates, crop coverage, no train/test leakage |
 
 Run a single file, e.g.:
 
@@ -121,6 +123,11 @@ Print the knowledge base completeness report, and the market dataset coverage re
 ```bash
 uv run python -m hort_ia.knowledge
 uv run python -m hort_ia.market
+```
+
+Evaluate the NLU dataset with a baseline classifier (cross-validation, plus the held-out test set when filled):
+```bash
+uv run python scripts/evaluate_nlu_baseline.py
 ```
 
 ## Rebuilding the datasets

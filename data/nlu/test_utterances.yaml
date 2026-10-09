@@ -1,0 +1,24 @@
+# Held-out test set for the intent classifier (WBS 9.4.1 acceptance criterion and 9.4.2 tests).
+#
+# WHO WRITES THIS FILE: someone who has NOT read intents.yaml, or real questions collected
+# verbatim from agronomists, garden coordinators and growers. If the same person writes the
+# training and the test data, the measured accuracy will not hold for real users.
+#
+# Each utterance:
+#   text:            exactly as written or said (keep typos, slang, missing accents)
+#   intent:          one of the 8 intents in intents.yaml, or null if none fits
+#   origin:          team (written by a team member) | field (collected from real people)
+#   author:          team member who wrote or transcribed it
+#   collected_from:  for origin=field, the ROLE only (agronomo, coordenador, agricultor),
+#                    never a name (LGPD)
+#   notes:           optional context
+#
+# Example (remove when the first real entries are added):
+#   - {text: "ja posso por alface na horta?", intent: planting_time, origin: field,
+#      author: renato, collected_from: coordenador}
+#
+# Target: at least 10 utterances per intent, with all three styles (standard, informal, typos).
+
+version: 1
+language: pt-BR
+utterances: []

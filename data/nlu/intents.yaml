@@ -1,0 +1,398 @@
+# Training data for the intent classifier (NLU) of the conversational assistant (WBS 9.4).
+#
+# Status: FIRST DRAFT (out/2026), written to be reviewed by the team and replaced or
+# extended with real questions collected from agronomists and garden coordinators.
+# Every example carries `origin`, so drafted examples can be told apart from real ones.
+#
+# Rules (enforced by tests/test_nlu_dataset.py):
+# - 30 to 50 examples per intent; no duplicates after normalization (case, accents, punctuation).
+# - Mix of styles: standard Portuguese, informal/abbreviated, and typos. Users have low digital
+#   literacy, so a dataset with only well-written sentences would not represent them.
+# - Crop names vary across all 15 crops and include crops outside the knowledge base, so the
+#   classifier learns the intent, not the crop.
+# - NEVER copy an example from test_utterances.yaml into this file.
+#
+# Boundaries between intents (see data/nlu/README.md for the full list):
+# - "quando colher X?" is crop_care (harvest time), not planting_time.
+# - "o que plantar no lugar do repolho?" (rotation) is companion_planting.
+# - Asking for a specific crop is planting_time; asking for suggestions is what_to_plant.
+# - Prices of produce (Ceasa) are market_price; prices of inputs (seedlings, fertilizer) are fallback.
+# - Topics the knowledge base does not cover are fallback, even if they mention a crop
+#   ("receita de bolo de cenoura", "calorias do tomate").
+
+version: 1
+language: pt-BR
+intents:
+  - name: planting_time
+    description: User asks WHEN to plant a specific crop (season, month, whether it is time now).
+    answered_by: knowledge.crops.planting_months
+    required_entities: [crop]
+    optional_entities: [month, region]
+    examples:
+      - {text: "quando planto alface?", origin: draft}
+      - {text: "qual a época de plantar tomate?", origin: draft}
+      - {text: "quando é bom plantar cenoura?", origin: draft}
+      - {text: "que mês eu planto beterraba?", origin: draft}
+      - {text: "qual o melhor mês pra plantar couve?", origin: draft}
+      - {text: "quando posso plantar morango aqui?", origin: draft}
+      - {text: "tá na época de plantar pimentão?", origin: draft}
+      - {text: "já dá pra plantar abobrinha?", origin: draft}
+      - {text: "ainda dá tempo de plantar rúcula esse mês?", origin: draft}
+      - {text: "quando começa a época do repolho?", origin: draft}
+      - {text: "posso plantar salsinha em junho?", origin: draft}
+      - {text: "plantar cebolinha no inverno dá certo?", origin: draft}
+      - {text: "qual a época certa pra semear rabanete?", origin: draft}
+      - {text: "em que mês se planta batata?", origin: draft}
+      - {text: "manjericão se planta em que época do ano?", origin: draft}
+      - {text: "é época de plantar alface agora?", origin: draft}
+      - {text: "qnd planto tomate", origin: draft}
+      - {text: "qndo eh epoca d cenoura", origin: draft}
+      - {text: "quando planta couve manteiga", origin: draft}
+      - {text: "epoca de plantar morango", origin: draft}
+      - {text: "mes certo pra plantar beterraba", origin: draft}
+      - {text: "tomate planta quando?", origin: draft}
+      - {text: "posso plantar abobrinha em agosto?", origin: draft}
+      - {text: "dá pra plantar pimentão no frio?", origin: draft}
+      - {text: "alface de verão planta quando?", origin: draft}
+      - {text: "plantar repolho em março é bom?", origin: draft}
+      - {text: "quando eu semeio salsa?", origin: draft}
+      - {text: "qual a temporada da rúcula?", origin: draft}
+      - {text: "quero plantar cenoura, quando começo?", origin: draft}
+      - {text: "to pensando em plantar tomate cereja, qual o mes bom?", origin: draft}
+      - {text: "quando q planta cebolinha", origin: draft}
+      - {text: "qnd é a epoca do rabanete", origin: draft}
+      - {text: "plantar batata agora pode?", origin: draft}
+      - {text: "outubro é bom pra plantar manjericão?", origin: draft}
+      - {text: "quanto tempo falta pra época de plantar couve?", origin: draft}
+      - {text: "quando posso fazer as mudas de alface?", origin: draft}
+      - {text: "a época de plantio da beterraba é quando?", origin: draft}
+      - {text: "tomatte planta em q mes", origin: draft}
+      - {text: "qaundo plantar alfase", origin: draft}
+      - {text: "quando é a epoca de plantar mandioca?", origin: draft}
+
+  - name: what_to_plant
+    description: User asks for suggestions of WHAT to plant (now, in a month, season or space), without a specific crop.
+    answered_by: knowledge.crops.planting_months (all crops, filtered by month and region)
+    required_entities: []
+    optional_entities: [month, region, space]
+    examples:
+      - {text: "o que eu posso plantar agora?", origin: draft}
+      - {text: "o que dá pra plantar nesse mês?", origin: draft}
+      - {text: "qual verdura posso plantar em outubro?", origin: draft}
+      - {text: "o que plantar no inverno?", origin: draft}
+      - {text: "que hortaliça dá pra plantar agora no frio?", origin: draft}
+      - {text: "me indica o que plantar nessa época", origin: draft}
+      - {text: "quero começar uma horta, o que planto primeiro?", origin: draft}
+      - {text: "o que é bom plantar em vaso?", origin: draft}
+      - {text: "o que plantar na varanda do apartamento?", origin: draft}
+      - {text: "tenho um canteiro vazio, o que coloco nele?", origin: draft}
+      - {text: "quais plantas crescem rápido?", origin: draft}
+      - {text: "o que posso plantar que dá pra colher logo?", origin: draft}
+      - {text: "o que plantar em pouco espaço?", origin: draft}
+      - {text: "qual tempero dá pra plantar agora?", origin: draft}
+      - {text: "o que plantar em março?", origin: draft}
+      - {text: "oq planto agora", origin: draft}
+      - {text: "oq da pra plantar esse mes", origin: draft}
+      - {text: "q verdura planto agr", origin: draft}
+      - {text: "o q é bom plantar no verão?", origin: draft}
+      - {text: "sugere umas plantas pra minha horta", origin: draft}
+      - {text: "quais legumes posso plantar nessa época?", origin: draft}
+      - {text: "quero plantar alguma coisa, o que você recomenda?", origin: draft}
+      - {text: "tem alguma planta boa pra plantar em junho?", origin: draft}
+      - {text: "quais são as plantas da época?", origin: draft}
+      - {text: "o que tá na época de plantar?", origin: draft}
+      - {text: "o que plantar pra quem tá começando?", origin: draft}
+      - {text: "qual planta é mais fácil de cuidar?", origin: draft}
+      - {text: "o que plantar num lugar com pouco sol?", origin: draft}
+      - {text: "o que a gente pode plantar na horta comunitária esse mês?", origin: draft}
+      - {text: "o que plantar em garrafa pet?", origin: draft}
+      - {text: "que folhosa planta agora?", origin: draft}
+      - {text: "quais raízes dá pra plantar agora?", origin: draft}
+      - {text: "o que se planta em setembro aqui no sul?", origin: draft}
+      - {text: "me fala umas hortaliças pra plantar no outono", origin: draft}
+      - {text: "o q plantar na primavera", origin: draft}
+      - {text: "quais as melhores plantas pra começar", origin: draft}
+      - {text: "lista do que posso plantar agora", origin: draft}
+      - {text: "oque plantar em novembro", origin: draft}
+      - {text: "o que dá bem no frio?", origin: draft}
+      - {text: "oq plantar no quintal pequeno", origin: draft}
+
+  - name: crop_care
+    description: User asks HOW to grow or care for a crop (watering, spacing, harvest time, pots, staking, sun).
+    answered_by: knowledge.crops (spacing, harvest_start_days, small_space_recommended) + knowledge.guidelines
+    required_entities: [crop]
+    optional_entities: [care_aspect]
+    examples:
+      - {text: "quanto tenho que regar o tomate?", origin: draft}
+      - {text: "de quanto em quanto tempo rego a alface?", origin: draft}
+      - {text: "quantas vezes por dia molho a horta?", origin: draft}
+      - {text: "qual a distância entre as mudas de alface?", origin: draft}
+      - {text: "quanto espaço deixo entre um pé de couve e outro?", origin: draft}
+      - {text: "quanto tempo demora pra colher cenoura?", origin: draft}
+      - {text: "em quantos dias a rúcula fica pronta?", origin: draft}
+      - {text: "quando colho o rabanete?", origin: draft}
+      - {text: "posso plantar tomate em vaso?", origin: draft}
+      - {text: "dá pra plantar cenoura em vaso?", origin: draft}
+      - {text: "alface cresce em apartamento?", origin: draft}
+      - {text: "qual o tamanho do vaso pro pimentão?", origin: draft}
+      - {text: "como cuido do manjericão?", origin: draft}
+      - {text: "precisa amarrar o tomate numa estaca?", origin: draft}
+      - {text: "quanta água a couve precisa?", origin: draft}
+      - {text: "o tomate gosta de sol?", origin: draft}
+      - {text: "beterraba precisa de muito sol?", origin: draft}
+      - {text: "quanto tempo o morango leva pra dar fruta?", origin: draft}
+      - {text: "quanto tempo pra colher batata?", origin: draft}
+      - {text: "como fazer muda de cebolinha?", origin: draft}
+      - {text: "como planta salsinha?", origin: draft}
+      - {text: "qual o espaçamento da abobrinha?", origin: draft}
+      - {text: "quanto tempo leva pra salsa nascer?", origin: draft}
+      - {text: "tem que regar todo dia?", origin: draft}
+      - {text: "rego de manhã ou de tarde?", origin: draft}
+      - {text: "qnto tempo pra colher alface", origin: draft}
+      - {text: "de qnto em qnto tempo molha o tomate", origin: draft}
+      - {text: "qual distancia entre as covas de abobrinha", origin: draft}
+      - {text: "quanto rega o manjericao", origin: draft}
+      - {text: "pode plantar morango em vaso?", origin: draft}
+      - {text: "cebolinha da em vaso?", origin: draft}
+      - {text: "quando ta pronto pra colher o repolho?", origin: draft}
+      - {text: "como sei que a beterraba ta boa pra colher?", origin: draft}
+      - {text: "quantos dias pro pimentão produzir", origin: draft}
+      - {text: "como planto batata em casa?", origin: draft}
+      - {text: "qual a profundidade pra semear cenoura?", origin: draft}
+      - {text: "precisa de adubo pra alface?", origin: draft}
+      - {text: "como cuidar da horta no inverno?", origin: draft}
+      - {text: "quanto tempo dura um pé de couve?", origin: draft}
+      - {text: "quantas vezes dá pra colher a cebolinha?", origin: draft}
+      - {text: "rego muito ou pouco a rúcula?", origin: draft}
+      - {text: "qto tempo ate colher tomate cereja", origin: draft}
+      - {text: "espassamento do repolho", origin: draft}
+      - {text: "quantos litro de agua por canteiro?", origin: draft}
+      - {text: "como plantar rabanete", origin: draft}
+
+  - name: companion_planting
+    description: User asks which crops go well (or badly) together, plants that protect the garden, or what to plant after a crop (rotation).
+    answered_by: knowledge.companions + crops.companion_roles + guidelines (rotation, repellents)
+    required_entities: []
+    optional_entities: [crop]
+    examples:
+      - {text: "o que posso plantar junto com o tomate?", origin: draft}
+      - {text: "tomate e manjericão podem ficar juntos?", origin: draft}
+      - {text: "quais plantas combinam com a alface?", origin: draft}
+      - {text: "o que não posso plantar perto da batata?", origin: draft}
+      - {text: "pode plantar cenoura do lado da cebolinha?", origin: draft}
+      - {text: "morango e alface combinam?", origin: draft}
+      - {text: "o que planto perto do pimentão?", origin: draft}
+      - {text: "quais plantas ajudam o tomate?", origin: draft}
+      - {text: "tem planta que espanta praga se plantar junto?", origin: draft}
+      - {text: "que planta afasta inseto da horta?", origin: draft}
+      - {text: "posso misturar couve com tomate no mesmo canteiro?", origin: draft}
+      - {text: "o que é bom plantar ao lado da beterraba?", origin: draft}
+      - {text: "qual planta não combina com morango?", origin: draft}
+      - {text: "alface e rabanete juntos dá certo?", origin: draft}
+      - {text: "o que plantar em volta da horta pra proteger?", origin: draft}
+      - {text: "quais são as plantas companheiras do tomate?", origin: draft}
+      - {text: "consórcio de alface com o que funciona?", origin: draft}
+      - {text: "cenoura e rabanete no mesmo canteiro funciona?", origin: draft}
+      - {text: "o que plantar junto da abobrinha", origin: draft}
+      - {text: "batata e tomate pode plantar junto?", origin: draft}
+      - {text: "repolho combina com o que?", origin: draft}
+      - {text: "plantar salsa perto da alface prejudica?", origin: draft}
+      - {text: "q planta junto c tomate", origin: draft}
+      - {text: "oq combina c alface", origin: draft}
+      - {text: "pode por manjericao no meio do tomate?", origin: draft}
+      - {text: "quais plantas se ajudam na horta?", origin: draft}
+      - {text: "cravo-de-defunto ajuda a horta?", origin: draft}
+      - {text: "o que evitar plantar junto da couve?", origin: draft}
+      - {text: "posso plantar tudo misturado no mesmo canteiro?", origin: draft}
+      - {text: "cebolinha protege as outras plantas?", origin: draft}
+      - {text: "quero fazer um canteiro com tomate, o que coloco junto?", origin: draft}
+      - {text: "tem alguma planta que atrai bicho bom pra horta?", origin: draft}
+      - {text: "plantas amigas da cenoura", origin: draft}
+      - {text: "quem é inimigo do morango na horta?", origin: draft}
+      - {text: "beterraba e repolho combinam?", origin: draft}
+      - {text: "depois de colher o repolho, o que planto no lugar?", origin: draft}
+      - {text: "posso plantar tomate de novo no mesmo lugar?", origin: draft}
+      - {text: "pimentao e tomate junto da problema?", origin: draft}
+      - {text: "o que planto do lado do manjericão?", origin: draft}
+      - {text: "qual planta é boa vizinha da couve?", origin: draft}
+
+  - name: pest_disease
+    description: User describes a pest, a disease or a symptom, or asks how to fight it (including homemade remedies).
+    answered_by: knowledge.pests_diseases (+ CV label when the user sends a photo)
+    required_entities: []
+    optional_entities: [crop, pest, symptom]
+    examples:
+      - {text: "meu tomate tá com manchas pretas nas folhas", origin: draft}
+      - {text: "as folhas da alface estão furadas, o que é?", origin: draft}
+      - {text: "tem lesma comendo minha couve, como tiro?", origin: draft}
+      - {text: "como acabar com formiga na horta?", origin: draft}
+      - {text: "o que fazer com lagarta no repolho?", origin: draft}
+      - {text: "como tratar pulgão no tomate?", origin: draft}
+      - {text: "apareceu um bicho branco embaixo da folha", origin: draft}
+      - {text: "as folhas do tomate estão amarelando e enrolando", origin: draft}
+      - {text: "o pimentão tá com umas manchas escuras", origin: draft}
+      - {text: "meu morango tá com a folha queimada", origin: draft}
+      - {text: "como combater caracol na horta?", origin: draft}
+      - {text: "tem gafanhoto comendo tudo, o que faço?", origin: draft}
+      - {text: "a batata tá com as folhas podres", origin: draft}
+      - {text: "que doença é essa no meu tomate?", origin: draft}
+      - {text: "como saber se minha planta tá doente?", origin: draft}
+      - {text: "tem um bichinho verde na couve", origin: draft}
+      - {text: "remédio caseiro pra praga", origin: draft}
+      - {text: "como fazer calda pra matar pulgão?", origin: draft}
+      - {text: "as folhas tão murchando do nada", origin: draft}
+      - {text: "apareceu mofo nas folhas do tomate", origin: draft}
+      - {text: "minha abobrinha tá com um pó branco nas folhas", origin: draft}
+      - {text: "qual veneno usar na horta?", origin: draft}
+      - {text: "vespa na horta faz mal?", origin: draft}
+      - {text: "joaninha é praga?", origin: draft}
+      - {text: "tem besouro na minha alface", origin: draft}
+      - {text: "tesourinha estraga a horta?", origin: draft}
+      - {text: "mancha marrom na folha da batata", origin: draft}
+      - {text: "folha do tomate com pontinhos amarelos", origin: draft}
+      - {text: "ta dando bicho na minha horta", origin: draft}
+      - {text: "como espantar mosquinha branca?", origin: draft}
+      - {text: "tomate com mancha preta oq é", origin: draft}
+      - {text: "minha couve ta cheia de bixo", origin: draft}
+      - {text: "folha furada na alface oq faço", origin: draft}
+      - {text: "lesma acabando c tudo", origin: draft}
+      - {text: "como mata formiga sem veneno", origin: draft}
+      - {text: "pq meu tomate ta com folha amarela", origin: draft}
+      - {text: "minha planta ta doente, me ajuda", origin: draft}
+      - {text: "a folha ficou com umas manchas que parecem um alvo", origin: draft}
+      - {text: "tem uma teia fininha embaixo da folha do tomate", origin: draft}
+      - {text: "ácaro no tomate como tira", origin: draft}
+      - {text: "os tomates tão apodrecendo no pé", origin: draft}
+      - {text: "a cebolinha tá com a ponta seca", origin: draft}
+      - {text: "morango com mancha roxa na folha", origin: draft}
+      - {text: "a rúcula tá toda furadinha", origin: draft}
+
+  - name: market_price
+    description: User asks about the market (Ceasa) price of produce, price trends, or how much to sell for.
+    answered_by: market (data/market, Conab Boletim Hortigranjeiro)
+    required_entities: []
+    optional_entities: [crop, location]
+    examples:
+      - {text: "quanto tá o tomate?", origin: draft}
+      - {text: "qual o preço da alface hoje?", origin: draft}
+      - {text: "quanto custa o quilo da batata no Ceasa?", origin: draft}
+      - {text: "quanto tão pagando na cenoura?", origin: draft}
+      - {text: "preço da cebola esse mês", origin: draft}
+      - {text: "o tomate tá caro ou barato?", origin: draft}
+      - {text: "por quanto eu consigo vender a alface?", origin: draft}
+      - {text: "qual o preço de referência da batata?", origin: draft}
+      - {text: "o preço do tomate subiu?", origin: draft}
+      - {text: "a cenoura baixou de preço?", origin: draft}
+      - {text: "quanto vale o kg do tomate?", origin: draft}
+      - {text: "qnto ta a alface", origin: draft}
+      - {text: "preco da batata", origin: draft}
+      - {text: "qto custa cenoura no ceasa", origin: draft}
+      - {text: "quanto tá o tomate em São Paulo?", origin: draft}
+      - {text: "qual o preço da alface no ceasa daqui?", origin: draft}
+      - {text: "por quanto vendo minha cebola?", origin: draft}
+      - {text: "quanto cobrar pelo pé de alface?", origin: draft}
+      - {text: "vale a pena vender tomate agora?", origin: draft}
+      - {text: "qual verdura tá com o preço melhor?", origin: draft}
+      - {text: "o preço da batata tá bom pra vender?", origin: draft}
+      - {text: "quanto tava o tomate mês passado?", origin: draft}
+      - {text: "como tá o mercado da cenoura?", origin: draft}
+      - {text: "qual o valor do quilo da cebola?", origin: draft}
+      - {text: "o que tá mais caro na feira agora?", origin: draft}
+      - {text: "quanto o mercado paga na alface", origin: draft}
+      - {text: "preço do tomate caiu?", origin: draft}
+      - {text: "cotação da batata hoje", origin: draft}
+      - {text: "quanto ta valendo a cenora", origin: draft}
+      - {text: "qual preço justo pra vender alface na feira?", origin: draft}
+      - {text: "quanto custa tomate no atacado?", origin: draft}
+      - {text: "preço médio da batata no brasil", origin: draft}
+      - {text: "tá compensando vender cebola?", origin: draft}
+      - {text: "quero saber o preço das verduras", origin: draft}
+
+  - name: help
+    description: Greetings, thanks, goodbyes, and questions about what the assistant can do.
+    answered_by: fixed text
+    required_entities: []
+    optional_entities: []
+    examples:
+      - {text: "oi", origin: draft}
+      - {text: "olá", origin: draft}
+      - {text: "bom dia", origin: draft}
+      - {text: "boa tarde", origin: draft}
+      - {text: "boa noite", origin: draft}
+      - {text: "oi, tudo bem?", origin: draft}
+      - {text: "o que você sabe fazer?", origin: draft}
+      - {text: "como você pode me ajudar?", origin: draft}
+      - {text: "pra que serve esse assistente?", origin: draft}
+      - {text: "quem é você?", origin: draft}
+      - {text: "você é uma pessoa?", origin: draft}
+      - {text: "obrigado", origin: draft}
+      - {text: "obrigada!", origin: draft}
+      - {text: "valeu", origin: draft}
+      - {text: "muito obrigado pela ajuda", origin: draft}
+      - {text: "tchau", origin: draft}
+      - {text: "até mais", origin: draft}
+      - {text: "ajuda", origin: draft}
+      - {text: "me ajuda", origin: draft}
+      - {text: "como funciona isso?", origin: draft}
+      - {text: "que tipo de pergunta posso fazer?", origin: draft}
+      - {text: "não entendi como usar", origin: draft}
+      - {text: "pode me explicar como te usar?", origin: draft}
+      - {text: "oii", origin: draft}
+      - {text: "eae", origin: draft}
+      - {text: "bom diaa", origin: draft}
+      - {text: "brigado", origin: draft}
+      - {text: "vlw", origin: draft}
+      - {text: "blz, obrigado", origin: draft}
+      - {text: "ok", origin: draft}
+      - {text: "entendi", origin: draft}
+      - {text: "legal, valeu", origin: draft}
+      - {text: "socorro, não sei usar", origin: draft}
+      - {text: "quais assuntos você responde?", origin: draft}
+      - {text: "olá, preciso de ajuda com minha horta", origin: draft}
+
+  - name: fallback
+    description: Anything the assistant must not answer (weather, recipes, nutrition, animals, input prices, platform support, other modules) or explicit requests for a human. Answered by referring to Technical Assistance (ATD).
+    answered_by: fixed text + handoff to Assistência Técnica Digital
+    required_entities: []
+    optional_entities: []
+    examples:
+      - {text: "vai chover amanhã?", origin: draft}
+      - {text: "qual a previsão do tempo pra semana?", origin: draft}
+      - {text: "me passa uma receita de bolo de cenoura", origin: draft}
+      - {text: "como faço molho de tomate?", origin: draft}
+      - {text: "quanto custa um saco de adubo?", origin: draft}
+      - {text: "onde compro sementes?", origin: draft}
+      - {text: "quanto custa a muda de alface?", origin: draft}
+      - {text: "como crio galinha no quintal?", origin: draft}
+      - {text: "como tratar minha vaca doente?", origin: draft}
+      - {text: "meu cachorro comeu a planta, faz mal?", origin: draft}
+      - {text: "como faço compostagem?", origin: draft}
+      - {text: "como peço crédito rural?", origin: draft}
+      - {text: "como cadastro minha horta no aplicativo?", origin: draft}
+      - {text: "qual o telefone da prefeitura?", origin: draft}
+      - {text: "quero falar com um técnico", origin: draft}
+      - {text: "posso falar com uma pessoa?", origin: draft}
+      - {text: "preciso de um agrônomo", origin: draft}
+      - {text: "quem ganhou o jogo ontem?", origin: draft}
+      - {text: "me conta uma piada", origin: draft}
+      - {text: "qual a capital da França?", origin: draft}
+      - {text: "como faço pra vender no marketplace?", origin: draft}
+      - {text: "quanto vou lucrar com minha horta?", origin: draft}
+      - {text: "qual o melhor celular pra comprar?", origin: draft}
+      - {text: "como cuidar de orquídea?", origin: draft}
+      - {text: "como podar roseira", origin: draft}
+      - {text: "como plantar pé de laranja?", origin: draft}
+      - {text: "como plantar milho em grande quantidade?", origin: draft}
+      - {text: "qual remédio pra dor de cabeça?", origin: draft}
+      - {text: "asdfgh", origin: draft}
+      - {text: "kkkkk", origin: draft}
+      - {text: "???", origin: draft}
+      - {text: "teste", origin: draft}
+      - {text: "como mudo minha senha?", origin: draft}
+      - {text: "o aplicativo tá travando", origin: draft}
+      - {text: "quero cancelar minha conta", origin: draft}
+      - {text: "como faço sabão caseiro?", origin: draft}
+      - {text: "receita de suco verde com couve", origin: draft}
+      - {text: "como conservar alface na geladeira?", origin: draft}
+      - {text: "quantas calorias tem o tomate?", origin: draft}
+      - {text: "tomate faz bem pra saúde?", origin: draft}
