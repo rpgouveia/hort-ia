@@ -18,7 +18,7 @@ AI Module for a Community Garden Management Application, designed to integrate w
 ## Project Structure
 ```text
 hort-ia/
-├── data/                 # Raw and processed datasets
+├── data/                 # Raw and processed datasets (curated: data/knowledge/)
 ├── docs/                 # Project documentation (TAP, WBS, etc.)
 ├── notebooks/            # Jupyter notebooks for EDA and model training
 ├── models/               # Saved model weights (.pt, .onnx)
@@ -26,6 +26,7 @@ hort-ia/
 │   └── hort_ia/          # Main package
 │       ├── api/          # FastAPI routes and schemas
 │       ├── knowledge/    # Shared agronomic knowledge base (used by recommender, nlp and cv)
+│       ├── market/       # Conab market dataset (prices, volumes, supply) used by commercial
 │       ├── cv/           # Computer vision for pest/disease detection
 │       ├── recommender/  # Agronomic recommendation engine
 │       ├── nlp/          # Conversational assistant logic
@@ -63,7 +64,7 @@ Alternatively, use the project entry point (no auto-reload):
 uv run hort-ia
 ```
 
-> **Note:** in non-editable installs (e.g. Docker with `uv sync --no-editable`), set the `HORTIA_KB_DIR` environment variable to the `data/knowledge` directory so the knowledge base can be found.
+> **Note:** in non-editable installs (e.g. Docker with `uv sync --no-editable`), set the `HORTIA_KB_DIR` environment variable to the `data/knowledge` directory and `HORTIA_MARKET_DIR` to `data/knowledge/market` so both datasets can be found.
 
 Access the interactive API documentation (Swagger UI) at: `http://localhost:8080/docs`
 
@@ -75,7 +76,13 @@ Example command to run tests for the knowledge base module:
 uv run pytest tests/test_knowledge_base.py -v
 ```
 
-Print the knowledge base completeness report:
+Example command to run tests for the market dataset:
+```bash
+uv run pytest tests/test_market_dataset.py -v
+```
+
+Print the knowledge base completeness report, and the market dataset coverage report:
 ```bash
 uv run python -m hort_ia.knowledge
+uv run python -m hort_ia.market
 ```

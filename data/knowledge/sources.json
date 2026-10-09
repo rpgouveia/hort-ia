@@ -78,5 +78,15 @@
     "license": null,
     "verified": false,
     "notes": "Origem dos rótulos cv_label de pragas."
+  },
+  {
+    "id": "conab_boletim_hortigranjeiro",
+    "title": "Boletim Hortigranjeiro — tabelas de dados (edição setembro de 2026)",
+    "publisher": "Conab — Companhia Nacional de Abastecimento",
+    "year": 2026,
+    "url": null,
+    "license": null,
+    "verified": false,
+    "notes": "Mês de referência dos dados: ago/2026 (a edição é de set/2026). 12 entrepostos (Ceasas). Em SourceRef, 'pages' guarda o nome da aba (ex.: 'Preços-Alface'). Transcrito por scripts/build_market_v1.py; planilha bruta não versionada."
   }
 ]

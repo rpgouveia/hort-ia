@@ -12,7 +12,11 @@ demais equipes não definem as bases oficiais. Todo registro cita a fonte e a p�
 | `guidelines.json` | Regras gerais (sol, irrigação, espaçamento em pequenos espaços, pH, clima) |
 | `pests_diseases.json` | Mapeamento das classes do modelo de visão computacional para manejo |
 | `companions.csv` | Relações de plantio companheiro (direcionais: `crop_a` ajuda/prejudica `crop_b`) |
-| `sources.json` | Registro das fontes citadas |
+| `sources.json` | Registro das fontes citadas (compartilhado com a base de mercado) |
+| `market/` | Base de dados de mercado da Conab (preços, volumes, oferta) — ver `market/README.md` |
+
+As duas bases dividem o diretório e o registro `sources.json`, mas têm loaders
+independentes: `hort_ia.knowledge` para esta, `hort_ia.market` para a de mercado.
 
 ## Hierarquia de fontes (quando divergem)
 

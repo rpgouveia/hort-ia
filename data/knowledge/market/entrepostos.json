@@ -1,0 +1,231 @@
+[
+  {
+    "id": "ceagesp_sp",
+    "name_pt": "CEAGESP - São Paulo",
+    "city": "São Paulo",
+    "uf": "SP",
+    "region": "sudeste",
+    "aliases": [
+      "CEAGESP - São Paulo",
+      "Ceagesp - São Paulo",
+      "CEAGESP - SÃO PAULO"
+    ],
+    "sources": [
+      {
+        "source_id": "conab_boletim_hortigranjeiro",
+        "pages": "Preços-Hortaliças"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "ceasaminas_bh",
+    "name_pt": "CEASAMINAS - Belo Horizonte",
+    "city": "Belo Horizonte",
+    "uf": "MG",
+    "region": "sudeste",
+    "aliases": [
+      "CEASAMINAS - Belo Horizonte",
+      "CeasaMinas - Belo Horizonte",
+      "CEASAMINAS - BELO HORIZONTE"
+    ],
+    "sources": [
+      {
+        "source_id": "conab_boletim_hortigranjeiro",
+        "pages": "Preços-Hortaliças"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "ceasa_rj",
+    "name_pt": "CEASA/RJ - Rio de Janeiro",
+    "city": "Rio de Janeiro",
+    "uf": "RJ",
+    "region": "sudeste",
+    "aliases": [
+      "CEASA/RJ - Rio de Janeiro",
+      "Ceasa/RJ - Rio de Janeiro",
+      "CEASA/RJ - RIO DE JANEIRO"
+    ],
+    "sources": [
+      {
+        "source_id": "conab_boletim_hortigranjeiro",
+        "pages": "Preços-Hortaliças"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "ceasa_sp_campinas",
+    "name_pt": "CEASA/SP - Campinas",
+    "city": "Campinas",
+    "uf": "SP",
+    "region": "sudeste",
+    "aliases": [
+      "CEASA/SP - Campinas",
+      "Ceasa/SP - Campinas",
+      "CEASA/SP - CAMPINAS"
+    ],
+    "sources": [
+      {
+        "source_id": "conab_boletim_hortigranjeiro",
+        "pages": "Preços-Hortaliças"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "ceasa_es_vitoria",
+    "name_pt": "CEASA/ES - Vitória",
+    "city": "Vitória",
+    "uf": "ES",
+    "region": "sudeste",
+    "aliases": [
+      "CEASA/ES - Vitória",
+      "Ceasa/ES - Vitória",
+      "CEASA/ES - VITORIA"
+    ],
+    "sources": [
+      {
+        "source_id": "conab_boletim_hortigranjeiro",
+        "pages": "Preços-Hortaliças"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "ceasa_pr_curitiba",
+    "name_pt": "CEASA/PR - Curitiba",
+    "city": "Curitiba",
+    "uf": "PR",
+    "region": "sul",
+    "aliases": [
+      "CEASA/PR - Curitiba",
+      "Ceasa/PR - Curitiba",
+      "CEASA/PR - CURITIBA"
+    ],
+    "sources": [
+      {
+        "source_id": "conab_boletim_hortigranjeiro",
+        "pages": "Preços-Hortaliças"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "ceasa_sc_sao_jose",
+    "name_pt": "CEASA/SC - São José",
+    "city": "São José",
+    "uf": "SC",
+    "region": "sul",
+    "aliases": [
+      "CEASA/SC - São José",
+      "Ceasa/SC - São José",
+      "CEASA/SC - SÃO JOSÉ",
+      "CEASA/SC - FLORIANOPOLIS"
+    ],
+    "sources": [
+      {
+        "source_id": "conab_boletim_hortigranjeiro",
+        "pages": "Preços-Hortaliças"
+      }
+    ],
+    "notes": "A lista de 'Ceasas consideradas' em Q-Total chama a mesma unidade de 'CEASA/SC - FLORIANOPOLIS'; é a unidade da Grande Florianópolis, em São José."
+  },
+  {
+    "id": "ceasa_go_goiania",
+    "name_pt": "CEASA/GO - Goiânia",
+    "city": "Goiânia",
+    "uf": "GO",
+    "region": "centro_oeste",
+    "aliases": [
+      "CEASA/GO - Goiânia",
+      "Ceasa/GO - Goiânia",
+      "CEASA/GO - GOIANIA"
+    ],
+    "sources": [
+      {
+        "source_id": "conab_boletim_hortigranjeiro",
+        "pages": "Preços-Hortaliças"
+      }
+    ],
+    "notes": "Sem dados publicados nesta edição do boletim (preços 0 e variação #DIV/0!)."
+  },
+  {
+    "id": "ceasa_df_brasilia",
+    "name_pt": "CEASA/DF - Brasília",
+    "city": "Brasília",
+    "uf": "DF",
+    "region": "centro_oeste",
+    "aliases": [
+      "CEASA/DF - Brasília",
+      "Ceasa/DF - Brasília",
+      "CEASA/DF - BRASILIA"
+    ],
+    "sources": [
+      {
+        "source_id": "conab_boletim_hortigranjeiro",
+        "pages": "Preços-Hortaliças"
+      }
+    ],
+    "notes": "Sem dados publicados nesta edição do boletim (preços 0 e variação #DIV/0!)."
+  },
+  {
+    "id": "ceasa_pe_recife",
+    "name_pt": "CEASA/PE - Recife",
+    "city": "Recife",
+    "uf": "PE",
+    "region": "nordeste",
+    "aliases": [
+      "CEASA/PE - Recife",
+      "Ceasa/PE - Recife",
+      "CEASA/PE - RECIFE"
+    ],
+    "sources": [
+      {
+        "source_id": "conab_boletim_hortigranjeiro",
+        "pages": "Preços-Hortaliças"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "ceasa_ce_fortaleza",
+    "name_pt": "CEASA/CE - Fortaleza",
+    "city": "Fortaleza",
+    "uf": "CE",
+    "region": "nordeste",
+    "aliases": [
+      "CEASA/CE - Fortaleza",
+      "Ceasa/CE - Fortaleza",
+      "CEASA/CE - FORTALEZA"
+    ],
+    "sources": [
+      {
+        "source_id": "conab_boletim_hortigranjeiro",
+        "pages": "Preços-Hortaliças"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "ceasa_ac_rio_branco",
+    "name_pt": "CEASA/AC - Rio Branco",
+    "city": "Rio Branco",
+    "uf": "AC",
+    "region": "norte",
+    "aliases": [
+      "CEASA/AC - Rio Branco",
+      "Ceasa/AC - Rio Branco",
+      "CEASA/AC - RIO BRANCO"
+    ],
+    "sources": [
+      {
+        "source_id": "conab_boletim_hortigranjeiro",
+        "pages": "Preços-Hortaliças"
+      }
+    ],
+    "notes": null
+  }
+]

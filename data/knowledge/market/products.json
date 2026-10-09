@@ -1,0 +1,112 @@
+[
+  {
+    "id": "alface",
+    "name_pt": "Alface",
+    "category": "vegetable",
+    "unit": "kg",
+    "crop_id": "alface",
+    "aliases": [
+      "Alface",
+      "ALFACE"
+    ],
+    "sources": [
+      {
+        "source_id": "conab_boletim_hortigranjeiro",
+        "pages": "Preços-Alface"
+      },
+      {
+        "source_id": "conab_boletim_hortigranjeiro",
+        "pages": "Quantidade-Alface"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "batata",
+    "name_pt": "Batata",
+    "category": "vegetable",
+    "unit": "kg",
+    "crop_id": "batata",
+    "aliases": [
+      "Batata",
+      "BATATA"
+    ],
+    "sources": [
+      {
+        "source_id": "conab_boletim_hortigranjeiro",
+        "pages": "Preços-Batata"
+      },
+      {
+        "source_id": "conab_boletim_hortigranjeiro",
+        "pages": "Quantidade-Batata"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "cebola",
+    "name_pt": "Cebola",
+    "category": "vegetable",
+    "unit": "kg",
+    "crop_id": null,
+    "aliases": [
+      "Cebola",
+      "CEBOLA"
+    ],
+    "sources": [
+      {
+        "source_id": "conab_boletim_hortigranjeiro",
+        "pages": "Preços-Cebola"
+      },
+      {
+        "source_id": "conab_boletim_hortigranjeiro",
+        "pages": "Quantidade-Cebola"
+      }
+    ],
+    "notes": "Sem registro agronômico: cebola está fora das 15 culturas do MVP em crops.json."
+  },
+  {
+    "id": "cenoura",
+    "name_pt": "Cenoura",
+    "category": "vegetable",
+    "unit": "kg",
+    "crop_id": "cenoura",
+    "aliases": [
+      "Cenoura",
+      "CENOURA"
+    ],
+    "sources": [
+      {
+        "source_id": "conab_boletim_hortigranjeiro",
+        "pages": "Preços-Cenoura"
+      },
+      {
+        "source_id": "conab_boletim_hortigranjeiro",
+        "pages": "Quantidade-Cenoura"
+      }
+    ],
+    "notes": null
+  },
+  {
+    "id": "tomate",
+    "name_pt": "Tomate",
+    "category": "vegetable",
+    "unit": "kg",
+    "crop_id": "tomate",
+    "aliases": [
+      "Tomate",
+      "TOMATE"
+    ],
+    "sources": [
+      {
+        "source_id": "conab_boletim_hortigranjeiro",
+        "pages": "Preços-Tomate"
+      },
+      {
+        "source_id": "conab_boletim_hortigranjeiro",
+        "pages": "Quantidade-Tomate"
+      }
+    ],
+    "notes": null
+  }
+]
