@@ -223,7 +223,9 @@ __marimo__/
 
 # Ignore raw/processed datasets and images
 # (Prevent pushing large pest/disease datasets to git)
-data/
+data/*
+!data/knowledge/
+!data/nlu/
 
 # Ignore trained model weights (PyTorch, ONNX, etc)
 # (These files are usually very large)
