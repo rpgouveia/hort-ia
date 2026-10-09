@@ -12,7 +12,7 @@ from typing import Literal, Self
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
-ID_PATTERN = r"^[a-z][a-z0-9_]*$"
+from ..core.sources import ID_PATTERN, Source, SourceRef
 
 
 class ValidationStatus(StrEnum):
@@ -102,25 +102,6 @@ class CompanionRoleType(StrEnum):
 
 class KBModel(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
-
-
-# --- Sources -----------------------------------------------------------------
-
-
-class Source(KBModel):
-    id: str = Field(pattern=ID_PATTERN)
-    title: str
-    publisher: str
-    year: int | None = None
-    url: str | None = None
-    license: str | None = None
-    verified: bool = False  # existence and license confirmed by the team
-    notes: str | None = None
-
-
-class SourceRef(KBModel):
-    source_id: str
-    pages: str | None = None  # e.g. "45" or "45-47"
 
 
 # --- Crops -------------------------------------------------------------------

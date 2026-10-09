@@ -13,7 +13,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
-from ..knowledge.models import Source
+from ..core.sources import Source
 from .models import (
     Entrepost,
     MarketDataset,
