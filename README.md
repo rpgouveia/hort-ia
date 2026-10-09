@@ -18,7 +18,11 @@ AI Module for a Community Garden Management Application, designed to integrate w
 ## Project Structure
 ```text
 hort-ia/
-├── data/                 # Raw and processed datasets (curated: data/knowledge/)
+├── data/                 # Datasets (only the curated ones below are versioned)
+│   ├── knowledge/        # Agronomic knowledge base (crops, guidelines, pests, companions)
+│   ├── market/           # Conab market dataset (prices, volumes, supply)
+│   ├── finance/          # Financial dataset (planned)
+│   └── nlu/              # NLU training data for the conversational assistant
 ├── docs/                 # Project documentation (TAP, WBS, etc.)
 ├── notebooks/            # Jupyter notebooks for EDA and model training
 ├── models/               # Saved model weights (.pt, .onnx)
@@ -32,7 +36,7 @@ hort-ia/
 │       ├── nlp/          # Conversational assistant logic
 │       ├── commercial/   # Commercial matching and pricing
 │       ├── finance/      # Financial predictive models
-│       └── core/         # Telemetry, logging, and utilities
+│       └── core/         # Shared source models, telemetry, logging, and utilities
 ├── tests/                # Unit and integration tests (pytest)
 ├── pyproject.toml        # Dependencies configuration (managed by uv)
 └── uv.lock               # Dependency lockfile
@@ -64,7 +68,7 @@ Alternatively, use the project entry point (no auto-reload):
 uv run hort-ia
 ```
 
-> **Note:** in non-editable installs (e.g. Docker with `uv sync --no-editable`), set the `HORTIA_KB_DIR` environment variable to the `data/knowledge` directory and `HORTIA_MARKET_DIR` to `data/knowledge/market` so both datasets can be found.
+> **Note:** in non-editable installs (e.g. Docker with `uv sync --no-editable`), set the `HORTIA_KB_DIR` environment variable to the `data/knowledge` directory and `HORTIA_MARKET_DIR` to `data/market` so both datasets can be found.
 
 Access the interactive API documentation (Swagger UI) at: `http://localhost:8080/docs`
 

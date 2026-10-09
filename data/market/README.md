@@ -24,7 +24,7 @@ uv run python -m hort_ia.market      # relatório de cobertura
 
 | Arquivo | Conteúdo | Grão | Linhas |
 |---|---|---|---|
-| `products.json` | Os 5 produtos cotados, com o vínculo opcional para `crops.json` | produto | 5 |
+| `products.json` | Os 5 produtos cotados, com o vínculo opcional para `data/knowledge/crops.json` | produto | 5 |
 | `entrepostos.json` | As 12 Ceasas: cidade, UF, região e todas as grafias da fonte | entreposto | 12 |
 | `prices_reference.csv` | Preço do mês de referência + variação mensal + média ponderada nacional | produto × entreposto | 55 |
 | `prices_monthly.csv` | Série histórica de preços (25 meses) | produto × entreposto × mês | 1367 |
@@ -32,6 +32,7 @@ uv run python -m hort_ia.market      # relatório de cobertura
 | `volume_totals.csv` | Total de hortaliças comercializado nas Ceasas analisadas | categoria × mês | 32 |
 | `supply_microregions.csv` | Ranking das 20 maiores microrregiões fornecedoras | produto × posição | 100 |
 | `supply_uf.csv` | Oferta por UF (partição completa) | produto × UF | 61 |
+| `sources.json` | Registro das fontes citadas por esta base (só a Conab) | fonte | 1 |
 
 ## Mês de referência: ago/2026, não set/2026
 
@@ -60,7 +61,7 @@ reconfere o item 1 a cada execução e aborta se o snapshot divergir da série.
   Atenção: variação `0` **é dado** ("preço estável"), e é mantida.
 - `entrepost_id` vazio em `prices_reference.csv` = linha **`Média Ponderada`**, a média nacional
   ponderada por volume. Não é recalculável a partir das outras linhas: a Conab não publica os pesos.
-- `crop_id` nulo = produto fora das 15 culturas do MVP em `crops.json`.
+- `crop_id` nulo = produto fora das 15 culturas do MVP em `data/knowledge/crops.json`.
 - Em `SourceRef`, **`pages` guarda o nome da aba** (ex.: `"Preços-Alface"`).
 - Os registros **não** têm `validation_status`: a Conab é fonte oficial publicada, não uma
   transcrição da equipe aguardando revisão agronômica, então o fluxo
@@ -82,7 +83,7 @@ reconfere o item 1 a cada execução e aborta se o snapshot divergir da série.
   cita `CEASA/SC - FLORIANOPOLIS` (a mesma unidade de São José) e `CEASA/RS - PORTO ALEGRE`, que
   não aparece em nenhuma tabela de preço. Não tente conciliar os totais com a soma por entreposto.
 - Volume de 2026 parcial (jan–ago).
-- A planilha bruta **não é versionada** (`.gitignore` exclui `data/*`, exceto `data/knowledge/`).
+- A planilha bruta **não é versionada** (`.gitignore` exclui `data/*`, exceto as bases versionadas como `data/knowledge/` e `data/market/`).
 
 ## Atualização mensal
 
