@@ -225,6 +225,8 @@ __marimo__/
 # (Prevent pushing large pest/disease datasets to git)
 data/*
 !data/knowledge/
+!data/market/
+!data/finance/
 !data/nlu/
 
 # Ignore trained model weights (PyTorch, ONNX, etc)
@@ -238,3 +240,6 @@ models/*.joblib
 # Ignore IDE settings
 .vscode/
 .idea/
+
+# Ignore macOS metadata
+.DS_Store
