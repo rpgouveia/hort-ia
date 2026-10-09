@@ -36,10 +36,35 @@ hort-ia/
 │       ├── nlp/          # Conversational assistant logic
 │       ├── commercial/   # Commercial matching and pricing
 │       ├── finance/      # Financial predictive models
-│       └── core/         # Shared source models, telemetry, logging, and utilities
+│       └── core/         # Shared building blocks: source models, Brazilian geography (IBGE → region)
+├── scripts/              # One-off dataset generators (kept for traceability)
 ├── tests/                # Unit and integration tests (pytest)
 ├── pyproject.toml        # Dependencies configuration (managed by uv)
 └── uv.lock               # Dependency lockfile
+```
+
+## Datasets
+
+Two curated datasets are versioned, each with its own `sources.json` registry and loader:
+
+| Dataset | Directory | Loader | Details |
+|---|---|---|---|
+| Agronomic knowledge base (15 MVP crops, guidelines, pests/diseases, companion planting) | `data/knowledge/` | `hort_ia.knowledge` | [data/knowledge/README.md](data/knowledge/README.md) |
+| Conab market dataset (prices, volumes, supply in 12 Ceasas) | `data/market/` | `hort_ia.market` | [data/market/README.md](data/market/README.md) |
+
+Every record cites its source. The market dataset loads on its own and only touches the knowledge
+base to check its `crop_id` links.
+
+**Regional adaptation.** Planting windows are given per macro-region. `hort_ia.core.geo` converts
+the user's IBGE municipality code into one of the five regions, with no lookup table:
+
+```python
+from hort_ia.core import region_from_ibge_code
+from hort_ia.knowledge import load_knowledge_base
+
+region = region_from_ibge_code(4106902)  # Curitiba -> PR -> Region.SUL
+load_knowledge_base().crops["alface"].planting_months(region)
+# {"inverno": [2, ..., 10], "verao": [1, ..., 12]}; [] = "não recomendável", None = no data
 ```
 
 ## Setup and Installation
@@ -73,20 +98,38 @@ uv run hort-ia
 Access the interactive API documentation (Swagger UI) at: `http://localhost:8080/docs`
 
 ## Testing
-Run unit and integration tests using `pytest`:
 
-Example command to run tests for the knowledge base module:
+Run the whole suite with `pytest`:
+
 ```bash
-uv run pytest tests/test_knowledge_base.py -v
+uv run pytest -v
 ```
 
-Example command to run tests for the market dataset:
+| Test file | What it covers |
+|---|---|
+| `tests/test_knowledge_base.py` | Knowledge base integrity: crop scope, CV label mapping, planting windows, companion relations, regional planting months |
+| `tests/test_market_dataset.py` | Market dataset integrity: scope, reference month, missing data, rounding, `crop_id` links to the knowledge base |
+| `tests/test_geo.py` | IBGE municipality/UF code → region, shared `Region` across datasets |
+
+Run a single file, e.g.:
+
 ```bash
-uv run pytest tests/test_market_dataset.py -v
+uv run pytest tests/test_geo.py -v
 ```
 
 Print the knowledge base completeness report, and the market dataset coverage report:
 ```bash
 uv run python -m hort_ia.knowledge
 uv run python -m hort_ia.market
+```
+
+## Rebuilding the datasets
+
+The generators in `scripts/` document how each file was transcribed. Raw inputs are not versioned
+(`data/*` is ignored except the curated datasets); `openpyxl` comes with the dev dependencies.
+
+```bash
+uv run python scripts/build_crops_v1.py                       # data/knowledge/crops.json
+uv run python scripts/build_companions_v1.py path/to/companion_plants.csv
+uv run python scripts/build_market_v1.py path/to/boletim.xlsx # data/market/
 ```
