@@ -56,3 +56,11 @@ uv run uvicorn src.api.main:app --reload --port 8080
 ```
 
 Access the interactive API documentation (Swagger UI) at: `http://localhost:8080/docs`
+
+## Testing
+Run unit and integration tests using `pytest`:
+
+Example command to run tests for the knowledge base module:
+```bash
+uv run pytest tests/test_knowledge_base.py -v
+```

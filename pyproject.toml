@@ -14,6 +14,7 @@ dependencies = [
     "fastapi>=0.142.2",
     "opencv-python>=5.0.0.93",
     "pandas>=3.0.6",
+    "pydantic>=2.13.5",
     "pytest>=9.1.1",
     "scikit-learn>=1.9.1",
     "torch>=2.14.1",
@@ -27,3 +28,8 @@ hort-ia = "hort_ia:main"
 [build-system]
 requires = ["uv_build>=0.12.21,<0.13.0"]
 build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
