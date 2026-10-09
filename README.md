@@ -52,7 +52,7 @@ hort-ia/
 Run the FastAPI server using `uvicorn`. We recommend using port 8080 to avoid conflicts with other services:
 
 ```bash
-uv run uvicorn src.api.main:app --reload --port 8080
+uv run uvicorn hort_ia.api.main:app --reload --port 8080
 ```
 
 Access the interactive API documentation (Swagger UI) at: `http://localhost:8080/docs`
