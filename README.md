@@ -51,7 +51,7 @@ Three curated datasets are versioned, each with its own loader:
 |---|---|---|---|
 | Agronomic knowledge base (15 MVP crops, guidelines, pests/diseases, companion planting) | `data/knowledge/` | `hort_ia.knowledge` | [data/knowledge/README.md](data/knowledge/README.md) |
 | Conab market dataset (prices, volumes, supply in 12 Ceasas) | `data/market/` | `hort_ia.market` | [data/market/README.md](data/market/README.md) |
-| NLU dataset for the conversational assistant (8 intents, training + held-out test set) | `data/nlu/` | `hort_ia.nlp` | [data/nlu/README.md](data/nlu/README.md) |
+| NLU dataset and response templates for the conversational assistant (8 intents) | `data/nlu/` | `hort_ia.nlp` | [data/nlu/README.md](data/nlu/README.md) |
 
 The knowledge and market datasets have their own `sources.json` registry, and every record cites its source. The market dataset loads on its own and only touches the knowledge
 base to check its `crop_id` links.
@@ -112,6 +112,7 @@ uv run pytest -v
 | `tests/test_market_dataset.py` | Market dataset integrity: scope, reference month, missing data, rounding, `crop_id` links to the knowledge base |
 | `tests/test_geo.py` | IBGE municipality/UF code → region, shared `Region` across datasets |
 | `tests/test_nlu_dataset.py` | NLU dataset: agreed intent set, 30-50 examples per intent, duplicates, crop coverage, no train/test leakage |
+| `tests/test_nlu_answers.py` | Answer generation: every intent answered from the data, handoff when data is missing, no unfilled template |
 
 Run a single file, e.g.:
 

@@ -7,8 +7,9 @@ Dados para o classificador de intenções do assistente. Substitui as estimativa
 |---|---|---|
 | `intents.yaml` | Exemplos de treino: 8 intenções, 30 a 50 frases cada | Rascunho da equipe, a ser substituído por perguntas reais |
 | `test_utterances.yaml` | Conjunto de teste separado (critério de aceite do 9.4.1) | Quem **não** leu o `intents.yaml`, ou perguntas reais coletadas em campo |
+| `responses.yaml` | Modelos de texto das respostas, em linguagem simples | Equipe, a validar com agrônomos |
 
-Carregue com `hort_ia.nlp` (`load_intents`, `load_test_set`). Avaliação de referência:
+Carregue com `hort_ia.nlp` (`load_intents`, `load_test_set`, `load_templates`). Avaliação de referência:
 
 ```bash
 uv run python scripts/evaluate_nlu_baseline.py
@@ -84,3 +85,35 @@ As confusões mais frequentes orientam a abordagem do motor (9.4.1-3):
 - `fallback` é a classe mais fraca: fora do escopo é tudo que não é o resto, sem padrão próprio.
   Um limiar de confiança no classificador tende a funcionar melhor do que tratá-la como classe comum.
 - `help` × `fallback`: perguntas sobre o uso do aplicativo ficam na fronteira entre as duas.
+
+## Respostas (seção 5.2)
+
+**Decisão: sem modelo de linguagem para gerar respostas.** A equipe não vai usar API paga, e um
+modelo local exigiria servidor com GPU para ficar abaixo dos 5 s do critério de aceite. Mais
+importante: a produção de conteúdo agronômico está fora do escopo do 9.4. Por isso toda resposta é
+um modelo de `responses.yaml` preenchido com dados da base de conhecimento ou da base de mercado,
+pela classe `hort_ia.nlp.Responder`. O assistente nunca escreve uma recomendação que não esteja
+nos dados.
+
+Cada resposta (`Answer`) traz, além do texto:
+
+- `sources`: as publicações de onde vieram os dados, para a API exibir se quiser;
+- `handoff`: `true` quando não há dado ou o assunto está fora do escopo; a interface deve oferecer
+  contato com a Assistência Técnica Digital;
+- `missing_entity`: o que o gerenciador de diálogo precisa perguntar (planta ou cidade).
+
+As funções recebem a entrada já interpretada (cultura, região, mês), então não dependem de como o
+NLU for implementado. A região vem do código IBGE do município do perfil (`hort_ia.core.geo`), e a
+UF escolhe o Ceasa local para preços.
+
+Regras de escrita dos modelos: frases curtas, construções sem gênero ("dá para plantar {crop}"),
+origem explícita quando a informação é tradicional, e "não sei" com encaminhamento quando não há
+dado.
+
+**Limitações conhecidas, que viram encaminhamento à Assistência Técnica:**
+
+- Pragas e doenças: o assistente identifica (pelo rótulo do modelo de CV ou pelo nome citado), mas
+  ainda não tem manejo conferido para nenhuma (Fase 3 da base de conhecimento).
+- Plantio companheiro: rúcula sem relações.
+- Preços: só alface, batata, cebola, cenoura e tomate, preço de atacado do mês de referência da Conab.
+- Manjericão sem janela de plantio no Norte e no Nordeste.

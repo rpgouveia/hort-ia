@@ -1,0 +1,86 @@
+# Response templates of the conversational assistant (WBS 9.4, NLG).
+#
+# The assistant never writes agronomic content on its own: every answer is one of these
+# templates filled with data from the knowledge base or the market dataset.
+#
+# Writing rules (users have low digital literacy):
+# - Short sentences, everyday words, one idea per sentence.
+# - Gender-neutral constructions ("dá para plantar {crop}"), since crop names vary in gender.
+# - Say where a recommendation comes from when it is NOT technical (traditional evidence).
+# - When there is no data, say so and point to the Technical Assistance (handoff), never guess.
+#
+# Status: FIRST DRAFT, to be tested with agronomists (see docs/nlu/roteiro-entrevista-agronomos.md),
+# e.g. whether measures read better in cm or "palmos".
+
+version: 1
+language: pt-BR
+
+months: [janeiro, fevereiro, março, abril, maio, junho, julho, agosto, setembro, outubro, novembro, dezembro]
+regions:
+  norte: no Norte
+  nordeste: no Nordeste
+  centro_oeste: no Centro-Oeste
+  sudeste: no Sudeste
+  sul: no Sul
+variants:
+  inverno: de inverno
+  verao: de verão
+
+common:
+  ask_crop: "De qual planta você está falando?"
+  ask_location: "Em qual cidade fica a sua horta?"
+  unknown_crop: "Ainda não tenho informações sobre essa planta. Sei responder sobre: {crops}."
+  handoff: "Para isso, o melhor é falar com a Assistência Técnica."
+
+planting_time:
+  window: "{crop}{variant} {region}: dá para plantar {months}."
+  not_recommended: "{crop}{variant}: não é recomendado plantar {region}."
+  no_data: "Não tenho a época de plantio de {crop} {region}."
+  now_yes: "Agora em {month} está na época."
+  now_no: "Agora em {month} não é a época."
+  harvest: "A colheita começa de {min} a {max} dias depois do plantio."
+
+what_to_plant:
+  list: "Em {month}, {region}, dá para plantar: {crops}."
+  list_small_space: "Em {month}, {region}, dá para plantar em vaso ou pouco espaço: {crops}."
+  none: "Em {month}, {region}, nenhuma das plantas que eu conheço está na época."
+
+crop_care:
+  spacing: "{crop}: deixe {plants} cm entre uma planta e outra e {rows} cm entre as fileiras."
+  spacing_small_space: "Em vaso ou pouco espaço, pode diminuir para {plants} cm entre plantas e {rows} cm entre fileiras."
+  harvest: "{crop}: a colheita começa de {min} a {max} dias depois do plantio."
+  container_yes: "Dá para plantar {crop} em vaso ou em pouco espaço."
+  container_no: "Plantar {crop} em vaso ou pouco espaço não é indicado."
+  container_unknown: "Não tenho informação se {crop} vai bem em vaso."
+  no_info: "Não tenho essa informação sobre {crop}."
+
+companion_planting:
+  good: "Plantas que se dão bem com {crop}: {partners}."
+  bad: "Evite plantar perto de {crop}: {partners}."
+  traditional_note: "Essas combinações vêm do costume de quem planta. Não são recomendação técnica."
+  repellent: "{crop} ajuda a espantar algumas pragas da horta. Isso é recomendado pela Embrapa."
+  none: "Não tenho informações sobre plantas que combinam com {crop}."
+  rotation: "Depois de {crop}, não plante no mesmo canteiro: {same_family}. São da mesma família e pegam as mesmas doenças."
+
+pest_disease:
+  ask_photo: "Para eu ajudar a identificar, mande uma foto da folha ou da parte da planta com problema."
+  identified: "Parece ser: {name}."
+  no_management: "Ainda não tenho uma orientação conferida para combater isso."
+  beneficial: "{name} ajudam a horta: comem outras pragas. Não precisa combater."
+  healthy: "A planta parece saudável."
+
+market_price:
+  price: "Em {month}, o quilo de {product} custou em média R$ {price} {where}."
+  where_entrepost: "no {entrepost}"
+  where_national: "nos Ceasas do país"
+  change_up: "Subiu {pct}% em relação ao mês anterior."
+  change_down: "Caiu {pct}% em relação ao mês anterior."
+  change_stable: "Ficou igual ao mês anterior."
+  wholesale_note: "Esse é o preço de atacado no Ceasa. Na feira, o preço costuma ser outro."
+  not_tracked: "Não tenho o preço de {product}. Tenho preços de: {products}."
+
+help:
+  text: "Oi! Eu ajudo com a sua horta: quando e o que plantar, rega e espaçamento, plantas que combinam, pragas e preços no Ceasa. Pode perguntar do seu jeito."
+
+fallback:
+  text: "Essa pergunta eu não sei responder."
