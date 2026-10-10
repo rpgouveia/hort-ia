@@ -7,6 +7,7 @@ from fastapi import HTTPException
 
 from hort_ia.api.main import app
 from hort_ia.finance import (
+    MODEL_VERSION,
     ForecastError,
     Forecaster,
     UnknownIdError,
@@ -131,6 +132,15 @@ def test_forecast_fields_and_interval(forecaster):
     assert not f.degraded and f.validation_mape is not None
 
 
+def test_forecast_identifies_origin(forecaster):
+    """Contract with the finance team (item 5.2.3): every forecast names its source and model version."""
+    for args in [("alface", "ceagesp_sp", 1), ("alface", "ceasa_df_brasilia", 1), ("tomate", "ceasa_go_goiania", 3)]:
+        f = forecaster.forecast(*args)
+        assert f.source == "conab_boletim_hortigranjeiro"
+        assert f.model_version == MODEL_VERSION == "1.0.0"
+        assert f.method in {"naive", "seasonal_naive", "ses"}
+
+
 def test_forecast_three_months_ahead(forecaster):
     assert forecaster.forecast("tomate", "ceagesp_sp", 3).target_month == "2026-11"
 
@@ -148,6 +158,7 @@ def test_fresh_series_has_no_warning(forecaster):
 def test_degraded_forecast_for_short_series(forecaster):
     f = forecaster.forecast("alface", "ceasa_df_brasilia", 1)
     assert f.degraded and f.method == "naive" and f.lower_brl_kg is None and f.warning
+    assert "stale" in f.warning  # the last observation is almost two years old
 
 
 @pytest.mark.parametrize(
