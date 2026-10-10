@@ -6,7 +6,13 @@ import pytest
 from fastapi import HTTPException
 
 from hort_ia.api.main import app
-from hort_ia.finance import ForecastError, Forecaster, get_forecaster
+from hort_ia.finance import (
+    ForecastError,
+    Forecaster,
+    UnknownIdError,
+    UnsupportedHorizonError,
+    get_forecaster,
+)
 from hort_ia.finance.backtest import overall, run_backtest
 from hort_ia.finance.models import moving_average, naive, seasonal_naive, ses
 from hort_ia.finance.series import add_months, build_series, interpolate
@@ -60,10 +66,18 @@ def test_add_months_crosses_year():
 
 
 def test_build_series_drops_short_series():
-    series, months = build_series(get_market_dataset())
-    assert len(months) == 25 and months[0] == "2024-08" and months[-1] == "2026-08"
+    series, last_month = build_series(get_market_dataset())
     assert ("alface", "ceasa_df_brasilia") not in series  # DF has only 3 months
-    assert all(len(y) == len(months) for y in series.values())
+    assert set(series) == set(last_month)
+
+
+def test_build_series_does_not_extend_edges():
+    """CEASA/GO stopped publishing after 2026-06: the series must end there, not repeat the price."""
+    series, last_month = build_series(get_market_dataset())
+    assert last_month[("tomate", "ceasa_go_goiania")] == "2026-06"
+    assert len(series[("tomate", "ceasa_go_goiania")]) == 23
+    assert last_month[("tomate", "ceagesp_sp")] == "2026-08"
+    assert len(series[("tomate", "ceagesp_sp")]) == 25
 
 
 # --- validation without look-ahead ---
@@ -80,13 +94,16 @@ def test_backtest_does_not_use_future_values():
 
 
 def test_backtest_matches_decision_record(forecaster):
-    """Numbers recorded in 9.6.1-1 (55 series, rolling origin, >= 15 months of training)."""
+    """Numbers recorded in 9.6.1-1 (55 series, rolling origin, >= 15 months of training).
+
+    Pinned to the dataset of the decision record: update together with the market dataset.
+    """
     assert len(forecaster.series) == 55
     naive_1 = overall(forecaster.backtest, 1, "naive")
     snaive_3 = overall(forecaster.backtest, 3, "seasonal_naive")
-    assert naive_1.n == 550 and snaive_3.n == 440
-    assert naive_1.mape == pytest.approx(0.183, abs=0.005)
-    assert snaive_3.mape == pytest.approx(0.285, abs=0.005)
+    assert naive_1.n == 540 and snaive_3.n == 430
+    assert naive_1.mape == pytest.approx(0.186, abs=0.005)
+    assert snaive_3.mape == pytest.approx(0.282, abs=0.005)
 
 
 def test_error_targets_of_decision_record(forecaster):
@@ -118,17 +135,33 @@ def test_forecast_three_months_ahead(forecaster):
     assert forecaster.forecast("tomate", "ceagesp_sp", 3).target_month == "2026-11"
 
 
+def test_stale_series_is_flagged(forecaster):
+    f = forecaster.forecast("tomate", "ceasa_go_goiania", 1)
+    assert f.reference_month == "2026-06" and f.target_month == "2026-07"
+    assert f.warning and "2026-06" in f.warning and not f.degraded
+
+
+def test_fresh_series_has_no_warning(forecaster):
+    assert forecaster.forecast("tomate", "ceagesp_sp", 1).warning is None
+
+
 def test_degraded_forecast_for_short_series(forecaster):
     f = forecaster.forecast("alface", "ceasa_df_brasilia", 1)
     assert f.degraded and f.method == "naive" and f.lower_brl_kg is None and f.warning
 
 
 @pytest.mark.parametrize(
-    "args", [("banana", "ceagesp_sp", 1), ("alface", "ceasa_inexistente", 1), ("alface", "ceagesp_sp", 2)]
+    "args,error",
+    [
+        (("banana", "ceagesp_sp", 1), UnknownIdError),
+        (("alface", "ceasa_inexistente", 1), UnknownIdError),
+        (("alface", "ceagesp_sp", 2), UnsupportedHorizonError),
+    ],
 )
-def test_forecast_rejects_invalid_input(forecaster, args):
-    with pytest.raises(ForecastError):
+def test_forecast_rejects_invalid_input(forecaster, args, error):
+    with pytest.raises(error) as raised:
         forecaster.forecast(*args)
+    assert isinstance(raised.value, ForecastError)
 
 
 # --- API contract (route function called directly: TestClient would need a new dev dependency) ---

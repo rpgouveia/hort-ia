@@ -9,13 +9,21 @@ from pydantic import BaseModel
 from ..market import MarketDataset, get_market_dataset
 from .backtest import HORIZONS, BacktestResult, ErrorStats, run_backtest
 from .models import CANDIDATES, METHODS
-from .series import SeriesKey, add_months, build_series
+from .series import SeriesKey, add_months, build_series, latest_month
 
 INTERVAL = (0.1, 0.9)  # 80% interval from the empirical distribution of validation errors
 
 
 class ForecastError(Exception):
-    """The forecast cannot be produced (unknown product/entrepost, no data)."""
+    """The forecast cannot be produced."""
+
+
+class UnknownIdError(ForecastError):
+    """Unknown product or entrepost, or no price data for the pair."""
+
+
+class UnsupportedHorizonError(ForecastError):
+    """Horizon outside the validated ones."""
 
 
 class PriceForecast(BaseModel):
@@ -47,7 +55,8 @@ class Forecaster:
     def __init__(self, dataset: MarketDataset, horizons: tuple[int, ...] = HORIZONS):
         self.dataset = dataset
         self.horizons = horizons
-        self.series, self.months = build_series(dataset)
+        self.series, self.last_month = build_series(dataset)
+        self.latest = latest_month(dataset)
         self.backtest: BacktestResult = run_backtest(self.series, horizons=horizons)
         self._best: dict[tuple[str, int], str] = {}
         for product in {p for p, _ in self.series}:
@@ -61,14 +70,14 @@ class Forecaster:
 
     def _check_ids(self, product_id: str, entrepost_id: str) -> None:
         if product_id not in self.dataset.products:
-            raise ForecastError(f"unknown product: {product_id}")
+            raise UnknownIdError(f"unknown product: {product_id}")
         if entrepost_id not in self.dataset.entrepostos:
-            raise ForecastError(f"unknown entrepost: {entrepost_id}")
+            raise UnknownIdError(f"unknown entrepost: {entrepost_id}")
 
     def forecast(self, product_id: str, entrepost_id: str, horizon: int = 1) -> PriceForecast:
         self._check_ids(product_id, entrepost_id)
         if horizon not in self.horizons:
-            raise ForecastError(f"unsupported horizon: {horizon} (use one of {list(self.horizons)})")
+            raise UnsupportedHorizonError(f"unsupported horizon: {horizon} (use one of {list(self.horizons)})")
         key: SeriesKey = (product_id, entrepost_id)
         y = self.series.get(key)
         if y is None:
@@ -78,7 +87,8 @@ class Forecaster:
         stats: ErrorStats = self.backtest[(product_id, horizon, method)]
         price = METHODS[method](y, horizon)
         lo, hi = (_quantile(stats.relative, q) for q in INTERVAL)
-        reference = self.months[-1]
+        reference = self.last_month[key]
+        stale = reference != self.latest
         return PriceForecast(
             product_id=product_id,
             entrepost_id=entrepost_id,
@@ -92,6 +102,9 @@ class Forecaster:
             upper_brl_kg=round(price * (1 + hi), 2),
             method=method,
             validation_mape=round(stats.mape, 4),
+            warning=f"stale series: last observed month is {reference}, dataset goes to {self.latest}"
+            if stale
+            else None,
         )
 
     def _degraded(self, product_id: str, entrepost_id: str, horizon: int) -> PriceForecast:
@@ -102,7 +115,7 @@ class Forecaster:
             if p.product_id == product_id and p.entrepost_id == entrepost_id
         )
         if not observed:
-            raise ForecastError(f"no price data for {product_id} at {entrepost_id}")
+            raise UnknownIdError(f"no price data for {product_id} at {entrepost_id}")
         month, last = observed[-1]
         return PriceForecast(
             product_id=product_id,

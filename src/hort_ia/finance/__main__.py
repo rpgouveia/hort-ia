@@ -8,7 +8,7 @@ from .models import METHODS
 
 def main() -> None:
     f = Forecaster(get_market_dataset())
-    print(f"Series used: {len(f.series)} | months: {f.months[0]} to {f.months[-1]}")
+    print(f"Series used: {len(f.series)} | latest month in dataset: {f.latest}")
     for h in HORIZONS:
         print(f"\nHorizon {h} month(s)  [MAPE / MAE R$/kg / n]")
         for name in METHODS:

@@ -47,19 +47,26 @@ def interpolate(values: list[float | None]) -> list[float]:
 
 def build_series(
     dataset: MarketDataset, min_observations: int = MIN_OBSERVATIONS
-) -> tuple[dict[SeriesKey, list[float]], list[str]]:
-    """Return {(product_id, entrepost_id): monthly prices} over a common month axis, plus that axis."""
+) -> tuple[dict[SeriesKey, list[float]], dict[SeriesKey, str]]:
+    """Return monthly prices per (product, entrepost) and the last observed month of each.
+
+    Each series spans first to last observed month; internal gaps are interpolated but edges are
+    never extended, so a series whose source stopped publishing (e.g. CEASA/GO after 2026-06)
+    keeps its real end instead of repeating the last price.
+    """
     observed: dict[SeriesKey, dict[int, float]] = {}
     for p in dataset.prices:
         observed.setdefault((p.product_id, p.entrepost_id), {})[month_index(p.month)] = p.price_brl_kg
-    if not observed:
-        return {}, []
-    first = min(i for cells in observed.values() for i in cells)
-    last = max(i for cells in observed.values() for i in cells)
-    months = [month_label(i) for i in range(first, last + 1)]
-    series = {
-        key: interpolate([cells.get(i) for i in range(first, last + 1)])
-        for key, cells in observed.items()
-        if len(cells) >= min_observations
-    }
-    return series, months
+    series: dict[SeriesKey, list[float]] = {}
+    last_month: dict[SeriesKey, str] = {}
+    for key, cells in observed.items():
+        if len(cells) < min_observations:
+            continue
+        first, last = min(cells), max(cells)
+        series[key] = interpolate([cells.get(i) for i in range(first, last + 1)])
+        last_month[key] = month_label(last)
+    return series, last_month
+
+
+def latest_month(dataset: MarketDataset) -> str:
+    return max((p.month for p in dataset.prices), key=month_index)
