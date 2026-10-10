@@ -6,11 +6,16 @@ recommendations, NLP, and financial predictions.
 
 from fastapi import FastAPI
 
+from .finance import router as finance_router
+
 app = FastAPI(
     title="Hort-IA AI API",
     description="APIs for the AI module of the Hort-IA platform",
     version="0.1.0"
 )
+
+app.include_router(finance_router)
+
 
 @app.get("/")
 async def root():
