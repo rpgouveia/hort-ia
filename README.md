@@ -76,7 +76,7 @@ load_knowledge_base().crops["alface"].planting_months(region)
 cebola, cenoura, tomate) at each Ceasa, 1 and 3 months ahead, from `data/market/prices_monthly.csv`.
 
 - **Methods**: naive, seasonal naive and simple exponential smoothing (a 3-month moving average is also available). For each product and horizon the service picks the method with the lowest MAE in rolling-origin validation.
-- **Output**: forecast price, change versus the last price, 80% interval (from the validation errors), method, validation MAPE and reference month.
+- **Output**: forecast price, change versus the last price, 80% interval (from the validation errors), method, validation MAPE, reference month, data `source` and `model_version`.
 - **Edge cases**: series with fewer than 22 months (e.g. CEASA/DF) get a flagged naive forecast with no interval (`degraded`); series that stopped publishing (e.g. CEASA/GO after 2026-06) are forecast from their real end and carry a `warning`.
 - **Validation baseline** (55 series, 25 months): MAPE 18.6% at 1 month and 28.2% at 3 months. The history is short, so richer models (ETS, SARIMA, gradient boosting) are postponed. Rationale: [docs/finance/](docs/finance/) and [src/hort_ia/finance/README.md](src/hort_ia/finance/README.md).
 

@@ -7,6 +7,7 @@ from fastapi import HTTPException
 
 from hort_ia.api.main import app
 from hort_ia.finance import (
+    MODEL_VERSION,
     ForecastError,
     Forecaster,
     UnknownIdError,
@@ -129,6 +130,15 @@ def test_forecast_fields_and_interval(forecaster):
     assert f.lower_brl_kg <= f.forecast_price_brl_kg <= f.upper_brl_kg
     assert f.change_pct == pytest.approx(f.forecast_price_brl_kg / f.last_price_brl_kg - 1, abs=1e-3)
     assert not f.degraded and f.validation_mape is not None
+
+
+def test_forecast_identifies_origin(forecaster):
+    """Contract with the finance team (item 5.2.3): every forecast names its source and model version."""
+    for args in [("alface", "ceagesp_sp", 1), ("alface", "ceasa_df_brasilia", 1), ("tomate", "ceasa_go_goiania", 3)]:
+        f = forecaster.forecast(*args)
+        assert f.source == "conab_boletim_hortigranjeiro"
+        assert f.model_version == MODEL_VERSION == "1.0.0"
+        assert f.method in {"naive", "seasonal_naive", "ses"}
 
 
 def test_forecast_three_months_ahead(forecaster):

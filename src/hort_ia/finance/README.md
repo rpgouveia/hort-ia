@@ -6,6 +6,7 @@ Monthly price forecasts (R$/kg) for the 5 products of the Conab dataset (`data/m
 - **Methods** (`models.py`): naive, seasonal naive, 3-month moving average, simple exponential smoothing.
   The service picks, per product and horizon, the candidate (naive, seasonal naive, SES) with the lowest MAE
   in rolling-origin validation (`backtest.py`).
+- **Origin** (contract with the finance team, item 5.2.3): every forecast carries `method`, `source` (id in `data/market/sources.json`) and `model_version` (`MODEL_VERSION`; bump it when methods, selection or interval rules change).
 - **Interval**: 80% (10th-90th percentile) of the validation errors of the chosen method.
 - **Stale series**: CEASA/GO stopped publishing after 2026-06; its series ends there (edges are never extended) and the forecast carries a `warning`.
 - **Degraded mode**: series with fewer than 22 months (e.g. CEASA/DF) get a flagged naive forecast with no interval.
