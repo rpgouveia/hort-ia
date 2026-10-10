@@ -131,7 +131,8 @@ class Forecaster:
             method="naive",
             validation_mape=None,
             degraded=True,
-            warning=f"only {len(observed)} months of data: naive forecast without validation",
+            warning=f"only {len(observed)} months of data: naive forecast without validation"
+            + (f"; stale series: last observed month is {month}, dataset goes to {self.latest}" if month != self.latest else ""),
         )
 
 

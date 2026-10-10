@@ -148,6 +148,7 @@ def test_fresh_series_has_no_warning(forecaster):
 def test_degraded_forecast_for_short_series(forecaster):
     f = forecaster.forecast("alface", "ceasa_df_brasilia", 1)
     assert f.degraded and f.method == "naive" and f.lower_brl_kg is None and f.warning
+    assert "stale" in f.warning  # the last observation is almost two years old
 
 
 @pytest.mark.parametrize(
