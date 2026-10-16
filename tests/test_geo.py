@@ -1,5 +1,3 @@
-"""Tests for municipality -> region resolution (WBS 9.3, regional adaptation)."""
-
 import pytest
 
 from hort_ia.core.geo import UF_BY_CODE, Region, region_from_ibge_code, region_from_uf

@@ -6,6 +6,7 @@ recommendations, NLP, and financial predictions.
 
 from fastapi import FastAPI
 
+from .cv import router as cv_router
 from .finance import router as finance_router
 
 app = FastAPI(
@@ -15,6 +16,7 @@ app = FastAPI(
 )
 
 app.include_router(finance_router)
+app.include_router(cv_router)
 
 
 @app.get("/")

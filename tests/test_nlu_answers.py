@@ -1,5 +1,3 @@
-"""Answer generation (NLG) tests: every answer must come from the data, never be invented."""
-
 import pytest
 
 from hort_ia.knowledge import load_knowledge_base

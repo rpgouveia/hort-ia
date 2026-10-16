@@ -1,5 +1,3 @@
-"""Tests for the price forecasting module (WBS 9.6.1-4; decision record 9.6.1-3)."""
-
 import asyncio
 
 import pytest

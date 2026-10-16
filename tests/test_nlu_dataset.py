@@ -1,5 +1,3 @@
-"""Integrity tests for the NLU dataset (WBS 9.4)."""
-
 import pytest
 from pydantic import ValidationError
 

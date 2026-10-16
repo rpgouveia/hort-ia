@@ -1,5 +1,3 @@
-"""Integrity tests for the agronomic knowledge base (evidence for WBS 9.3.2)."""
-
 import json
 import shutil
 from pathlib import Path

@@ -1,5 +1,3 @@
-"""Integrity tests for the Conab market dataset (evidence for WBS 9.5.1-7, input to 9.5.2)."""
-
 import json
 import shutil
 from pathlib import Path
