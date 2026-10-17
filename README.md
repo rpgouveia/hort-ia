@@ -7,7 +7,7 @@ AI Module for a Community Garden Management Application, designed to integrate w
 - **Agronomic Recommender**: Personalized crop management recommendations.
 - **Conversational Assistant**: Lightweight NLP-based decision support.
 - **Commercial Matching**: Matchmaking algorithms between producers and buyers.
-- **Financial Predictive Models**: Revenue and ROI forecasting.
+- **Financial Predictive Models**: Monthly price forecasts (1 and 3 months ahead) for the Conab products, with intervals and per-product method selection. Revenue and ROI forecasting are planned.
 
 ## Tech Stack
 - **Language**: Python 3.14
@@ -24,6 +24,8 @@ hort-ia/
 │   ├── finance/          # Financial dataset (planned)
 │   └── nlu/              # NLU training data for the conversational assistant
 ├── docs/                 # Project documentation (TAP, WBS, etc.)
+│   ├── finance/          # WBS 9.6.1: approach comparison, indicator sheet, decision record
+│   └── nlu/              # Interview script for agronomists
 ├── notebooks/            # Jupyter notebooks for EDA and model training
 ├── models/               # Saved model weights (.pt, .onnx)
 ├── src/
@@ -35,7 +37,7 @@ hort-ia/
 │       ├── recommender/  # Agronomic recommendation engine
 │       ├── nlp/          # Conversational assistant logic
 │       ├── commercial/   # Commercial matching and pricing
-│       ├── finance/      # Financial predictive models
+│       ├── finance/      # Price forecasting (naive, seasonal naive, SES) with rolling-origin validation
 │       └── core/         # Shared building blocks: source models, Brazilian geography (IBGE → region)
 ├── scripts/              # One-off dataset generators (kept for traceability)
 ├── tests/                # Unit and integration tests (pytest)
@@ -67,6 +69,22 @@ region = region_from_ibge_code(4106902)  # Curitiba -> PR -> Region.SUL
 load_knowledge_base().crops["alface"].planting_months(region)
 # {"inverno": [2, ..., 10], "verao": [1, ..., 12]}; [] = "não recomendável", None = no data
 ```
+
+## Price forecasting
+
+`hort_ia.finance` forecasts the monthly price (R$/kg) of the five Conab products (alface, batata,
+cebola, cenoura, tomate) at each Ceasa, 1 and 3 months ahead, from `data/market/prices_monthly.csv`.
+
+- **Methods**: naive, seasonal naive and simple exponential smoothing (a 3-month moving average is also available). For each product and horizon the service picks the method with the lowest MAE in rolling-origin validation.
+- **Output**: forecast price, change versus the last price, 80% interval (from the validation errors), method, validation MAPE, reference month, data `source` and `model_version`.
+- **Edge cases**: series with fewer than 22 months (e.g. CEASA/DF) get a flagged naive forecast with no interval (`degraded`); series that stopped publishing (e.g. CEASA/GO after 2026-06) are forecast from their real end and carry a `warning`.
+- **Validation baseline** (55 series, 25 months): MAPE 18.6% at 1 month and 28.2% at 3 months. The history is short, so richer models (ETS, SARIMA, gradient boosting) are postponed. Rationale: [docs/finance/](docs/finance/) and [src/hort_ia/finance/README.md](src/hort_ia/finance/README.md).
+
+```bash
+curl "http://localhost:8080/finance/price-forecast?product_id=alface&entrepost_id=ceagesp_sp&horizon_months=1"
+```
+
+Unknown product or entrepost returns 404, and a horizon other than 1 or 3 returns 422.
 
 ## Setup and Installation
 
@@ -112,6 +130,7 @@ uv run pytest -v
 | `tests/test_market_dataset.py` | Market dataset integrity: scope, reference month, missing data, rounding, `crop_id` links to the knowledge base |
 | `tests/test_geo.py` | IBGE municipality/UF code → region, shared `Region` across datasets |
 | `tests/test_nlu_dataset.py` | NLU dataset: agreed intent set, 30-50 examples per intent, duplicates, crop coverage, no train/test leakage |
+| `tests/test_finance_forecast.py` | Forecasting methods, series building (edges never extended), validation without look-ahead, decision-record numbers and error targets, degraded and stale series, API contract |
 | `tests/test_nlu_answers.py` | Answer generation: every intent answered from the data, handoff when data is missing, no unfilled template |
 
 Run a single file, e.g.:
@@ -124,6 +143,11 @@ Print the knowledge base completeness report, and the market dataset coverage re
 ```bash
 uv run python -m hort_ia.knowledge
 uv run python -m hort_ia.market
+```
+
+Print the price forecasting validation report (MAPE/MAE per method and horizon):
+```bash
+uv run python -m hort_ia.finance
 ```
 
 Evaluate the NLU dataset with a baseline classifier (cross-validation, plus the held-out test set when filled):

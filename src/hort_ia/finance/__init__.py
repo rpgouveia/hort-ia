@@ -1,6 +1,7 @@
 """Hort.IA financial predictive models (WBS 9.6): price forecasting from the Conab dataset."""
 
 from .forecast import (
+    MODEL_VERSION,
     Forecaster,
     ForecastError,
     PriceForecast,
@@ -10,6 +11,7 @@ from .forecast import (
 )
 
 __all__ = [
+    "MODEL_VERSION",
     "ForecastError",
     "Forecaster",
     "PriceForecast",

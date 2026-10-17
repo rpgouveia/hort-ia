@@ -11,6 +11,7 @@ from .backtest import HORIZONS, BacktestResult, ErrorStats, run_backtest
 from .models import CANDIDATES, METHODS
 from .series import SeriesKey, add_months, build_series, latest_month
 
+MODEL_VERSION = "1.0.0"  # bump when methods, selection or interval rules change
 INTERVAL = (0.1, 0.9)  # 80% interval from the empirical distribution of validation errors
 
 
@@ -39,6 +40,8 @@ class PriceForecast(BaseModel):
     upper_brl_kg: float | None
     method: str
     validation_mape: float | None
+    source: str  # id(s) of the dataset source(s) in data/market/sources.json
+    model_version: str
     degraded: bool = False
     warning: str | None = None
 
@@ -57,6 +60,7 @@ class Forecaster:
         self.horizons = horizons
         self.series, self.last_month = build_series(dataset)
         self.latest = latest_month(dataset)
+        self.source = ",".join(sorted(dataset.sources))
         self.backtest: BacktestResult = run_backtest(self.series, horizons=horizons)
         self._best: dict[tuple[str, int], str] = {}
         for product in {p for p, _ in self.series}:
@@ -102,6 +106,8 @@ class Forecaster:
             upper_brl_kg=round(price * (1 + hi), 2),
             method=method,
             validation_mape=round(stats.mape, 4),
+            source=self.source,
+            model_version=MODEL_VERSION,
             warning=f"stale series: last observed month is {reference}, dataset goes to {self.latest}"
             if stale
             else None,
@@ -130,8 +136,11 @@ class Forecaster:
             upper_brl_kg=None,
             method="naive",
             validation_mape=None,
+            source=self.source,
+            model_version=MODEL_VERSION,
             degraded=True,
-            warning=f"only {len(observed)} months of data: naive forecast without validation",
+            warning=f"only {len(observed)} months of data: naive forecast without validation"
+            + (f"; stale series: last observed month is {month}, dataset goes to {self.latest}" if month != self.latest else ""),
         )
 
 
