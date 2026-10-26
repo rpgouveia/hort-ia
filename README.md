@@ -86,6 +86,23 @@ curl "http://localhost:8080/finance/price-forecast?product_id=alface&entrepost_i
 
 Unknown product or entrepost returns 404, and a horizon other than 1 or 3 returns 422.
 
+## API Endpoints (Design by Contract)
+
+The API is built using FastAPI following strict *Design by Contract* (DbC) principles. Technical specifications: [docs/api/](docs/api/).
+
+| Endpoint | Method | Domain / Consumer Module | Description |
+|---|:---:|---|---|
+| `/cv/validate` | `POST` | Computer Vision (Assistência Técnica) | Quality filter checking blur, lighting and contrast |
+| `/cv/preprocess` | `POST` | Computer Vision (Assistência Técnica) | Standardizes to 224x224 RGB JPEG (<30KB) and strips EXIF |
+| `/finance/price-forecast` | `GET` | Price Forecasting (Financeiro) | Forecasts monthly price (1 and 3 months ahead) with 80% interval |
+| `/recommender/planting-calendar` | `GET` | Agronomic Recommender (Gestão / Assistência) | Regional planting windows by IBGE municipality code or macro-region |
+| `/recommender/companion-crops` | `GET` | Agronomic Recommender (Gestão de Operação) | Beneficial and antagonistic companion crops (consórcios) |
+| `/recommender/what-to-plant` | `GET` | Agronomic Recommender (Gestão / Assistência) | Recommended crops for the current month/location (optional small space filter) |
+| `/nlp/answer` | `POST` | Conversational Assistant (Assistência Técnica) | Template-based answers with citation and extensionist handoff flag |
+| `/market/reference-price` | `GET` | Market Intelligence (Comercialização) | Wholesale reference price by state Ceasa or national average |
+
+Interactive Swagger documentation is available at `http://localhost:8080/docs`.
+
 ## Setup and Installation
 
 1. Install `uv` (Python Package Manager):
@@ -126,12 +143,15 @@ uv run pytest -v
 
 | Test file | What it covers |
 |---|---|
+| `tests/test_api_contracts.py` | API contract validation: status codes (200, 404, 415, 422), parameter validation and endpoint responses |
 | `tests/test_knowledge_base.py` | Knowledge base integrity: crop scope, CV label mapping, planting windows, companion relations, regional planting months |
 | `tests/test_market_dataset.py` | Market dataset integrity: scope, reference month, missing data, rounding, `crop_id` links to the knowledge base |
 | `tests/test_geo.py` | IBGE municipality/UF code → region, shared `Region` across datasets |
 | `tests/test_nlu_dataset.py` | NLU dataset: agreed intent set, 30-50 examples per intent, duplicates, crop coverage, no train/test leakage |
 | `tests/test_finance_forecast.py` | Forecasting methods, series building (edges never extended), validation without look-ahead, decision-record numbers and error targets, degraded and stale series, API contract |
 | `tests/test_nlu_answers.py` | Answer generation: every intent answered from the data, handoff when data is missing, no unfilled template |
+| `tests/test_cv_pipeline.py` | Computer Vision quality filtering, 224x224 standardization, EXIF removal (LGPD) and API endpoints |
+| `tests/test_privacy_compliance.py` | LGPD consent validation, facial blurring, text PII anonymization |
 
 Run a single file, e.g.:
 
