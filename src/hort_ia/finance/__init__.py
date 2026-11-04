@@ -9,13 +9,17 @@ from .forecast import (
     UnsupportedHorizonError,
     get_forecaster,
 )
+from .history import ApiHistoricalSource, HistoricalDataError, load_history
 
 __all__ = [
     "MODEL_VERSION",
+    "ApiHistoricalSource",
     "ForecastError",
     "Forecaster",
+    "HistoricalDataError",
     "PriceForecast",
     "UnknownIdError",
     "UnsupportedHorizonError",
     "get_forecaster",
+    "load_history",
 ]

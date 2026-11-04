@@ -6,8 +6,9 @@ from functools import lru_cache
 
 from pydantic import BaseModel
 
-from ..market import MarketDataset, get_market_dataset
+from ..market import MarketDataset
 from .backtest import HORIZONS, BacktestResult, ErrorStats, run_backtest
+from .history import load_history
 from .models import CANDIDATES, METHODS
 from .series import SeriesKey, add_months, build_series, latest_month
 
@@ -147,4 +148,4 @@ class Forecaster:
 @lru_cache(maxsize=1)
 def get_forecaster() -> Forecaster:
     """Cached instance for the FastAPI app (use as a dependency)."""
-    return Forecaster(get_market_dataset())
+    return Forecaster(load_history())
