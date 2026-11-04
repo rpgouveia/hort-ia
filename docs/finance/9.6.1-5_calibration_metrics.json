@@ -1,0 +1,220 @@
+{
+  "alpha": {
+    "1": {
+      "fixed": {
+        "0.1": {
+          "mape": 0.2456,
+          "mae": 1.1019,
+          "n": 540
+        },
+        "0.2": {
+          "mape": 0.2253,
+          "mae": 1.0105,
+          "n": 540
+        },
+        "0.3": {
+          "mape": 0.2187,
+          "mae": 0.9716,
+          "n": 540
+        },
+        "0.4": {
+          "mape": 0.2125,
+          "mae": 0.9342,
+          "n": 540
+        },
+        "0.5": {
+          "mape": 0.2063,
+          "mae": 0.8933,
+          "n": 540
+        },
+        "0.6": {
+          "mape": 0.1999,
+          "mae": 0.8537,
+          "n": 540
+        },
+        "0.7": {
+          "mape": 0.1944,
+          "mae": 0.8201,
+          "n": 540
+        },
+        "0.8": {
+          "mape": 0.1901,
+          "mae": 0.7955,
+          "n": 540
+        },
+        "0.9": {
+          "mape": 0.1873,
+          "mae": 0.7797,
+          "n": 540
+        }
+      },
+      "fitted_1_step": {
+        "mape": 0.193,
+        "mae": 0.8011,
+        "n": 540
+      },
+      "fitted_h_steps": {
+        "mape": 0.193,
+        "mae": 0.8011,
+        "n": 540
+      }
+    },
+    "3": {
+      "fixed": {
+        "0.1": {
+          "mape": 0.2764,
+          "mae": 1.3703,
+          "n": 430
+        },
+        "0.2": {
+          "mape": 0.2733,
+          "mae": 1.3607,
+          "n": 430
+        },
+        "0.3": {
+          "mape": 0.279,
+          "mae": 1.3843,
+          "n": 430
+        },
+        "0.4": {
+          "mape": 0.2889,
+          "mae": 1.4195,
+          "n": 430
+        },
+        "0.5": {
+          "mape": 0.2975,
+          "mae": 1.4485,
+          "n": 430
+        },
+        "0.6": {
+          "mape": 0.3056,
+          "mae": 1.4744,
+          "n": 430
+        },
+        "0.7": {
+          "mape": 0.3126,
+          "mae": 1.4956,
+          "n": 430
+        },
+        "0.8": {
+          "mape": 0.3183,
+          "mae": 1.5118,
+          "n": 430
+        },
+        "0.9": {
+          "mape": 0.3231,
+          "mae": 1.5244,
+          "n": 430
+        }
+      },
+      "fitted_1_step": {
+        "mape": 0.323,
+        "mae": 1.5255,
+        "n": 430
+      },
+      "fitted_h_steps": {
+        "mape": 0.3048,
+        "mae": 1.4789,
+        "n": 430
+      }
+    }
+  },
+  "window": {
+    "12": {
+      "1": {
+        "n": 705,
+        "mape": {
+          "naive": 0.177,
+          "seasonal_naive": 0.3155,
+          "ses": 0.1863
+        },
+        "selected": {
+          "alface": "naive",
+          "batata": "naive",
+          "cebola": "naive",
+          "cenoura": "naive",
+          "tomate": "seasonal_naive"
+        }
+      },
+      "3": {
+        "n": 595,
+        "mape": {
+          "naive": 0.2997,
+          "seasonal_naive": 0.2746,
+          "ses": 0.2828
+        },
+        "selected": {
+          "alface": "ses",
+          "batata": "ses",
+          "cebola": "naive",
+          "cenoura": "ses",
+          "tomate": "seasonal_naive"
+        }
+      }
+    },
+    "15": {
+      "1": {
+        "n": 540,
+        "mape": {
+          "naive": 0.1861,
+          "seasonal_naive": 0.2703,
+          "ses": 0.193
+        },
+        "selected": {
+          "alface": "naive",
+          "batata": "naive",
+          "cebola": "naive",
+          "cenoura": "naive",
+          "tomate": "seasonal_naive"
+        }
+      },
+      "3": {
+        "n": 430,
+        "mape": {
+          "naive": 0.3272,
+          "seasonal_naive": 0.2816,
+          "ses": 0.3048
+        },
+        "selected": {
+          "alface": "seasonal_naive",
+          "batata": "seasonal_naive",
+          "cebola": "naive",
+          "cenoura": "naive",
+          "tomate": "seasonal_naive"
+        }
+      }
+    },
+    "18": {
+      "1": {
+        "n": 375,
+        "mape": {
+          "naive": 0.2048,
+          "seasonal_naive": 0.2949,
+          "ses": 0.2133
+        },
+        "selected": {
+          "alface": "naive",
+          "batata": "naive",
+          "cebola": "naive",
+          "cenoura": "naive",
+          "tomate": "seasonal_naive"
+        }
+      },
+      "3": {
+        "n": 265,
+        "mape": {
+          "naive": 0.399,
+          "seasonal_naive": 0.3211,
+          "ses": 0.3741
+        },
+        "selected": {
+          "alface": "seasonal_naive",
+          "batata": "seasonal_naive",
+          "cebola": "naive",
+          "cenoura": "naive",
+          "tomate": "seasonal_naive"
+        }
+      }
+    }
+  }
+}

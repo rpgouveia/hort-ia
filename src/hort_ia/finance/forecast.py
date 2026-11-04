@@ -6,12 +6,13 @@ from functools import lru_cache
 
 from pydantic import BaseModel
 
-from ..market import MarketDataset, get_market_dataset
+from ..market import MarketDataset
 from .backtest import HORIZONS, BacktestResult, ErrorStats, run_backtest
+from .history import load_history
 from .models import CANDIDATES, METHODS
 from .series import SeriesKey, add_months, build_series, latest_month
 
-MODEL_VERSION = "1.0.0"  # bump when methods, selection or interval rules change
+MODEL_VERSION = "1.1.0"  # bump when methods, selection or interval rules change
 INTERVAL = (0.1, 0.9)  # 80% interval from the empirical distribution of validation errors
 
 
@@ -147,4 +148,4 @@ class Forecaster:
 @lru_cache(maxsize=1)
 def get_forecaster() -> Forecaster:
     """Cached instance for the FastAPI app (use as a dependency)."""
-    return Forecaster(get_market_dataset())
+    return Forecaster(load_history())

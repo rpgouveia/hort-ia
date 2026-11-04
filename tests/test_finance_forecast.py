@@ -135,7 +135,7 @@ def test_forecast_identifies_origin(forecaster):
     for args in [("alface", "ceagesp_sp", 1), ("alface", "ceasa_df_brasilia", 1), ("tomate", "ceasa_go_goiania", 3)]:
         f = forecaster.forecast(*args)
         assert f.source == "conab_boletim_hortigranjeiro"
-        assert f.model_version == MODEL_VERSION == "1.0.0"
+        assert f.model_version == MODEL_VERSION == "1.1.0"
         assert f.method in {"naive", "seasonal_naive", "ses"}
 
 
