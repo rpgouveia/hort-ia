@@ -9,6 +9,7 @@ Monthly price forecasts (R$/kg) for the 5 products of the Conab dataset (`data/m
 - **Origin** (contract with the finance team, item 5.2.3): every forecast carries `method`, `source` (id in `data/market/sources.json`) and `model_version` (`MODEL_VERSION`; bump it when methods, selection or interval rules change).
 - **Calibration** (9.6.1-5): the SES alpha is fitted for the horizon of the forecast; the validation window stays at 15 months. Evidence: `docs/finance/9.6.1-5_Calibracao.md`.
 - **Interval**: nominal 80% (10th-90th percentile) of the validation errors of the chosen method. Out of sample it covered 56% of the cases at 1 month and 36% at 3 months (`docs/finance/9.6.2-4_Validacao_Margem_Erro.md`), so do not present it as an 80% guarantee.
+- **Accepted use** (decision of 03/11/2026, 9.6.2-4): the 1-month forecast can be a premise; the 3-month forecast is information only, shown with an alert.
 - **Historical data** (9.6.1-6): the Conab files by default, or the API at `HORTIA_FINANCE_HISTORY_URL`, falling back to the files if it fails. The finance team has not sent its API yet, so `mock_history_api.py` serves the contract for now (`docs/finance/9.6.1-6_Integracao_Base_Historica.md`).
 - **Stale series**: CEASA/GO stopped publishing after 2026-06; its series ends there (edges are never extended) and the forecast carries a `warning`.
 - **Degraded mode**: series with fewer than 22 months (e.g. CEASA/DF) get a flagged naive forecast with no interval.
