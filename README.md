@@ -133,6 +133,8 @@ uv run pytest -v
 | `tests/test_geo.py` | IBGE municipality/UF code → region, shared `Region` across datasets |
 | `tests/test_nlu_dataset.py` | NLU dataset: agreed intent set, 30-50 examples per intent, duplicates, crop coverage, no train/test leakage |
 | `tests/test_finance_forecast.py` | Forecasting methods, series building (edges never extended), validation without look-ahead, decision-record numbers and error targets, degraded and stale series, API contract |
+| `tests/test_finance_calibration.py` | SES alpha per horizon, validation window, error targets per scenario, out-of-sample numbers |
+| `tests/test_finance_integration.py` | Forecast engine over real HTTP: historical data API contract and fallback, monthly dataset update, `/finance/price-forecast` end to end |
 | `tests/test_nlu_answers.py` | Answer generation: every intent answered from the data, handoff when data is missing, no unfilled template |
 
 Run a single file, e.g.:
