@@ -11,7 +11,7 @@ from .backtest import HORIZONS, BacktestResult, ErrorStats, run_backtest
 from .models import CANDIDATES, METHODS
 from .series import SeriesKey, add_months, build_series, latest_month
 
-MODEL_VERSION = "1.0.0"  # bump when methods, selection or interval rules change
+MODEL_VERSION = "1.1.0"  # bump when methods, selection or interval rules change
 INTERVAL = (0.1, 0.9)  # 80% interval from the empirical distribution of validation errors
 
 
