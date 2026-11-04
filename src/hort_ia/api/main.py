@@ -7,6 +7,7 @@ Built following Design by Contract principles.
 
 from fastapi import FastAPI
 
+from .commercial import router as commercial_router
 from .cv import router as cv_router
 from .finance import router as finance_router
 from .market import router as market_router
@@ -48,7 +49,8 @@ app = FastAPI(
     },
 )
 
-# Register routers for all AI subproject domains
+app.include_router(finance_router)
+app.include_router(commercial_router)
 app.include_router(cv_router)
 app.include_router(finance_router)
 app.include_router(recommender_router)
@@ -58,11 +60,10 @@ app.include_router(market_router)
 
 @app.get("/", tags=["health"])
 async def root():
-    """API health check and module status."""
-    return {
-        "status": "ok",
-        "module": "Hort-IA AI Module",
-        "version": "0.2.0",
-        "docs_url": "/docs",
-        "openapi_url": "/openapi.json",
-    }
+    """
+    API health check endpoint.
+    Returns a simple message if the server is running successfully.
+    """
+    return {"status": "ok", "message": "Hort-IA AI Module is running!"}
+
+# TODO: Add endpoints for the Recommender and the NLP assistant, and the matching routes of 9.5.1-5

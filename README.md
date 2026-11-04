@@ -6,7 +6,7 @@ AI Module for a Community Garden Management Application, designed to integrate w
 - **Computer Vision**: Pest and disease identification using PyTorch and OpenCV.
 - **Agronomic Recommender**: Personalized crop management recommendations.
 - **Conversational Assistant**: Lightweight NLP-based decision support.
-- **Commercial Matching**: Matchmaking algorithms between producers and buyers.
+- **Commercial Matching**: Price comparison against the closest Conab reference (UF → macro-region → national), with matchmaking between producers and buyers planned.
 - **Financial Predictive Models**: Monthly price forecasts (1 and 3 months ahead) for the Conab products, with intervals and per-product method selection. Revenue and ROI forecasting are planned.
 
 ## Tech Stack
@@ -38,7 +38,7 @@ hort-ia/
 │       ├── cv/           # Computer vision for pest/disease detection
 │       ├── recommender/  # Agronomic recommendation engine
 │       ├── nlp/          # Conversational assistant logic
-│       ├── commercial/   # Commercial matching and pricing
+│       ├── commercial/   # Reference prices and price comparison (matching engine planned)
 │       ├── finance/      # Price forecasting (naive, seasonal naive, SES) with rolling-origin validation
 │       └── core/         # Shared building blocks: source models, Brazilian geography (IBGE → region)
 ├── scripts/              # One-off dataset generators (kept for traceability)
@@ -71,6 +71,25 @@ region = region_from_ibge_code(4106902)  # Curitiba -> PR -> Region.SUL
 load_knowledge_base().crops["alface"].planting_months(region)
 # {"inverno": [2, ..., 10], "verao": [1, ..., 12]}; [] = "não recomendável", None = no data
 ```
+
+## Price comparison
+
+`hort_ia.commercial` tells a grower or a buyer how their price compares with the closest Conab
+reference available for their location, for the five quoted products. Approach and decision record:
+[docs/commercial/](docs/commercial/) · module notes: [src/hort_ia/commercial/README.md](src/hort_ia/commercial/README.md).
+
+- **Reference ladder**: entrepost(s) in the user's **UF** (median when the UF has more than one, as São Paulo does) → **median of the macro-region**, carrying the observed min-max → **weighted national mean**. An entrepost deviates from that national mean by 19.7% at the median and up to 146%, which is why the reference has to be local.
+- **Tolerance band**: the product's own volatility, measured on the price history rather than fixed in the code — alface 8%, batata 11%, cenoura 12%, cebola 13%, tomate 16%. At the national level, a flat ±30% with `degraded` set.
+- **Output**: reference level and entrepostos used, reference price and month, band, `deviation_pct`, position (`abaixo_da_faixa` / `na_faixa` / `acima_da_faixa`), published monthly change, `confidence` (1.00 local, 0.70 regional, 0.40 national), data `source`, `model_version`, `degraded` and `warning`. Omit the price and the answer carries only the reference and the band.
+- **Edge cases**: an entrepost up to 3 months behind is used from the last observed month with a wider band and a `warning` (CEASA/GO, 2026-06); further behind it is discarded and the ladder descends (CEASA/DF, 22 months). The Centro-Oeste has no regional reference, because its two Ceasas are exactly those two.
+- **Stateless**: no offer or demand is stored and no personal data reaches the module (9.1.2-4/-7). The engine is deterministic because the project has no negotiation history to learn a ranking from.
+
+```bash
+curl "http://localhost:8080/commercial/price-comparison?product_id=alface&ibge_code=4106902&price_brl_kg=4.30"
+```
+
+Give the location as `ibge_code` or `uf`, not both. Unknown product (a crop with no Conab quote) or
+unknown location returns 404, and a malformed or out-of-range parameter returns 422.
 
 ## Price forecasting
 
@@ -170,6 +189,12 @@ uv run python -m hort_ia.market
 Print the price forecasting validation report (MAPE/MAE per method and horizon):
 ```bash
 uv run python -m hort_ia.finance
+```
+
+Print the measured tolerance bands and staleness drift of the price comparison, and the reference
+level each UF reaches:
+```bash
+uv run python -m hort_ia.commercial
 ```
 
 Evaluate the NLU dataset with a baseline classifier (cross-validation, plus the held-out test set when filled):
