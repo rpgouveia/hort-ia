@@ -1,0 +1,245 @@
+{
+  "series": 55,
+  "latest_month": "2026-08",
+  "horizons": {
+    "1": {
+      "target": 0.2,
+      "selected_average_mape": 0.1748,
+      "out_of_sample": {
+        "n": 430,
+        "mape": 0.2038,
+        "naive_mape_same_origins": 0.1943,
+        "interval_coverage": 0.5605
+      },
+      "products": {
+        "alface": {
+          "method": "naive",
+          "mape": 0.1201,
+          "mae": 0.6452,
+          "naive_mae": 0.6452,
+          "n": 108,
+          "meets_target": true,
+          "not_worse_than_naive": true
+        },
+        "batata": {
+          "method": "naive",
+          "mape": 0.193,
+          "mae": 0.7518,
+          "naive_mae": 0.7518,
+          "n": 108,
+          "meets_target": true,
+          "not_worse_than_naive": true
+        },
+        "cebola": {
+          "method": "naive",
+          "mape": 0.1621,
+          "mae": 0.5406,
+          "naive_mae": 0.5406,
+          "n": 108,
+          "meets_target": true,
+          "not_worse_than_naive": true
+        },
+        "cenoura": {
+          "method": "naive",
+          "mape": 0.177,
+          "mae": 0.7719,
+          "naive_mae": 0.7719,
+          "n": 108,
+          "meets_target": true,
+          "not_worse_than_naive": true
+        },
+        "tomate": {
+          "method": "seasonal_naive",
+          "mape": 0.2216,
+          "mae": 0.9559,
+          "naive_mae": 1.1466,
+          "n": 108,
+          "meets_target": false,
+          "not_worse_than_naive": true
+        }
+      },
+      "extreme_changes_over_30pct": {
+        "count": 2,
+        "of": 55,
+        "rows": [
+          {
+            "product_id": "tomate",
+            "entrepost_id": "ceasa_es_vitoria",
+            "change_pct": -0.3922,
+            "method": "seasonal_naive"
+          },
+          {
+            "product_id": "tomate",
+            "entrepost_id": "ceasa_sp_campinas",
+            "change_pct": -0.316,
+            "method": "seasonal_naive"
+          }
+        ]
+      }
+    },
+    "3": {
+      "target": 0.3,
+      "selected_average_mape": 0.263,
+      "out_of_sample": {
+        "n": 210,
+        "mape": 0.3664,
+        "naive_mape_same_origins": 0.4058,
+        "interval_coverage": 0.3619
+      },
+      "products": {
+        "alface": {
+          "method": "seasonal_naive",
+          "mape": 0.2013,
+          "mae": 1.2069,
+          "naive_mae": 1.4601,
+          "n": 86,
+          "meets_target": true,
+          "not_worse_than_naive": true
+        },
+        "batata": {
+          "method": "seasonal_naive",
+          "mape": 0.2463,
+          "mae": 1.1548,
+          "naive_mae": 1.4419,
+          "n": 86,
+          "meets_target": true,
+          "not_worse_than_naive": true
+        },
+        "cebola": {
+          "method": "naive",
+          "mape": 0.2716,
+          "mae": 1.0408,
+          "naive_mae": 1.0408,
+          "n": 86,
+          "meets_target": true,
+          "not_worse_than_naive": true
+        },
+        "cenoura": {
+          "method": "naive",
+          "mape": 0.348,
+          "mae": 1.7715,
+          "naive_mae": 1.7715,
+          "n": 86,
+          "meets_target": false,
+          "not_worse_than_naive": true
+        },
+        "tomate": {
+          "method": "seasonal_naive",
+          "mape": 0.2478,
+          "mae": 1.1166,
+          "naive_mae": 1.9598,
+          "n": 86,
+          "meets_target": true,
+          "not_worse_than_naive": true
+        }
+      },
+      "extreme_changes_over_30pct": {
+        "count": 14,
+        "of": 55,
+        "rows": [
+          {
+            "product_id": "alface",
+            "entrepost_id": "ceasa_pr_curitiba",
+            "change_pct": -0.4122,
+            "method": "seasonal_naive"
+          },
+          {
+            "product_id": "alface",
+            "entrepost_id": "ceasa_sp_campinas",
+            "change_pct": -0.3185,
+            "method": "seasonal_naive"
+          },
+          {
+            "product_id": "batata",
+            "entrepost_id": "ceasa_ac_rio_branco",
+            "change_pct": -0.3521,
+            "method": "seasonal_naive"
+          },
+          {
+            "product_id": "batata",
+            "entrepost_id": "ceasa_go_goiania",
+            "change_pct": -0.6246,
+            "method": "seasonal_naive"
+          },
+          {
+            "product_id": "batata",
+            "entrepost_id": "ceasa_sc_sao_jose",
+            "change_pct": -0.4368,
+            "method": "seasonal_naive"
+          },
+          {
+            "product_id": "batata",
+            "entrepost_id": "ceasa_sp_campinas",
+            "change_pct": -0.3067,
+            "method": "seasonal_naive"
+          },
+          {
+            "product_id": "batata",
+            "entrepost_id": "ceasaminas_bh",
+            "change_pct": -0.3436,
+            "method": "seasonal_naive"
+          },
+          {
+            "product_id": "tomate",
+            "entrepost_id": "ceagesp_sp",
+            "change_pct": -0.5147,
+            "method": "seasonal_naive"
+          },
+          {
+            "product_id": "tomate",
+            "entrepost_id": "ceasa_ac_rio_branco",
+            "change_pct": -0.4042,
+            "method": "seasonal_naive"
+          },
+          {
+            "product_id": "tomate",
+            "entrepost_id": "ceasa_es_vitoria",
+            "change_pct": -0.521,
+            "method": "seasonal_naive"
+          },
+          {
+            "product_id": "tomate",
+            "entrepost_id": "ceasa_pr_curitiba",
+            "change_pct": -0.3459,
+            "method": "seasonal_naive"
+          },
+          {
+            "product_id": "tomate",
+            "entrepost_id": "ceasa_rj",
+            "change_pct": -0.4179,
+            "method": "seasonal_naive"
+          },
+          {
+            "product_id": "tomate",
+            "entrepost_id": "ceasa_sp_campinas",
+            "change_pct": -0.5167,
+            "method": "seasonal_naive"
+          },
+          {
+            "product_id": "tomate",
+            "entrepost_id": "ceasaminas_bh",
+            "change_pct": -0.3562,
+            "method": "seasonal_naive"
+          }
+        ]
+      }
+    }
+  },
+  "reported_apart": [
+    "tomate",
+    "cenoura"
+  ],
+  "special_series": {
+    "stale": {
+      "case": "tomate, CEASA/GO",
+      "reference_month": "2026-06",
+      "warning": "stale series: last observed month is 2026-06, dataset goes to 2026-08"
+    },
+    "degraded": {
+      "case": "alface, CEASA/DF",
+      "degraded": true,
+      "has_interval": false,
+      "warning": "only 3 months of data: naive forecast without validation; stale series: last observed month is 2024-10, dataset goes to 2026-08"
+    }
+  }
+}
