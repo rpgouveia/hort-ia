@@ -24,6 +24,8 @@ hort-ia/
 │   ├── finance/          # Financial dataset (planned)
 │   └── nlu/              # NLU training data for the conversational assistant
 ├── docs/                 # Project documentation (TAP, WBS, etc.)
+│   ├── commercial/       # WBS 9.5.1-3: approach and decision record for price comparison and matching
+│   ├── data/             # WBS 9.1.2: data treatment, LGPD and anonymisation reports
 │   ├── finance/          # WBS 9.6.1: approach comparison, indicator sheet, decision record
 │   └── nlu/              # Interview script for agronomists
 ├── notebooks/            # Jupyter notebooks for EDA and model training
