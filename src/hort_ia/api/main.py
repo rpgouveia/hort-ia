@@ -6,6 +6,7 @@ recommendations, NLP, and financial predictions.
 
 from fastapi import FastAPI
 
+from .commercial import router as commercial_router
 from .cv import router as cv_router
 from .finance import router as finance_router
 
@@ -16,6 +17,7 @@ app = FastAPI(
 )
 
 app.include_router(finance_router)
+app.include_router(commercial_router)
 app.include_router(cv_router)
 
 
@@ -27,4 +29,4 @@ async def root():
     """
     return {"status": "ok", "message": "Hort-IA AI Module is running!"}
 
-# TODO: Add endpoints for CV, Recommender, NLP, Commercial, and Finance
+# TODO: Add endpoints for the Recommender and the NLP assistant, and the matching routes of 9.5.1-5
