@@ -74,8 +74,10 @@ desconhecida, frase duplicada entre intenções e intenção com menos de 30 ou 
 
 ## Linha de base (out/2026, rascunho, validação cruzada)
 
-TF-IDF de n-gramas de caracteres + regressão logística: **76% de acurácia** em validação cruzada
-de 5 partes sobre os 318 exemplos do rascunho. Como os dados vêm de um autor só, esse número é um
+TF-IDF de n-gramas de caracteres + regressão logística: **73% de acurácia** em validação cruzada
+de 5 partes sobre os 318 exemplos do rascunho (média de 5 partições; a primeira medição, de uma
+partição só, deu 76%). A comparação com outras abordagens está no estudo de 9.4.1-1
+(`docs/nlu/9.4.1-1_Estudo_Abordagens_NLU.md`). Como os dados vêm de um autor só, esse número é um
 teto otimista; o número que vale é o do conjunto de teste.
 
 As confusões mais frequentes orientam a abordagem do motor (9.4.1-3):
