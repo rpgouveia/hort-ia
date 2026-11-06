@@ -1,5 +1,11 @@
-"""Agronomic recommendation endpoints (Embrapa knowledge base)."""
+"""Agronomic recommendation endpoints (Embrapa knowledge base).
 
+`POST /recommender/recommendations` is the engine of 9.3 (9.3.1-4), fed with the garden profile
+(9.3.1-5). `GET /recommender/what-to-plant` keeps its 9.7.1-3 contract and uses the same engine, so the
+API, the conversational assistant and the engine always agree on what can be planted.
+"""
+
+from datetime import date
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
@@ -7,6 +13,14 @@ from pydantic import BaseModel, Field
 
 from ..core.geo import Region, region_from_ibge_code
 from ..knowledge import KnowledgeBase, get_knowledge_base
+from ..recommender import MODEL_VERSION as ENGINE_VERSION
+from ..recommender import (
+    Profile,
+    RecommendationResult,
+    Recommender,
+    RecommenderError,
+    get_recommender,
+)
 
 router = APIRouter(prefix="/recommender", tags=["recommender"])
 MODEL_VERSION = "1.0.0"
@@ -66,7 +80,7 @@ def _resolve_region(ibge_code: int | str | None, region: str | None) -> Region:
             return region_from_ibge_code(ibge_code)
         except ValueError as err:
             raise HTTPException(
-                status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
                 detail=f"Código IBGE inválido: {err}",
             ) from err
 
@@ -76,12 +90,12 @@ def _resolve_region(ibge_code: int | str | None, region: str | None) -> Region:
         except ValueError as err:
             valid = [r.value for r in Region]
             raise HTTPException(
-                status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
                 detail=f"Região inválida ({region}). Opções válidas: {valid}",
             ) from err
 
     raise HTTPException(
-        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+        status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
         detail="É necessário informar ao menos 'ibge_code' ou 'region'.",
     )
 
@@ -191,33 +205,23 @@ async def companion_crops(
 async def what_to_plant(
     month: Annotated[int, Query(ge=1, le=12, description="Month of the year (1-12)")],
     kb: Annotated[KnowledgeBase, Depends(get_knowledge_base)],
+    engine: Annotated[Recommender, Depends(get_recommender)],
     ibge_code: Annotated[int | None, Query(description="IBGE municipality code")] = None,
     region: Annotated[str | None, Query(description="Brazilian macro-region")] = None,
     small_space: Annotated[bool, Query(description="Filter only crops suitable for small spaces / containers")] = False,
 ) -> WhatToPlantResponse:
     resolved_region = _resolve_region(ibge_code, region)
+    result = engine.recommend(Profile(region=resolved_region, month=month, small_space=small_space))
     recommended: list[RecommendedCropItem] = []
-
-    for crop in kb.crops.values():
-        by_variant = crop.planting_months(resolved_region) or {}
-        if any(month in months for months in by_variant.values()):
-            if small_space and crop.small_space_recommended is not True:
-                continue
-
-            cycle_str = None
-            if crop.planting_windows:
-                days = [w.harvest_start_days for w in crop.planting_windows if w.harvest_start_days]
-                if days:
-                    cycle_str = f"{min(d.min for d in days)} a {max(d.max for d in days)} dias"
-
-            recommended.append(
-                RecommendedCropItem(
-                    crop_id=crop.id,
-                    crop_name_pt=crop.name_pt,
-                    family=crop.family,
-                    cycle_days=cycle_str,
-                )
-            )
+    for item in result.recommendations:
+        crop = kb.crops[item.crop_id]
+        cycle_str = None
+        days = [w.harvest_start_days for w in crop.planting_windows if w.harvest_start_days]
+        if days:
+            cycle_str = f"{min(d.min for d in days)} a {max(d.max for d in days)} dias"
+        recommended.append(
+            RecommendedCropItem(crop_id=crop.id, crop_name_pt=crop.name_pt, family=crop.family, cycle_days=cycle_str)
+        )
 
     return WhatToPlantResponse(
         month=month,
@@ -225,4 +229,44 @@ async def what_to_plant(
         small_space=small_space,
         recommended_crops=sorted(recommended, key=lambda x: x.crop_name_pt),
         source="embrapa_ct_47_hortalicas",
+        model_version=ENGINE_VERSION,
     )
+
+
+class RecommendationRequest(BaseModel):
+    """Garden profile (9.3.1-3, section 4.1). `ibge_code` wins over `region`."""
+
+    ibge_code: int | None = Field(default=None, description="IBGE municipality (7 digits) or UF (2 digits) code")
+    region: str | None = Field(default=None, description="Macro-region ('sul', 'sudeste', etc.)")
+    month: int = Field(
+        default_factory=lambda: date.today().month, ge=1, le=12, description="Reference month (default: current)"
+    )
+    small_space: bool = Field(default=False, description="Only crops suitable for pots and small spaces")
+    planted: list[str] = Field(default=[], description="Crop ids already in the garden (companion planting)")
+    previous_crop: str | None = Field(default=None, description="Last crop of the bed (rotation by family)")
+
+
+@router.post(
+    "/recommendations",
+    response_model=RecommendationResult,
+    summary="Recommend crops for a garden profile",
+    description="Knowledge-based engine (9.3.1-3): hard filters (season, region, small space, already planted, "
+    "rotation) and a rule-based score (companion planting, pest repellents). Every item carries its reasons and "
+    "sources; excluded crops come with the filter that removed them.",
+)
+async def recommendations(
+    req: RecommendationRequest,
+    engine: Annotated[Recommender, Depends(get_recommender)],
+) -> RecommendationResult:
+    region = _resolve_region(req.ibge_code, req.region)
+    profile = Profile(
+        region=region,
+        month=req.month,
+        small_space=req.small_space,
+        planted=req.planted,
+        previous_crop=req.previous_crop,
+    )
+    try:
+        return engine.recommend(profile)
+    except RecommenderError as err:
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_CONTENT, detail=str(err)) from err
