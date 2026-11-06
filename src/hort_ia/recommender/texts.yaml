@@ -1,0 +1,32 @@
+# Textos das explicações do motor de recomendação (WBS 9.3.1-4).
+# Mesmas regras de escrita das respostas do assistente (data/nlu/README.md): frases curtas,
+# construções sem gênero e origem explícita quando a informação é tradicional.
+version: 1
+language: pt-BR
+
+months: [janeiro, fevereiro, março, abril, maio, junho, julho, agosto, setembro, outubro, novembro, dezembro]
+regions:
+  norte: No Norte
+  nordeste: No Nordeste
+  centro_oeste: No Centro-Oeste
+  sudeste: No Sudeste
+  sul: No Sul
+variants:
+  inverno: de inverno
+  verao: de verão
+evidence:
+  technical: indicação técnica
+  research: indicação de pesquisa
+  traditional: indicação tradicional
+
+reasons:
+  in_season: "{region}, dá para plantar {months}."
+  in_season_variant: "{crop} {variant}: {region_lower}, dá para plantar {months}."
+  season_ending: "A época de plantio termina em {month}."
+  companion_good: "Combina com {partner} ({evidence})."
+  pest_repellent: "Ajuda a afastar pragas das outras plantas da horta."
+  companion_bad: "Não combina com {partner} ({evidence})."
+
+warnings:
+  unknown_planted: "Planta sem dados na base, ignorada: {crop}."
+  unknown_previous: "Planta anterior sem dados na base, ignorada: {crop}."
