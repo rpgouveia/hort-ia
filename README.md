@@ -194,7 +194,7 @@ uv run pytest -v
 | `tests/test_finance_calibration.py` | SES alpha per horizon, validation window, error targets per scenario, out-of-sample numbers |
 | `tests/test_finance_integration.py` | Forecast engine over real HTTP: historical data API contract and fallback, monthly dataset update, `/finance/price-forecast` end to end |
 | `tests/test_recommender_engine.py` | Recommendation engine: reference cases of 9.3.1-3, properties over all 120 region × month × small-space profiles, score recomputed from the raw files, ordering, CLI |
-| `tests/test_recommender_integration.py` | Garden profile through `POST /recommender/recommendations`, 422s, `what-to-plant` and the assistant agreeing with the engine |
+| `tests/test_recommender_integration.py` | Knowledge files → engine → routes for every profile, data-only changes reaching the API, 422s, `what-to-plant`, the assistant and the other recommender routes agreeing with the engine |
 | `tests/test_nlu_answers.py` | Answer generation: every intent answered from the data, handoff when data is missing, no unfilled template |
 | `tests/test_cv_pipeline.py` | Computer Vision quality filtering, 224x224 standardization, EXIF removal (LGPD) and API endpoints |
 | `tests/test_privacy_compliance.py` | LGPD consent validation, facial blurring, text PII anonymization |
