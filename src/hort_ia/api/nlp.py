@@ -10,7 +10,16 @@ from pydantic import BaseModel, Field
 from ..core.geo import Region, region_from_ibge_code
 from ..knowledge import get_knowledge_base
 from ..market import get_market_dataset
-from ..nlp import Answer, Responder, load_templates
+from ..nlp import (
+    Answer,
+    DialogueContext,
+    DialogueError,
+    DialogueManager,
+    Reply,
+    Responder,
+    get_interpreter,
+    load_templates,
+)
 from ..recommender import get_recommender
 
 router = APIRouter(prefix="/nlp", tags=["nlp-conversational"])
@@ -26,6 +35,12 @@ def get_responder() -> Responder:
     """
     kb = get_knowledge_base()
     return Responder(kb=kb, templates=load_templates(), market=get_market_dataset(), recommender=get_recommender())
+
+
+@lru_cache(maxsize=1)
+def get_dialogue() -> DialogueManager:
+    """Cached dialogue manager (trains the intent classifier on first use, about 0.1 s)."""
+    return DialogueManager(get_interpreter(), get_responder())
 
 
 class NlpAnswerRequest(BaseModel):
@@ -91,3 +106,39 @@ async def generate_answer(
             status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
             detail=f"Intenção desconhecida: {req.intent!r}. Intenções válidas: 'planting_time', 'what_to_plant', 'crop_care', 'companion_planting', 'pest_disease', 'market_price', 'help', 'fallback'",
         )
+
+
+class NlpMessageRequest(BaseModel):
+    """A user message in free text, with the garden profile and the context of the previous reply."""
+
+    text: str = Field(min_length=1, max_length=500, description="User message, as typed")
+    ibge_code: int | None = Field(default=None, description="IBGE municipality (7 digits) or UF (2 digits) code")
+    small_space: bool = Field(default=False, description="The garden is in pots or a small space")
+    cv_label: str | None = Field(default=None, description="CV model label, when the message comes with a photo")
+    month: int | None = Field(default=None, ge=1, le=12, description="Reference month (default: current)")
+    context: DialogueContext | None = Field(default=None, description="`context` of the previous reply, as received")
+
+
+@router.post(
+    "/message",
+    response_model=Reply,
+    summary="Answer a free-text message (conversational engine)",
+    description="Understands the message (intent and entities), decides whether to answer, confirm, ask or fall back, "
+    "and answers from curated templates. Stateless: send back the `context` of each reply with the next message. "
+    "Decision record: docs/nlu/9.4.1-3_Abordagem_Motor_Conversacional.md.",
+)
+async def message(
+    req: NlpMessageRequest,
+    dialogue: Annotated[DialogueManager, Depends(get_dialogue)],
+) -> Reply:
+    try:
+        return dialogue.handle(
+            req.text,
+            ibge_code=req.ibge_code,
+            small_space=req.small_space,
+            month=req.month,
+            cv_label=req.cv_label,
+            context=req.context,
+        )
+    except DialogueError as err:
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_CONTENT, detail=str(err)) from err

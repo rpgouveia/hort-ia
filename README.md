@@ -141,6 +141,7 @@ The API is built using FastAPI following strict *Design by Contract* (DbC) princ
 | `/recommender/what-to-plant` | `GET` | Agronomic Recommender (Gestão / Assistência) | Recommended crops for the current month/location (optional small space filter), from the recommendation engine |
 | `/recommender/recommendations` | `POST` | Agronomic Recommender (Gestão / Assistência) | Ranked crops for a garden profile, with reasons, sources and excluded crops |
 | `/nlp/answer` | `POST` | Conversational Assistant (Assistência Técnica) | Template-based answers with citation and extensionist handoff flag |
+| `/nlp/message` | `POST` | Conversational Assistant (Assistência Técnica) | Free-text message: understands intent and entities, answers, confirms or asks back; stateless `context` round trip |
 | `/market/reference-price` | `GET` | Market Intelligence (Comercialização) | Wholesale reference price by state Ceasa or national average |
 
 Interactive Swagger documentation is available at `http://localhost:8080/docs`.
@@ -196,6 +197,7 @@ uv run pytest -v
 | `tests/test_recommender_engine.py` | Recommendation engine: reference cases of 9.3.1-3, properties over all 120 region × month × small-space profiles, score recomputed from the raw files, ordering, CLI |
 | `tests/test_recommender_integration.py` | Knowledge files → engine → routes for every profile, data-only changes reaching the API, 422s, `what-to-plant`, the assistant and the other recommender routes agreeing with the engine |
 | `tests/test_nlu_interpreter.py` | Message understanding: reference messages of 9.4.1-3, confidence bands, entity rule, crops (aliases, typos, order), month, care aspect, location, classifier figures of the study |
+| `tests/test_nlu_dialogue.py` | Dialogue manager and `POST /nlp/message`: reference conversations of 9.4.1-3, confidence bands, pending questions, crop inheritance, location, context without user text |
 | `tests/test_nlu_answers.py` | Answer generation: every intent answered from the data, handoff when data is missing, no unfilled template |
 | `tests/test_cv_pipeline.py` | Computer Vision quality filtering, 224x224 standardization, EXIF removal (LGPD) and API endpoints |
 | `tests/test_privacy_compliance.py` | LGPD consent validation, facial blurring, text PII anonymization |

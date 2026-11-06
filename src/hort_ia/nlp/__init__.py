@@ -9,15 +9,20 @@ from .dataset import (
     load_test_set,
     normalize,
 )
+from .dialogue import DialogueContext, DialogueError, DialogueManager, Reply
 from .nlu import EntityExtractor, Interpretation, Interpreter, Location, build_classifier, get_interpreter
 
 __all__ = [
     "Answer",
+    "DialogueContext",
+    "DialogueError",
+    "DialogueManager",
     "EntityExtractor",
     "IntentDataset",
     "Interpretation",
     "Interpreter",
     "Location",
+    "Reply",
     "Responder",
     "TestSet",
     "build_classifier",
