@@ -1,0 +1,129 @@
+diff --git a/docs/recommender/9.3.2-1_Plano_Casos_Teste.md b/docs/recommender/9.3.2-1_Plano_Casos_Teste.md
+new file mode 100644
+index 0000000..e33251b
+--- /dev/null
++++ b/docs/recommender/9.3.2-1_Plano_Casos_Teste.md
+@@ -0,0 +1,123 @@
++# Plano e casos de teste do motor de recomendação (WBS 9.3.2-1)
++
++> **Entregável:** 9.3.2-1 Elaborar plano e casos de teste unitários
++> **Pacote de trabalho:** 9.3.2 Testes do motor de recomendação agronômica · **Marco:** M9.3 (30/11/2026)
++> **Responsável:** Renato Gouveia · **Versão 1.0 — 06/11/2026** (planejada para 23/10/2026; 3 h)
++> **Executado em:** 9.3.2-2 (testes unitários) e 9.3.2-3 (testes de integração com o pipeline de dados)
++> **Status:** plano. **A meta de cobertura e a definição de falha crítica são propostas e dependem de aprovação da equipe**
++
++## 1. Escopo e critérios
++
++O Dicionário da EAP pede, para 9.3.2, "cobertura mínima de testes unitários definida pela equipe;
++testes de integração sem falhas críticas; UAT aprovado", sem fixar números. Este plano propõe os
++números e define o que conta como falha crítica.
++
++**O que é testado:** o motor (`hort_ia.recommender`), o caminho dos dados até ele (arquivos de
++`data/knowledge/` → `load_knowledge_base` → motor) e os três consumidores do motor: a rota
++`POST /recommender/recommendations`, a rota `GET /recommender/what-to-plant` e o assistente
++(`Responder.what_to_plant`).
++
++**Fora do plano** (Dicionário da EAP, exclusões de 9.3.2): correções estruturais do algoritmo, que
++voltam para 9.3.1; testes de carga e de infraestrutura. O UAT tem roteiro próprio (9.3.2-4).
++
++| Critério | Proposta | Situação em 06/11/2026 |
++|---|---|---|
++| Cobertura de linhas de `hort_ia.recommender` | Pelo menos 80%, a mesma meta proposta para 9.6 | **86%**: motor 99%, contrato 100%, linha de comando 0% (coberta por U13) |
++| Cobertura de linhas de `hort_ia/api/recommender.py` | Pelo menos 80% | **98%** |
++| Testes do motor e da integração | Todos passam | **34 de 34** |
++| Falhas críticas na integração | Nenhuma | Nenhuma conhecida; I1, I6 e I7 ainda a ampliar |
++| UAT | Aprovado | Não executado (9.3.2-5) |
++
++**Falha crítica** (proposta) é qualquer uma destas, porque leva a uma orientação agronômica errada
++ou a um consumidor sem resposta:
++
++1. recomendar cultura fora da época da região;
++2. recomendar, com `small_space`, cultura não indicada para pouco espaço;
++3. recomendar cultura da mesma família da cultura anterior do canteiro;
++4. rota respondendo 5xx a um perfil válido;
++5. API e assistente listando culturas diferentes para o mesmo perfil.
++
++Qualquer outra falha (ordem dentro de um empate, texto de explicação, campo opcional) é registrada e
++corrigida, mas não reprova o pacote.
++
++## 2. Casos de teste unitários (9.3.2-2)
++
++Arquivo: `tests/test_recommender_engine.py`. Os casos U1 a U5 já existem (22 testes, entregues com
++9.3.1-4); U6 a U13 são o trabalho de 9.3.2-2.
++
++| Id | Item | Caso | Resultado esperado | Situação |
++|---|---|---|---|---|
++| U1 | Casos de referência | R1 a R8 de 9.3.1-3, seção 6 | Lista, ordem, pontuação, excluídas e avisos exatos | Pronto |
++| U2 | Entrada inválida | E1 (código IBGE), E2 (mês) e perfil sem localização | `RecommenderError` ou erro de validação | Pronto |
++| U3 | Explicações | `in_season` com fonte em todo item; texto da variante; `season_ending`; repelente só com algo plantado | Códigos e textos exatos | Pronto |
++| U4 | Determinismo | Mesmo perfil duas vezes, com cultura plantada repetida | Resultados iguais | Pronto |
++| U5 | Meses restantes | Janela do ano todo, janela que vira o ano, último mês | 12, 4, 1 | Pronto |
++| U6 | Propriedades P1 a P6 | Os 120 perfis de região × mês × pouco espaço; P3 repetida com cada uma das 15 culturas como `planted` e como `previous_crop` | Nenhuma violação das propriedades da seção 6 de 9.3.1-3 | A implementar |
++| U7 | Pontuação | Todos os pares de culturas (15 × 14), um plantado por vez | Pontuação igual ao cálculo independente feito a partir de `companions.csv` e dos papéis de repelente | A implementar |
++| U8 | Ordenação | Os 120 perfis, com e sem algo plantado | Pontuação não crescente; no empate, meses restantes não decrescentes; depois, nome sem acento | A implementar |
++| U9 | Cultura anterior desconhecida | `previous_crop="mandioca"` | Aviso e nenhuma exclusão por família | A implementar (linhas sem cobertura) |
++| U10 | Relação contraditória | Cópia da base com o mesmo par favorável numa fonte e desfavorável em outra | O desfavorável prevalece | A implementar |
++| U11 | Lista vazia | Cópia da base sem janelas para uma região (com a base atual, nenhum dos 120 perfis fica vazio) | `recommendations` vazio, todas em `excluded`, sem erro | A implementar |
++| U12 | Textos | Todas as respostas de U6 | Nenhum `{` ou `}` sobrando; toda fonte não vazia | A implementar |
++| U13 | Linha de comando | `python -m hort_ia.recommender` com o perfil R2 e com código IBGE inválido | Lista na saída; erro com código de saída 2 | A implementar |
++
++As **propriedades** de U6 são as da seção 6 de 9.3.1-3:
++
++- P1: nenhuma cultura recomendada está fora da época da região;
++- P2: com `small_space`, nenhuma tem indicação `false` ou `null`;
++- P3: nenhuma está em `planted` nem é da família de `previous_crop`;
++- P4: toda cultura do catálogo está em `recommendations` ou em `excluded`, nunca nas duas;
++- P5: toda recomendação tem `in_season` com fonte;
++- P6: a mesma entrada gera a mesma saída.
++
++P1 a P3 cobrem as três primeiras falhas críticas.
++
++## 3. Casos de teste de integração com o pipeline de dados (9.3.2-3)
++
++Arquivo: `tests/test_recommender_integration.py`. Os casos I4, I5 e I8 já existem (12 testes,
++entregues com 9.3.1-5); os demais são o trabalho de 9.3.2-3. As chamadas usam o `TestClient` do
++Starlette, que executa a aplicação FastAPI inteira em processo, sem servidor.
++
++Os testes de integridade da base (`tests/test_knowledge_base.py`, 26 testes) e da geografia
++(`tests/test_geo.py`, 14 testes) são a parte de dados do pipeline, já prontos. Eles rejeitam cultura
++desconhecida, identificador duplicado, mês inválido e janela sobreposta antes de o motor carregar a
++base, e este plano os referencia em vez de repeti-los.
++
++| Id | Caminho | Caso | Resultado esperado | Situação |
++|---|---|---|---|---|
++| I1 | Arquivos → carregador → motor | Base real de `data/knowledge/`, os 120 perfis de U6 | Nenhuma exceção; P1 a P5 válidas | A implementar |
++| I2 | Mudança só nos dados | Cópia da base com morango indicado para pouco espaço | Morango passa a aparecer para Curitiba, março, pouco espaço (hoje excluído por `no_small_space_info`), sem mudar código | A implementar |
++| I3 | Mudança só nos dados | Cópia da base com uma relação favorável nova | A pontuação e o motivo `companion_good` refletem a relação | A implementar |
++| I4 | Cliente → rota → motor | `POST /recommender/recommendations` com os perfis R2 e R7 | Mesma lista do motor, motivos e avisos | Pronto |
++| I5 | Cliente → rota | Código IBGE inválido, região inválida, sem localização, mês 13; mês omitido | 422; 200 com o mês corrente | Pronto |
++| I6 | Rota GET = motor | `GET /recommender/what-to-plant` nos 120 perfis (hoje, 3) | Mesmo conjunto de culturas do motor, em ordem alfabética | Ampliar |
++| I7 | Assistente = motor | `Responder.what_to_plant` nos 120 perfis (hoje, 1) | Mesmas culturas, na ordem do motor; resposta `none` com encaminhamento quando a lista é vazia | Ampliar |
++| I8 | Cliente → `/nlp/answer` | Intenção `what_to_plant` | 200, mesma lista do motor (regressão do erro de cache) | Pronto |
++| I9 | Coerência entre rotas | Para cada recomendação de R3: `planting-calendar` da cultura e `companion-crops` do tomate | O mês está na janela devolvida; cada `companion_good` aparece como favorável | A implementar |
++
++I6 e I7 cobrem a quinta falha crítica; I1 e I5, a quarta.
++
++## 4. Execução
++
++```bash
++uv run pytest tests/test_recommender_engine.py tests/test_recommender_integration.py \
++  tests/test_knowledge_base.py tests/test_geo.py -v
++```
++
++A cobertura é medida com o pacote `coverage`, instalado à parte, sem incluir nova dependência no
++projeto (o mesmo procedimento de 9.6.2):
++
++```bash
++uv run --with coverage coverage run --source=src/hort_ia/recommender -m pytest \
++  tests/test_recommender_engine.py tests/test_recommender_integration.py
++uv run --with coverage coverage report -m
++```
++
++## 5. Fora deste plano
++
++- **Perfil real da plataforma** (o que está plantado e a cultura anterior): depende da resposta do
++  módulo consumidor (pendência 2 de 9.3.1-3). Até lá, a integração é testada com perfis montados nos
++  testes.
++- **Utilidade das recomendações** (meta de 70% da entrega 9.3): medida no UAT, conforme a seção 7 de
++  9.3.1-3 e o roteiro de 9.3.2-4.
++- **Relatório consolidado** de unitários, integração e UAT: 9.3.2-6.
