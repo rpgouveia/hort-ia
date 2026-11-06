@@ -1,7 +1,8 @@
 # Comparacao de abordagens de NLU para o assistente conversacional (atividade 9.4.1-1).
 # Uso, da raiz do repositorio: uv run python docs/nlu/exploratory_nlu_approaches.py
 # Dados: data/nlu/intents.yaml (rascunho, 318 frases) e a base de conhecimento (sinonimos das culturas).
-# Reproduz todos os numeros citados em 9.4.1-1_Estudo_Abordagens_NLU.md.
+# Reproduz todos os numeros citados em 9.4.1-1_Estudo_Abordagens_NLU.md e na secao 3 de
+# 9.4.1-3_Abordagem_Motor_Conversacional.md.
 # Todos os resultados sao de validacao cruzada sobre o rascunho: servem para comparar abordagens,
 # nao para estimar a acuracia com usuarios reais (ver o conjunto de teste em data/nlu/).
 import re
@@ -99,6 +100,19 @@ def crop_rule(pred, has_crop):
     return out
 
 
+def crop_rule_one_way(pred, has_crop):
+    """Versao adotada em 9.4.1-3: so promove what_to_plant a planting_time quando ha cultura.
+
+    planting_time sem cultura continua planting_time, e o dialogo pergunta a planta. Assim uma cultura
+    fora do catalogo ("quando planto mandioca?") nao vira a lista de "o que plantar agora".
+    """
+    out = pred.copy()
+    for i, p in enumerate(pred):
+        if p == PAIR[1] and has_crop[i]:
+            out[i] = PAIR[0]
+    return out
+
+
 def pair_errors(y, pred):
     return int(sum((t in PAIR) and (p in PAIR) and t != p for t, p in zip(y, pred)))
 
@@ -142,6 +156,7 @@ def main():
         ("+ regra com dicionario exato", [crop_rule(p, exact) for p in base]),
         ("+ regra com busca tolerante", [crop_rule(p, fuzzy) for p in base]),
         ("modelo E + regra com busca tolerante", [crop_rule(p, fuzzy) for p in preds[COMBINED]]),
+        ("modelo E + regra so em um sentido (9.4.1-3)", [crop_rule_one_way(p, fuzzy) for p in preds[COMBINED]]),
     ]:
         acc = np.mean([accuracy_score(y, p) for p in rows])
         err = np.mean([pair_errors(y, p) for p in rows])
