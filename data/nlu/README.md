@@ -88,6 +88,23 @@ As confusões mais frequentes orientam a abordagem do motor (9.4.1-3):
   Um limiar de confiança no classificador tende a funcionar melhor do que tratá-la como classe comum.
 - `help` × `fallback`: perguntas sobre o uso do aplicativo ficam na fronteira entre as duas.
 
+## Interpretação das mensagens (9.4.1-4)
+
+O NLU que usa este dataset está em `hort_ia.nlp.nlu` (`Interpreter`), conforme a abordagem de
+`docs/nlu/9.4.1-3_Abordagem_Motor_Conversacional.md`: o modelo E do estudo de 9.4.1-1 (caracteres +
+palavras, regressão logística), **treinado na inicialização a partir deste arquivo**, e as entidades
+por dicionário gerado da base de conhecimento. Por isso:
+
+- mudar `intents.yaml` muda o assistente na próxima inicialização, sem passo de "retreinar e salvar";
+- um sinônimo novo em `data/knowledge/crops.json` passa a ser entendido sem mudar código;
+- antes de mandar uma mudança, rode `uv run pytest tests/test_nlu_dataset.py tests/test_nlu_interpreter.py`.
+
+Para ver o que o assistente entende de uma frase:
+
+```bash
+uv run python -m hort_ia.nlp "qndo plantar alfase?"
+```
+
 ## Respostas (seção 5.2)
 
 **Decisão: sem modelo de linguagem para gerar respostas.** A equipe não vai usar API paga, e um
