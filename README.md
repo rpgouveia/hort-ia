@@ -72,6 +72,26 @@ load_knowledge_base().crops["alface"].planting_months(region)
 # {"inverno": [2, ..., 10], "verao": [1, ..., 12]}; [] = "não recomendável", None = no data
 ```
 
+## Agronomic recommendation
+
+`hort_ia.recommender` tells a grower what to plant now, given the garden: location, month, small
+space, what is already planted and the previous crop of the bed. Study, approach and decision
+record: [docs/recommender/](docs/recommender/) · module notes: [src/hort_ia/recommender/README.md](src/hort_ia/recommender/README.md).
+
+- **Knowledge-based**: hard filters on the knowledge base — no data for the region, out of season, unsuited to small spaces, already planted, same family as the previous crop (rotation) — each exclusion with its reason. There is no interaction history yet, so nothing is learned.
+- **Score**: +1 per planted crop it combines with, −1 per planted crop it does not, +0.5 for a pest-repellent crop when something is planted. Companion relations only order the list because they are traditional; rotation excludes because it has a technical source.
+- **Order**: score, then the season that ends first, then the name. Deterministic.
+- **Output**: ranked crops with `reasons` and `warnings` (code, Portuguese text, source), excluded crops with their reason, `approach` and `model_version`.
+- **Same engine everywhere**: `GET /recommender/what-to-plant` and the conversational assistant take their lists from it.
+
+```bash
+curl -X POST http://localhost:8080/recommender/recommendations -H "Content-Type: application/json" \
+  -d '{"ibge_code": 4106902, "month": 11, "small_space": true, "planted": ["tomate"]}'
+```
+
+An invalid or missing location, or a month outside 1-12, returns 422. Unknown crops in the profile
+are ignored and reported in `warnings`.
+
 ## Price comparison
 
 `hort_ia.commercial` tells a grower or a buyer how their price compares with the closest Conab
@@ -118,7 +138,8 @@ The API is built using FastAPI following strict *Design by Contract* (DbC) princ
 | `/finance/price-forecast` | `GET` | Price Forecasting (Financeiro) | Forecasts monthly price (1 and 3 months ahead) with 80% interval |
 | `/recommender/planting-calendar` | `GET` | Agronomic Recommender (Gestão / Assistência) | Regional planting windows by IBGE municipality code or macro-region |
 | `/recommender/companion-crops` | `GET` | Agronomic Recommender (Gestão de Operação) | Beneficial and antagonistic companion crops (consórcios) |
-| `/recommender/what-to-plant` | `GET` | Agronomic Recommender (Gestão / Assistência) | Recommended crops for the current month/location (optional small space filter) |
+| `/recommender/what-to-plant` | `GET` | Agronomic Recommender (Gestão / Assistência) | Recommended crops for the current month/location (optional small space filter), from the recommendation engine |
+| `/recommender/recommendations` | `POST` | Agronomic Recommender (Gestão / Assistência) | Ranked crops for a garden profile, with reasons, sources and excluded crops |
 | `/nlp/answer` | `POST` | Conversational Assistant (Assistência Técnica) | Template-based answers with citation and extensionist handoff flag |
 | `/market/reference-price` | `GET` | Market Intelligence (Comercialização) | Wholesale reference price by state Ceasa or national average |
 
@@ -172,6 +193,8 @@ uv run pytest -v
 | `tests/test_finance_forecast.py` | Forecasting methods, series building (edges never extended), validation without look-ahead, decision-record numbers and error targets, degraded and stale series, API contract |
 | `tests/test_finance_calibration.py` | SES alpha per horizon, validation window, error targets per scenario, out-of-sample numbers |
 | `tests/test_finance_integration.py` | Forecast engine over real HTTP: historical data API contract and fallback, monthly dataset update, `/finance/price-forecast` end to end |
+| `tests/test_recommender_engine.py` | Recommendation engine: reference cases of 9.3.1-3 (filters, score, order), explanations, determinism |
+| `tests/test_recommender_integration.py` | Garden profile through `POST /recommender/recommendations`, 422s, `what-to-plant` and the assistant agreeing with the engine |
 | `tests/test_nlu_answers.py` | Answer generation: every intent answered from the data, handoff when data is missing, no unfilled template |
 | `tests/test_cv_pipeline.py` | Computer Vision quality filtering, 224x224 standardization, EXIF removal (LGPD) and API endpoints |
 | `tests/test_privacy_compliance.py` | LGPD consent validation, facial blurring, text PII anonymization |
@@ -191,6 +214,11 @@ uv run python -m hort_ia.market
 Print the price forecasting validation report (MAPE/MAE per method and horizon):
 ```bash
 uv run python -m hort_ia.finance
+```
+
+Recommend crops for a garden profile, with reasons and exclusions:
+```bash
+uv run python -m hort_ia.recommender --ibge 4106902 --month 11 --small-space --planted tomate
 ```
 
 Print the measured tolerance bands and staleness drift of the price comparison, and the reference
