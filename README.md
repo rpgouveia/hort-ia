@@ -195,6 +195,7 @@ uv run pytest -v
 | `tests/test_finance_integration.py` | Forecast engine over real HTTP: historical data API contract and fallback, monthly dataset update, `/finance/price-forecast` end to end |
 | `tests/test_recommender_engine.py` | Recommendation engine: reference cases of 9.3.1-3, properties over all 120 region × month × small-space profiles, score recomputed from the raw files, ordering, CLI |
 | `tests/test_recommender_integration.py` | Knowledge files → engine → routes for every profile, data-only changes reaching the API, 422s, `what-to-plant`, the assistant and the other recommender routes agreeing with the engine |
+| `tests/test_nlu_interpreter.py` | Message understanding: reference messages of 9.4.1-3, confidence bands, entity rule, crops (aliases, typos, order), month, care aspect, location, classifier figures of the study |
 | `tests/test_nlu_answers.py` | Answer generation: every intent answered from the data, handoff when data is missing, no unfilled template |
 | `tests/test_cv_pipeline.py` | Computer Vision quality filtering, 224x224 standardization, EXIF removal (LGPD) and API endpoints |
 | `tests/test_privacy_compliance.py` | LGPD consent validation, facial blurring, text PII anonymization |
@@ -225,6 +226,11 @@ Print the measured tolerance bands and staleness drift of the price comparison, 
 level each UF reaches:
 ```bash
 uv run python -m hort_ia.commercial
+```
+
+Show what the assistant understands of a message (intent, confidence, entities):
+```bash
+uv run python -m hort_ia.nlp "qndo plantar alfase?"
 ```
 
 Evaluate the NLU dataset with a baseline classifier (cross-validation, plus the held-out test set when filled):
