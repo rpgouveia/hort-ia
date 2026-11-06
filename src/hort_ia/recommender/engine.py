@@ -19,6 +19,7 @@ from pathlib import Path
 
 import yaml
 
+from ..core.calendar import format_months
 from ..core.geo import Region, region_from_ibge_code
 from ..core.sources import SourceRef
 from ..knowledge import KnowledgeBase, get_knowledge_base
@@ -250,26 +251,7 @@ class Recommender:
         return f"{label}, p. {ref.pages}" if ref.pages else label
 
     def _format_months(self, months: list[int]) -> str:
-        """[2..10] -> 'de fevereiro a outubro'; wraps the year; 12 months -> 'o ano todo'.
-
-        Same rule as `hort_ia.nlp.Responder.format_months`; the assistant will call this engine in
-        9.3.1-5, and then only one of the two is needed.
-        """
-        selected = set(months)
-        if len(selected) == 12:
-            return "o ano todo"
-        names = self.t["months"]
-        runs = []
-        for start in sorted(selected):
-            if (start - 2) % 12 + 1 in selected:
-                continue  # not the start of a run
-            end = start
-            while end % 12 + 1 in selected:
-                end = end % 12 + 1
-            runs.append((start, end))
-        runs.sort(key=lambda run: months.index(run[0]))  # keep the source's order (e.g. set-mai)
-        parts = [f"em {names[s - 1]}" if s == e else f"de {names[s - 1]} a {names[e - 1]}" for s, e in runs]
-        return " e ".join(parts)
+        return format_months(months, self.t["months"])
 
 
 @lru_cache(maxsize=1)

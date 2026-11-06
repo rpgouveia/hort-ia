@@ -8,20 +8,24 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel, Field
 
 from ..core.geo import Region, region_from_ibge_code
-from ..knowledge import KnowledgeBase, get_knowledge_base
-from ..market import MarketDataset, get_market_dataset
+from ..knowledge import get_knowledge_base
+from ..market import get_market_dataset
 from ..nlp import Answer, Responder, load_templates
+from ..recommender import get_recommender
 
 router = APIRouter(prefix="/nlp", tags=["nlp-conversational"])
 
 
 @lru_cache(maxsize=1)
-def get_responder(
-    kb: Annotated[KnowledgeBase, Depends(get_knowledge_base)],
-    market: Annotated[MarketDataset, Depends(get_market_dataset)],
-) -> Responder:
-    templates = load_templates()
-    return Responder(kb=kb, templates=templates, market=market)
+def get_responder() -> Responder:
+    """Cached instance for the routes (use as a dependency).
+
+    It takes no arguments on purpose: `lru_cache` hashes its arguments, and the knowledge base and the
+    market dataset are not hashable (they hold dicts). Receiving them through `Depends` made every
+    call fail with `TypeError: unhashable type: 'dict'`.
+    """
+    kb = get_knowledge_base()
+    return Responder(kb=kb, templates=load_templates(), market=get_market_dataset(), recommender=get_recommender())
 
 
 class NlpAnswerRequest(BaseModel):
@@ -84,6 +88,6 @@ async def generate_answer(
         return responder.fallback()
     else:
         raise HTTPException(
-            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
             detail=f"Intenção desconhecida: {req.intent!r}. Intenções válidas: 'planting_time', 'what_to_plant', 'crop_care', 'companion_planting', 'pest_disease', 'market_price', 'help', 'fallback'",
         )

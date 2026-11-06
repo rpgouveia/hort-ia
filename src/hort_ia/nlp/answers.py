@@ -17,9 +17,11 @@ from pathlib import Path
 import yaml
 from pydantic import BaseModel
 
+from ..core.calendar import format_months
 from ..core.geo import Region
 from ..core.sources import SourceRef
 from ..knowledge.models import Crop, Evidence, KnowledgeBase
+from ..recommender import Profile, Recommender
 from .dataset import EntityType, nlu_dir
 
 
@@ -43,6 +45,7 @@ class Responder:
     kb: KnowledgeBase
     templates: dict
     market: object | None = None  # hort_ia.market MarketDataset, optional
+    recommender: Recommender | None = None  # built from `kb` on first use when not given
 
     @property
     def _t(self) -> dict:
@@ -55,23 +58,7 @@ class Responder:
 
     def format_months(self, months: list[int]) -> str:
         """[2..10] -> 'de fevereiro a outubro'; wraps the year; 12 months -> 'o ano todo'."""
-        selected = set(months)
-        if len(selected) == 12:
-            return "o ano todo"
-        runs = []
-        for start in sorted(selected):
-            if (start - 2) % 12 + 1 in selected:
-                continue  # not the start of a run
-            end = start
-            while end % 12 + 1 in selected:
-                end = end % 12 + 1
-            runs.append((start, end))
-        runs.sort(key=lambda r: months.index(r[0]))  # keep the source's order (e.g. set-mai)
-        parts = [
-            f"em {self.month_name(s)}" if s == e else f"de {self.month_name(s)} a {self.month_name(e)}"
-            for s, e in runs
-        ]
-        return " e ".join(parts)
+        return format_months(months, self._t["months"])
 
     @staticmethod
     def join(items: list[str]) -> str:
@@ -145,13 +132,11 @@ class Responder:
         t, intent = self._t["what_to_plant"], "what_to_plant"
         if region is None:
             return self._answer(intent, [self._t["common"]["ask_location"]], missing_entity=EntityType.LOCATION)
-        crops = []
-        for crop in self.kb.crops.values():
-            by_variant = crop.planting_months(region) or {}
-            if any(month in months for months in by_variant.values()):
-                if small_space and crop.small_space_recommended is not True:
-                    continue
-                crops.append(self.crop_name(crop))
+        # Same list and order as the recommendation engine (9.3.1-3, decision D6).
+        if self.recommender is None:
+            self.recommender = Recommender(self.kb)
+        result = self.recommender.recommend(Profile(region=region, month=month, small_space=small_space))
+        crops = [item.crop_name_pt.lower() for item in result.recommendations]
         where, month_name = self.region_label(region), self.month_name(month)
         if not crops:
             return self._answer(intent, [t["none"].format(month=month_name, region=where)], handoff=True)
