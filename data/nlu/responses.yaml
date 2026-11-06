@@ -84,3 +84,24 @@ help:
 
 fallback:
   text: "Essa pergunta eu não sei responder."
+
+# Dialogue manager (9.4.1-5): confirmations and follow-up questions. Decision record: 9.4.1-3, sections 4.4-4.5.
+dialogue:
+  confirm_intent:
+    planting_time: "Você quer saber quando plantar {crop}?"
+    planting_time_no_crop: "Você quer saber a época de plantio?"
+    what_to_plant: "Você quer saber o que dá para plantar agora?"
+    crop_care: "Você quer saber como cuidar de {crop}?"
+    crop_care_no_crop: "Você quer saber como cuidar das plantas?"
+    companion_planting: "Você quer saber o que combina com {crop}?"
+    companion_planting_rotation: "Você quer saber o que plantar depois de {crop}?"
+    companion_planting_no_crop: "Você quer saber quais plantas combinam entre si?"
+    pest_disease: "Você quer saber sobre praga ou doença em {crop}?"
+    pest_disease_no_crop: "Você quer saber sobre praga ou doença na horta?"
+    market_price: "Você quer saber o preço de {crop}?"
+    market_price_no_crop: "Você quer saber o preço de alguma planta?"
+    help: "Você quer saber o que eu sei fazer?"
+  confirm_crop: "Você quis dizer {crop}?"
+  ask_intent: "O que você quer saber sobre {crop}? Posso falar de época de plantio, cuidados, plantas que combinam, pragas e preço."
+  ask_location_again: "Não reconheci o lugar. Me diga o estado, por exemplo Paraná ou PR, ou a região, por exemplo Sul."
+  rephrase: "Desculpe, não entendi. Pode perguntar de outro jeito?"

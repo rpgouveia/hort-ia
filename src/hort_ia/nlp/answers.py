@@ -276,6 +276,11 @@ class Responder:
         source = m.sources.get("conab_boletim_hortigranjeiro")
         return self._answer(intent, lines, sources=[source.title] if source else [])
 
+    def unknown_crop(self, intent: str) -> Answer:
+        """The user named a plant the base does not have (the dialogue could not recognize it)."""
+        known = self.join(sorted(cr.name_pt.lower() for cr in self.kb.crops.values()))
+        return self._answer(intent, [self._t["common"]["unknown_crop"].format(crops=known)], handoff=True)
+
     def help(self) -> Answer:
         return self._answer("help", [self._t["help"]["text"]])
 

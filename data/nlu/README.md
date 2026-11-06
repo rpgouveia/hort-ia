@@ -105,6 +105,26 @@ Para ver o que o assistente entende de uma frase:
 uv run python -m hort_ia.nlp "qndo plantar alfase?"
 ```
 
+## Conversa (9.4.1-5)
+
+O gerenciador de diálogo (`hort_ia.nlp.dialogue`) decide, a cada mensagem, se responde, confirma,
+pergunta ou encaminha (seção 4.4 de 9.4.1-3). A rota é `POST /nlp/message`:
+
+```bash
+curl -X POST http://localhost:8080/nlp/message -H "Content-Type: application/json" \
+  -d '{"text": "quando eu planto?", "ibge_code": 4106902}'
+# {"decision": "ask", "text": "De qual planta você está falando?", ..., "context": {...}}
+```
+
+A interface guarda o `context` de cada resposta e o devolve na mensagem seguinte; o servidor não
+guarda conversa nenhuma. O contexto tem só identificadores (intenção, cultura, pergunta pendente),
+nunca o texto do usuário. `decision` diz o que a interface pode mostrar: `confirm` pede botões
+Sim/Não; `ask`, uma resposta curta; `fallback` vem com `handoff`.
+
+Os limites de confiança (`ANSWER_AT = 0.5`, `CONFIRM_AT = 0.3`) são valores iniciais e serão
+recalibrados no conjunto de teste (9.4.2-2). Os textos das confirmações e perguntas ficam na seção
+`dialogue` de `responses.yaml`.
+
 ## Respostas (seção 5.2)
 
 **Decisão: sem modelo de linguagem para gerar respostas.** A equipe não vai usar API paga, e um
