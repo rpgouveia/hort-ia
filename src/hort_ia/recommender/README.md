@@ -116,13 +116,12 @@ with the assistant.
 
 | File | What it covers |
 |---|---|
-| `tests/test_recommender_engine.py` | Reference cases R1-R8, E1-E2 of 9.3.1-3 (section 6); explanations, repellent rule, determinism, months left |
+| `tests/test_recommender_engine.py` | Reference cases R1-R8, E1-E2 of 9.3.1-3 (section 6); explanations, determinism; properties P1-P6 over the 120 profiles, score recomputed from the raw files, ordering, contradictory and empty bases, CLI (cases U1-U13 of 9.3.2-1) |
 | `tests/test_recommender_integration.py` | Profile through `POST /recommender/recommendations`, 422s, `what-to-plant` and the assistant agreeing with the engine |
 
-The properties over every region × month × small-space profile (120 profiles: nothing out of season,
-nothing unsuited to small spaces, nothing from the family of the previous crop, every crop either
-recommended or excluded, every item with a sourced `in_season`) are the unit test plan of 9.3.2.
-`docs/recommender/exploratory_recommender_cases.py` is the prototype that fixed the reference cases.
+Test plan, coverage target and the definition of a critical failure:
+`docs/recommender/9.3.2-1_Plano_Casos_Teste.md`. `docs/recommender/exploratory_recommender_cases.py` is
+the prototype that fixed the reference cases.
 
 ## Limits
 
