@@ -105,7 +105,7 @@
     "responsible": "Renato Gouveia",
     "package": "9.3.1 Desenvolvimento do motor de recomendação agronômica",
     "deliverable": "9.3 Sistema de Recomendação Agronômica",
-    "body": "**Pacote da EAP:** 9.3.1 Desenvolvimento do motor de recomendação agronômica — entrega 9.3 Sistema de Recomendação Agronômica\n**Responsável:** Renato Gouveia\n**Andamento no Gantt (v10, 21/10/2026):** 25% · 6 h planejadas · 4,5 h restantes\n**Período planejado:** 16/10 → 18/10 · Marco: M9.6 Aprovação do Motor de Modelos Preditivos Financeiros (30/11)\n**Depende de:** 9.3.1-3, 9.3.1-7\n**Bloqueia:** 9.3.1-5\n\n> ⚠️ **Atrasada:** término planejado em 18/10.\n\n**Critério de aceitação do pacote (Dicionário da EAP):** Motor gera recomendações consistentes para os casos de teste definidos.\n\n**Última nota do Gantt:** Nota 21/10/2026: passa a depender de 9.3.1-7 (FS): o algoritmo consome a base de conhecimento agronômica."
+    "body": "**Pacote da EAP:** 9.3.1 Desenvolvimento do motor de recomendação agronômica — entrega 9.3 Sistema de Recomendação Agronômica\n**Responsável:** Renato Gouveia\n**Andamento no Gantt (v10, 21/10/2026):** 25% · 6 h planejadas · 4,5 h restantes\n**Período planejado:** 16/10 → 18/10 · Marco: M9.3 Aprovação do Motor de Recomendação Agronômica (30/11)\n**Depende de:** 9.3.1-3, 9.3.1-7\n**Bloqueia:** 9.3.1-5\n\n> ⚠️ **Atrasada:** término planejado em 18/10.\n\n**Critério de aceitação do pacote (Dicionário da EAP):** Motor gera recomendações consistentes para os casos de teste definidos.\n\n**Última nota do Gantt:** Nota 21/10/2026: passa a depender de 9.3.1-7 (FS): o algoritmo consome a base de conhecimento agronômica."
   },
   {
     "task_id": 71,
@@ -159,7 +159,7 @@
     "responsible": "Renato Gouveia",
     "package": "9.3.1 Desenvolvimento do motor de recomendação agronômica",
     "deliverable": "9.3 Sistema de Recomendação Agronômica",
-    "body": "**Pacote da EAP:** 9.3.1 Desenvolvimento do motor de recomendação agronômica — entrega 9.3 Sistema de Recomendação Agronômica\n**Responsável:** Renato Gouveia\n**Andamento no Gantt (v10, 21/10/2026):** 50% · 4 h planejadas · 2 h restantes\n**Período planejado:** 18/10 → 19/10 · Marco: M9.6 Aprovação do Motor de Modelos Preditivos Financeiros (30/11)\n**Depende de:** 9.3.1-4\n**Bloqueia:** 9.3.1-6\n\n> ⚠️ **Atrasada:** término planejado em 19/10.\n\n**Critério de aceitação do pacote (Dicionário da EAP):** Motor gera recomendações consistentes para os casos de teste definidos.\n\n**Última nota do Gantt:** Nota 21/10/2026: catálogo integrado (loaders da base agronômica e de mercado) e região do usuário resolvida pelo código IBGE do município. Falta integrar o perfil do usuário. (% proposto pelo Renato, a confirmar)"
+    "body": "**Pacote da EAP:** 9.3.1 Desenvolvimento do motor de recomendação agronômica — entrega 9.3 Sistema de Recomendação Agronômica\n**Responsável:** Renato Gouveia\n**Andamento no Gantt (v10, 21/10/2026):** 50% · 4 h planejadas · 2 h restantes\n**Período planejado:** 18/10 → 19/10 · Marco: M9.3 Aprovação do Motor de Recomendação Agronômica (30/11)\n**Depende de:** 9.3.1-4\n**Bloqueia:** 9.3.1-6\n\n> ⚠️ **Atrasada:** término planejado em 19/10.\n\n**Critério de aceitação do pacote (Dicionário da EAP):** Motor gera recomendações consistentes para os casos de teste definidos.\n\n**Última nota do Gantt:** Nota 21/10/2026: catálogo integrado (loaders da base agronômica e de mercado) e região do usuário resolvida pelo código IBGE do município. Falta integrar o perfil do usuário. (% proposto pelo Renato, a confirmar)"
   },
   {
     "task_id": 16,
@@ -339,7 +339,7 @@
     "responsible": "Renato Gouveia",
     "package": "9.3.2 Testes do motor de recomendação agronômica",
     "deliverable": "9.3 Sistema de Recomendação Agronômica",
-    "body": "**Pacote da EAP:** 9.3.2 Testes do motor de recomendação agronômica — entrega 9.3 Sistema de Recomendação Agronômica\n**Responsável:** Renato Gouveia\n**Andamento no Gantt (v10, 21/10/2026):** 0% · 6 h planejadas · 6 h restantes\n**Período planejado:** 23/11 → 29/11 · Marco: M9.6 Aprovação do Motor de Modelos Preditivos Financeiros (30/11)\n**Depende de:** 9.3.2-4, 9.4.2-4, 9.5.2-4, 9.6.2-4\n**Bloqueia:** 9.3.2-6, 9.5.2-6, 9.6.2-6\n\n**Critério de aceitação do pacote (Dicionário da EAP):** Cobertura mínima de testes unitários definida pela equipe; testes de integração sem falhas críticas; UAT aprovado.\n\n**Última nota do Gantt:** Nota v7 10/10/2026 (v7): a sessão conjunta só ocorre depois dos testes de 9.4 (60), 9.5 (77) e 9.6 (94)."
+    "body": "**Pacote da EAP:** 9.3.2 Testes do motor de recomendação agronômica — entrega 9.3 Sistema de Recomendação Agronômica\n**Responsável:** Renato Gouveia\n**Andamento no Gantt (v10, 21/10/2026):** 0% · 6 h planejadas · 6 h restantes\n**Período planejado:** 23/11 → 29/11 · Marco: M9.3 Aprovação do Motor de Recomendação Agronômica (30/11)\n**Depende de:** 9.3.2-4, 9.4.2-4, 9.5.2-4, 9.6.2-4\n**Bloqueia:** 9.3.2-6, 9.5.2-6, 9.6.2-6\n\n**Critério de aceitação do pacote (Dicionário da EAP):** Cobertura mínima de testes unitários definida pela equipe; testes de integração sem falhas críticas; UAT aprovado.\n\n**Última nota do Gantt:** Nota v7 10/10/2026 (v7): a sessão conjunta só ocorre depois dos testes de 9.4 (60), 9.5 (77) e 9.6 (94)."
   },
   {
     "task_id": 88,
@@ -429,7 +429,7 @@
     "responsible": "Renato Gouveia",
     "package": "9.3.1 Desenvolvimento do motor de recomendação agronômica",
     "deliverable": "9.3 Sistema de Recomendação Agronômica",
-    "body": "**Pacote da EAP:** 9.3.1 Desenvolvimento do motor de recomendação agronômica — entrega 9.3 Sistema de Recomendação Agronômica\n**Responsável:** Renato Gouveia\n**Andamento no Gantt (v10, 21/10/2026):** 50% · 3 h planejadas · 1,5 h restantes\n**Período planejado:** 12/10 → 16/10 · Marco: M9.6 Aprovação do Motor de Modelos Preditivos Financeiros (30/11)\n**Depende de:** 9.3.1-1, 9.3.1-2\n**Bloqueia:** 9.3.1-4\n\n> ⚠️ **Atrasada:** término planejado em 16/10.\n\n**Critério de aceitação do pacote (Dicionário da EAP):** Motor gera recomendações consistentes para os casos de teste definidos.\n\n**Última nota do Gantt:** Nota 21/10/2026: decisão tomada: motor baseado em conhecimento (regras e pontuação sobre a base agronômica), registrando o feedback útil/não útil desde o início para uma futura abordagem híbrida. Falta o documento da abordagem. (% proposto pelo Renato, a confirmar)"
+    "body": "**Pacote da EAP:** 9.3.1 Desenvolvimento do motor de recomendação agronômica — entrega 9.3 Sistema de Recomendação Agronômica\n**Responsável:** Renato Gouveia\n**Andamento no Gantt (v10, 21/10/2026):** 50% · 3 h planejadas · 1,5 h restantes\n**Período planejado:** 12/10 → 16/10 · Marco: M9.3 Aprovação do Motor de Recomendação Agronômica (30/11)\n**Depende de:** 9.3.1-1, 9.3.1-2\n**Bloqueia:** 9.3.1-4\n\n> ⚠️ **Atrasada:** término planejado em 16/10.\n\n**Critério de aceitação do pacote (Dicionário da EAP):** Motor gera recomendações consistentes para os casos de teste definidos.\n\n**Última nota do Gantt:** Nota 21/10/2026: decisão tomada: motor baseado em conhecimento (regras e pontuação sobre a base agronômica), registrando o feedback útil/não útil desde o início para uma futura abordagem híbrida. Falta o documento da abordagem. (% proposto pelo Renato, a confirmar)"
   },
   {
     "task_id": 92,
@@ -537,7 +537,7 @@
     "responsible": "Renato Gouveia",
     "package": "9.3.2 Testes do motor de recomendação agronômica",
     "deliverable": "9.3 Sistema de Recomendação Agronômica",
-    "body": "**Pacote da EAP:** 9.3.2 Testes do motor de recomendação agronômica — entrega 9.3 Sistema de Recomendação Agronômica\n**Responsável:** Renato Gouveia\n**Andamento no Gantt (v10, 21/10/2026):** 30% · 3 h planejadas · 2 h restantes\n**Período planejado:** 23/10 → 23/10 · Marco: M9.6 Aprovação do Motor de Modelos Preditivos Financeiros (30/11)\n**Depende de:** 9.3.1-6\n**Bloqueia:** 9.3.2-2\n\n**Critério de aceitação do pacote (Dicionário da EAP):** Cobertura mínima de testes unitários definida pela equipe; testes de integração sem falhas críticas; UAT aprovado.\n\n**Última nota do Gantt:** Nota 21/10/2026: testes de integridade da base e de geografia escritos. Faltam os casos de teste do motor. (% proposto pelo Renato, a confirmar)"
+    "body": "**Pacote da EAP:** 9.3.2 Testes do motor de recomendação agronômica — entrega 9.3 Sistema de Recomendação Agronômica\n**Responsável:** Renato Gouveia\n**Andamento no Gantt (v10, 21/10/2026):** 30% · 3 h planejadas · 2 h restantes\n**Período planejado:** 23/10 → 23/10 · Marco: M9.3 Aprovação do Motor de Recomendação Agronômica (30/11)\n**Depende de:** 9.3.1-6\n**Bloqueia:** 9.3.2-2\n\n**Critério de aceitação do pacote (Dicionário da EAP):** Cobertura mínima de testes unitários definida pela equipe; testes de integração sem falhas críticas; UAT aprovado.\n\n**Última nota do Gantt:** Nota 21/10/2026: testes de integridade da base e de geografia escritos. Faltam os casos de teste do motor. (% proposto pelo Renato, a confirmar)"
   },
   {
     "task_id": 74,
@@ -573,7 +573,7 @@
     "responsible": "Renato Gouveia",
     "package": "9.3.2 Testes do motor de recomendação agronômica",
     "deliverable": "9.3 Sistema de Recomendação Agronômica",
-    "body": "**Pacote da EAP:** 9.3.2 Testes do motor de recomendação agronômica — entrega 9.3 Sistema de Recomendação Agronômica\n**Responsável:** Renato Gouveia\n**Andamento no Gantt (v10, 21/10/2026):** 30% · 4 h planejadas · 3 h restantes\n**Período planejado:** 25/10 → 25/10 · Marco: M9.6 Aprovação do Motor de Modelos Preditivos Financeiros (30/11)\n**Depende de:** 9.3.2-1\n**Bloqueia:** 9.3.2-3\n\n**Critério de aceitação do pacote (Dicionário da EAP):** Cobertura mínima de testes unitários definida pela equipe; testes de integração sem falhas críticas; UAT aprovado.\n\n**Última nota do Gantt:** Nota 21/10/2026: testes da base, da geografia e da adaptação regional implementados e passando (pytest). Faltam os testes do motor. (% proposto pelo Renato, a confirmar)"
+    "body": "**Pacote da EAP:** 9.3.2 Testes do motor de recomendação agronômica — entrega 9.3 Sistema de Recomendação Agronômica\n**Responsável:** Renato Gouveia\n**Andamento no Gantt (v10, 21/10/2026):** 30% · 4 h planejadas · 3 h restantes\n**Período planejado:** 25/10 → 25/10 · Marco: M9.3 Aprovação do Motor de Recomendação Agronômica (30/11)\n**Depende de:** 9.3.2-1\n**Bloqueia:** 9.3.2-3\n\n**Critério de aceitação do pacote (Dicionário da EAP):** Cobertura mínima de testes unitários definida pela equipe; testes de integração sem falhas críticas; UAT aprovado.\n\n**Última nota do Gantt:** Nota 21/10/2026: testes da base, da geografia e da adaptação regional implementados e passando (pytest). Faltam os testes do motor. (% proposto pelo Renato, a confirmar)"
   },
   {
     "task_id": 75,
@@ -645,7 +645,7 @@
     "responsible": "Renato Gouveia",
     "package": "9.3.2 Testes do motor de recomendação agronômica",
     "deliverable": "9.3 Sistema de Recomendação Agronômica",
-    "body": "**Pacote da EAP:** 9.3.2 Testes do motor de recomendação agronômica — entrega 9.3 Sistema de Recomendação Agronômica\n**Responsável:** Renato Gouveia\n**Andamento no Gantt (v10, 21/10/2026):** 0% · 5 h planejadas · 5 h restantes\n**Período planejado:** 26/10 → 30/10 · Marco: M9.6 Aprovação do Motor de Modelos Preditivos Financeiros (30/11)\n**Depende de:** 9.3.2-2\n**Bloqueia:** 9.3.2-4\n\n**Critério de aceitação do pacote (Dicionário da EAP):** Cobertura mínima de testes unitários definida pela equipe; testes de integração sem falhas críticas; UAT aprovado."
+    "body": "**Pacote da EAP:** 9.3.2 Testes do motor de recomendação agronômica — entrega 9.3 Sistema de Recomendação Agronômica\n**Responsável:** Renato Gouveia\n**Andamento no Gantt (v10, 21/10/2026):** 0% · 5 h planejadas · 5 h restantes\n**Período planejado:** 26/10 → 30/10 · Marco: M9.3 Aprovação do Motor de Recomendação Agronômica (30/11)\n**Depende de:** 9.3.2-2\n**Bloqueia:** 9.3.2-4\n\n**Critério de aceitação do pacote (Dicionário da EAP):** Cobertura mínima de testes unitários definida pela equipe; testes de integração sem falhas críticas; UAT aprovado."
   },
   {
     "task_id": 130,
@@ -699,7 +699,7 @@
     "responsible": "Renato Gouveia",
     "package": "9.3.2 Testes do motor de recomendação agronômica",
     "deliverable": "9.3 Sistema de Recomendação Agronômica",
-    "body": "**Pacote da EAP:** 9.3.2 Testes do motor de recomendação agronômica — entrega 9.3 Sistema de Recomendação Agronômica\n**Responsável:** Renato Gouveia\n**Andamento no Gantt (v10, 21/10/2026):** 0% · 4 h planejadas · 4 h restantes\n**Período planejado:** 30/10 → 01/11 · Marco: M9.6 Aprovação do Motor de Modelos Preditivos Financeiros (30/11)\n**Depende de:** 9.3.2-3\n**Bloqueia:** 9.3.2-5\n\n**Critério de aceitação do pacote (Dicionário da EAP):** Cobertura mínima de testes unitários definida pela equipe; testes de integração sem falhas críticas; UAT aprovado.\n\n**Última nota do Gantt:** Nota v7 10/10/2026 (v7): roteiro de UAT único para recomendação e chatbot. Antes: 3 h."
+    "body": "**Pacote da EAP:** 9.3.2 Testes do motor de recomendação agronômica — entrega 9.3 Sistema de Recomendação Agronômica\n**Responsável:** Renato Gouveia\n**Andamento no Gantt (v10, 21/10/2026):** 0% · 4 h planejadas · 4 h restantes\n**Período planejado:** 30/10 → 01/11 · Marco: M9.3 Aprovação do Motor de Recomendação Agronômica (30/11)\n**Depende de:** 9.3.2-3\n**Bloqueia:** 9.3.2-5\n\n**Critério de aceitação do pacote (Dicionário da EAP):** Cobertura mínima de testes unitários definida pela equipe; testes de integração sem falhas críticas; UAT aprovado.\n\n**Última nota do Gantt:** Nota v7 10/10/2026 (v7): roteiro de UAT único para recomendação e chatbot. Antes: 3 h."
   },
   {
     "task_id": 106,
@@ -1023,7 +1023,7 @@
     "responsible": "Renato Gouveia",
     "package": "9.3.1 Desenvolvimento do motor de recomendação agronômica",
     "deliverable": "9.3 Sistema de Recomendação Agronômica",
-    "body": "**Pacote da EAP:** 9.3.1 Desenvolvimento do motor de recomendação agronômica — entrega 9.3 Sistema de Recomendação Agronômica\n**Responsável:** Renato Gouveia\n**Andamento no Gantt (v10, 21/10/2026):** 50% · 3 h planejadas · 1,5 h restantes\n**Período planejado:** 11/10 → 11/10 · Marco: M9.6 Aprovação do Motor de Modelos Preditivos Financeiros (30/11)\n**Bloqueia:** 9.3.1-3\n\n> ⚠️ **Atrasada:** término planejado em 11/10.\n\n**Critério de aceitação do pacote (Dicionário da EAP):** Motor gera recomendações consistentes para os casos de teste definidos.\n\n**Última nota do Gantt:** Nota 21/10/2026: análise feita: sem histórico de interações de usuários, a filtragem colaborativa não é viável no MVP (cold start). Falta registrar o estudo. (% proposto pelo Renato, a confirmar)"
+    "body": "**Pacote da EAP:** 9.3.1 Desenvolvimento do motor de recomendação agronômica — entrega 9.3 Sistema de Recomendação Agronômica\n**Responsável:** Renato Gouveia\n**Andamento no Gantt (v10, 21/10/2026):** 50% · 3 h planejadas · 1,5 h restantes\n**Período planejado:** 11/10 → 11/10 · Marco: M9.3 Aprovação do Motor de Recomendação Agronômica (30/11)\n**Bloqueia:** 9.3.1-3\n\n> ⚠️ **Atrasada:** término planejado em 11/10.\n\n**Critério de aceitação do pacote (Dicionário da EAP):** Motor gera recomendações consistentes para os casos de teste definidos.\n\n**Última nota do Gantt:** Nota 21/10/2026: análise feita: sem histórico de interações de usuários, a filtragem colaborativa não é viável no MVP (cold start). Falta registrar o estudo. (% proposto pelo Renato, a confirmar)"
   },
   {
     "task_id": 34,
@@ -1041,7 +1041,7 @@
     "responsible": "Renato Gouveia",
     "package": "9.3.1 Desenvolvimento do motor de recomendação agronômica",
     "deliverable": "9.3 Sistema de Recomendação Agronômica",
-    "body": "**Pacote da EAP:** 9.3.1 Desenvolvimento do motor de recomendação agronômica — entrega 9.3 Sistema de Recomendação Agronômica\n**Responsável:** Renato Gouveia\n**Andamento no Gantt (v10, 21/10/2026):** 50% · 3 h planejadas · 1,5 h restantes\n**Período planejado:** 11/10 → 12/10 · Marco: M9.6 Aprovação do Motor de Modelos Preditivos Financeiros (30/11)\n**Bloqueia:** 9.3.1-3\n\n> ⚠️ **Atrasada:** término planejado em 12/10.\n\n**Critério de aceitação do pacote (Dicionário da EAP):** Motor gera recomendações consistentes para os casos de teste definidos.\n\n**Última nota do Gantt:** Nota 21/10/2026: abordagem baseada em conhecimento/conteúdo analisada e adotada para o MVP. Falta registrar o estudo. (% proposto pelo Renato, a confirmar)"
+    "body": "**Pacote da EAP:** 9.3.1 Desenvolvimento do motor de recomendação agronômica — entrega 9.3 Sistema de Recomendação Agronômica\n**Responsável:** Renato Gouveia\n**Andamento no Gantt (v10, 21/10/2026):** 50% · 3 h planejadas · 1,5 h restantes\n**Período planejado:** 11/10 → 12/10 · Marco: M9.3 Aprovação do Motor de Recomendação Agronômica (30/11)\n**Bloqueia:** 9.3.1-3\n\n> ⚠️ **Atrasada:** término planejado em 12/10.\n\n**Critério de aceitação do pacote (Dicionário da EAP):** Motor gera recomendações consistentes para os casos de teste definidos.\n\n**Última nota do Gantt:** Nota 21/10/2026: abordagem baseada em conhecimento/conteúdo analisada e adotada para o MVP. Falta registrar o estudo. (% proposto pelo Renato, a confirmar)"
   },
   {
     "task_id": 38,
@@ -1059,7 +1059,7 @@
     "responsible": "Renato Gouveia",
     "package": "9.3.1 Desenvolvimento do motor de recomendação agronômica",
     "deliverable": "9.3 Sistema de Recomendação Agronômica",
-    "body": "**Pacote da EAP:** 9.3.1 Desenvolvimento do motor de recomendação agronômica — entrega 9.3 Sistema de Recomendação Agronômica\n**Responsável:** Renato Gouveia\n**Andamento no Gantt (v10, 21/10/2026):** 30% · 2 h planejadas · 1,5 h restantes\n**Período planejado:** 19/10 → 23/10 · Marco: M9.6 Aprovação do Motor de Modelos Preditivos Financeiros (30/11)\n**Depende de:** 9.3.1-5\n**Bloqueia:** 9.3.2-1\n\n**Critério de aceitação do pacote (Dicionário da EAP):** Motor gera recomendações consistentes para os casos de teste definidos.\n\n**Última nota do Gantt:** Nota 21/10/2026: dados, fontes, conflitos e decisões documentados nos READMEs de data/knowledge e data/nlu. Falta a documentação do motor. (% proposto pelo Renato, a confirmar)"
+    "body": "**Pacote da EAP:** 9.3.1 Desenvolvimento do motor de recomendação agronômica — entrega 9.3 Sistema de Recomendação Agronômica\n**Responsável:** Renato Gouveia\n**Andamento no Gantt (v10, 21/10/2026):** 30% · 2 h planejadas · 1,5 h restantes\n**Período planejado:** 19/10 → 23/10 · Marco: M9.3 Aprovação do Motor de Recomendação Agronômica (30/11)\n**Depende de:** 9.3.1-5\n**Bloqueia:** 9.3.2-1\n\n**Critério de aceitação do pacote (Dicionário da EAP):** Motor gera recomendações consistentes para os casos de teste definidos.\n\n**Última nota do Gantt:** Nota 21/10/2026: dados, fontes, conflitos e decisões documentados nos READMEs de data/knowledge e data/nlu. Falta a documentação do motor. (% proposto pelo Renato, a confirmar)"
   },
   {
     "task_id": 49,
@@ -1167,7 +1167,7 @@
     "responsible": "Renato Gouveia",
     "package": "9.3.1 Desenvolvimento do motor de recomendação agronômica",
     "deliverable": "9.3 Sistema de Recomendação Agronômica",
-    "body": "**Pacote da EAP:** 9.3.1 Desenvolvimento do motor de recomendação agronômica — entrega 9.3 Sistema de Recomendação Agronômica\n**Responsável:** Renato Gouveia\n**Andamento no Gantt (v10, 21/10/2026):** 100% · 4 h planejadas · 0 h restantes\n**Período planejado:** 09/10 → 09/10 · Marco: M9.6 Aprovação do Motor de Modelos Preditivos Financeiros (30/11)\n**Bloqueia:** 9.3.1-4\n\n**Critério de aceitação do pacote (Dicionário da EAP):** Motor gera recomendações consistentes para os casos de teste definidos.\n\n**Última nota do Gantt:** Nota 21/10/2026: Escopo entregue concluído. O manejo de pragas e doenças (sintomas e controle) ficou pendente e depende das conversas com agrônomos (9.4.1-9)."
+    "body": "**Pacote da EAP:** 9.3.1 Desenvolvimento do motor de recomendação agronômica — entrega 9.3 Sistema de Recomendação Agronômica\n**Responsável:** Renato Gouveia\n**Andamento no Gantt (v10, 21/10/2026):** 100% · 4 h planejadas · 0 h restantes\n**Período planejado:** 09/10 → 09/10 · Marco: M9.3 Aprovação do Motor de Recomendação Agronômica (30/11)\n**Bloqueia:** 9.3.1-4\n\n**Critério de aceitação do pacote (Dicionário da EAP):** Motor gera recomendações consistentes para os casos de teste definidos.\n\n**Última nota do Gantt:** Nota 21/10/2026: Escopo entregue concluído. O manejo de pragas e doenças (sintomas e controle) ficou pendente e depende das conversas com agrônomos (9.4.1-9)."
   },
   {
     "task_id": 127,
