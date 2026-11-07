@@ -113,6 +113,8 @@ class IntentDataset(NLUModel):
 
 
 class TestUtterance(NLUModel):
+    __test__ = False  # a data model, not a pytest test class (avoids PytestCollectionWarning)
+
     text: str = Field(min_length=1)
     intent: str | None  # None = fits no current intent (candidate for a new one)
     origin: Origin
@@ -122,6 +124,8 @@ class TestUtterance(NLUModel):
 
 
 class TestSet(NLUModel):
+    __test__ = False  # see TestUtterance
+
     version: int
     language: str
     utterances: list[TestUtterance] = []
