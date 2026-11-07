@@ -1,0 +1,244 @@
+{
+  "target_s": 5.0,
+  "profiles": {
+    "4G fraco": {
+      "profile": {
+        "name": "4G fraco",
+        "rtt_ms": 150,
+        "down_kbps": 1600,
+        "up_kbps": 750
+      },
+      "new_connection": {
+        "mean_s": 0.316,
+        "max_s": 0.323,
+        "turns": 21,
+        "max_response_bytes": 1673,
+        "recommendations_s": 0.329,
+        "mean_with_https_s": {
+          "TLS 1.3": 0.466,
+          "TLS 1.2": 0.616
+        }
+      },
+      "keep_alive": {
+        "mean_s": 0.173,
+        "max_s": 0.322,
+        "turns": 21,
+        "max_response_bytes": 1673,
+        "recommendations_s": 0.178,
+        "mean_with_https_s": {
+          "TLS 1.3": 0.18,
+          "TLS 1.2": 0.187
+        }
+      }
+    },
+    "3G lento": {
+      "profile": {
+        "name": "3G lento",
+        "rtt_ms": 400,
+        "down_kbps": 400,
+        "up_kbps": 400
+      },
+      "new_connection": {
+        "mean_s": 0.831,
+        "max_s": 0.851,
+        "turns": 21,
+        "max_response_bytes": 1673,
+        "recommendations_s": 0.895,
+        "mean_with_https_s": {
+          "TLS 1.3": 1.231,
+          "TLS 1.2": 1.631
+        }
+      },
+      "keep_alive": {
+        "mean_s": 0.448,
+        "max_s": 0.852,
+        "turns": 21,
+        "max_response_bytes": 1673,
+        "recommendations_s": 0.491,
+        "mean_with_https_s": {
+          "TLS 1.3": 0.467,
+          "TLS 1.2": 0.486
+        }
+      }
+    },
+    "2G (EDGE)": {
+      "profile": {
+        "name": "2G (EDGE)",
+        "rtt_ms": 800,
+        "down_kbps": 100,
+        "up_kbps": 50
+      },
+      "new_connection": {
+        "mean_s": 1.717,
+        "max_s": 1.793,
+        "turns": 21,
+        "max_response_bytes": 1673,
+        "recommendations_s": 1.967,
+        "mean_with_https_s": {
+          "TLS 1.3": 2.517,
+          "TLS 1.2": 3.317
+        }
+      },
+      "keep_alive": {
+        "mean_s": 0.954,
+        "max_s": 1.794,
+        "turns": 21,
+        "max_response_bytes": 1673,
+        "recommendations_s": 1.166,
+        "mean_with_https_s": {
+          "TLS 1.3": 0.992,
+          "TLS 1.2": 1.03
+        }
+      }
+    },
+    "pior caso": {
+      "profile": {
+        "name": "pior caso",
+        "rtt_ms": 2000,
+        "down_kbps": 50,
+        "up_kbps": 25
+      },
+      "new_connection": {
+        "mean_s": 4.226,
+        "max_s": 4.381,
+        "turns": 21,
+        "max_response_bytes": 1673,
+        "recommendations_s": 4.728,
+        "mean_with_https_s": {
+          "TLS 1.3": 6.226,
+          "TLS 1.2": 8.226
+        }
+      },
+      "keep_alive": {
+        "mean_s": 2.318,
+        "max_s": 4.375,
+        "turns": 21,
+        "max_response_bytes": 1673,
+        "recommendations_s": 2.725,
+        "mean_with_https_s": {
+          "TLS 1.3": 2.413,
+          "TLS 1.2": 2.508
+        }
+      }
+    }
+  },
+  "cold_start_s": {
+    "profile": "2G (EDGE)",
+    "seconds": 1.89
+  },
+  "no_network": {
+    "mean_s": 0.0027
+  },
+  "turns": [
+    {
+      "text": "o que da pra plantar agora?",
+      "request_bytes": 91,
+      "response_bytes": 1673
+    },
+    {
+      "text": "quanto ta o tomate no ceasa?",
+      "request_bytes": 92,
+      "response_bytes": 606
+    },
+    {
+      "text": "o que planto depois do repolho?",
+      "request_bytes": 95,
+      "response_bytes": 594
+    },
+    {
+      "text": "da pra plantar cebolinha em vaso?",
+      "request_bytes": 97,
+      "response_bytes": 541
+    },
+    {
+      "text": "minha couve ta com uns bichinho",
+      "request_bytes": 95,
+      "response_bytes": 418
+    },
+    {
+      "text": "quanto custa o adubo?",
+      "request_bytes": 85,
+      "response_bytes": 410
+    },
+    {
+      "text": "quando eu planto?",
+      "request_bytes": 81,
+      "response_bytes": 540
+    },
+    {
+      "text": "alface",
+      "request_bytes": 346,
+      "response_bytes": 664
+    },
+    {
+      "text": "quando planto mandioca?",
+      "request_bytes": 87,
+      "response_bytes": 540
+    },
+    {
+      "text": "mandioca",
+      "request_bytes": 348,
+      "response_bytes": 534
+    },
+    {
+      "text": "qndo plantar alfase?",
+      "request_bytes": 84,
+      "response_bytes": 543
+    },
+    {
+      "text": "sim",
+      "request_bytes": 351,
+      "response_bytes": 664
+    },
+    {
+      "text": "qual a epoca de plantar alface?",
+      "request_bytes": 95,
+      "response_bytes": 666
+    },
+    {
+      "text": "e a rega dela?",
+      "request_bytes": 155,
+      "response_bytes": 508
+    },
+    {
+      "text": "a alface ta amarelando",
+      "request_bytes": 86,
+      "response_bytes": 568
+    },
+    {
+      "text": "sim",
+      "request_bytes": 351,
+      "response_bytes": 418
+    },
+    {
+      "text": "tem como plantar morango aqui?",
+      "request_bytes": 94,
+      "response_bytes": 551
+    },
+    {
+      "text": "não",
+      "request_bytes": 351,
+      "response_bytes": 610
+    },
+    {
+      "text": "quando planto",
+      "request_bytes": 343,
+      "response_bytes": 600
+    },
+    {
+      "text": "alface aguenta frio?",
+      "request_bytes": 84,
+      "response_bytes": 609
+    },
+    {
+      "text": "como crio galinha?",
+      "request_bytes": 82,
+      "response_bytes": 410
+    },
+    {
+      "text": "POST /recommender/recommendations",
+      "request_bytes": 35,
+      "response_bytes": 3983
+    }
+  ]
+}
