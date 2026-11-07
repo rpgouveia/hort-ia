@@ -296,3 +296,12 @@ def test_route_rejects_invalid_requests(client, payload):
 def test_route_without_profile_still_answers(client):
     data = client.post("/nlp/message", json={"text": "oi, o que você faz?"}).json()
     assert data["decision"] in ("answer", "confirm") and data["text"]
+
+
+def test_api_builds_the_engine_at_start_up():
+    """The lifespan of the app trains the classifier before the first request (WBS 9.4.2-4)."""
+    from hort_ia.api.nlp import get_dialogue
+
+    get_dialogue.cache_clear()
+    with TestClient(app):
+        assert get_dialogue.cache_info().currsize == 1
