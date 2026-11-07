@@ -419,9 +419,14 @@
     "beneficial": true,
     "symptoms": null,
     "management": [],
-    "sources": [],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "12"
+      }
+    ],
     "validation_status": "draft",
-    "notes": "Muitas espécies são predadoras ou parasitoides. Não recomendar controle."
+    "notes": "Muitas espécies são predadoras ou parasitoides. Não recomendar controle. Fonte: CT 47, p. 12 (vespas como predadoras naturais das pragas, mesma passagem da diretriz flores_abrigo_inimigos_naturais)."
   },
   {
     "id": "praga_gorgulhos",

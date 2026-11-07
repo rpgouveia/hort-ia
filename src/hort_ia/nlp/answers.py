@@ -141,7 +141,14 @@ class Responder:
         if not crops:
             return self._answer(intent, [t["none"].format(month=month_name, region=where)], handoff=True)
         key = "list_small_space" if small_space else "list"
-        return self._answer(intent, [t[key].format(month=month_name, region=where, crops=self.join(crops))])
+        # Cite the planting windows behind the list (found by 9.4.2-2, case U9: the list had no source).
+        sources = list(dict.fromkeys(
+            reason.source for item in result.recommendations for reason in item.reasons
+            if reason.code == "in_season" and reason.source
+        ))  # fmt: skip
+        return self._answer(
+            intent, [t[key].format(month=month_name, region=where, crops=self.join(crops))], sources=sources
+        )
 
     def crop_care(self, crop_id: str | None, aspect: str | None = None) -> Answer:
         """aspect: spacing | harvest | watering | container | None (summary of spacing and harvest)."""
@@ -235,7 +242,7 @@ class Responder:
         if entry.type == "healthy":
             return self._answer(intent, [t["healthy"]])
         if entry.beneficial:
-            return self._answer(intent, [t["beneficial"].format(name=entry.name_pt)])
+            return self._answer(intent, [t["beneficial"].format(name=entry.name_pt)], sources=self.cite(entry.sources))
         name = entry.name_pt or entry.causal_agent or entry.cv_label
         lines = [t["identified"].format(name=name)]
         if entry.management:
