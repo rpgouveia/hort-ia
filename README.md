@@ -200,6 +200,7 @@ uv run pytest -v
 | `tests/test_nlu_dialogue.py` | Dialogue manager and `POST /nlp/message`: reference conversations of 9.4.1-3, confidence bands, pending questions, crop inheritance, location, context without user text |
 | `tests/test_nlu_answers.py` | Answer generation: every intent answered from the data, handoff when data is missing, no unfilled template, a source in every technical answer (all crops × regions × aspects, products × states, CV labels) |
 | `tests/test_nlu_acceptance.py` | Acceptance criterion of 9.4.1 on the held-out test set (skipped until it has 10 utterances per intent) and threshold calibration |
+| `tests/test_nlu_integration.py` | Assistant over HTTP against its content: months of every crop in every region, every alias, prices of every product in every state, every CV label, data-only changes, reference conversations, agreement with `/nlp/answer` and the recommender routes |
 | `tests/test_nlu_properties.py` | Every training sentence and hard inputs as first message and as reply: valid reply, no user text in the context, confidence bands, time, CLI |
 | `tests/test_cv_pipeline.py` | Computer Vision quality filtering, 224x224 standardization, EXIF removal (LGPD) and API endpoints |
 | `tests/test_privacy_compliance.py` | LGPD consent validation, facial blurring, text PII anonymization |
