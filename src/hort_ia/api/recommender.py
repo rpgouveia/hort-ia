@@ -8,7 +8,7 @@ API, the conversational assistant and the engine always agree on what can be pla
 from datetime import date
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi import APIRouter, Depends, HTTPException, Query, Response, status
 from pydantic import BaseModel, Field
 
 from ..core.geo import Region, region_from_ibge_code
@@ -109,6 +109,7 @@ def _resolve_region(ibge_code: int | str | None, region: str | None) -> Region:
 async def planting_calendar(
     crop_id: Annotated[str, Query(description="Canonical crop ID (e.g., 'alface', 'tomate')")],
     kb: Annotated[KnowledgeBase, Depends(get_knowledge_base)],
+    response: Response,
     ibge_code: Annotated[int | None, Query(description="IBGE municipality (7 digits) or UF (2 digits) code")] = None,
     region: Annotated[str | None, Query(description="Brazilian macro-region ('sul', 'sudeste', etc.)")] = None,
 ) -> PlantingCalendarResponse:
@@ -135,6 +136,7 @@ async def planting_calendar(
             )
 
     source_label = crop.sources[0].source_id if crop.sources else "embrapa"
+    response.headers["Cache-Control"] = "public, max-age=86400"
     return PlantingCalendarResponse(
         crop_id=crop.id,
         crop_name_pt=crop.name_pt,
@@ -153,6 +155,7 @@ async def planting_calendar(
 async def companion_crops(
     crop_id: Annotated[str, Query(description="Canonical crop ID (e.g., 'tomate')")],
     kb: Annotated[KnowledgeBase, Depends(get_knowledge_base)],
+    response: Response,
 ) -> CompanionCropsResponse:
     crop = kb.crops.get(crop_id)
     if crop is None:
@@ -187,6 +190,7 @@ async def companion_crops(
             hinders.append(partner_item)
 
     source_label = kb.sources["kaggle_companion_plants"].title if "kaggle_companion_plants" in kb.sources else "companion_dataset"
+    response.headers["Cache-Control"] = "public, max-age=86400"
     return CompanionCropsResponse(
         crop_id=crop.id,
         crop_name_pt=crop.name_pt,
@@ -206,6 +210,7 @@ async def what_to_plant(
     month: Annotated[int, Query(ge=1, le=12, description="Month of the year (1-12)")],
     kb: Annotated[KnowledgeBase, Depends(get_knowledge_base)],
     engine: Annotated[Recommender, Depends(get_recommender)],
+    response: Response,
     ibge_code: Annotated[int | None, Query(description="IBGE municipality code")] = None,
     region: Annotated[str | None, Query(description="Brazilian macro-region")] = None,
     small_space: Annotated[bool, Query(description="Filter only crops suitable for small spaces / containers")] = False,
@@ -223,6 +228,7 @@ async def what_to_plant(
             RecommendedCropItem(crop_id=crop.id, crop_name_pt=crop.name_pt, family=crop.family, cycle_days=cycle_str)
         )
 
+    response.headers["Cache-Control"] = "public, max-age=86400"
     return WhatToPlantResponse(
         month=month,
         region=resolved_region.value,

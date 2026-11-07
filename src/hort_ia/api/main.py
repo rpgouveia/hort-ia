@@ -62,7 +62,6 @@ app = FastAPI(
     },
 )
 
-app.include_router(finance_router)
 app.include_router(commercial_router)
 app.include_router(cv_router)
 app.include_router(finance_router)
@@ -75,6 +74,13 @@ app.include_router(market_router)
 async def root():
     """
     API health check endpoint.
-    Returns a simple message if the server is running successfully.
+    Returns module status and documentation URLs.
     """
-    return {"status": "ok", "message": "Hort-IA AI Module is running!"}
+    return {
+        "status": "ok",
+        "module": "Hort-IA AI Module",
+        "message": "Hort-IA AI Module is running!",
+        "version": "0.2.0",
+        "docs_url": "/docs",
+        "openapi_url": "/openapi.json",
+    }
