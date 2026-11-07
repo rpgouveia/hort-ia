@@ -1,3 +1,5 @@
+import itertools
+
 import pytest
 
 from hort_ia.knowledge import load_knowledge_base
@@ -138,11 +140,70 @@ def test_fallback_always_hands_off(r):
 
 def test_every_template_placeholder_is_filled(r):
     calls = [
-        r.planting_time("alface", "sul", 10), r.planting_time("batata", "norte", 1),
-        r.what_to_plant("sul", 10), r.crop_care("alface"), r.crop_care("cenoura", "container"),
-        r.companion_planting("tomate"), r.companion_planting("repolho", rotation=True),
-        r.pest_disease(cv_label="Tomato___Early_blight"), r.market_price("tomate", "PR"),
-        r.help(), r.fallback(),
+        r.planting_time("alface", "sul", 10),
+        r.planting_time("batata", "norte", 1),
+        r.what_to_plant("sul", 10),
+        r.crop_care("alface"),
+        r.crop_care("cenoura", "container"),
+        r.companion_planting("tomate"),
+        r.companion_planting("repolho", rotation=True),
+        r.pest_disease(cv_label="Tomato___Early_blight"),
+        r.market_price("tomate", "PR"),
+        r.help(),
+        r.fallback(),
     ]
     for answer in calls:
         assert "{" not in answer.text and "}" not in answer.text, answer.text
+
+
+# --- U9 (9.4.2-2): every combination of intent, crop, region and aspect ----------------------
+
+NO_SOURCE_EXPECTED = {  # answers that use no curated data, so they cite nothing
+    "Para eu ajudar a identificar, mande uma foto",  # pest_disease without a photo
+    "A planta parece saudável.",
+    "Não tenho o preço de",  # market product without a price: lists the ones there are
+}
+
+
+def _check(answer):
+    assert "{" not in answer.text and "}" not in answer.text, answer.text
+    assert answer.text.strip()
+    if answer.handoff or answer.missing_entity is not None or answer.intent in ("help", "fallback"):
+        return
+    if any(answer.text.startswith(prefix) for prefix in NO_SOURCE_EXPECTED):
+        return
+    assert answer.sources, f"technical answer without a source: {answer.text}"
+
+
+def test_u9_every_crop_region_month_and_aspect(r):
+    from hort_ia.core.geo import Region
+
+    for crop in r.kb.crops:
+        for region, month in itertools.product([*Region, None], range(1, 13)):
+            _check(r.planting_time(crop, region, month))
+        for aspect in (None, "spacing", "harvest", "watering", "container"):
+            _check(r.crop_care(crop, aspect))
+        for rotation in (False, True):
+            _check(r.companion_planting(crop, rotation))
+    for region, month, small in itertools.product(Region, range(1, 13), (False, True)):
+        _check(r.what_to_plant(region, month, small))
+
+
+def test_u9_every_product_and_state(r):
+    from hort_ia.core.geo import UF_BY_CODE
+
+    for product in [*r.market.products, *r.kb.crops, "mandioca", None]:
+        for uf in [*UF_BY_CODE.values(), None]:
+            _check(r.market_price(product, uf))
+
+
+def test_u9_every_cv_label_and_no_photo(r):
+    labels = [p.cv_label for p in r.kb.pests_diseases.values() if p.cv_label]
+    assert labels
+    for label in [*labels, None, "rotulo_desconhecido"]:
+        _check(r.pest_disease(cv_label=label))
+
+
+def test_u9_unknown_crop_hands_off(r):
+    for answer in (r.planting_time("mandioca", "sul", 11), r.crop_care("mandioca"), r.unknown_crop("crop_care")):
+        assert answer.handoff and answer.text.startswith("Ainda não tenho informações sobre essa planta")

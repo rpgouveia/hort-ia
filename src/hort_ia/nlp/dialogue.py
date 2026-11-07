@@ -83,10 +83,18 @@ class Reply(Answer):
 
 
 class DialogueManager:
-    def __init__(self, interpreter: Interpreter, responder: Responder):
+    def __init__(
+        self,
+        interpreter: Interpreter,
+        responder: Responder,
+        *,
+        answer_at: float = ANSWER_AT,
+        confirm_at: float = CONFIRM_AT,
+    ):
         self.nlu = interpreter
         self.responder = responder
         self.t = responder.templates["dialogue"]
+        self.answer_at, self.confirm_at = answer_at, confirm_at  # other values only to calibrate (9.4.2-2)
 
     # --- public API ------------------------------------------------------------------
 
@@ -129,13 +137,13 @@ class DialogueManager:
         # 5. confidence bands (D5)
         if nlu.intent == "fallback":
             return self._reply(self.responder.fallback(), "fallback", slots, clean, nlu.confidence)
-        if nlu.confidence >= ANSWER_AT:
+        if nlu.confidence >= self.answer_at:
             if nlu.crop_fuzzy and slots.crop:
                 pending = Pending(type="confirm_crop", intent=nlu.intent, slots=slots)
                 text_ = self.t["confirm_crop"].format(crop=self._crop_label(slots.crop))
                 return self._ask(nlu.intent, text_, "confirm", pending, slots, clean, nlu.confidence)
             return self._execute(nlu.intent, slots, clean, nlu.confidence)
-        if nlu.confidence >= CONFIRM_AT:
+        if nlu.confidence >= self.confirm_at:
             pending = Pending(type="confirm_intent", intent=nlu.intent, slots=slots)
             return self._ask(nlu.intent, self._confirm_text(nlu.intent, slots), "confirm", pending, slots, clean,
                              nlu.confidence)  # fmt: skip
@@ -265,7 +273,7 @@ class DialogueManager:
         if len(normalize(text).split()) <= NEW_QUESTION_MIN_WORDS:
             return False
         nlu = self.nlu.interpret(text)
-        return nlu.confidence >= ANSWER_AT and nlu.intent not in ("help", "fallback")
+        return nlu.confidence >= self.answer_at and nlu.intent not in ("help", "fallback")
 
     @staticmethod
     def _yes_no(text: str) -> Literal["yes", "no"] | None:

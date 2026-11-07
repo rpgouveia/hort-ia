@@ -198,7 +198,9 @@ uv run pytest -v
 | `tests/test_recommender_integration.py` | Knowledge files → engine → routes for every profile, data-only changes reaching the API, 422s, `what-to-plant`, the assistant and the other recommender routes agreeing with the engine |
 | `tests/test_nlu_interpreter.py` | Message understanding: reference messages of 9.4.1-3, confidence bands, entity rule, crops (aliases, typos, order), month, care aspect, location, classifier figures of the study |
 | `tests/test_nlu_dialogue.py` | Dialogue manager and `POST /nlp/message`: reference conversations of 9.4.1-3, confidence bands, pending questions, crop inheritance, location, context without user text |
-| `tests/test_nlu_answers.py` | Answer generation: every intent answered from the data, handoff when data is missing, no unfilled template |
+| `tests/test_nlu_answers.py` | Answer generation: every intent answered from the data, handoff when data is missing, no unfilled template, a source in every technical answer (all crops × regions × aspects, products × states, CV labels) |
+| `tests/test_nlu_acceptance.py` | Acceptance criterion of 9.4.1 on the held-out test set (skipped until it has 10 utterances per intent) and threshold calibration |
+| `tests/test_nlu_properties.py` | Every training sentence and hard inputs as first message and as reply: valid reply, no user text in the context, confidence bands, time, CLI |
 | `tests/test_cv_pipeline.py` | Computer Vision quality filtering, 224x224 standardization, EXIF removal (LGPD) and API endpoints |
 | `tests/test_privacy_compliance.py` | LGPD consent validation, facial blurring, text PII anonymization |
 
@@ -233,6 +235,12 @@ uv run python -m hort_ia.commercial
 Show what the assistant understands of a message (intent, confidence, entities):
 ```bash
 uv run python -m hort_ia.nlp "qndo plantar alfase?"
+```
+
+Measure the acceptance criterion of the assistant on the held-out test set, per intent, with the
+threshold calibration table:
+```bash
+uv run python scripts/evaluate_nlu_engine.py
 ```
 
 Evaluate the NLU dataset with a baseline classifier (cross-validation, plus the held-out test set when filled):
