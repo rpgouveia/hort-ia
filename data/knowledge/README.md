@@ -10,7 +10,7 @@ demais equipes não definem as bases oficiais. Todo registro cita a fonte e a p�
 |---|---|
 | `crops.json` | 15 culturas do MVP: janelas de plantio por região, espaçamento, propagação, produtividade |
 | `guidelines.json` | Regras gerais (sol, irrigação, espaçamento em pequenos espaços, pH, clima, rotação, plantas repelentes) |
-| `pests_diseases.json` | Mapeamento das classes do modelo de visão computacional para manejo |
+| `pests_diseases.json` | Classes do modelo de visão computacional com sintomas e manejo por grupo (ver "Pragas e doenças") |
 | `companions.csv` | Relações de plantio companheiro entre as 15 culturas, com nível de evidência |
 | `sources.json` | Registro das fontes citadas por esta base |
 
@@ -84,6 +84,35 @@ Decisão: as janelas continuam vindo do Catálogo (por região). O Zarc fica reg
 `sources.json` como fonte verificada, para reavaliação quando houver zoneamento de mais hortaliças
 de mesa.
 
+## Pragas e doenças
+
+`pests_diseases.json` liga cada classe do modelo de visão computacional a sintomas e manejo. As fontes
+não trazem orientação por doença ou por praga, e sim **por grupo**: doenças causadas por fungos, por
+bactérias e por vírus, e pragas como ácaros, lagartas, lesmas e formigas. Por isso o manejo de cada
+entrada vem do seu grupo, a partir da CT 47 (pp. 11-14) e do HPE (pp. 28-30 e 37-40), e as notas
+indicam quando não há orientação específica para a doença.
+
+- **Sem defensivo químico**: a CT 47 (p. 12) restringe defensivos ao uso com acompanhamento de
+  profissional qualificado. Os tipos de manejo são só `preventive`, `cultural`, `biological` e
+  `alternative`.
+- **Sem doses nem receitas**: caldas e preparados naturais (`alternative`) aparecem só pelo nome,
+  sempre com "Peça orientação técnica antes de preparar ou aplicar". Um teste barra números seguidos
+  de g, ml, litro ou % nas descrições.
+- Cada ação cita uma fonte com página; quando a ação vem de duas fontes, a primeira fica na ação e as
+  duas ficam em `sources` da entrada.
+- Tudo continua `draft` até a revisão com agrônomos (9.4.1-9).
+
+**O que o assistente mostra** (`Responder.pest_disease`), conforme o `validation_status`:
+
+| Status | Resposta |
+|---|---|
+| `draft` | "O que ajuda:" seguido só das ações `preventive`, `cultural` e `biological`; termina com "Para tratar, o melhor é falar com a Assistência Técnica." (`handoff`). Caldas e preparados não aparecem. |
+| `reviewed` ou `validated_by_atd` | Todas as ações, inclusive `alternative`, sem forçar o encaminhamento. |
+| Sem ação para mostrar | "Ainda não tenho uma orientação conferida..." e encaminhamento. |
+
+As fontes citadas na resposta são só as das ações mostradas. Plantas sadias e insetos benéficos
+(vespas) têm respostas próprias, sem manejo.
+
 ## Conflitos entre fontes
 
 | Cultura | Divergência | Decisão |
@@ -106,6 +135,13 @@ de mesa.
   experimentos isolados, com resultados de 0,7 a 3,3 kg/m² conforme o manejo, que não servem como
   valor de referência; para manjericão, nenhuma das fontes informa produtividade. Se a base financeira
   precisar desses números, eles devem entrar lá como premissa documentada.
+- **Pragas e doenças** (tudo pendente de validação com agrônomos, 9.4.1-9):
+  - doenças causadas por fungos e por bactérias sem sintomas específicos: as fontes descrevem o grupo,
+    e as murchas e podridões das bactérias não correspondem à mancha na folha que o modelo reconhece;
+  - tesourinhas e gorgulhos sem sintomas nem manejo: nenhuma das fontes da base trata deles;
+  - formigas e besouros sem decisão sobre serem pragas (`beneficial: null`): só as formigas-cortadeiras
+    cortam folhas, e a classe de besouros pode incluir joaninhas, que são predadoras;
+  - doença do morango (*Diplocarpon earlianum*) sem nome popular: a resposta usa o nome científico.
 - Nenhuma fonte traz exigência de sol ou água **por cultura**; isso fica em `guidelines.json`, por grupo
   (e por cultura, quando a fonte é específica).
 
