@@ -6,10 +6,9 @@ import csv
 import json
 
 import pytest
-from starlette.testclient import TestClient
-
+import uat_session
 import validation_core as core
-import uat_session  # importable once validation_core has put scripts/ on the path
+from starlette.testclient import TestClient
 
 from hort_ia.api.main import app
 
@@ -256,3 +255,27 @@ def test_form_lists_come_from_the_knowledge_base():
                                                 ("abc", None), (None, None)])  # fmt: skip
 def test_parse_ibge(text, expected):
     assert core.parse_ibge(text) == expected
+
+
+def test_reply_markdown_keeps_lines_and_the_list_apart():
+    text = (
+        "Parece ser: Ácaro-rajado.\nComo reconhecer: colônias.\nO que ajuda:\n- Plante flores.\n"
+        "- Plantas aromáticas.\nPara confirmar o problema e saber como tratar, fale com a Assistência Técnica."
+    )
+    assert core.reply_markdown(text) == (
+        "Parece ser: Ácaro-rajado.  \nComo reconhecer: colônias.  \nO que ajuda:\n\n- Plante flores.\n"
+        "- Plantas aromáticas.\n\nPara confirmar o problema e saber como tratar, fale com a Assistência Técnica."
+    )
+    plain = "Parece ser: Tesourinhas.\nAinda não tenho uma orientação conferida para combater isso."
+    assert core.reply_markdown(plain) == plain.replace("\n", "  \n")
+
+
+def test_reply_markdown_leaves_one_line_answers_unchanged():
+    text = "Alface de inverno no Sul: dá para plantar de fevereiro a outubro. Agora em novembro está na época."
+    assert core.reply_markdown(text) == text
+
+
+def test_photo_shows_the_popular_name():
+    names = core.load_cv_names()
+    assert names["Tomato___Spider_mites Two-spotted_spider_mite"] == "Ácaro-rajado"
+    assert names["Strawberry___Leaf_scorch"] == "Strawberry___Leaf_scorch"  # no Portuguese name in the base

@@ -68,7 +68,9 @@ pest_disease:
   symptoms: "Como reconhecer: {symptoms}"
   no_management: "Ainda não tenho uma orientação conferida para combater isso."
   prevention: "O que ajuda:"
-  treatment_handoff: "Para tratar, o melhor é falar com a Assistência Técnica."
+  action_item: "- {action}"  # one action per line (pest and disease answers use one part per line)
+  treatment_handoff: "Para confirmar o problema e saber como tratar, fale com a Assistência Técnica."
+  reviewed_closing: "Se tiver dúvida sobre o problema, fale com a Assistência Técnica."  # does not set handoff
   beneficial: "{name} ajudam a horta: comem outras pragas. Não precisa combater."
   healthy: "A planta parece saudável."
 

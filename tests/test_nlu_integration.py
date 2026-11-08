@@ -188,12 +188,15 @@ def test_i6_every_cv_label_is_answered(client, entry):
     elif entry.beneficial:
         assert entry.name_pt in reply["text"] and "Não precisa combater" in reply["text"] and reply["sources"]
     else:
-        assert f"Parece ser: {entry.name_pt or entry.causal_agent or entry.cv_label}." in reply["text"]
+        lines = reply["text"].split("\n")  # pest and disease answers: one part per line
+        assert lines[0] == f"Parece ser: {entry.name_pt or entry.causal_agent or entry.cv_label}."
         # Draft entries always route treatment to Technical Assistance; with no visible action, too.
         assert reply["handoff"] == (entry.validation_status == "draft" or not entry.management)
         if entry.validation_status == "draft" and entry.management:
-            assert "O que ajuda:" in reply["text"] and reply["sources"]
-        assert ("Como reconhecer:" in reply["text"]) == bool(entry.symptoms)
+            assert "O que ajuda:" in lines and reply["sources"]
+            assert lines[-1] == "Para confirmar o problema e saber como tratar, fale com a Assistência Técnica."
+            assert any(line.startswith("- ") for line in lines)
+        assert (lines[1].startswith("Como reconhecer:") if entry.symptoms else "Como reconhecer:" not in reply["text"])
 
 
 def test_i6_unknown_label_asks_for_a_photo(client):

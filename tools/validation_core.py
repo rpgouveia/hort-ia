@@ -12,6 +12,7 @@ frontend are outside the scope of the module, Dicionário da EAP).
 
 from __future__ import annotations
 
+import importlib
 import json
 import os
 import re
@@ -28,8 +29,14 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT / "scripts") not in sys.path:
     sys.path.insert(0, str(ROOT / "scripts"))
 
-# ROLES and TOP_N are not used here: they are re-exported for the app.
-from uat_session import CHAT_FIELDS, REC_FIELDS, ROLES, TOP_N, append  # noqa: E402, F401
+_uat = importlib.import_module("uat_session")  # scripts/ is not a package: it is put on the path above
+
+# One source of truth with scripts/uat_session.py: the app reads these through this module.
+CHAT_FIELDS = _uat.CHAT_FIELDS
+REC_FIELDS = _uat.REC_FIELDS
+ROLES = _uat.ROLES
+TOP_N = _uat.TOP_N
+append = _uat.append
 
 DEFAULT_API = "http://localhost:8080"
 KB_DIR = Path(os.environ.get("HORTIA_KB_DIR", ROOT / "data" / "knowledge"))
@@ -101,6 +108,12 @@ def load_cv_labels(kb_dir: Path = KB_DIR) -> dict[str, str]:
     }
 
 
+def load_cv_names(kb_dir: Path = KB_DIR) -> dict[str, str]:
+    """Label of the computer vision model -> popular name for the participant (the label when there is none)."""
+    with (kb_dir / "pests_diseases.json").open(encoding="utf-8") as f:
+        return {e["cv_label"]: e["name_pt"] or e["cv_label"] for e in json.load(f) if e["cv_label"]}
+
+
 def explain_exclusions(excluded: list[dict], names: dict[str, str]) -> list[tuple[str, list[str]]]:
     """`excluded` of the API grouped by reason, in plain words: [(why, [crop names])]."""
     grouped: dict[str, list[str]] = {}
@@ -115,6 +128,23 @@ def parse_photo(text: str) -> tuple[str, str | None]:
     if text.startswith(PHOTO_PREFIX):
         return "foto", text.removeprefix(PHOTO_PREFIX).strip()
     return text, None
+
+
+def reply_markdown(text: str) -> str:
+    """The API `text` as Markdown that keeps its line breaks (pest and disease answers, one part per line).
+
+    Markdown joins single lines, and a line right after a list item would be glued to that item. So plain
+    lines end with a hard break and the list gets a blank line before and after it. A one-line text is
+    returned unchanged.
+    """
+    out, previous = [], None
+    for line in text.split("\n"):
+        item = line.startswith("- ")
+        if previous is not None:
+            out.append("\n" if item and previous else "\n\n" if item != previous else "  \n")
+        out.append(line)
+        previous = item
+    return "".join(out)
 
 
 # --- HTTP client -----------------------------------------------------------------------------

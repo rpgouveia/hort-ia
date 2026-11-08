@@ -119,18 +119,26 @@ def test_draft_entry_shows_only_safe_actions_and_hands_off_treatment(r):
     a = r.pest_disease(cv_label="Tomato___Late_blight")
     entry = r.kb.by_cv_label("Tomato___Late_blight")
     assert entry.validation_status == "draft"
-    assert a.text.startswith("Parece ser: Requeima. O que ajuda:")
+    assert a.text.startswith("Parece ser: Requeima.\nO que ajuda:\n- ")
+    lines = a.text.split("\n")
     for action in entry.management:
-        assert (action.description in a.text) == (action.type != "alternative"), action.description
+        assert (f"- {action.description}" in lines) == (action.type != "alternative"), action.description
     assert "calda" not in a.text.lower()
-    assert a.text.endswith("Para tratar, o melhor é falar com a Assistência Técnica.") and a.handoff
+    assert lines[-1] == TREATMENT_HANDOFF and a.handoff
     assert a.sources == ["Recomendações técnicas para o cultivo de hortaliças em agricultura familiar "
                          "(Circular Técnica 47), p. 11"]  # only the shown actions' source (no HPE p. 29)
 
 
 def test_virus_answer_says_there_is_no_cure(r):
     a = r.pest_disease(cv_label="Tomato___Tomato_Yellow_Leaf_Curl_Virus")
-    assert "Não há cura" in a.text and "mosca-branca" in a.text and a.handoff
+    entry = r.kb.by_cv_label("Tomato___Tomato_Yellow_Leaf_Curl_Virus")
+    lines = a.text.split("\n")
+    assert lines[:2] == ["Parece ser: Begomovirose (TYLCV).", f"Como reconhecer: {entry.symptoms[:1].lower()}{entry.symptoms[1:]}"]
+    assert lines[2] == "O que ajuda:"
+    assert lines[3:-1] == [f"- {m.description}" for m in entry.management]  # no alternative action for viruses
+    assert lines[3].startswith("- Não há cura") and "mosca-branca" in a.text
+    # "No cure" must not end with "how to treat" alone: the closing line asks to confirm the problem first.
+    assert lines[-1] == TREATMENT_HANDOFF and "Para tratar, o melhor" not in a.text and a.handoff
 
 
 @pytest.fixture
@@ -149,10 +157,22 @@ def test_reviewed_entry_shows_alternative_actions_without_forced_handoff(r, revi
     draft = r.pest_disease(cv_label="catterpillar")
     reviewed = reviewed_responder.pest_disease(cv_label="catterpillar")
     assert "nim" not in draft.text and draft.handoff
-    entry = reviewed_responder.kb.by_cv_label("catterpillar")
-    assert all(action.description in reviewed.text for action in entry.management)
-    assert "nim" in reviewed.text and not reviewed.handoff
-    assert "Assistência Técnica" not in reviewed.text
+    assert reviewed.text == (
+        "Parece ser: Lagartas.\n"
+        "Como reconhecer: comem as folhas; as menores entram em frutos e brotos. A lagarta-rosca vive no solo "
+        "e derruba plantas novas à noite.\n"
+        "O que ajuda:\n"
+        "- Produtos biológicos à base de Bacillus thuringiensis ou de baculovírus controlam lagartas. Compre em "
+        "loja agropecuária e siga o rótulo.\n"
+        "- Plante flores em volta da horta: elas abrigam joaninhas, aranhas e outros predadores das pragas.\n"
+        "- Plantas aromáticas, como coentro, cebolinha, manjericão e cravo-de-defunto, junto das hortaliças "
+        "podem afastar algumas pragas.\n"
+        "- Extrato de folhas de nim é usado contra lagartas e outros insetos. Peça orientação técnica antes de "
+        "preparar ou aplicar.\n"
+        "Se tiver dúvida sobre o problema, fale com a Assistência Técnica."
+    )
+    assert not reviewed.handoff  # the closing line offers Technical Assistance without requiring it
+    assert TREATMENT_HANDOFF not in reviewed.text
     assert any("Horta em pequenos espaços" in s for s in reviewed.sources)  # source of the nim action
 
 
@@ -162,16 +182,23 @@ def test_beneficial_insect_is_not_fought(r):
 
 # --- pest_disease: expected symptom after the identification (card 9.4.1-6.1) -------------------
 
+TREATMENT_HANDOFF = "Para confirmar o problema e saber como tratar, fale com a Assistência Técnica."
 CT47 = "Recomendações técnicas para o cultivo de hortaliças em agricultura familiar (Circular Técnica 47)"
 HPE = "Horta em pequenos espaços (ISBN 978-85-7035-047-3)"
 
 
 def test_symptom_follows_the_identification_with_its_source(r):
     a = r.pest_disease(cv_label="Tomato___Spider_mites Two-spotted_spider_mite")
-    assert a.text.startswith("Parece ser: Ácaro-rajado. Como reconhecer: colônias muito pequenas no verso das folhas")
-    assert f"{CT47}, p. 12" in a.sources
-    assert "O que ajuda:" in a.text and a.handoff  # still a draft entry
-    assert a.text.endswith("Para tratar, o melhor é falar com a Assistência Técnica.")
+    assert a.text == (
+        "Parece ser: Ácaro-rajado.\n"
+        "Como reconhecer: colônias muito pequenas no verso das folhas, com teias finas; sugam a seiva da planta.\n"
+        "O que ajuda:\n"
+        "- Plante flores em volta da horta: elas abrigam joaninhas, aranhas e outros predadores das pragas.\n"
+        "- Plantas aromáticas, como coentro, cebolinha, manjericão e cravo-de-defunto, junto das hortaliças "
+        "podem afastar algumas pragas.\n"
+        "Para confirmar o problema e saber como tratar, fale com a Assistência Técnica."
+    )
+    assert a.sources == [f"{CT47}, p. 12"] and a.handoff  # still a draft entry
 
 
 def test_symptom_sources_come_first_and_are_not_repeated(r):
@@ -183,7 +210,7 @@ def test_symptom_sources_come_first_and_are_not_repeated(r):
 
 def test_symptom_is_shown_whatever_the_status(reviewed_responder):
     a = reviewed_responder.pest_disease(cv_label="catterpillar")
-    assert a.text.startswith("Parece ser: Lagartas. Como reconhecer: comem as folhas;") and not a.handoff
+    assert a.text.startswith("Parece ser: Lagartas.\nComo reconhecer: comem as folhas;") and not a.handoff
     assert a.sources[0] == f"{CT47}, p. 11"
 
 
@@ -191,8 +218,9 @@ def test_symptom_is_shown_when_there_is_no_action_to_show(r, monkeypatch):
     entry = r.kb.pests_diseases["praga_gafanhotos"].model_copy(update={"management": []})
     monkeypatch.setitem(r.kb.pests_diseases, "praga_gafanhotos", entry)
     a = r.pest_disease(entry_id="praga_gafanhotos")
-    assert a.text.startswith("Parece ser: Gafanhotos. Como reconhecer: comem ramos e folhas.")
-    assert "Ainda não tenho uma orientação conferida" in a.text and a.handoff
+    assert a.text == ("Parece ser: Gafanhotos.\nComo reconhecer: comem ramos e folhas.\n"
+                      "Ainda não tenho uma orientação conferida para combater isso.\n"
+                      "Para isso, o melhor é falar com a Assistência Técnica.") and a.handoff
     assert a.sources == [f"{CT47}, p. 12"]
 
 
@@ -217,7 +245,32 @@ def test_no_pest_answer_leaves_a_placeholder(r, reviewed_responder):
 
 
 def test_pest_without_identification_asks_for_photo(r):
-    assert "foto" in r.pest_disease().text
+    a = r.pest_disease()
+    assert (a.text, a.sources, a.handoff) == (
+        "Para eu ajudar a identificar, mande uma foto da folha ou da parte da planta com problema.", [], False)
+
+
+# --- pest_disease: one part per line, actions as list items ------------------------------------
+
+
+def test_answer_without_action_has_one_part_per_line(r):
+    a = r.pest_disease(cv_label="earwig")
+    assert a.text.split("\n") == ["Parece ser: Tesourinhas.",
+                                  "Ainda não tenho uma orientação conferida para combater isso.",
+                                  "Para isso, o melhor é falar com a Assistência Técnica."]
+    assert "O que ajuda:" not in a.text and a.handoff
+
+
+def test_pest_answers_have_clean_lines(r, reviewed_responder):
+    for responder in (r, reviewed_responder):
+        for entry in responder.kb.pests_diseases.values():
+            text = responder.pest_disease(cv_label=entry.cv_label).text
+            assert text == text.strip(), repr(text)  # no line break (or space) at the start or the end
+            assert "\n\n" not in text, repr(text)  # no blank line
+            for line in text.split("\n"):
+                assert line == line.rstrip(), repr(line)
+            if entry.management and entry.type != "healthy":
+                assert any(line.startswith("- ") for line in text.split("\n")), entry.id
 
 
 # --- market_price / help / fallback ------------------------------------------------------
@@ -269,6 +322,8 @@ NO_SOURCE_EXPECTED = {  # answers that use no curated data, so they cite nothing
 
 def _check(answer):
     assert "{" not in answer.text and "}" not in answer.text, answer.text
+    if answer.intent != "pest_disease":  # only pest and disease answers use one part per line
+        assert "\n" not in answer.text, answer.text
     assert answer.text.strip()
     if answer.handoff or answer.missing_entity is not None or answer.intent in ("help", "fallback"):
         return
@@ -309,3 +364,10 @@ def test_u9_every_cv_label_and_no_photo(r):
 def test_u9_unknown_crop_hands_off(r):
     for answer in (r.planting_time("mandioca", "sul", 11), r.crop_care("mandioca"), r.unknown_crop("crop_care")):
         assert answer.handoff and answer.text.startswith("Ainda não tenho informações sobre essa planta")
+
+
+def test_u9_answers_without_crop_keep_a_single_paragraph(r):
+    # The U9 loops above cover the crop, region, product and CV label combinations; these are the rest.
+    for answer in (r.help(), r.fallback(), r.unknown_crop("crop_care"), r.companion_planting(None),
+                   r.planting_time(None, "sul", 11), r.market_price(None, "PR")):
+        _check(answer)

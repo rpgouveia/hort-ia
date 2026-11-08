@@ -42,4 +42,7 @@ validation = [
 ]
 
 [tool.pytest.ini_options]
-pythonpath = ["tools"]  # tests import the validation app's core as `validation_core`
+pythonpath = ["tools", "scripts"]
+
+[tool.ruff]
+line-length = 120
