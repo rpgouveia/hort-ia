@@ -1,4 +1,5 @@
 import json
+import re
 import shutil
 from pathlib import Path
 
@@ -7,7 +8,7 @@ from pydantic import ValidationError
 
 from hort_ia.knowledge import load_knowledge_base
 from hort_ia.knowledge.loader import DEFAULT_KB_DIR
-from hort_ia.knowledge.models import Crop, PlantingWindow
+from hort_ia.knowledge.models import Crop, ManagementType, PlantingWindow, ValidationStatus
 
 # Scope approved for the MVP (15 crops). Changing it must be a deliberate decision.
 EXPECTED_CROPS = {
@@ -285,3 +286,56 @@ def test_every_crop_has_planting_data_for_sul(kb):
     # Cobertura completa no Sul (manjericão via folder Embrapa); as outras regiões têm lacunas documentadas.
     missing = [c.id for c in kb.crops.values() if kb.crops[c.id].planting_months("sul") is None]
     assert not missing, missing
+
+
+# --- Pests and diseases: management by group (CT 47 pp. 11-14, HPE pp. 28-30 and 37-40) -------
+
+DOSE = re.compile(r"\d+([.,]\d+)?\s*(g\b|ml\b|litros?\b|%)", re.IGNORECASE)
+
+
+def test_every_management_action_cites_a_registered_source_and_page(kb):
+    for entry in kb.pests_diseases.values():
+        for action in entry.management:
+            assert action.source.source_id in kb.sources, (entry.id, action.description)
+            assert action.source.pages, (entry.id, action.description)
+            assert action.source in entry.sources, f"'{entry.id}': action source missing from entry sources"
+
+
+def test_every_symptom_has_a_source(kb):
+    for entry in kb.pests_diseases.values():
+        if entry.symptoms:
+            assert entry.sources and all(ref.pages for ref in entry.sources), entry.id
+
+
+def test_alternative_actions_ask_for_technical_guidance(kb):
+    for entry in kb.pests_diseases.values():
+        for action in entry.management:
+            if action.type == ManagementType.ALTERNATIVE:
+                assert "Peça orientação técnica" in action.description, (entry.id, action.description)
+
+
+def test_pests_and_diseases_stay_draft_until_agronomists_review(kb):
+    # Leaving draft is a decision of the agronomists' review (9.4.1-9), not of a data change.
+    assert {e.validation_status for e in kb.pests_diseases.values()} == {ValidationStatus.DRAFT}
+
+
+def test_no_doses_in_management(kb):
+    for entry in kb.pests_diseases.values():
+        for action in entry.management:
+            assert not DOSE.search(action.description), (entry.id, action.description)
+
+
+def test_dose_pattern_catches_doses():
+    for text in ("dilua 10 ml", "use 2 litros", "50 g por planta", "solução a 1%", "1,5 litro"):
+        assert DOSE.search(text), text
+    assert not DOSE.search("Evite excesso de água no canteiro.")
+
+
+# Without content in the base's sources; pending with the agronomists (9.4.1-9).
+NO_MANAGEMENT_YET = {"praga_tesourinhas", "praga_gorgulhos"}
+
+
+def test_every_harmful_entry_has_management_except_known_gaps(kb):
+    harmful = [e for e in kb.pests_diseases.values() if e.type != "healthy" and not e.beneficial]
+    assert len(harmful) == 22
+    assert {e.id for e in harmful if not e.management} == NO_MANAGEMENT_YET

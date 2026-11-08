@@ -11,10 +11,52 @@
     ],
     "beneficial": null,
     "symptoms": null,
-    "management": [],
-    "sources": [],
+    "management": [
+      {
+        "type": "preventive",
+        "description": "Use sementes e mudas sadias, de origem conhecida.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Arranque as plantas doentes e destrua-as longe da horta.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Evite excesso de umidade no canteiro.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Onde a doença apareceu, plante por um tempo adubo verde ou culturas que não pegam a doença.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "29"
+      }
+    ],
     "validation_status": "draft",
-    "notes": null
+    "notes": "Manejo por grupo (doenças causadas por bactérias), sem orientação específica para esta doença. Sintomas específicos e validação com agrônomos (9.4.1-9)."
   },
   {
     "id": "tomate_pinta_preta",
@@ -28,10 +70,60 @@
     ],
     "beneficial": null,
     "symptoms": null,
-    "management": [],
-    "sources": [],
+    "management": [
+      {
+        "type": "preventive",
+        "description": "Use sementes certificadas e, quando houver, variedades resistentes.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Retire da horta as folhas e plantas doentes e os restos da colheita anterior.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Regue sem encharcar e mantenha a adubação equilibrada.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Faça rotação de culturas e plante na época indicada para a sua região.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "alternative",
+        "description": "Caldas naturais, como a bordalesa e a sulfocálcica, são usadas contra manchas nas folhas. Peça orientação técnica antes de preparar ou aplicar.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "29"
+      }
+    ],
     "validation_status": "draft",
-    "notes": null
+    "notes": "Manejo por grupo (doenças causadas por fungos), sem orientação específica para esta doença. Sintomas específicos e validação com agrônomos (9.4.1-9)."
   },
   {
     "id": "tomate_requeima",
@@ -45,10 +137,60 @@
     ],
     "beneficial": null,
     "symptoms": null,
-    "management": [],
-    "sources": [],
+    "management": [
+      {
+        "type": "preventive",
+        "description": "Use sementes certificadas e, quando houver, variedades resistentes.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Retire da horta as folhas e plantas doentes e os restos da colheita anterior.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Regue sem encharcar e mantenha a adubação equilibrada.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Faça rotação de culturas e plante na época indicada para a sua região.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "alternative",
+        "description": "Caldas naturais, como a bordalesa e a sulfocálcica, são usadas contra manchas nas folhas. Peça orientação técnica antes de preparar ou aplicar.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "29"
+      }
+    ],
     "validation_status": "draft",
-    "notes": null
+    "notes": "Manejo por grupo (doenças causadas por fungos), sem orientação específica para esta doença. Sintomas específicos e validação com agrônomos (9.4.1-9)."
   },
   {
     "id": "tomate_cladosporiose",
@@ -62,10 +204,60 @@
     ],
     "beneficial": null,
     "symptoms": null,
-    "management": [],
-    "sources": [],
+    "management": [
+      {
+        "type": "preventive",
+        "description": "Use sementes certificadas e, quando houver, variedades resistentes.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Retire da horta as folhas e plantas doentes e os restos da colheita anterior.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Regue sem encharcar e mantenha a adubação equilibrada.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Faça rotação de culturas e plante na época indicada para a sua região.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "alternative",
+        "description": "Caldas naturais, como a bordalesa e a sulfocálcica, são usadas contra manchas nas folhas. Peça orientação técnica antes de preparar ou aplicar.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "29"
+      }
+    ],
     "validation_status": "draft",
-    "notes": null
+    "notes": "Manejo por grupo (doenças causadas por fungos), sem orientação específica para esta doença. Sintomas específicos e validação com agrônomos (9.4.1-9)."
   },
   {
     "id": "tomate_septoriose",
@@ -79,10 +271,60 @@
     ],
     "beneficial": null,
     "symptoms": null,
-    "management": [],
-    "sources": [],
+    "management": [
+      {
+        "type": "preventive",
+        "description": "Use sementes certificadas e, quando houver, variedades resistentes.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Retire da horta as folhas e plantas doentes e os restos da colheita anterior.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Regue sem encharcar e mantenha a adubação equilibrada.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Faça rotação de culturas e plante na época indicada para a sua região.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "alternative",
+        "description": "Caldas naturais, como a bordalesa e a sulfocálcica, são usadas contra manchas nas folhas. Peça orientação técnica antes de preparar ou aplicar.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "29"
+      }
+    ],
     "validation_status": "draft",
-    "notes": null
+    "notes": "Manejo por grupo (doenças causadas por fungos), sem orientação específica para esta doença. Sintomas específicos e validação com agrônomos (9.4.1-9)."
   },
   {
     "id": "tomate_acaro_rajado",
@@ -95,9 +337,51 @@
       "tomate"
     ],
     "beneficial": false,
-    "symptoms": null,
-    "management": [],
-    "sources": [],
+    "symptoms": "Colônias muito pequenas no verso das folhas, com teias finas; sugam a seiva da planta.",
+    "management": [
+      {
+        "type": "cultural",
+        "description": "Plante flores em volta da horta: elas abrigam joaninhas, aranhas e outros predadores das pragas.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "12"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Plantas aromáticas, como coentro, cebolinha, manjericão e cravo-de-defunto, junto das hortaliças podem afastar algumas pragas.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "12"
+        }
+      },
+      {
+        "type": "alternative",
+        "description": "Preparados com sabão neutro, infusão de cravo-de-defunto ou calda sulfocálcica são usados contra ácaros. Peça orientação técnica antes de preparar ou aplicar.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "14"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "12"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "30"
+      },
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "14"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "38-39"
+      }
+    ],
     "validation_status": "draft",
     "notes": "Classe de praga dentro do dataset de doenças."
   },
@@ -113,10 +397,60 @@
     ],
     "beneficial": null,
     "symptoms": null,
-    "management": [],
-    "sources": [],
+    "management": [
+      {
+        "type": "preventive",
+        "description": "Use sementes certificadas e, quando houver, variedades resistentes.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Retire da horta as folhas e plantas doentes e os restos da colheita anterior.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Regue sem encharcar e mantenha a adubação equilibrada.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Faça rotação de culturas e plante na época indicada para a sua região.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "alternative",
+        "description": "Caldas naturais, como a bordalesa e a sulfocálcica, são usadas contra manchas nas folhas. Peça orientação técnica antes de preparar ou aplicar.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "29"
+      }
+    ],
     "validation_status": "draft",
-    "notes": null
+    "notes": "Manejo por grupo (doenças causadas por fungos), sem orientação específica para esta doença. Sintomas específicos e validação com agrônomos (9.4.1-9)."
   },
   {
     "id": "tomate_begomovirose",
@@ -129,9 +463,47 @@
       "tomate"
     ],
     "beneficial": null,
-    "symptoms": null,
-    "management": [],
-    "sources": [],
+    "symptoms": "Folhas e brotos novos amarelados, com manchas de verde claro e escuro (mosaico) e enrugados.",
+    "management": [
+      {
+        "type": "cultural",
+        "description": "Não há cura depois que aparece: arranque logo as plantas doentes e destrua-as longe da horta.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "preventive",
+        "description": "Combata os insetos que transmitem o vírus, como mosca-branca, pulgões e tripes.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "preventive",
+        "description": "Use sementes sadias e limpe as ferramentas: o vírus também passa por ferimentos e pelo contato com plantas doentes.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Elimine plantações velhas e doentes antes de começar um novo plantio.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11"
+      }
+    ],
     "validation_status": "draft",
     "notes": "Virose transmitida por mosca-branca; manejo foca no vetor e na remoção de plantas."
   },
@@ -146,9 +518,47 @@
       "tomate"
     ],
     "beneficial": null,
-    "symptoms": null,
-    "management": [],
-    "sources": [],
+    "symptoms": "Folhas e brotos novos amarelados, com manchas de verde claro e escuro (mosaico) e enrugados.",
+    "management": [
+      {
+        "type": "cultural",
+        "description": "Não há cura depois que aparece: arranque logo as plantas doentes e destrua-as longe da horta.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "preventive",
+        "description": "Combata os insetos que transmitem o vírus, como mosca-branca, pulgões e tripes.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "preventive",
+        "description": "Use sementes sadias e limpe as ferramentas: o vírus também passa por ferimentos e pelo contato com plantas doentes.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Elimine plantações velhas e doentes antes de começar um novo plantio.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11"
+      }
+    ],
     "validation_status": "draft",
     "notes": null
   },
@@ -181,10 +591,60 @@
     ],
     "beneficial": null,
     "symptoms": null,
-    "management": [],
-    "sources": [],
+    "management": [
+      {
+        "type": "preventive",
+        "description": "Use sementes certificadas e, quando houver, variedades resistentes.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Retire da horta as folhas e plantas doentes e os restos da colheita anterior.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Regue sem encharcar e mantenha a adubação equilibrada.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Faça rotação de culturas e plante na época indicada para a sua região.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "alternative",
+        "description": "Caldas naturais, como a bordalesa e a sulfocálcica, são usadas contra manchas nas folhas. Peça orientação técnica antes de preparar ou aplicar.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "29"
+      }
+    ],
     "validation_status": "draft",
-    "notes": null
+    "notes": "Manejo por grupo (doenças causadas por fungos), sem orientação específica para esta doença. Sintomas específicos e validação com agrônomos (9.4.1-9)."
   },
   {
     "id": "batata_requeima",
@@ -198,10 +658,60 @@
     ],
     "beneficial": null,
     "symptoms": null,
-    "management": [],
-    "sources": [],
+    "management": [
+      {
+        "type": "preventive",
+        "description": "Use sementes certificadas e, quando houver, variedades resistentes.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Retire da horta as folhas e plantas doentes e os restos da colheita anterior.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Regue sem encharcar e mantenha a adubação equilibrada.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Faça rotação de culturas e plante na época indicada para a sua região.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "alternative",
+        "description": "Caldas naturais, como a bordalesa e a sulfocálcica, são usadas contra manchas nas folhas. Peça orientação técnica antes de preparar ou aplicar.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "29"
+      }
+    ],
     "validation_status": "draft",
-    "notes": null
+    "notes": "Manejo por grupo (doenças causadas por fungos), sem orientação específica para esta doença. Sintomas específicos e validação com agrônomos (9.4.1-9)."
   },
   {
     "id": "batata_saudavel",
@@ -232,10 +742,52 @@
     ],
     "beneficial": null,
     "symptoms": null,
-    "management": [],
-    "sources": [],
+    "management": [
+      {
+        "type": "preventive",
+        "description": "Use sementes e mudas sadias, de origem conhecida.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Arranque as plantas doentes e destrua-as longe da horta.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Evite excesso de umidade no canteiro.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Onde a doença apareceu, plante por um tempo adubo verde ou culturas que não pegam a doença.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "29"
+      }
+    ],
     "validation_status": "draft",
-    "notes": null
+    "notes": "Manejo por grupo (doenças causadas por bactérias), sem orientação específica para esta doença. Sintomas específicos e validação com agrônomos (9.4.1-9)."
   },
   {
     "id": "pimentao_saudavel",
@@ -266,10 +818,60 @@
     ],
     "beneficial": null,
     "symptoms": null,
-    "management": [],
-    "sources": [],
+    "management": [
+      {
+        "type": "preventive",
+        "description": "Use sementes certificadas e, quando houver, variedades resistentes.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Retire da horta as folhas e plantas doentes e os restos da colheita anterior.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Regue sem encharcar e mantenha a adubação equilibrada.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Faça rotação de culturas e plante na época indicada para a sua região.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "type": "alternative",
+        "description": "Caldas naturais, como a bordalesa e a sulfocálcica, são usadas contra manchas nas folhas. Peça orientação técnica antes de preparar ou aplicar.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "29"
+      }
+    ],
     "validation_status": "draft",
-    "notes": "Confirmar nome popular em português na literatura da Embrapa."
+    "notes": "Manejo por grupo (doenças causadas por fungos), sem orientação específica para esta doença. Sintomas específicos e validação com agrônomos (9.4.1-9). Nome popular pendente."
   },
   {
     "id": "morango_saudavel",
@@ -297,11 +899,41 @@
     "causal_agent": null,
     "crop_ids": [],
     "beneficial": null,
-    "symptoms": null,
-    "management": [],
-    "sources": [],
+    "symptoms": "Cortam folhas e ramos novos.",
+    "management": [
+      {
+        "type": "cultural",
+        "description": "Gergelim plantado perto da horta ajuda contra formigas-cortadeiras: as folhas levadas para o formigueiro prejudicam o fungo de que elas se alimentam. Prefira o gergelim de semente preta.",
+        "source": {
+          "source_id": "embrapa_horta_pequenos_espacos",
+          "pages": "40"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Plantas aromáticas, como coentro, cebolinha, manjericão e cravo-de-defunto, junto das hortaliças podem afastar algumas pragas.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "12"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "12"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "40"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "30"
+      }
+    ],
     "validation_status": "draft",
-    "notes": "Ambíguo: formigas-cortadeiras são pragas, outras são neutras. Definir antes de revisar."
+    "notes": "Decidir com agrônomos se a classe 'ants' deve ser tratada como praga (só as cortadeiras cortam folhas)."
   },
   {
     "id": "praga_besouros",
@@ -312,11 +944,53 @@
     "causal_agent": null,
     "crop_ids": [],
     "beneficial": null,
-    "symptoms": null,
-    "management": [],
-    "sources": [],
+    "symptoms": "Comem e furam folhas, brotos e frutos; os mais comuns são as vaquinhas e os burrinhos.",
+    "management": [
+      {
+        "type": "cultural",
+        "description": "Plante flores em volta da horta: elas abrigam joaninhas, aranhas e outros predadores das pragas.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "12"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Plantas aromáticas, como coentro, cebolinha, manjericão e cravo-de-defunto, junto das hortaliças podem afastar algumas pragas.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "12"
+        }
+      },
+      {
+        "type": "alternative",
+        "description": "Calda de cebola é usada como repelente de vaquinhas, pulgões e lagartas. Peça orientação técnica antes de preparar ou aplicar.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "14"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "12"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "30"
+      },
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "14"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "38"
+      }
+    ],
     "validation_status": "draft",
-    "notes": "Ambíguo: a classe pode incluir joaninhas, que são predadoras benéficas."
+    "notes": "A classe 'beetle' pode incluir joaninhas, que são predadoras de pragas (CT 47 p. 12). Decidir com agrônomos."
   },
   {
     "id": "praga_lagartas",
@@ -327,9 +1001,63 @@
     "causal_agent": null,
     "crop_ids": [],
     "beneficial": false,
-    "symptoms": null,
-    "management": [],
-    "sources": [],
+    "symptoms": "Comem as folhas; as menores entram em frutos e brotos. A lagarta-rosca vive no solo e derruba plantas novas à noite.",
+    "management": [
+      {
+        "type": "biological",
+        "description": "Produtos biológicos à base de Bacillus thuringiensis ou de baculovírus controlam lagartas. Compre em loja agropecuária e siga o rótulo.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "13"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Plante flores em volta da horta: elas abrigam joaninhas, aranhas e outros predadores das pragas.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "12"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Plantas aromáticas, como coentro, cebolinha, manjericão e cravo-de-defunto, junto das hortaliças podem afastar algumas pragas.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "12"
+        }
+      },
+      {
+        "type": "alternative",
+        "description": "Extrato de folhas de nim é usado contra lagartas e outros insetos. Peça orientação técnica antes de preparar ou aplicar.",
+        "source": {
+          "source_id": "embrapa_horta_pequenos_espacos",
+          "pages": "37"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11"
+      },
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "13"
+      },
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "12"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "30"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "37"
+      }
+    ],
     "validation_status": "draft",
     "notes": "Rótulo com grafia do dataset original ('catterpillar'); conferir na pasta baixada."
   },
@@ -346,7 +1074,7 @@
     "management": [],
     "sources": [],
     "validation_status": "draft",
-    "notes": "Podem atuar como predadoras de pulgões; verificar antes de recomendar controle."
+    "notes": "Podem atuar como predadoras de pulgões; verificar antes de recomendar controle. Sem conteúdo nas fontes da base; pendente com agrônomos (9.4.1-9)."
   },
   {
     "id": "praga_gafanhotos",
@@ -357,11 +1085,37 @@
     "causal_agent": null,
     "crop_ids": [],
     "beneficial": false,
-    "symptoms": null,
-    "management": [],
-    "sources": [],
+    "symptoms": "Comem ramos e folhas.",
+    "management": [
+      {
+        "type": "cultural",
+        "description": "Plante flores em volta da horta: elas abrigam joaninhas, aranhas e outros predadores das pragas.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "12"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Plantas aromáticas, como coentro, cebolinha, manjericão e cravo-de-defunto, junto das hortaliças podem afastar algumas pragas.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "12"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "12"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "30"
+      }
+    ],
     "validation_status": "draft",
-    "notes": null
+    "notes": "Sem manejo específico nas fontes; validar com agrônomos."
   },
   {
     "id": "praga_mariposas",
@@ -372,9 +1126,47 @@
     "causal_agent": null,
     "crop_ids": [],
     "beneficial": false,
-    "symptoms": null,
-    "management": [],
-    "sources": [],
+    "symptoms": "As mariposas adultas não comem a planta; o estrago é feito pelas lagartas que nascem dos ovos delas.",
+    "management": [
+      {
+        "type": "cultural",
+        "description": "Armadilhas com luz sobre um recipiente com água ajudam a reduzir mariposas e outros insetos.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "13"
+        }
+      },
+      {
+        "type": "biological",
+        "description": "Produtos biológicos à base de Bacillus thuringiensis ou de baculovírus controlam lagartas. Compre em loja agropecuária e siga o rótulo.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "13"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "Plante flores em volta da horta: elas abrigam joaninhas, aranhas e outros predadores das pragas.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "12"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11"
+      },
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "13"
+      },
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "12"
+      }
+    ],
     "validation_status": "draft",
     "notes": "O dano é causado pela fase larval (lagarta)."
   },
@@ -387,9 +1179,43 @@
     "causal_agent": null,
     "crop_ids": [],
     "beneficial": false,
-    "symptoms": null,
-    "management": [],
-    "sources": [],
+    "symptoms": "Raspam folhas e ramos novos; aparecem mais quando há muita umidade.",
+    "management": [
+      {
+        "type": "cultural",
+        "description": "Evite excesso de água no canteiro.",
+        "source": {
+          "source_id": "embrapa_horta_pequenos_espacos",
+          "pages": "29"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "À noite, deixe no chão, perto das plantas, um saco de pano molhado com água e um pouco de leite. De manhã, vire o saco e recolha as lesmas e caracóis que se juntaram embaixo.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "14"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "12"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "29"
+      },
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "14"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "39"
+      }
+    ],
     "validation_status": "draft",
     "notes": null
   },
@@ -402,9 +1228,43 @@
     "causal_agent": null,
     "crop_ids": [],
     "beneficial": false,
-    "symptoms": null,
-    "management": [],
-    "sources": [],
+    "symptoms": "Raspam folhas e ramos novos; aparecem mais quando há muita umidade.",
+    "management": [
+      {
+        "type": "cultural",
+        "description": "Evite excesso de água no canteiro.",
+        "source": {
+          "source_id": "embrapa_horta_pequenos_espacos",
+          "pages": "29"
+        }
+      },
+      {
+        "type": "cultural",
+        "description": "À noite, deixe no chão, perto das plantas, um saco de pano molhado com água e um pouco de leite. De manhã, vire o saco e recolha as lesmas e caracóis que se juntaram embaixo.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "14"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "12"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "29"
+      },
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "14"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "39"
+      }
+    ],
     "validation_status": "draft",
     "notes": null
   },
@@ -441,6 +1301,6 @@
     "management": [],
     "sources": [],
     "validation_status": "draft",
-    "notes": null
+    "notes": "Sem conteúdo nas fontes da base; pendente com agrônomos (9.4.1-9)."
   }
 ]

@@ -1,8 +1,11 @@
 import itertools
+import json
+import shutil
 
 import pytest
 
 from hort_ia.knowledge import load_knowledge_base
+from hort_ia.knowledge.loader import DEFAULT_KB_DIR
 from hort_ia.market.loader import load_market_dataset
 from hort_ia.nlp import Responder, load_templates
 from hort_ia.nlp.dataset import EntityType
@@ -106,8 +109,51 @@ def test_rotation_lists_same_family(r):
 
 
 def test_pest_without_management_hands_off(r):
+    for label in ("earwig", "weevil"):  # tesourinhas and gorgulhos: no content in the base's sources
+        a = r.pest_disease(cv_label=label)
+        assert "Ainda não tenho uma orientação conferida" in a.text and a.handoff
+        assert "O que ajuda:" not in a.text and not a.sources
+
+
+def test_draft_entry_shows_only_safe_actions_and_hands_off_treatment(r):
     a = r.pest_disease(cv_label="Tomato___Late_blight")
-    assert "Requeima" in a.text and a.handoff
+    entry = r.kb.by_cv_label("Tomato___Late_blight")
+    assert entry.validation_status == "draft"
+    assert a.text.startswith("Parece ser: Requeima. O que ajuda:")
+    for action in entry.management:
+        assert (action.description in a.text) == (action.type != "alternative"), action.description
+    assert "calda" not in a.text.lower()
+    assert a.text.endswith("Para tratar, o melhor é falar com a Assistência Técnica.") and a.handoff
+    assert a.sources == ["Recomendações técnicas para o cultivo de hortaliças em agricultura familiar "
+                         "(Circular Técnica 47), p. 11"]  # only the shown actions' source (no HPE p. 29)
+
+
+def test_virus_answer_says_there_is_no_cure(r):
+    a = r.pest_disease(cv_label="Tomato___Tomato_Yellow_Leaf_Curl_Virus")
+    assert "Não há cura" in a.text and "mosca-branca" in a.text and a.handoff
+
+
+@pytest.fixture
+def reviewed_responder(tmp_path):
+    """Copy of the base with `praga_lagartas` marked as reviewed by the agronomists."""
+    target = tmp_path / "knowledge"
+    shutil.copytree(DEFAULT_KB_DIR, target)
+    path = target / "pests_diseases.json"
+    entries = json.loads(path.read_text(encoding="utf-8"))
+    next(e for e in entries if e["id"] == "praga_lagartas")["validation_status"] = "reviewed"
+    path.write_text(json.dumps(entries, ensure_ascii=False), encoding="utf-8")
+    return Responder(load_knowledge_base(target), load_templates())
+
+
+def test_reviewed_entry_shows_alternative_actions_without_forced_handoff(r, reviewed_responder):
+    draft = r.pest_disease(cv_label="catterpillar")
+    reviewed = reviewed_responder.pest_disease(cv_label="catterpillar")
+    assert "nim" not in draft.text and draft.handoff
+    entry = reviewed_responder.kb.by_cv_label("catterpillar")
+    assert all(action.description in reviewed.text for action in entry.management)
+    assert "nim" in reviewed.text and not reviewed.handoff
+    assert "Assistência Técnica" not in reviewed.text
+    assert any("Horta em pequenos espaços" in s for s in reviewed.sources)  # source of the nim action
 
 
 def test_beneficial_insect_is_not_fought(r):

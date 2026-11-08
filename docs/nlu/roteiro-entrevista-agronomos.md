@@ -40,6 +40,12 @@ Pontos em que a equipe precisou interpretar a fonte ou em que as fontes divergem
 | Ponto | Pergunta ao agrônomo |
 |---|---|
 | Pragas sem conteúdo | Para as pragas mais comuns da região (pulgão, mosca-branca, lagarta, lesma, formiga), qual manejo recomenda para horta urbana, sem agrotóxico? |
+| Manejo por grupo | A base usa o mesmo manejo para todas as doenças de um grupo (fungos: sementes certificadas, retirar folhas doentes, regar sem encharcar, rotação; bactérias: mudas sadias, arrancar plantas doentes, evitar umidade, adubo verde; vírus: arrancar plantas doentes, combater mosca-branca, pulgões e tripes). Essas ações valem para pinta-preta, requeima, septoriose, mancha-alvo, cladosporiose e mancha-bacteriana? Falta alguma importante? |
+| Sintomas das doenças | Como o agricultor reconhece cada doença na folha (pinta-preta, requeima, septoriose, mancha-alvo, cladosporiose, mancha-bacteriana do tomate e do pimentão)? As fontes só descrevem os grupos. |
+| Formigas, besouros e tesourinhas | O modelo não separa formiga-cortadeira de outras formigas, nem joaninha de vaquinha. Devemos tratar essas classes como pragas, como benéficas ou responder "depende"? E as tesourinhas, que também comem pulgões? |
+| Gafanhotos, tesourinhas e gorgulhos | As fontes não trazem manejo para eles. O que recomenda para horta urbana, sem agrotóxico? |
+| Doença do morango | Qual o nome popular de *Diplocarpon earlianum* no morango? |
+| Preparados naturais | Hoje o assistente não indica caldas (bordalesa, sulfocálcica, cebola), extrato de nim nem preparados com sabão. Eles podem ser indicados? Com quais cuidados (equipamento de proteção, horário, partes da planta) e qual período de carência antes de colher? |
 | Pulgão e mosca-branca | Não estão no modelo de visão computacional. São tão frequentes que deveriam entrar? |
 | Cenoura e rabanete | O dataset tradicional diz para não plantar juntos, mas é prática comum semear no mesmo canteiro. Qual é a orientação? |
 | Manjericão no Sul | Interpretamos "semeadura no final da primavera" como novembro e dezembro. Faz sentido para Curitiba e região? |

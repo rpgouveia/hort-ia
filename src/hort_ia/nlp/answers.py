@@ -20,7 +20,7 @@ from pydantic import BaseModel
 from ..core.calendar import format_months
 from ..core.geo import Region
 from ..core.sources import SourceRef
-from ..knowledge.models import Crop, Evidence, KnowledgeBase
+from ..knowledge.models import Crop, Evidence, KnowledgeBase, ManagementType, ValidationStatus
 from ..recommender import Profile, Recommender
 from .dataset import EntityType, nlu_dir
 
@@ -245,11 +245,19 @@ class Responder:
             return self._answer(intent, [t["beneficial"].format(name=entry.name_pt)], sources=self.cite(entry.sources))
         name = entry.name_pt or entry.causal_agent or entry.cv_label
         lines = [t["identified"].format(name=name)]
-        if entry.management:
-            lines += [m.description for m in entry.management]
-            return self._answer(intent, lines, sources=self.cite([m.source for m in entry.management]))
-        lines += [t["no_management"], self._t["common"]["handoff"]]
-        return self._answer(intent, lines, handoff=True)
+        # Until agronomists review an entry, show only what is safe to do on one's own (prevention,
+        # cultural and biological actions) and route treatment to Technical Assistance. Homemade
+        # preparations (`alternative`) only appear once the entry is reviewed.
+        draft = entry.validation_status == ValidationStatus.DRAFT
+        shown = [m for m in entry.management if not (draft and m.type == ManagementType.ALTERNATIVE)]
+        if not shown:
+            lines += [t["no_management"], self._t["common"]["handoff"]]
+            return self._answer(intent, lines, handoff=True)
+        sources = self.cite([m.source for m in shown])
+        if not draft:
+            return self._answer(intent, lines + [m.description for m in shown], sources=sources)
+        lines += [t["prevention"], *(m.description for m in shown), t["treatment_handoff"]]
+        return self._answer(intent, lines, sources=sources, handoff=True)
 
     def market_price(self, product: str | None, uf: str | None = None) -> Answer:
         """product: crop id, market product id or name; uf: user's state, to pick the local Ceasa."""
