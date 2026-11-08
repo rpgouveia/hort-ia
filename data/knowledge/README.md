@@ -100,6 +100,9 @@ indicam quando não há orientação específica para a doença.
   de g, ml, litro ou % nas descrições.
 - Cada ação cita uma fonte com página; quando a ação vem de duas fontes, a primeira fica na ação e as
   duas ficam em `sources` da entrada.
+- O sintoma tem fonte própria em `symptoms_sources`, que também aparece em `sources` da entrada. O
+  validador recusa uma entrada com `symptoms` e sem `symptoms_sources`, com qualquer status, e a
+  integridade da base confere se essas fontes estão em `sources.json`.
 - Tudo continua `draft` até a revisão com agrônomos (9.4.1-9).
 
 **O que o assistente mostra** (`Responder.pest_disease`), conforme o `validation_status`:
@@ -110,8 +113,11 @@ indicam quando não há orientação específica para a doença.
 | `reviewed` ou `validated_by_atd` | Todas as ações, inclusive `alternative`, sem forçar o encaminhamento. |
 | Sem ação para mostrar | "Ainda não tenho uma orientação conferida..." e encaminhamento. |
 
-As fontes citadas na resposta são só as das ações mostradas. Plantas sadias e insetos benéficos
-(vespas) têm respostas próprias, sem manejo.
+Quando a entrada tem sintoma, a resposta mostra "Como reconhecer: ..." logo depois de "Parece ser: X.",
+com qualquer status: o sintoma é descritivo e ajuda a pessoa a conferir se a identificação do modelo
+bate com o que vê na planta. As fontes citadas na resposta são as do sintoma, seguidas das das ações
+mostradas, sem repetir; as fontes das ações escondidas ficam de fora. Plantas sadias e insetos
+benéficos (vespas) têm respostas próprias, sem sintoma nem manejo.
 
 ## Conflitos entre fontes
 

@@ -338,6 +338,12 @@
     ],
     "beneficial": false,
     "symptoms": "Colônias muito pequenas no verso das folhas, com teias finas; sugam a seiva da planta.",
+    "symptoms_sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "12"
+      }
+    ],
     "management": [
       {
         "type": "cultural",
@@ -464,6 +470,12 @@
     ],
     "beneficial": null,
     "symptoms": "Folhas e brotos novos amarelados, com manchas de verde claro e escuro (mosaico) e enrugados.",
+    "symptoms_sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11"
+      }
+    ],
     "management": [
       {
         "type": "cultural",
@@ -519,6 +531,12 @@
     ],
     "beneficial": null,
     "symptoms": "Folhas e brotos novos amarelados, com manchas de verde claro e escuro (mosaico) e enrugados.",
+    "symptoms_sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11"
+      }
+    ],
     "management": [
       {
         "type": "cultural",
@@ -900,6 +918,12 @@
     "crop_ids": [],
     "beneficial": null,
     "symptoms": "Cortam folhas e ramos novos.",
+    "symptoms_sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "12"
+      }
+    ],
     "management": [
       {
         "type": "cultural",
@@ -945,6 +969,12 @@
     "crop_ids": [],
     "beneficial": null,
     "symptoms": "Comem e furam folhas, brotos e frutos; os mais comuns são as vaquinhas e os burrinhos.",
+    "symptoms_sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "12"
+      }
+    ],
     "management": [
       {
         "type": "cultural",
@@ -1002,6 +1032,12 @@
     "crop_ids": [],
     "beneficial": false,
     "symptoms": "Comem as folhas; as menores entram em frutos e brotos. A lagarta-rosca vive no solo e derruba plantas novas à noite.",
+    "symptoms_sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11"
+      }
+    ],
     "management": [
       {
         "type": "biological",
@@ -1086,6 +1122,12 @@
     "crop_ids": [],
     "beneficial": false,
     "symptoms": "Comem ramos e folhas.",
+    "symptoms_sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "12"
+      }
+    ],
     "management": [
       {
         "type": "cultural",
@@ -1127,6 +1169,12 @@
     "crop_ids": [],
     "beneficial": false,
     "symptoms": "As mariposas adultas não comem a planta; o estrago é feito pelas lagartas que nascem dos ovos delas.",
+    "symptoms_sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11"
+      }
+    ],
     "management": [
       {
         "type": "cultural",
@@ -1180,6 +1228,16 @@
     "crop_ids": [],
     "beneficial": false,
     "symptoms": "Raspam folhas e ramos novos; aparecem mais quando há muita umidade.",
+    "symptoms_sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "12"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "29"
+      }
+    ],
     "management": [
       {
         "type": "cultural",
@@ -1229,6 +1287,16 @@
     "crop_ids": [],
     "beneficial": false,
     "symptoms": "Raspam folhas e ramos novos; aparecem mais quando há muita umidade.",
+    "symptoms_sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "12"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "29"
+      }
+    ],
     "management": [
       {
         "type": "cultural",

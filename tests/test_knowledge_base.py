@@ -8,7 +8,7 @@ from pydantic import ValidationError
 
 from hort_ia.knowledge import load_knowledge_base
 from hort_ia.knowledge.loader import DEFAULT_KB_DIR
-from hort_ia.knowledge.models import Crop, ManagementType, PlantingWindow, ValidationStatus
+from hort_ia.knowledge.models import Crop, ManagementType, PestDisease, PlantingWindow, ValidationStatus
 
 # Scope approved for the MVP (15 crops). Changing it must be a deliberate decision.
 EXPECTED_CROPS = {
@@ -301,10 +301,39 @@ def test_every_management_action_cites_a_registered_source_and_page(kb):
             assert action.source in entry.sources, f"'{entry.id}': action source missing from entry sources"
 
 
-def test_every_symptom_has_a_source(kb):
+def test_every_symptom_has_its_own_registered_source_with_page(kb):
+    with_symptoms = [e for e in kb.pests_diseases.values() if e.symptoms]
+    assert len(with_symptoms) == 10
+    for entry in with_symptoms:
+        assert entry.symptoms_sources, entry.id
+        for ref in entry.symptoms_sources:
+            assert ref.source_id in kb.sources and ref.pages, (entry.id, ref)
+
+
+def test_symptom_sources_are_listed_in_entry_sources(kb):
     for entry in kb.pests_diseases.values():
-        if entry.symptoms:
-            assert entry.sources and all(ref.pages for ref in entry.sources), entry.id
+        for ref in entry.symptoms_sources:
+            assert ref in entry.sources, f"'{entry.id}': symptom source {ref} missing from entry sources"
+
+
+@pytest.mark.parametrize("status", ["draft", "reviewed"])
+def test_symptom_without_symptoms_sources_is_rejected(status):
+    ref = {"source_id": "embrapa_ct47_cultivo_hortalicas", "pages": "12"}
+    with pytest.raises(ValidationError, match="symptoms without symptoms_sources"):
+        PestDisease(id="praga_teste", cv_dataset="agricultural_pests_dataset", cv_label="teste", type="pest",
+                    name_pt="Teste", beneficial=False, symptoms="Comem as folhas.", sources=[ref],
+                    management=[{"type": "cultural", "description": "Teste.", "source": ref}],
+                    validation_status=status)
+
+
+def test_unregistered_symptom_source_is_rejected(kb_copy):
+    path = kb_copy / "pests_diseases.json"
+    entries = json.loads(path.read_text(encoding="utf-8"))
+    entry = next(e for e in entries if e["id"] == "praga_lesmas")
+    entry["symptoms_sources"] = [{"source_id": "fonte_inexistente", "pages": "1"}]
+    path.write_text(json.dumps(entries, ensure_ascii=False), encoding="utf-8")
+    with pytest.raises(ValidationError, match="unknown source 'fonte_inexistente'"):
+        load_knowledge_base(kb_copy)
 
 
 def test_alternative_actions_ask_for_technical_guidance(kb):

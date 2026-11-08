@@ -245,6 +245,11 @@ class Responder:
             return self._answer(intent, [t["beneficial"].format(name=entry.name_pt)], sources=self.cite(entry.sources))
         name = entry.name_pt or entry.causal_agent or entry.cv_label
         lines = [t["identified"].format(name=name)]
+        # The expected symptom lets the user check the CV identification against the plant. It is
+        # descriptive, so it is shown with any validation status, and its sources come first.
+        refs = list(entry.symptoms_sources)
+        if entry.symptoms:
+            lines.append(t["symptoms"].format(symptoms=entry.symptoms[:1].lower() + entry.symptoms[1:]))
         # Until agronomists review an entry, show only what is safe to do on one's own (prevention,
         # cultural and biological actions) and route treatment to Technical Assistance. Homemade
         # preparations (`alternative`) only appear once the entry is reviewed.
@@ -252,8 +257,8 @@ class Responder:
         shown = [m for m in entry.management if not (draft and m.type == ManagementType.ALTERNATIVE)]
         if not shown:
             lines += [t["no_management"], self._t["common"]["handoff"]]
-            return self._answer(intent, lines, handoff=True)
-        sources = self.cite([m.source for m in shown])
+            return self._answer(intent, lines, sources=self.cite(refs), handoff=True)
+        sources = self.cite(refs + [m.source for m in shown])
         if not draft:
             return self._answer(intent, lines + [m.description for m in shown], sources=sources)
         lines += [t["prevention"], *(m.description for m in shown), t["treatment_handoff"]]
