@@ -42,6 +42,7 @@ hort-ia/
 │       ├── finance/      # Price forecasting (naive, seasonal naive, SES) with rolling-origin validation
 │       └── core/         # Shared building blocks: source models, Brazilian geography (IBGE → region)
 ├── scripts/              # One-off dataset generators (kept for traceability)
+├── tools/                # Validation app for test sessions (not part of the product)
 ├── tests/                # Unit and integration tests (pytest)
 ├── pyproject.toml        # Dependencies configuration (managed by uv)
 └── uv.lock               # Dependency lockfile
@@ -185,6 +186,28 @@ docker run -d -p 8080:8080 --name hort-ia-service hort-ia-api:latest
 
 Access the interactive API documentation (Swagger UI) at: `http://localhost:8080/docs`
 
+## Validation app
+
+A small Streamlit screen to run the test sessions of the recommender (9.3) and the assistant (9.4): the
+rehearsal with colleagues and professors and the UAT with the pilot (`docs/recommender/9.3.2-4_Roteiro_UAT.md`).
+It is a graphical alternative to `scripts/uat_session.py`: it calls the running API over HTTP, like an
+integrator would, and writes the same CSV files, so `uat_session.py summary` reads both. It is a
+validation tool, **not part of the product** (the chat interface and the frontend are outside the scope
+of the module), and Streamlit sits in a separate `validation` dependency group that the Docker image does
+not install.
+
+```bash
+uv sync --group validation
+uv run uvicorn hort_ia.api.main:app --port 8080            # in another terminal
+uv run --group validation streamlit run tools/validation_app.py
+```
+
+Run it from the repository root, so `.streamlit/config.toml` applies (usage statistics off, LGPD; app
+served on `localhost` only). Results go to `uat_results/ensaio/` (rehearsal) or `uat_results/` (pilot UAT),
+both ignored by git. Participants are identified by a code (P01), never by name, and the text of the
+messages is kept only after consent. The logic is in `tools/validation_core.py` (no Streamlit, tested
+in the normal suite); `tools/validation_app.py` only draws the screen.
+
 ## Testing
 
 Run the whole suite with `pytest`:
@@ -215,6 +238,8 @@ uv run pytest -v
 | `tests/test_nlu_properties.py` | Every training sentence and hard inputs as first message and as reply: valid reply, no user text in the context, confidence bands, time, CLI |
 | `tests/test_cv_pipeline.py` | Computer Vision quality filtering, 224x224 standardization, EXIF removal (LGPD) and API endpoints |
 | `tests/test_privacy_compliance.py` | LGPD consent validation, facial blurring, text PII anonymization |
+| `tests/test_validation_core.py` | Validation app core: same CSV columns as `uat_session.py` and `summary` reading its files, participant code, consent, the client against the API in process (two-turn conversation with `context`, recommendations, photo), friendly 422 and API-down messages |
+| `tests/test_validation_app.py` | Validation app screen with Streamlit's `AppTest` (skipped without the `validation` group): no recording without a participant, rating each recommendation once, marking an assistant turn after a confirmation |
 
 Run a single file, e.g.:
 
