@@ -16,7 +16,6 @@ from datetime import date
 from pathlib import Path
 
 import streamlit as st
-
 import validation_core as core
 
 OTHER_CITY = "Outra cidade (código IBGE)"
@@ -48,6 +47,11 @@ def crop_names() -> dict[str, str]:
 @st.cache_data
 def cv_labels() -> dict[str, str]:
     return core.load_cv_labels()
+
+
+@st.cache_data
+def cv_names() -> dict[str, str]:
+    return core.load_cv_names()
 
 
 # --- sidebar ---------------------------------------------------------------------------------
@@ -227,7 +231,10 @@ def show_user(text: str) -> None:
     with st.chat_message("user"):
         if text.startswith(core.PHOTO_PREFIX):
             label = text.removeprefix(core.PHOTO_PREFIX)
-            st.markdown(f"📷 Foto: {cv_labels().get(label, label)}")
+            name = cv_names().get(label, label)
+            # The model's label is for the facilitator: only with the technical details on.
+            technical = f" (`{label}`)" if ss.get("tech") and name != label else ""
+            st.markdown(f"📷 Foto: {name}{technical}")
         else:
             st.markdown(text)
 
@@ -235,11 +242,13 @@ def show_user(text: str) -> None:
 def show_reply(entry: dict, last: bool) -> None:
     reply = entry["reply"]
     with st.chat_message("assistant"):
-        st.markdown(reply["text"])
-        if reply["handoff"]:
+        st.markdown(core.reply_markdown(reply["text"]))  # keeps the one-part-per-line pest answers
+        # A note for the facilitator, so only with the technical details on: the answer's closing line
+        # already refers the participant to Technical Assistance.
+        if reply["handoff"] and ss.get("tech"):
             st.warning("**Encaminhar para a Assistência Técnica.** Oriente a pessoa a procurar a Assistência "
                        "Técnica da horta para essa pergunta.", icon="🧑‍🌾")  # fmt: skip
-        show_sources([{"source": source} for source in reply["sources"]])
+        show_sources(reply["sources"])  # the API already sends them as text
         if ss.get("tech"):
             confidence = "—" if reply["confidence"] is None else f"{reply['confidence']:.2f}"
             st.caption(f"Decisão: {reply['decision']} · Intenção: {reply['intent']} · Confiança: {confidence} · "

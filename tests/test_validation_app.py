@@ -11,11 +11,10 @@ import pytest
 from starlette.testclient import TestClient
 
 pytest.importorskip("streamlit")
-from streamlit.testing.v1 import AppTest  # noqa: E402
+import validation_core as core
+from streamlit.testing.v1 import AppTest
 
-import validation_core as core  # noqa: E402
-
-from hort_ia.api.main import app  # noqa: E402
+from hort_ia.api.main import app
 
 APP = Path(__file__).resolve().parents[1] / "tools" / "validation_app.py"
 
@@ -87,3 +86,55 @@ def test_assistant_turn_is_recorded_when_marked(screen, tmp_path):
     first, second = rows(tmp_path / "uat_results" / "ensaio" / "chat.csv")
     assert (first["turn"], first["decision"], first["understood"], first["text"]) == ("1", "confirm", "", "")
     assert (second["turn"], second["decision"], second["understood"]) == ("2", "answer", "s")
+
+
+def test_pest_answer_is_shown_one_action_per_line(screen):
+    screen.text_input(key="participant").input("P03").run()
+    screen.session_state["tab"] = "Assistente"
+    screen.run()
+    screen.selectbox(key="cv_label").select("Tomato___Spider_mites Two-spotted_spider_mite").run()
+    next(b for b in screen.button if "Enviar foto" in b.label).click().run()
+    assert not screen.exception
+    reply = next(m.value for m in screen.markdown if m.value.startswith("Parece ser: Ácaro-rajado."))
+    assert "O que ajuda:\n\n- Plante flores" in reply  # blank line before the list, so Markdown renders it
+    assert ".\n- Plantas aromáticas" in reply  # one item per line
+    assert reply.endswith("pragas.\n\nPara confirmar o problema e saber como tratar, fale com a Assistência Técnica.")
+
+
+ACARO = "Tomato___Spider_mites Two-spotted_spider_mite"
+HANDOFF_NOTE = "Encaminhar para a Assistência Técnica"
+
+
+def send_photo(screen: AppTest, label: str, tech: bool) -> AppTest:
+    screen.text_input(key="participant").input("P04").run()
+    screen.session_state["tab"] = "Assistente"
+    screen.run()
+    screen.toggle(key="tech").set_value(tech).run()
+    screen.selectbox(key="cv_label").select(label).run()
+    next(b for b in screen.button if "Enviar foto" in b.label).click().run()
+    assert not screen.exception
+    return screen
+
+
+def test_assistant_sources_are_shown_as_text(screen):
+    send_photo(screen, ACARO, tech=False)
+    (fontes,) = [e for e in screen.expander if e.label == "Fontes"]
+    items = [m.value for m in fontes.markdown]
+    assert items == [
+        "- Recomendações técnicas para o cultivo de hortaliças em agricultura familiar (Circular Técnica 47), p. 12"
+    ]
+    assert not any("{" in item or "'source'" in item for item in items)
+
+
+def test_facilitator_notes_are_hidden_without_technical_details(screen):
+    send_photo(screen, ACARO, tech=False)
+    assert not any(HANDOFF_NOTE in w.value for w in screen.warning)
+    photo = [m.value for m in screen.markdown if m.value.startswith("📷 Foto:")]
+    assert photo == ["📷 Foto: Ácaro-rajado"]
+
+
+def test_facilitator_notes_are_shown_with_technical_details(screen):
+    send_photo(screen, ACARO, tech=True)
+    assert any(HANDOFF_NOTE in w.value for w in screen.warning)
+    photo = [m.value for m in screen.markdown if m.value.startswith("📷 Foto:")]
+    assert photo == [f"📷 Foto: Ácaro-rajado (`{ACARO}`)"]
