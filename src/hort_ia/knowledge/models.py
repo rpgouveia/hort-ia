@@ -296,6 +296,7 @@ class PestDisease(KBModel):
     crop_ids: list[str] = []  # empty = generic (not tied to a crop)
     beneficial: bool | None = None  # pests only; True = never recommend control
     symptoms: str | None = None
+    symptoms_sources: list[SourceRef] = []  # also listed in `sources`; required whenever `symptoms` is set
     management: list[ManagementAction] = []
     sources: list[SourceRef] = []
     validation_status: ValidationStatus = ValidationStatus.DRAFT
@@ -323,6 +324,8 @@ class PestDisease(KBModel):
             raise ValueError(f"'{self.id}': 'beneficial' only applies to pests")
         if self.beneficial and self.management:
             raise ValueError(f"'{self.id}' is beneficial and must not have control actions")
+        if self.symptoms and not self.symptoms_sources:  # any status: the assistant shows symptoms
+            raise ValueError(f"'{self.id}' has symptoms without symptoms_sources")
         if self.validation_status != ValidationStatus.DRAFT and (missing := self.missing_fields()):
             raise ValueError(
                 f"'{self.id}' is '{self.validation_status}' but is missing: {', '.join(missing)}"
@@ -400,7 +403,7 @@ class KnowledgeBase(KBModel):
             labels.add(key)
             for crop_id in entry.crop_ids:
                 check_crop(crop_id, owner)
-            for ref in entry.sources:
+            for ref in [*entry.sources, *entry.symptoms_sources]:
                 check_source(ref.source_id, owner)
             for action in entry.management:
                 check_source(action.source.source_id, owner)
