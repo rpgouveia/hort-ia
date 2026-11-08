@@ -189,7 +189,10 @@ def test_i6_every_cv_label_is_answered(client, entry):
         assert entry.name_pt in reply["text"] and "Não precisa combater" in reply["text"] and reply["sources"]
     else:
         assert f"Parece ser: {entry.name_pt or entry.causal_agent or entry.cv_label}." in reply["text"]
-        assert reply["handoff"] == (not entry.management)
+        # Draft entries always route treatment to Technical Assistance; with no visible action, too.
+        assert reply["handoff"] == (entry.validation_status == "draft" or not entry.management)
+        if entry.validation_status == "draft" and entry.management:
+            assert "O que ajuda:" in reply["text"] and reply["sources"]
 
 
 def test_i6_unknown_label_asks_for_a_photo(client):
