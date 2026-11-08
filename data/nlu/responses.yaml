@@ -65,6 +65,7 @@ companion_planting:
 pest_disease:
   ask_photo: "Para eu ajudar a identificar, mande uma foto da folha ou da parte da planta com problema."
   identified: "Parece ser: {name}."
+  symptoms: "Como reconhecer: {symptoms}"
   no_management: "Ainda não tenho uma orientação conferida para combater isso."
   prevention: "O que ajuda:"
   treatment_handoff: "Para tratar, o melhor é falar com a Assistência Técnica."

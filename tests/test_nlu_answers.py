@@ -160,6 +160,62 @@ def test_beneficial_insect_is_not_fought(r):
     assert "Não precisa combater" in r.pest_disease(entry_id="benefico_vespas").text
 
 
+# --- pest_disease: expected symptom after the identification (card 9.4.1-6.1) -------------------
+
+CT47 = "Recomendações técnicas para o cultivo de hortaliças em agricultura familiar (Circular Técnica 47)"
+HPE = "Horta em pequenos espaços (ISBN 978-85-7035-047-3)"
+
+
+def test_symptom_follows_the_identification_with_its_source(r):
+    a = r.pest_disease(cv_label="Tomato___Spider_mites Two-spotted_spider_mite")
+    assert a.text.startswith("Parece ser: Ácaro-rajado. Como reconhecer: colônias muito pequenas no verso das folhas")
+    assert f"{CT47}, p. 12" in a.sources
+    assert "O que ajuda:" in a.text and a.handoff  # still a draft entry
+    assert a.text.endswith("Para tratar, o melhor é falar com a Assistência Técnica.")
+
+
+def test_symptom_sources_come_first_and_are_not_repeated(r):
+    a = r.pest_disease(cv_label="slug")
+    assert "Como reconhecer: raspam folhas e ramos novos" in a.text
+    # symptom (CT 47 p. 12, HPE p. 29), then the shown actions (HPE p. 29 again, CT 47 p. 14)
+    assert a.sources == [f"{CT47}, p. 12", f"{HPE}, p. 29", f"{CT47}, p. 14"]
+
+
+def test_symptom_is_shown_whatever_the_status(reviewed_responder):
+    a = reviewed_responder.pest_disease(cv_label="catterpillar")
+    assert a.text.startswith("Parece ser: Lagartas. Como reconhecer: comem as folhas;") and not a.handoff
+    assert a.sources[0] == f"{CT47}, p. 11"
+
+
+def test_symptom_is_shown_when_there_is_no_action_to_show(r, monkeypatch):
+    entry = r.kb.pests_diseases["praga_gafanhotos"].model_copy(update={"management": []})
+    monkeypatch.setitem(r.kb.pests_diseases, "praga_gafanhotos", entry)
+    a = r.pest_disease(entry_id="praga_gafanhotos")
+    assert a.text.startswith("Parece ser: Gafanhotos. Como reconhecer: comem ramos e folhas.")
+    assert "Ainda não tenho uma orientação conferida" in a.text and a.handoff
+    assert a.sources == [f"{CT47}, p. 12"]
+
+
+@pytest.mark.parametrize("label", ["earwig", "Tomato___Late_blight"])
+def test_entries_without_symptom_have_no_symptom_line(r, label):
+    assert "Como reconhecer" not in r.pest_disease(cv_label=label).text
+
+
+def test_healthy_and_beneficial_answers_are_unchanged(r):
+    healthy = r.pest_disease(cv_label="Tomato___healthy")
+    assert (healthy.text, healthy.sources, healthy.handoff) == ("A planta parece saudável.", [], False)
+    wasp = r.pest_disease(cv_label="wasp")
+    assert (wasp.text, wasp.sources, wasp.handoff) == (
+        "Vespas ajudam a horta: comem outras pragas. Não precisa combater.", [f"{CT47}, p. 12"], False)
+
+
+def test_no_pest_answer_leaves_a_placeholder(r, reviewed_responder):
+    for responder in (r, reviewed_responder):
+        for entry in responder.kb.pests_diseases.values():
+            text = responder.pest_disease(cv_label=entry.cv_label).text
+            assert "{" not in text and "}" not in text, text
+
+
 def test_pest_without_identification_asks_for_photo(r):
     assert "foto" in r.pest_disease().text
 

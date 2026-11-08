@@ -193,6 +193,7 @@ def test_i6_every_cv_label_is_answered(client, entry):
         assert reply["handoff"] == (entry.validation_status == "draft" or not entry.management)
         if entry.validation_status == "draft" and entry.management:
             assert "O que ajuda:" in reply["text"] and reply["sources"]
+        assert ("Como reconhecer:" in reply["text"]) == bool(entry.symptoms)
 
 
 def test_i6_unknown_label_asks_for_a_photo(client):
