@@ -109,8 +109,8 @@ indicam quando não há orientação específica para a doença.
 
 | Status | Resposta |
 |---|---|
-| `draft` | "O que ajuda:" seguido só das ações `preventive`, `cultural` e `biological`; termina com "Para tratar, o melhor é falar com a Assistência Técnica." (`handoff`). Caldas e preparados não aparecem. |
-| `reviewed` ou `validated_by_atd` | Todas as ações, inclusive `alternative`, sem forçar o encaminhamento. |
+| `draft` | "O que ajuda:" seguido só das ações `preventive`, `cultural` e `biological`; termina com "Para confirmar o problema e saber como tratar, fale com a Assistência Técnica." (`handoff`). Caldas e preparados não aparecem. |
+| `reviewed` ou `validated_by_atd` | "O que ajuda:" seguido de todas as ações, inclusive `alternative`; termina com "Se tiver dúvida sobre o problema, fale com a Assistência Técnica.", sem ligar o `handoff`. |
 | Sem ação para mostrar | "Ainda não tenho uma orientação conferida..." e encaminhamento. |
 
 Quando a entrada tem sintoma, a resposta mostra "Como reconhecer: ..." logo depois de "Parece ser: X.",

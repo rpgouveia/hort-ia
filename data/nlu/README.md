@@ -149,10 +149,22 @@ Regras de escrita dos modelos: frases curtas, construções sem gênero ("dá pa
 origem explícita quando a informação é tradicional, e "não sei" com encaminhamento quando não há
 dado.
 
+As respostas de praga e doença têm várias partes e são as únicas escritas uma parte por linha (`\n`):
+"Parece ser: X.", "Como reconhecer: ..." (quando a base tem o sintoma), "O que ajuda:", cada ação como
+item de lista (`action_item: "- {action}"`) e a frase final. Em rascunho, a frase final pede à
+Assistência Técnica a confirmação do problema e o tratamento ("Para confirmar o problema e saber como
+tratar, fale com a Assistência Técnica."), porque o modelo de visão pode errar e porque algumas
+doenças, como as viroses, não têm cura. Revisada pelos agrônomos (`reviewed` ou `validated_by_atd`), a
+resposta usa o mesmo título "O que ajuda:" antes da lista, mostra também as ações `alternative` e
+termina com "Se tiver dúvida sobre o problema, fale com a Assistência Técnica.", que oferece a
+Assistência Técnica sem ligar o `handoff`. As demais intenções continuam num parágrafo só. A interface
+deve preservar as quebras de linha (a app de validação as converte para Markdown na exibição).
+
 **Limitações conhecidas, que viram encaminhamento à Assistência Técnica:**
 
-- Pragas e doenças: o assistente identifica (pelo rótulo do modelo de CV ou pelo nome citado), mas
-  ainda não tem manejo conferido para nenhuma (Fase 3 da base de conhecimento).
+- Pragas e doenças: o manejo da base é por grupo e ainda está em rascunho. O assistente mostra só a
+  prevenção e encaminha o tratamento; tesourinhas e gorgulhos não têm orientação (ver
+  `data/knowledge/README.md`, "Pragas e doenças").
 - Plantio companheiro: rúcula sem relações.
 - Preços: só alface, batata, cebola, cenoura e tomate, preço de atacado do mês de referência da Conab.
 - Manjericão sem janela de plantio no Norte e no Nordeste.
