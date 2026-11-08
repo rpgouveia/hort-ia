@@ -1,0 +1,9 @@
+# Streamlit settings of the validation app (tools/validation_app.py). Run it from the repository root.
+
+[browser]
+# LGPD: no usage statistics sent to Streamlit.
+gatherUsageStats = false
+
+[server]
+# Only this machine opens the app (the session notebook).
+address = "localhost"
