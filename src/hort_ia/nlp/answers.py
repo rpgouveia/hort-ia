@@ -78,8 +78,9 @@ class Responder:
     def region_label(self, region: Region | str) -> str:
         return self._t["regions"][Region(region).value]
 
-    def _answer(self, intent: str, lines: list[str], **kwargs) -> Answer:
-        return Answer(intent=intent, text=" ".join(line for line in lines if line), **kwargs)
+    def _answer(self, intent: str, lines: list[str], sep: str = " ", **kwargs) -> Answer:
+        """Join the non-empty lines; `sep="\\n"` puts one part per line (pest and disease answers)."""
+        return Answer(intent=intent, text=sep.join(line for line in lines if line), **kwargs)
 
     def _crop_or_ask(self, intent: str, crop_id: str | None) -> Crop | Answer:
         c = self._t["common"]
@@ -243,7 +244,9 @@ class Responder:
             return self._answer(intent, [t["healthy"]])
         if entry.beneficial:
             return self._answer(intent, [t["beneficial"].format(name=entry.name_pt)], sources=self.cite(entry.sources))
-        name = entry.name_pt or entry.causal_agent or entry.cv_label
+        # One part per line and each action as a list item, easier to read than a single paragraph
+        # for the pilot's audience. The other intents keep a single paragraph.
+        name, sep = entry.name_pt or entry.causal_agent or entry.cv_label, "\n"
         lines = [t["identified"].format(name=name)]
         # The expected symptom lets the user check the CV identification against the plant. It is
         # descriptive, so it is shown with any validation status, and its sources come first.
@@ -257,12 +260,12 @@ class Responder:
         shown = [m for m in entry.management if not (draft and m.type == ManagementType.ALTERNATIVE)]
         if not shown:
             lines += [t["no_management"], self._t["common"]["handoff"]]
-            return self._answer(intent, lines, sources=self.cite(refs), handoff=True)
+            return self._answer(intent, lines, sep, sources=self.cite(refs), handoff=True)
         sources = self.cite(refs + [m.source for m in shown])
-        if not draft:
-            return self._answer(intent, lines + [m.description for m in shown], sources=sources)
-        lines += [t["prevention"], *(m.description for m in shown), t["treatment_handoff"]]
-        return self._answer(intent, lines, sources=sources, handoff=True)
+        lines += [t["prevention"], *(t["action_item"].format(action=m.description) for m in shown)]
+        if not draft:  # reviewed: the closing line offers Technical Assistance without requiring it
+            return self._answer(intent, lines + [t["reviewed_closing"]], sep, sources=sources)
+        return self._answer(intent, lines + [t["treatment_handoff"]], sep, sources=sources, handoff=True)
 
     def market_price(self, product: str | None, uf: str | None = None) -> Answer:
         """product: crop id, market product id or name; uf: user's state, to pick the local Ceasa."""
