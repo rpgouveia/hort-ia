@@ -172,6 +172,15 @@ Alternatively, use the project entry point (no auto-reload):
 uv run hort-ia
 ```
 
+### Running with Docker (Pilot Environment)
+
+Build and run the containerized pilot service (WBS 9.7.3-3):
+
+```bash
+docker build -t hort-ia-api:latest .
+docker run -d -p 8080:8080 --name hort-ia-service hort-ia-api:latest
+```
+
 > **Note:** in non-editable installs (e.g. Docker with `uv sync --no-editable`), set the `HORTIA_KB_DIR` environment variable to the `data/knowledge` directory and `HORTIA_MARKET_DIR` to `data/market` so both datasets can be found.
 
 Access the interactive API documentation (Swagger UI) at: `http://localhost:8080/docs`
@@ -186,7 +195,8 @@ uv run pytest -v
 
 | Test file | What it covers |
 |---|---|
-| `tests/test_api_contracts.py` | API contract validation: status codes (200, 404, 415, 422), parameter validation and endpoint responses |
+| `tests/test_api_contracts.py` | API contract validation: status codes (200, 404, 415, 422), parameter validation, HTTP Cache-Control headers, and endpoint responses |
+| `tests/test_api_load.py` | API load and latency validation: response times well below the 5.0 s TAP threshold under concurrent load (WBS 9.7.3-1) |
 | `tests/test_knowledge_base.py` | Knowledge base integrity: crop scope, CV label mapping, planting windows, companion relations, regional planting months |
 | `tests/test_market_dataset.py` | Market dataset integrity: scope, reference month, missing data, rounding, `crop_id` links to the knowledge base |
 | `tests/test_geo.py` | IBGE municipality/UF code → region, shared `Region` across datasets |

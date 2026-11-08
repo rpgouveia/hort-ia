@@ -128,8 +128,8 @@ def test_market_reference_price_by_uf(client: TestClient):
 
 
 def test_market_reference_price_national_fallback(client: TestClient):
-    # Acre (AC) has no Ceasa in dataset, should fallback to national average
-    response = client.get("/market/reference-price?product_id=alface&uf=AC")
+    # Amazonas (AM) has no Ceasa in dataset, should fallback to national average
+    response = client.get("/market/reference-price?product_id=alface&uf=AM")
     assert response.status_code == 200
     data = response.json()
     assert data["is_national_average"] is True
@@ -138,3 +138,18 @@ def test_market_reference_price_national_fallback(client: TestClient):
 def test_market_reference_price_unknown_product_returns_404(client: TestClient):
     response = client.get("/market/reference-price?product_id=produto_inexistente")
     assert response.status_code == 404
+
+
+def test_cache_control_headers_offline_support(client: TestClient):
+    """Validate HTTP cache headers for offline/constrained connectivity (WBS 9.7.2-2)."""
+    resp_cal = client.get("/recommender/planting-calendar?crop_id=alface&region=sul")
+    assert resp_cal.status_code == 200
+    assert resp_cal.headers.get("cache-control") == "public, max-age=86400"
+
+    resp_comp = client.get("/recommender/companion-crops?crop_id=tomate")
+    assert resp_comp.status_code == 200
+    assert resp_comp.headers.get("cache-control") == "public, max-age=86400"
+
+    resp_price = client.get("/market/reference-price?product_id=alface&uf=PR")
+    assert resp_price.status_code == 200
+    assert resp_price.headers.get("cache-control") == "public, max-age=3600"

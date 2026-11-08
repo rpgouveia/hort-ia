@@ -34,7 +34,7 @@ async def validate_image(
         assessment, _ = _pipeline.assess_quality(content)
         return assessment
     except ImageProcessingError as error:
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=str(error)) from error
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_CONTENT, detail=str(error)) from error
 
 
 @router.post(
@@ -61,9 +61,9 @@ async def preprocess_image(
         if not assessment.is_valid:
             reasons = "; ".join(assessment.rejection_reasons)
             raise HTTPException(
-                status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
                 detail=f"Imagem rejeitada pelo controle de qualidade: {reasons}. Dica: {assessment.user_feedback}",
             )
         return info
     except ImageProcessingError as error:
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=str(error)) from error
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_CONTENT, detail=str(error)) from error

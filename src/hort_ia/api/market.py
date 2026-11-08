@@ -2,7 +2,7 @@
 
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi import APIRouter, Depends, HTTPException, Query, Response, status
 from pydantic import BaseModel
 
 from ..market import MarketDataset, get_market_dataset
@@ -33,6 +33,7 @@ class ReferencePriceResponse(BaseModel):
 async def reference_price(
     product_id: Annotated[str, Query(description="Product ID or crop ID (e.g. 'alface', 'tomate')")],
     dataset: Annotated[MarketDataset, Depends(get_market_dataset)],
+    response: Response,
     uf: Annotated[str | None, Query(description="State abbreviation (e.g. 'PR', 'SP')")] = None,
 ) -> ReferencePriceResponse:
     found = dataset.products.get(product_id) or dataset.product_by_crop_id(product_id) or dataset.product_by_alias(product_id)
@@ -64,6 +65,9 @@ async def reference_price(
         )
 
     source_label = dataset.sources["conab_boletim_hortigranjeiro"].title if "conab_boletim_hortigranjeiro" in dataset.sources else "Conab Prohort"
+
+    # HTTP Cache-Control header for offline/constrained connectivity (WBS 9.7.2-2)
+    response.headers["Cache-Control"] = "public, max-age=3600"
 
     return ReferencePriceResponse(
         product_id=found.id,
