@@ -119,8 +119,9 @@ class Responder:
             if not months:
                 lines.append(t["not_recommended"].format(crop=name, variant=variant, region=where))
                 continue
-            lines.append(t["window"].format(crop=name, variant=variant, region=where,
-                                            months=self.format_months(months)))
+            lines.append(
+                t["window"].format(crop=name, variant=variant, region=where, months=self.format_months(months))
+            )
             in_season = in_season or month in months
         if any(by_variant.values()):
             key = "now_yes" if in_season else "now_no"
@@ -161,32 +162,36 @@ class Responder:
         if aspect in (None, "spacing", "container") and crop.spacing:
             if aspect != "container":
                 conv = crop.spacing.conventional
-                lines.append(t["spacing"].format(crop=crop.name_pt, plants=conv.between_plants_cm,
-                                                 rows=conv.between_rows_cm))
+                lines.append(
+                    t["spacing"].format(crop=crop.name_pt, plants=conv.between_plants_cm, rows=conv.between_rows_cm)
+                )
             show_small = aspect == "container" or crop.small_space_recommended
             if crop.spacing.small_spaces and crop.small_space_recommended is not False and show_small:
                 small = crop.spacing.small_spaces
-                lines.append(t["spacing_small_space"].format(plants=small.between_plants_cm,
-                                                             rows=small.between_rows_cm))
+                lines.append(
+                    t["spacing_small_space"].format(plants=small.between_plants_cm, rows=small.between_rows_cm)
+                )
             refs.append(crop.spacing.source)
         if aspect == "container":
-            key = {True: "container_yes", False: "container_no", None: "container_unknown"}[crop.small_space_recommended]
+            key = {True: "container_yes", False: "container_no", None: "container_unknown"}[
+                crop.small_space_recommended
+            ]
             lines.insert(0, t[key].format(crop=name))
             if crop.small_space_recommended is False:
                 lines += [g.statement_pt for g in self._guidelines_for(crop, topic="small_spaces")]
         if aspect in (None, "harvest") and crop.planting_windows:
             days = [w.harvest_start_days for w in crop.planting_windows]
             template = t["harvest"] if aspect == "harvest" else self._t["planting_time"]["harvest"]
-            lines.append(template.format(crop=crop.name_pt, min=min(d.min for d in days),
-                                         max=max(d.max for d in days)))
+            lines.append(template.format(crop=crop.name_pt, min=min(d.min for d in days), max=max(d.max for d in days)))
             refs += [w.source for w in crop.planting_windows]
         if aspect == "watering":
             guidelines = self._guidelines_for(crop, topic="irrigation")
             lines += [g.statement_pt for g in guidelines]
             refs += [g.source for g in guidelines]
         if not lines:
-            return self._answer(intent, [t["no_info"].format(crop=name), self._t["common"]["handoff"]],
-                                handoff=True)
+            return self._answer(intent, [t["no_info"].format(crop=name), self._t["common"]["handoff"]], handoff=True)
+        if not refs:  # only "no information" lines (e.g. container for a crop without spacing): hand off
+            return self._answer(intent, [*lines, self._t["common"]["handoff"]], handoff=True)
         return self._answer(intent, lines, sources=self.cite(refs))
 
     def _guidelines_for(self, crop: Crop, topic: str) -> list:
@@ -200,9 +205,13 @@ class Responder:
     def companion_planting(self, crop_id: str | None, rotation: bool = False) -> Answer:
         t, intent = self._t["companion_planting"], "companion_planting"
         if crop_id is None:
-            general = [g for g in self.kb.guidelines.values() if g.topic in ("companion", "rotation")]
-            return self._answer(intent, [g.statement_pt for g in general],
-                                sources=self.cite([g.source for g in general]))
+            # The rotation rule by id: the other "rotation" guideline (rotacao_familia_por_cultura, ATD v3)
+            # only points to the `rotation` field of crops.json, which means nothing to the user.
+            general = [g for g in self.kb.guidelines.values() if g.topic == "companion"]
+            general += [g for g in [self.kb.guidelines.get("rotacao_por_familia")] if g]
+            return self._answer(
+                intent, [g.statement_pt for g in general], sources=self.cite([g.source for g in general])
+            )
         crop = self._crop_or_ask(intent, crop_id)
         if isinstance(crop, Answer):
             return crop
@@ -210,13 +219,17 @@ class Responder:
         if rotation:
             same = sorted(c.name_pt.lower() for c in self.kb.crops.values() if c.family == crop.family)
             rule = self.kb.guidelines.get("rotacao_por_familia")
-            return self._answer(intent, [t["rotation"].format(crop=name, same_family=self.join(same))],
-                                sources=self.cite([rule.source] if rule else []))
-        good, bad, evidence, refs = set(), set(), set(), []
-        for rel in self.kb.companions_of(crop.id):
+            return self._answer(
+                intent,
+                [t["rotation"].format(crop=name, same_family=self.join(same))],
+                sources=self.cite([rule.source] if rule else []),
+            )
+        good, bad, evidence, refs, relation_refs = set(), set(), set(), [], []
+        for rel in self.kb.usable_companions_of(crop.id):  # decision D6: withheld relations never show
             other = rel.crop_b if rel.crop_a == crop.id else rel.crop_a
             (good if rel.relation == "helps" else bad).add(self.kb.crops[other].name_pt.lower())
             evidence.add(rel.evidence)
+            relation_refs.append(SourceRef(source_id=rel.source_id, pages=rel.pages))
         lines = []
         if any(r.role == "pest_repellent" for r in crop.companion_roles):
             lines.append(t["repellent"].format(crop=crop.name_pt))
@@ -225,14 +238,24 @@ class Responder:
             lines.append(t["good"].format(crop=name, partners=self.join(sorted(good))))
         if bad:
             lines.append(t["bad"].format(crop=name, partners=self.join(sorted(bad))))
-        if (good or bad) and evidence == {Evidence.TRADITIONAL}:
-            lines.append(t["traditional_note"])
+        if note := self._evidence_note(evidence):
+            lines.append(note)
         if not lines:
             return self._answer(intent, [t["none"].format(crop=name)], handoff=True)
-        sources = self.cite(refs)
-        if good or bad:
-            sources += [self.kb.sources["kaggle_companion_plants"].title] if "kaggle_companion_plants" in self.kb.sources else []
-        return self._answer(intent, lines, sources=sources)
+        return self._answer(intent, lines, sources=self.cite(refs + relation_refs))
+
+    def _evidence_note(self, evidence: set[Evidence]) -> str | None:
+        """Where the combinations shown come from (decision D9): all from tradition, mixed, or all technical.
+
+        Research relations never get here (decision D6), so `evidence` holds technical and traditional only."""
+        t = self._t["companion_planting"]
+        if not evidence:
+            return None
+        if evidence == {Evidence.TRADITIONAL}:
+            return t["traditional_note"]
+        if Evidence.TRADITIONAL in evidence:
+            return t["mixed_note"]
+        return t["technical_note"]
 
     def pest_disease(self, cv_label: str | None = None, entry_id: str | None = None) -> Answer:
         """From the CV model output (cv_label) or a pest named in the text (entry_id)."""
@@ -242,7 +265,7 @@ class Responder:
             return self._answer(intent, [t["ask_photo"]])
         if entry.type == "healthy":
             return self._answer(intent, [t["healthy"]])
-        if entry.beneficial:
+        if entry.is_beneficial:  # `type: beneficial` (ATD v3) or a pest with `beneficial: true`
             return self._answer(intent, [t["beneficial"].format(name=entry.name_pt)], sources=self.cite(entry.sources))
         # One part per line and each action as a list item, easier to read than a single paragraph
         # for the pilot's audience. The other intents keep a single paragraph.
@@ -255,15 +278,16 @@ class Responder:
             lines.append(t["symptoms"].format(symptoms=entry.symptoms[:1].lower() + entry.symptoms[1:]))
         # Until agronomists review an entry, show only what is safe to do on one's own (prevention,
         # cultural and biological actions) and route treatment to Technical Assistance. Homemade
-        # preparations (`alternative`) only appear once the entry is reviewed.
-        draft = entry.validation_status == ValidationStatus.DRAFT
-        shown = [m for m in entry.management if not (draft and m.type == ManagementType.ALTERNATIVE)]
+        # preparations (`alternative`) only appear once the entry is reviewed. `validated_by_atd` is
+        # treated like `draft`: the ATD checks source and page, which is not an agronomic endorsement.
+        reviewed = entry.validation_status == ValidationStatus.REVIEWED
+        shown = [m for m in entry.management if reviewed or m.type != ManagementType.ALTERNATIVE]
         if not shown:
             lines += [t["no_management"], self._t["common"]["handoff"]]
             return self._answer(intent, lines, sep, sources=self.cite(refs), handoff=True)
         sources = self.cite(refs + [m.source for m in shown])
         lines += [t["prevention"], *(t["action_item"].format(action=m.description) for m in shown)]
-        if not draft:  # reviewed: the closing line offers Technical Assistance without requiring it
+        if reviewed:  # the closing line offers Technical Assistance without requiring it
             return self._answer(intent, lines + [t["reviewed_closing"]], sep, sources=sources)
         return self._answer(intent, lines + [t["treatment_handoff"]], sep, sources=sources, handoff=True)
 
@@ -285,12 +309,18 @@ class Responder:
         where = t["where_entrepost"].format(entrepost=local.name_pt) if ref else t["where_national"]
         ref = ref or m.reference_price(found.id)
         if ref is None:
-            return self._answer(intent, [t["not_tracked"].format(product=found.name_pt.lower(), products="")],
-                                handoff=True)
+            return self._answer(
+                intent, [t["not_tracked"].format(product=found.name_pt.lower(), products="")], handoff=True
+            )
         year, month = ref.reference_month.split("-")
-        lines = [t["price"].format(month=f"{self.month_name(int(month))} de {year}",
-                                   product=found.name_pt.lower(),
-                                   price=f"{ref.price_brl_kg:.2f}".replace(".", ","), where=where)]
+        lines = [
+            t["price"].format(
+                month=f"{self.month_name(int(month))} de {year}",
+                product=found.name_pt.lower(),
+                price=f"{ref.price_brl_kg:.2f}".replace(".", ","),
+                where=where,
+            )
+        ]
         if ref.change_prev_month is not None:
             pct = round(abs(ref.change_prev_month) * 100)
             key = "change_stable" if pct == 0 else "change_up" if ref.change_prev_month > 0 else "change_down"

@@ -167,7 +167,12 @@ async def companion_crops(
     helps: list[CompanionPartner] = []
     hinders: list[CompanionPartner] = []
 
-    for rel in kb.companions_of(crop.id):
+    # Same relations as the engine and the assistant: decision D6 withholds research evidence and
+    # unverified sources (KnowledgeBase.is_usable), so the routes keep agreeing with each other.
+    shown_sources: list[str] = []
+    for rel in kb.usable_companions_of(crop.id):
+        source = kb.sources.get(rel.source_id)
+        shown_sources.append(source.title if source else rel.source_id)
         partner_id = rel.crop_b if rel.crop_a == crop.id else rel.crop_a
         partner_crop = kb.crops.get(partner_id)
         partner_name = partner_crop.name_pt if partner_crop else partner_id
@@ -189,7 +194,10 @@ async def companion_crops(
         else:
             hinders.append(partner_item)
 
-    source_label = kb.sources["kaggle_companion_plants"].title if "kaggle_companion_plants" in kb.sources else "companion_dataset"
+    default_label = (
+        kb.sources["kaggle_companion_plants"].title if "kaggle_companion_plants" in kb.sources else "companion_dataset"
+    )
+    source_label = "; ".join(dict.fromkeys(shown_sources)) or default_label
     response.headers["Cache-Control"] = "public, max-age=86400"
     return CompanionCropsResponse(
         crop_id=crop.id,

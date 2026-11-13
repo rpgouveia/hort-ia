@@ -1,0 +1,106 @@
+[
+  {
+    "id": "new_plant_diseases_dataset",
+    "title": "New Plant Diseases Dataset (PlantVillage aumentado)",
+    "publisher": "Kaggle (vipoooool)",
+    "year": null,
+    "url": "https://www.kaggle.com/datasets/vipoooool/new-plant-diseases-dataset",
+    "license": "NAO DECLARADA pelo autor do Kaggle",
+    "verified": true,
+    "status": "em uso (mockup do Grupo de IA)",
+    "image_type": "laboratorio (folha destacada, fundo uniforme)",
+    "species_total": 14,
+    "disease_classes": 38,
+    "kb_coverage": [
+      "tomate",
+      "pimentao",
+      "batata",
+      "morango"
+    ],
+    "kb_coverage_count": 4,
+    "notes": "VIES DOCUMENTADO: estudo de 2022 treinou classificador com 8 pixels so do FUNDO da imagem, sem folha, e obteve 49% de acuracia em 38 classes (acaso = 2,6%). Metade do sinal e contexto de captura, nao doenca. Generalizacao para foto de campo e fraca. Adequado para mockup; frágil em producao.",
+    "reference": "https://ar5iv.labs.arxiv.org/html/2206.04374"
+  },
+  {
+    "id": "agricultural_pests_dataset",
+    "title": "Agricultural Pests Image Dataset",
+    "publisher": "Kaggle (vencerlanz09)",
+    "year": null,
+    "url": "https://www.kaggle.com/datasets/vencerlanz09/agricultural-pests-image-dataset",
+    "license": "NAO DECLARADA pelo autor do Kaggle",
+    "verified": true,
+    "status": "em uso (mockup do Grupo de IA)",
+    "image_type": "variado",
+    "species_total": null,
+    "disease_classes": 12,
+    "kb_coverage": [
+      "todas as 20 (pragas genericas de hortalica)"
+    ],
+    "kb_coverage_count": 20,
+    "notes": "Classes por ORDEM/GRUPO de inseto, nao por especie. 2 classes removidas por serem beneficas (bees, earthworms) e 4 marcadas para revisao por ambiguidade (beetle, ants, earwig, weevil). Ver images_manifest.csv.",
+    "reference": null
+  },
+  {
+    "id": "plantseg_in_the_wild",
+    "title": "PlantSeg: A Large-Scale In-the-wild Dataset for Plant Disease Segmentation",
+    "publisher": "Zenodo / Nature Scientific Data",
+    "year": 2025,
+    "url": "https://zenodo.org/records/13762907",
+    "license": "CC BY-NC-ND 4.0 (DECLARADA)",
+    "verified": true,
+    "status": "CANDIDATO RECOMENDADO - cobertura CONFIRMADA no zip oficial",
+    "image_type": "campo (in-the-wild)",
+    "species_total": 35,
+    "disease_classes": 138,
+    "kb_coverage": [
+      "abobrinha",
+      "alface",
+      "batata",
+      "brocolis",
+      "cenoura",
+      "manjericao",
+      "morango",
+      "pimentao",
+      "repolho",
+      "tomate"
+    ],
+    "kb_coverage_count": 10,
+    "notes": "COBERTURA CONFIRMADA em 20/10/2026 pelo Metadata.csv do zip oficial (11.458 imagens, 35 plantas, 138 classes apos normalizar sufixos de buscador). Cobre 10 das 20 culturas da base, com fotos de CAMPO: tomate (7 classes), zucchini/squash = abobrinha (5), repolho (3), pimentao (4), cenoura (3), brocolis (3), alface (2), batata (2), morango (2), manjericao (1). SUBSTITUI o PlantVillage: cobre as mesmas 4 culturas dele e mais 6, sem o vies de fundo de laboratorio. NAO cobre: cebolinha, salsa, coentro, rabanete, beterraba, espinafre, pimenta, couve, rucula, hortela. 'Cauliflower' e couve-flor, NAO couve. LICENCA CC BY-NC-ND 4.0: NC atende uso academico; ND deve ser avaliado pelo Grupo de IA quanto a treinamento de modelo.",
+    "reference": "https://arxiv.org/html/2409.04038v1",
+    "mirror_url": "https://universe.roboflow.com/uqtwei-6gmpn/plantseg-segmentation-dataset",
+    "download_url": "https://zenodo.org/records/13762907/files/plantseg.zip?download=1"
+  },
+  {
+    "id": "plantdoc",
+    "title": "PlantDoc: A Dataset for Visual Plant Disease Detection",
+    "publisher": "GitHub (pratikkayal)",
+    "year": 2020,
+    "url": "https://github.com/pratikkayal/PlantDoc-Dataset",
+    "license": "NAO DECLARADA no artigo",
+    "verified": true,
+    "status": "AVALIADO E DESCARTADO",
+    "image_type": "campo (fundos e iluminacao naturais)",
+    "species_total": 13,
+    "disease_classes": 27,
+    "kb_coverage": [
+      "tomate",
+      "pimentao",
+      "batata",
+      "morango",
+      "abobrinha"
+    ],
+    "kb_coverage_count": 5,
+    "notes": "DESCARTADO: resolve o problema de laboratorio do PlantVillage (fotos de campo), mas cobre as MESMAS especies. Nenhuma folhosa: sem alface, couve, rucula, repolho, cenoura, beterraba. Nao aumenta a cobertura da base.",
+    "reference": "https://arxiv.org/pdf/1911.10317"
+  },
+  {
+    "id": "_cobertura_de_imagem",
+    "title": "Registro de cobertura de imagem das 20 culturas",
+    "publisher": "Equipe de Assistencia Tecnica Digital (Pacote 8)",
+    "year": 2026,
+    "url": null,
+    "license": null,
+    "verified": true,
+    "notes": "COBERTAS (10 de 20), todas pelo PlantSeg (verificado no Metadata.csv oficial): alface, abobrinha, batata, brocolis, cenoura, manjericao, morango, pimentao, repolho e tomate. O PlantVillage cobria so 4 (tomate, pimentao, batata, morango), todas ja contidas no PlantSeg. SEM COBERTURA (10): cebolinha, salsa, coentro, rabanete, beterraba, espinafre, pimenta, couve, rucula e hortela. BUSCA REALIZADA em 19/10/2026 em Zenodo, IEEE DataPort, Roboflow Universe, Kaggle, Mendeley Data e Data in Brief. Resultado: para essas 10 culturas nao existe conjunto de imagens com licenca declarada. Os poucos conjuntos encontrados foram descartados por licenca ausente ou por serem fotos de folha destacada em fundo uniforme, que reproduzem o vies ja documentado no PlantVillage. ATENCAO A HOMONIMOS: 'Malabar spinach' NAO e espinafre (Spinacia oleracea) e sim bertalha (Basella alba); 'cabbage' e repolho, nao couve. Conferir especie antes de adotar qualquer conjunto. CONSEQUENCIA DE PRODUTO: diagnostico por foto fica restrito as 10 culturas cobertas. As outras 10 caem no fluxo de triagem e redirecionamento para avaliacao profissional, conforme criterio ja definido pelo modulo."
+  }
+]

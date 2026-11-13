@@ -197,7 +197,7 @@ def test_recommendation_row_has_the_scripts_values(client):
     item = result.data["recommendations"][0]
     row = core.rec_row(**PROFILE, ibge_code=4106902, result=result.data, item=item, useful=False, comment=" longe ")
     assert list(row) == core.REC_FIELDS
-    assert (row["useful"], row["comment"], row["model_version"], row["month"]) == ("n", "longe", "1.0.0", 11)
+    assert (row["useful"], row["comment"], row["model_version"], row["month"]) == ("n", "longe", "1.1.0", 11)
 
 
 # --- errors become messages, not exceptions ------------------------------------------------------
@@ -244,11 +244,15 @@ def test_real_urllib_transport_when_nothing_listens():
 
 def test_form_lists_come_from_the_knowledge_base():
     crops = core.load_crops()
-    assert len(crops) == 15
+    assert len(crops) == 20  # 15 of the MVP + 5 of the ATD delivery v3
     assert crops["manjericao"] == "Manjericão"
     labels = core.load_cv_labels()
     assert labels["Tomato___Early_blight"] == "Pinta-preta (Tomato___Early_blight)"
-    assert labels["Strawberry___Leaf_scorch"] == "Strawberry___Leaf_scorch"  # no Portuguese name in the base
+    assert (
+        labels["Strawberry___Leaf_scorch"] == "Mancha-de-diplocarpon (escaldadura da folha) (Strawberry___Leaf_scorch)"
+    )
+    labels.pop("Strawberry___Leaf_scorch")
+    assert all(" (" in name for name in labels.values()), labels  # every class now has a Portuguese name
 
 
 @pytest.mark.parametrize(("text", "expected"), [("4106902", 4106902), (" 41 ", 41), ("", None), ("41069", None),
@@ -278,4 +282,4 @@ def test_reply_markdown_leaves_one_line_answers_unchanged():
 def test_photo_shows_the_popular_name():
     names = core.load_cv_names()
     assert names["Tomato___Spider_mites Two-spotted_spider_mite"] == "Ácaro-rajado"
-    assert names["Strawberry___Leaf_scorch"] == "Strawberry___Leaf_scorch"  # no Portuguese name in the base
+    assert names["Strawberry___Leaf_scorch"] == "Mancha-de-diplocarpon (escaldadura da folha)"  # ATD v3

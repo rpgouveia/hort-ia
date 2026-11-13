@@ -35,7 +35,8 @@ from .models import (
     RecommenderError,
 )
 
-MODEL_VERSION = "1.0.0"  # bump when a filter, a weight or the ordering changes (9.3.1-3, section 5)
+# 1.1.0: relations withheld by decision D6 (research evidence or unverified source) no longer score.
+MODEL_VERSION = "1.1.0"  # bump when a filter, a weight or the ordering changes (9.3.1-3, section 5)
 
 # Section 4.3. Parameters, not learned: recalibrate them in the UAT (9.3.2-5).
 W_COMPANION = 1.0  # per planted crop with a favorable (+) or unfavorable (-) relation
@@ -86,10 +87,11 @@ class Recommender:
         self.kb = kb
         self.t = texts or load_texts()
         # One relation per unordered pair; an unfavorable record would win over a favorable one
-        # (section 4.3). The current base has no such conflict.
+        # (section 4.3). The current base has no such conflict. Only usable relations count (decision
+        # D6: research evidence and unverified sources stay in the base, out of the score and reasons).
         self._pairs: dict[frozenset[str], tuple[CompanionRelation, Evidence, str | None]] = {}
         by_pair = defaultdict(list)
-        for rel in kb.companions:
+        for rel in kb.usable_companions():
             by_pair[frozenset((rel.crop_a, rel.crop_b))].append(rel)
         for pair, rels in by_pair.items():
             rel = next((r for r in rels if r.relation == CompanionRelation.HARMS), rels[0])

@@ -92,13 +92,16 @@ def test_pest_answer_is_shown_one_action_per_line(screen):
     screen.text_input(key="participant").input("P03").run()
     screen.session_state["tab"] = "Assistente"
     screen.run()
-    screen.selectbox(key="cv_label").select("Tomato___Spider_mites Two-spotted_spider_mite").run()
+    # an entry with several visible actions (since the ATD v3, the mite entry shows only one)
+    screen.selectbox(key="cv_label").select("Tomato___Late_blight").run()
     next(b for b in screen.button if "Enviar foto" in b.label).click().run()
     assert not screen.exception
-    reply = next(m.value for m in screen.markdown if m.value.startswith("Parece ser: Ácaro-rajado."))
-    assert "O que ajuda:\n\n- Plante flores" in reply  # blank line before the list, so Markdown renders it
-    assert ".\n- Plantas aromáticas" in reply  # one item per line
-    assert reply.endswith("pragas.\n\nPara confirmar o problema e saber como tratar, fale com a Assistência Técnica.")
+    reply = next(m.value for m in screen.markdown if m.value.startswith("Parece ser: Requeima."))
+    assert "O que ajuda:\n\n- Equilibrar a adubação" in reply  # blank line before the list, so Markdown renders it
+    assert ".\n- Fazer rotação de culturas" in reply  # one item per line
+    assert reply.endswith(
+        "certificadas.\n\nPara confirmar o problema e saber como tratar, fale com a Assistência Técnica."
+    )
 
 
 ACARO = "Tomato___Spider_mites Two-spotted_spider_mite"
@@ -121,8 +124,9 @@ def test_assistant_sources_are_shown_as_text(screen):
     (fontes,) = [e for e in screen.expander if e.label == "Fontes"]
     items = [m.value for m in fontes.markdown]
     assert items == [
-        "- Recomendações técnicas para o cultivo de hortaliças em agricultura familiar (Circular Técnica 47), p. 12"
-    ]
+        "- Recomendações técnicas para o cultivo de hortaliças em agricultura familiar (Circular Técnica 47), p. 12",
+        "- Recomendações técnicas para o cultivo de hortaliças em agricultura familiar (Circular Técnica 47), p. 13",
+    ]  # symptom (p. 12), then the visible action (p. 13)
     assert not any("{" in item or "'source'" in item for item in items)
 
 

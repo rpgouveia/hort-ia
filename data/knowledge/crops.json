@@ -123,6 +123,91 @@
         "pages": "4"
       }
     },
+    "companion_roles": [],
+    "germination": {
+      "temp_min_c": 6,
+      "temp_max_c": 35,
+      "temp_ideal_min_c": 18,
+      "temp_ideal_max_c": 24,
+      "emergence_days_min": null,
+      "emergence_days_max": null,
+      "source": {
+        "source_id": "senarpr_hortalicas_ambiente_protegido",
+        "pages": "49"
+      },
+      "notes": "Tabela 4 do SENAR-PR: minima 6-11 C, otima 18-24 C, maxima 35 C. CONFLITO: Plantar 5 (p.11) da 20-25 C. Adotado o SENAR-PR por ser mais detalhado e regional (PR).",
+      "alt_source": {
+        "source": {
+          "source_id": "embrapa_plantar_tomate",
+          "pages": "11"
+        },
+        "temp_ideal_min_c": 20,
+        "temp_ideal_max_c": 25
+      }
+    },
+    "sowing_depth_cm": {
+      "min": 1,
+      "max": 1,
+      "source": {
+        "source_id": "embrapa_plantar_tomate",
+        "pages": "26"
+      },
+      "notes": "Sulcos de 1 cm na sementeira, espacados 10 cm."
+    },
+    "irrigation": {
+      "turn_days_min": null,
+      "turn_days_max": null,
+      "blade_mm_net": null,
+      "blade_mm_gross": null,
+      "efficiency": null,
+      "root_zone_depth_cm": 40,
+      "source": {
+        "source_id": "embrapa_plantar_tomate",
+        "pages": "31-32"
+      },
+      "notes": "SEM lamina ou turno fixo. Criterio: manter umida a camada explorada pelas raizes (ate ~40 cm)."
+    },
+    "soil_ph": {
+      "min": 6.0,
+      "max": 6.5,
+      "source": {
+        "source_id": "embrapa_plantar_tomate",
+        "pages": "16"
+      },
+      "notes": "Corrigir quando o pH estiver abaixo de 5,5."
+    },
+    "sun": {
+      "requirement": "full_sun",
+      "hours_min": 8,
+      "source": {
+        "source_id": "senarpr_hortalicas_ambiente_protegido",
+        "pages": "49"
+      },
+      "notes": "UNICO dado numerico de sol encontrado ate agora: periodos de luz abaixo de 8 h/dia podem ser prejudiciais."
+    },
+    "rotation": {
+      "rotation_group": "Solanaceae",
+      "avoid_after": [
+        "batata",
+        "pimenta",
+        "pimentao"
+      ],
+      "source": {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "10-11"
+      },
+      "notes": "Nao plantar em sequencia no mesmo canteiro especies da mesma familia botanica: evita esgotar o solo e acumular doencas. 'avoid_after' lista as culturas DESTA base que compartilham a familia; a regra vale para qualquer especie da mesma familia, inclusive fora das 20."
+    },
+    "soil_temp": {
+      "ideal_min_c": 15,
+      "ideal_max_c": 24,
+      "max_c": 34,
+      "root_damage_above_c": 28,
+      "source": {
+        "source_id": "senarpr_hortalicas_ambiente_protegido",
+        "pages": "49"
+      }
+    },
     "sources": [
       {
         "source_id": "embrapa_catalogo_hortalicas",
@@ -137,9 +222,8 @@
         "pages": "27"
       }
     ],
-    "validation_status": "draft",
-    "notes": "No Catálogo consta como Lycopersicon esculentum (sinônimo). HPE indica ciclo de 90-100 dias.",
-    "companion_roles": []
+    "validation_status": "validated_by_atd",
+    "notes": "No Catálogo consta como Lycopersicon esculentum (sinônimo). HPE indica ciclo de 90-100 dias."
   },
   {
     "id": "batata",
@@ -216,6 +300,72 @@
         "pages": "4"
       }
     },
+    "companion_roles": [],
+    "germination": {
+      "temp_min_c": null,
+      "temp_max_c": null,
+      "temp_ideal_min_c": null,
+      "temp_ideal_max_c": null,
+      "emergence_days_min": null,
+      "emergence_days_max": null,
+      "source": {
+        "source_id": "embrapa_plantar_batata",
+        "pages": "20, 31, 53"
+      },
+      "notes": "Fonte NAO traz temperatura de desenvolvimento; so armazenamento (2-4 C) e cura (abaixo de 15 C)."
+    },
+    "sowing_depth_cm": {
+      "min": 15,
+      "max": 15,
+      "source": {
+        "source_id": "embrapa_plantar_batata",
+        "pages": "75"
+      },
+      "notes": "Plantio por tuberculo-semente, nao por semente."
+    },
+    "irrigation": {
+      "turn_days_min": 3,
+      "turn_days_max": 3,
+      "blade_mm_net": null,
+      "blade_mm_gross": 22.7,
+      "efficiency": 0.7,
+      "season_total_mm_min": 350,
+      "season_total_mm_max": 600,
+      "preplant_blade_mm": 20,
+      "source": {
+        "source_id": "embrapa_plantar_batata",
+        "pages": "96, 99, 102, 104-107"
+      },
+      "notes": "Turno calculado por ETc, profundidade radicular e tipo de solo. Valores do exemplo da fonte (ETc 5,3 mm/dia, raizes 30 cm, solo tipo II)."
+    },
+    "soil_ph": {
+      "min": null,
+      "max": 6.0,
+      "source": {
+        "source_id": "embrapa_plantar_batata",
+        "pages": "70"
+      },
+      "notes": "Fonte da apenas o limite superior: nao elevar acima de 6,0, para evitar sarna-comum."
+    },
+    "sun": {
+      "requirement": null,
+      "hours_min": null,
+      "source": null,
+      "notes": "LACUNA: fonte nao informa."
+    },
+    "rotation": {
+      "rotation_group": "Solanaceae",
+      "avoid_after": [
+        "pimenta",
+        "pimentao",
+        "tomate"
+      ],
+      "source": {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "10-11"
+      },
+      "notes": "Nao plantar em sequencia no mesmo canteiro especies da mesma familia botanica: evita esgotar o solo e acumular doencas. 'avoid_after' lista as culturas DESTA base que compartilham a familia; a regra vale para qualquer especie da mesma familia, inclusive fora das 20."
+    },
     "sources": [
       {
         "source_id": "embrapa_catalogo_hortalicas",
@@ -230,9 +380,8 @@
         "pages": "27"
       }
     ],
-    "validation_status": "draft",
-    "notes": "Plantio por tubérculo-semente. Não consta na Tabela 2 do HPE; espaçamento do CT 47 (impresso '0,90 x ,030', interpretado como 0,90 x 0,30 m). HPE não recomenda tubérculos em pequenos espaços.",
-    "companion_roles": []
+    "validation_status": "validated_by_atd",
+    "notes": "Plantio por tubérculo-semente. Não consta na Tabela 2 do HPE; espaçamento do CT 47 (impresso '0,90 x ,030', interpretado como 0,90 x 0,30 m). HPE não recomenda tubérculos em pequenos espaços."
   },
   {
     "id": "pimentao",
@@ -342,6 +491,70 @@
         "pages": "4"
       }
     },
+    "companion_roles": [],
+    "germination": {
+      "temp_min_c": 16,
+      "temp_max_c": 35,
+      "temp_ideal_c": 29,
+      "temp_ideal_min_c": 18,
+      "temp_ideal_max_c": 35,
+      "emergence_days_min": null,
+      "emergence_days_max": null,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "35"
+      },
+      "notes": "Tabela 8 do Boletim Didatico 107 (Epagri/SC). temp_ideal_c e a temperatura otima pontual; a faixa otima vai de temp_ideal_min_c a temp_ideal_max_c."
+    },
+    "sowing_depth_cm": {
+      "min": null,
+      "max": null,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "38"
+      },
+      "notes": "Sem valor por especie. Regra geral da fonte: profundidade igual a tres vezes o maior diametro da semente."
+    },
+    "irrigation": {
+      "season_total_mm_min": 500,
+      "season_total_mm_max": 800,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "14"
+      },
+      "notes": "Necessidade hidrica por ciclo (Tabela 3, Epagri BD 107). Sem turno ou lamina por rega."
+    },
+    "soil_ph": {
+      "min": null,
+      "max": null,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "30"
+      },
+      "notes": "Sem valor por especie. Regra geral da fonte: pH 6,0 e o mais indicado para hortalicas."
+    },
+    "sun": {
+      "requirement": "full_sun",
+      "hours_min": null,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "44"
+      },
+      "notes": "Sem horas por especie. Regra geral da fonte: area onde o sol incida sobre as plantas durante todo o dia."
+    },
+    "rotation": {
+      "rotation_group": "Solanaceae",
+      "avoid_after": [
+        "batata",
+        "pimenta",
+        "tomate"
+      ],
+      "source": {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "10-11"
+      },
+      "notes": "Nao plantar em sequencia no mesmo canteiro especies da mesma familia botanica: evita esgotar o solo e acumular doencas. 'avoid_after' lista as culturas DESTA base que compartilham a familia; a regra vale para qualquer especie da mesma familia, inclusive fora das 20."
+    },
     "sources": [
       {
         "source_id": "embrapa_catalogo_hortalicas",
@@ -356,9 +569,8 @@
         "pages": "27"
       }
     ],
-    "validation_status": "draft",
-    "notes": "Requer tutoramento. Catálogo recomenda rotação com outras espécies (ex.: gramíneas).",
-    "companion_roles": []
+    "validation_status": "validated_by_atd",
+    "notes": "Requer tutoramento. Catálogo recomenda rotação com outras espécies (ex.: gramíneas)."
   },
   {
     "id": "morango",
@@ -441,6 +653,64 @@
         "pages": "4"
       }
     },
+    "companion_roles": [],
+    "germination": {
+      "temp_min_c": null,
+      "temp_max_c": null,
+      "temp_ideal_min_c": null,
+      "temp_ideal_max_c": null,
+      "emergence_days_min": null,
+      "emergence_days_max": null,
+      "source": null,
+      "notes": "LACUNA: fonte nao informa. Propagacao por mudas de estolho, nao por semente."
+    },
+    "sowing_depth_cm": {
+      "min": null,
+      "max": null,
+      "source": {
+        "source_id": "embrapa_plantar_morango",
+        "pages": "16-17"
+      },
+      "notes": "Nao se aplica: a muda e plantada com a coroa no nivel do solo. Plantio fundo dificulta folhas e estoloes."
+    },
+    "irrigation": {
+      "turn_days_min": null,
+      "turn_days_max": null,
+      "blade_mm_net": null,
+      "blade_mm_gross": null,
+      "efficiency": null,
+      "source": {
+        "source_id": "embrapa_plantar_morango",
+        "pages": "37-38"
+      },
+      "notes": "SEM lamina ou turno. Criterio: nao tolera excesso de umidade; aspersao ou gotejamento."
+    },
+    "soil_ph": {
+      "min": 5.5,
+      "max": 6.0,
+      "source": {
+        "source_id": "embrapa_plantar_morango",
+        "pages": "18"
+      }
+    },
+    "sun": {
+      "requirement": "full_sun",
+      "hours_min": null,
+      "source": {
+        "source_id": "embrapa_plantar_morango",
+        "pages": "13"
+      },
+      "notes": "Fonte exige 'boa incidencia de luz', sem horas."
+    },
+    "rotation": {
+      "rotation_group": "Rosaceae",
+      "avoid_after": [],
+      "source": {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "10-11"
+      },
+      "notes": "Nao plantar em sequencia no mesmo canteiro especies da mesma familia botanica. Nenhuma outra cultura DESTA base pertence a esta familia, mas a regra vale para qualquer especie da mesma familia fora das 20."
+    },
     "sources": [
       {
         "source_id": "embrapa_catalogo_hortalicas",
@@ -455,9 +725,8 @@
         "pages": "27"
       }
     ],
-    "validation_status": "draft",
-    "notes": "Mudas de estolhos. Grupo 'fruit' atribuído pelo critério de parte comestível (não listado no CT 47). Não citado na lista de pequenos espaços do HPE, embora a Tabela 2 traga espaçamento HPE.",
-    "companion_roles": []
+    "validation_status": "validated_by_atd",
+    "notes": "Mudas de estolhos. Grupo 'fruit' atribuído pelo critério de parte comestível (não listado no CT 47). Não citado na lista de pequenos espaços do HPE, embora a Tabela 2 traga espaçamento HPE."
   },
   {
     "id": "alface",
@@ -653,6 +922,79 @@
         "pages": "4"
       }
     },
+    "companion_roles": [],
+    "germination": {
+      "temp_min_c": 2,
+      "temp_max_c": 29,
+      "temp_ideal_c": 24,
+      "temp_ideal_min_c": 4,
+      "temp_ideal_max_c": 27,
+      "emergence_days_min": null,
+      "emergence_days_max": null,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "34"
+      },
+      "notes": "Tabela 8 do Boletim Didatico 107 (Epagri/SC). temp_ideal_c e a temperatura otima pontual; a faixa otima vai de temp_ideal_min_c a temp_ideal_max_c. CONFLITO: Epagri da otima pontual de 24 C (faixa 4-27); SENAR-PR da faixa otima de 15-25 C. Adotada a Epagri por ter tabela comparavel entre especies; SENAR-PR mantido em alt_source por ser fonte do Parana.",
+      "alt_source": {
+        "source": {
+          "source_id": "senarpr_hortalicas_ambiente_protegido",
+          "pages": "44"
+        },
+        "temp_min_c": 2,
+        "temp_max_c": 30,
+        "temp_ideal_min_c": 15,
+        "temp_ideal_max_c": 25,
+        "soil_temp_ideal_min_c": 13,
+        "soil_temp_ideal_max_c": 15,
+        "notes": "SENAR-PR (2015), fonte do Parana. Minima 2-5 C, otima 15-25 C, maxima 30 C."
+      }
+    },
+    "sowing_depth_cm": {
+      "min": null,
+      "max": null,
+      "source": null,
+      "notes": "LACUNA: fonte nao informa."
+    },
+    "irrigation": {
+      "turn_days_min": 1,
+      "turn_days_max": 1,
+      "blade_mm_net": null,
+      "blade_mm_gross": null,
+      "efficiency": null,
+      "blade_mm_mild": "5-6",
+      "blade_mm_hot": "7-8",
+      "source": {
+        "source_id": "embrapa_it134_alface_crespa",
+        "pages": "nao confirmada"
+      },
+      "notes": "ATENCAO REGIONAL: fonte do Submedio do Vale do Sao Francisco (semiarido). Lamina de 5-6 mm em temperatura amena e 7-8 mm em temperatura elevada, turno diario, por microaspersao. Revalidar para clima subtropical antes de usar em Curitiba."
+    },
+    "soil_ph": {
+      "min": null,
+      "max": null,
+      "source": null,
+      "notes": "LACUNA: fonte so remete a analise de solo."
+    },
+    "sun": {
+      "requirement": "full_sun",
+      "hours_min": null,
+      "max_radiation_mj_m2_dia": 19,
+      "source": {
+        "source_id": "senarpr_hortalicas_ambiente_protegido",
+        "pages": "44"
+      },
+      "notes": "SENAR-PR: crescimento inibido acima de 19 MJ/m2/dia. NAO e horas de sol, e radiacao."
+    },
+    "rotation": {
+      "rotation_group": "Asteraceae",
+      "avoid_after": [],
+      "source": {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "10-11"
+      },
+      "notes": "Nao plantar em sequencia no mesmo canteiro especies da mesma familia botanica. Nenhuma outra cultura DESTA base pertence a esta familia, mas a regra vale para qualquer especie da mesma familia fora das 20."
+    },
     "sources": [
       {
         "source_id": "embrapa_catalogo_hortalicas",
@@ -667,9 +1009,8 @@
         "pages": "27"
       }
     ],
-    "validation_status": "draft",
-    "notes": "Época depende da cultivar (de inverno ou de verão).",
-    "companion_roles": []
+    "validation_status": "validated_by_atd",
+    "notes": "Época depende da cultivar (de inverno ou de verão)."
   },
   {
     "id": "couve",
@@ -777,6 +1118,74 @@
         "pages": "4"
       }
     },
+    "companion_roles": [],
+    "germination": {
+      "temp_min_c": null,
+      "temp_max_c": null,
+      "temp_ideal_min_c": null,
+      "temp_ideal_max_c": null,
+      "emergence_days_min": null,
+      "emergence_days_max": null,
+      "source": null,
+      "notes": "LACUNA de germinacao. A Tabela 8 da Epagri traz COUVE-FLOR, nao couve-de-folhas; os valores NAO foram transpostos por serem variedades botanicas distintas."
+    },
+    "sowing_depth_cm": {
+      "min": null,
+      "max": null,
+      "source": null,
+      "notes": "LACUNA: nenhuma fonte institucional consultada traz este dado para esta cultura."
+    },
+    "irrigation": {
+      "turn_days_min": null,
+      "turn_days_max": null,
+      "blade_mm_net": null,
+      "source": {
+        "source_id": "poisson_couve_folhas_2026",
+        "pages": "26"
+      },
+      "notes": "SEM turno ou lamina. Criterio da fonte: irrigacao regular do plantio a colheita, de manha cedo ou fim de tarde; aumentar a frequencia em solo arenoso."
+    },
+    "soil_ph": {
+      "min": 6.0,
+      "max": 6.8,
+      "source": {
+        "source_id": "poisson_couve_folhas_2026",
+        "pages": "25"
+      }
+    },
+    "sun": {
+      "requirement": null,
+      "hours_min": null,
+      "source": null,
+      "notes": "LACUNA: nenhuma fonte institucional consultada traz este dado para esta cultura."
+    },
+    "rotation": {
+      "rotation_group": "Brassicaceae",
+      "avoid_after": [
+        "brocolis",
+        "rabanete",
+        "repolho",
+        "rucula"
+      ],
+      "source": {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "10-11"
+      },
+      "notes": "Nao plantar em sequencia no mesmo canteiro especies da mesma familia botanica: evita esgotar o solo e acumular doencas. 'avoid_after' lista as culturas DESTA base que compartilham a familia; a regra vale para qualquer especie da mesma familia, inclusive fora das 20."
+    },
+    "dev_temp": {
+      "ideal_min_c": 16,
+      "ideal_max_c": 22,
+      "min_c": 5,
+      "max_c": 28,
+      "alt_range_min_c": 15,
+      "alt_range_max_c": 20,
+      "source": {
+        "source_id": "poisson_couve_folhas_2026",
+        "pages": "16-17"
+      },
+      "notes": "16-22 C de media mensal (dado de SP, p.17); acima de ~28 C cai a produtividade. Estudo em Chapeco/SC com kale indica 15-20 C (p.16) - mais proximo do clima de Curitiba."
+    },
     "sources": [
       {
         "source_id": "embrapa_catalogo_hortalicas",
@@ -791,9 +1200,8 @@
         "pages": "27"
       }
     ],
-    "validation_status": "draft",
-    "notes": "Propagação mais comum por broto lateral. Exigente em boro e molibdênio (Catálogo).",
-    "companion_roles": []
+    "validation_status": "validated_by_atd",
+    "notes": "Propagação mais comum por broto lateral. Exigente em boro e molibdênio (Catálogo)."
   },
   {
     "id": "rucula",
@@ -882,6 +1290,43 @@
     "frost_tolerance": null,
     "small_space_recommended": true,
     "yield_estimate": null,
+    "companion_roles": [],
+    "germination": {
+      "source": null,
+      "notes": "LACUNA: nenhuma fonte institucional consultada traz este dado para esta cultura. Busca feita em Embrapa, Epagri, IAC e SENAR-PR: a especie nao aparece em nenhuma tabela por cultura. So foram encontrados TCCs, artigos de evento e sites comerciais, descartados por nao serem fonte institucional."
+    },
+    "sowing_depth_cm": {
+      "source": null,
+      "notes": "LACUNA: nenhuma fonte institucional consultada traz este dado para esta cultura. Busca feita em Embrapa, Epagri, IAC e SENAR-PR: a especie nao aparece em nenhuma tabela por cultura. So foram encontrados TCCs, artigos de evento e sites comerciais, descartados por nao serem fonte institucional."
+    },
+    "irrigation": {
+      "source": null,
+      "notes": "LACUNA: nenhuma fonte institucional consultada traz este dado para esta cultura. Busca feita em Embrapa, Epagri, IAC e SENAR-PR: a especie nao aparece em nenhuma tabela por cultura. So foram encontrados TCCs, artigos de evento e sites comerciais, descartados por nao serem fonte institucional."
+    },
+    "soil_ph": {
+      "source": null,
+      "notes": "LACUNA: nenhuma fonte institucional consultada traz este dado para esta cultura. Busca feita em Embrapa, Epagri, IAC e SENAR-PR: a especie nao aparece em nenhuma tabela por cultura. So foram encontrados TCCs, artigos de evento e sites comerciais, descartados por nao serem fonte institucional."
+    },
+    "sun": {
+      "requirement": null,
+      "hours_min": null,
+      "source": null,
+      "notes": "LACUNA: nenhuma fonte institucional consultada traz este dado para esta cultura. Busca feita em Embrapa, Epagri, IAC e SENAR-PR: a especie nao aparece em nenhuma tabela por cultura. So foram encontrados TCCs, artigos de evento e sites comerciais, descartados por nao serem fonte institucional."
+    },
+    "rotation": {
+      "rotation_group": "Brassicaceae",
+      "avoid_after": [
+        "brocolis",
+        "couve",
+        "rabanete",
+        "repolho"
+      ],
+      "source": {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "10-11"
+      },
+      "notes": "Nao plantar em sequencia no mesmo canteiro especies da mesma familia botanica: evita esgotar o solo e acumular doencas. 'avoid_after' lista as culturas DESTA base que compartilham a familia; a regra vale para qualquer especie da mesma familia, inclusive fora das 20."
+    },
     "sources": [
       {
         "source_id": "embrapa_catalogo_hortalicas",
@@ -897,8 +1342,7 @@
       }
     ],
     "validation_status": "draft",
-    "notes": "No Catálogo consta como Eruca sativa. CONFLITO: HPE indica ciclo de 25-30 dias; Catálogo, início de colheita em 40-60 dias. Sem produtividade no CT 47.",
-    "companion_roles": []
+    "notes": "No Catálogo consta como Eruca sativa. CONFLITO: HPE indica ciclo de 25-30 dias; Catálogo, início de colheita em 40-60 dias. Sem produtividade no CT 47."
   },
   {
     "id": "repolho",
@@ -1057,6 +1501,66 @@
         "pages": "4"
       }
     },
+    "companion_roles": [],
+    "germination": {
+      "temp_min_c": null,
+      "temp_max_c": null,
+      "temp_ideal_min_c": null,
+      "temp_ideal_max_c": null,
+      "emergence_days_min": null,
+      "emergence_days_max": null,
+      "source": null,
+      "notes": "LACUNA: fonte nao informa."
+    },
+    "sowing_depth_cm": {
+      "min": 2,
+      "max": 2,
+      "source": {
+        "source_id": "embrapa_sp362_repolho",
+        "pages": "nao confirmada"
+      },
+      "notes": "PAGINA NAO CONFIRMADA: o PDF de 1981 nao preserva a paginacao na extracao. Sulcos de 2 cm espacados 10 cm."
+    },
+    "irrigation": {
+      "turn_days_min": 2,
+      "turn_days_max": 3,
+      "blade_mm_net": 4,
+      "blade_mm_gross": null,
+      "efficiency": null,
+      "nursery_liters_m2_min": 2,
+      "nursery_liters_m2_max": 4,
+      "source": {
+        "source_id": "embrapa_sp362_repolho",
+        "pages": "nao confirmada"
+      },
+      "notes": "PAGINA NAO CONFIRMADA. Sementeira: 2 irrigacoes/dia de ~2 L/m2 ate 10 dias, depois 1/dia de 3-4 L/m2. Campo: 3-4 mm/dia nos primeiros 20 dias apos transplantio, depois 4 mm a cada 2-3 dias."
+    },
+    "soil_ph": {
+      "min": null,
+      "max": null,
+      "source": null,
+      "notes": "LACUNA: fonte so diz para corrigir acidez conforme analise de solo."
+    },
+    "sun": {
+      "requirement": null,
+      "hours_min": null,
+      "source": null,
+      "notes": "LACUNA: fonte nao informa."
+    },
+    "rotation": {
+      "rotation_group": "Brassicaceae",
+      "avoid_after": [
+        "brocolis",
+        "couve",
+        "rabanete",
+        "rucula"
+      ],
+      "source": {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "10-11"
+      },
+      "notes": "Nao plantar em sequencia no mesmo canteiro especies da mesma familia botanica: evita esgotar o solo e acumular doencas. 'avoid_after' lista as culturas DESTA base que compartilham a familia; a regra vale para qualquer especie da mesma familia, inclusive fora das 20."
+    },
     "sources": [
       {
         "source_id": "embrapa_catalogo_hortalicas",
@@ -1071,9 +1575,8 @@
         "pages": "27"
       }
     ],
-    "validation_status": "draft",
-    "notes": "Grupo 'leafy' atribuído pelo critério de parte comestível (não listado no CT 47). Exigente em adubação e água constante.",
-    "companion_roles": []
+    "validation_status": "validated_by_atd",
+    "notes": "Grupo 'leafy' atribuído pelo critério de parte comestível (não listado no CT 47). Exigente em adubação e água constante."
   },
   {
     "id": "cenoura",
@@ -1209,6 +1712,71 @@
         "pages": "4"
       }
     },
+    "companion_roles": [],
+    "germination": {
+      "temp_min_c": 9,
+      "temp_max_c": 35,
+      "temp_ideal_min_c": 20,
+      "temp_ideal_max_c": 30,
+      "emergence_days_min": 7,
+      "emergence_days_max": 10,
+      "source": {
+        "source_id": "embrapa_plantar_cenoura",
+        "pages": "11"
+      },
+      "notes": "Limite inferior (9 C) com leitura incerta no PDF; reconferir no impresso."
+    },
+    "sowing_depth_cm": {
+      "min": 1,
+      "max": 2,
+      "source": {
+        "source_id": "embrapa_plantar_cenoura",
+        "pages": "31, 35-36"
+      },
+      "notes": "Acima de 2 cm pode impedir a emergencia; abaixo de 1 cm causa falhas."
+    },
+    "irrigation": {
+      "turn_days_min": 1,
+      "turn_days_max": 2,
+      "blade_mm_net": 10,
+      "blade_mm_gross": 14.3,
+      "efficiency": 0.7,
+      "first_irrigation_wet_depth_cm": 20,
+      "source": {
+        "source_id": "embrapa_plantar_cenoura",
+        "pages": "37, 39-41"
+      },
+      "notes": "Do plantio ao desbaste irrigacoes leves a cada 1-2 dias; depois lamina e turno aumentam."
+    },
+    "soil_ph": {
+      "min": 6.0,
+      "max": 6.5,
+      "source": {
+        "source_id": "embrapa_plantar_cenoura",
+        "pages": "20, 22"
+      }
+    },
+    "sun": {
+      "requirement": "full_sun",
+      "hours_min": null,
+      "source": {
+        "source_id": "embrapa_plantar_cenoura",
+        "pages": "11, 18"
+      },
+      "notes": "Fonte NAO informa horas de sol; traz fotoperiodo (dias longos + temperatura baixa favorecem florescimento precoce)."
+    },
+    "rotation": {
+      "rotation_group": "Apiaceae",
+      "avoid_after": [
+        "coentro",
+        "salsa"
+      ],
+      "source": {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "10-11"
+      },
+      "notes": "Nao plantar em sequencia no mesmo canteiro especies da mesma familia botanica: evita esgotar o solo e acumular doencas. 'avoid_after' lista as culturas DESTA base que compartilham a familia; a regra vale para qualquer especie da mesma familia, inclusive fora das 20."
+    },
     "sources": [
       {
         "source_id": "embrapa_catalogo_hortalicas",
@@ -1223,9 +1791,8 @@
         "pages": "27"
       }
     ],
-    "validation_status": "draft",
-    "notes": "CONFLITO: CT 47 indica 20 x 5 cm; HPE, 20 x 10 cm (adotado). Germinação ideal 20-30 °C. Solo fofo, sem obstáculos.",
-    "companion_roles": []
+    "validation_status": "validated_by_atd",
+    "notes": "CONFLITO: CT 47 indica 20 x 5 cm; HPE, 20 x 10 cm (adotado). Germinação ideal 20-30 °C. Solo fofo, sem obstáculos."
   },
   {
     "id": "beterraba",
@@ -1338,6 +1905,68 @@
         "pages": "4"
       }
     },
+    "companion_roles": [],
+    "germination": {
+      "temp_min_c": 4,
+      "temp_max_c": 35,
+      "temp_ideal_c": 29,
+      "temp_ideal_min_c": 10,
+      "temp_ideal_max_c": 29,
+      "emergence_days_min": null,
+      "emergence_days_max": null,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "35"
+      },
+      "notes": "Tabela 8 do Boletim Didatico 107 (Epagri/SC). temp_ideal_c e a temperatura otima pontual; a faixa otima vai de temp_ideal_min_c a temp_ideal_max_c."
+    },
+    "sowing_depth_cm": {
+      "min": null,
+      "max": null,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "38"
+      },
+      "notes": "Sem valor por especie. Regra geral da fonte: profundidade igual a tres vezes o maior diametro da semente."
+    },
+    "irrigation": {
+      "season_total_mm_min": 500,
+      "season_total_mm_max": 700,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "14"
+      },
+      "notes": "Necessidade hidrica por ciclo (Tabela 3, Epagri BD 107). Sem turno ou lamina por rega."
+    },
+    "soil_ph": {
+      "min": null,
+      "max": null,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "30"
+      },
+      "notes": "Sem valor por especie. Regra geral da fonte: pH 6,0 e o mais indicado para hortalicas."
+    },
+    "sun": {
+      "requirement": "full_sun",
+      "hours_min": null,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "44"
+      },
+      "notes": "Sem horas por especie. Regra geral da fonte: area onde o sol incida sobre as plantas durante todo o dia."
+    },
+    "rotation": {
+      "rotation_group": "Amaranthaceae",
+      "avoid_after": [
+        "espinafre"
+      ],
+      "source": {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "10-11"
+      },
+      "notes": "Nao plantar em sequencia no mesmo canteiro especies da mesma familia botanica: evita esgotar o solo e acumular doencas. 'avoid_after' lista as culturas DESTA base que compartilham a familia; a regra vale para qualquer especie da mesma familia, inclusive fora das 20."
+    },
     "sources": [
       {
         "source_id": "embrapa_catalogo_hortalicas",
@@ -1352,9 +1981,8 @@
         "pages": "27"
       }
     ],
-    "validation_status": "draft",
-    "notes": "Catálogo: semente em local definitivo ou mudas; HPE Tabela 2: mudas. Quebrar dormência (molho 24 h).",
-    "companion_roles": []
+    "validation_status": "validated_by_atd",
+    "notes": "Catálogo: semente em local definitivo ou mudas; HPE Tabela 2: mudas. Quebrar dormência (molho 24 h)."
   },
   {
     "id": "rabanete",
@@ -1455,6 +2083,69 @@
         "pages": "4"
       }
     },
+    "companion_roles": [],
+    "germination": {
+      "temp_min_c": 4,
+      "temp_max_c": 35,
+      "temp_ideal_c": 29,
+      "temp_ideal_min_c": 7,
+      "temp_ideal_max_c": 32,
+      "emergence_days_min": null,
+      "emergence_days_max": null,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "35"
+      },
+      "notes": "Tabela 8 do Boletim Didatico 107 (Epagri/SC). temp_ideal_c e a temperatura otima pontual; a faixa otima vai de temp_ideal_min_c a temp_ideal_max_c."
+    },
+    "sowing_depth_cm": {
+      "min": null,
+      "max": null,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "38"
+      },
+      "notes": "Sem valor por especie. Regra geral da fonte: profundidade igual a tres vezes o maior diametro da semente."
+    },
+    "irrigation": {
+      "turn_days_min": null,
+      "turn_days_max": null,
+      "blade_mm_net": null,
+      "source": null,
+      "notes": "LACUNA de turno/lamina. Epagri BD 107 (p.14) da 250-500 mm/ciclo para o GRUPO folhosas, nao por especie."
+    },
+    "soil_ph": {
+      "min": null,
+      "max": null,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "30"
+      },
+      "notes": "Sem valor por especie. Regra geral da fonte: pH 6,0 e o mais indicado para hortalicas."
+    },
+    "sun": {
+      "requirement": "full_sun",
+      "hours_min": null,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "44"
+      },
+      "notes": "Sem horas por especie. Regra geral da fonte: area onde o sol incida sobre as plantas durante todo o dia."
+    },
+    "rotation": {
+      "rotation_group": "Brassicaceae",
+      "avoid_after": [
+        "brocolis",
+        "couve",
+        "repolho",
+        "rucula"
+      ],
+      "source": {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "10-11"
+      },
+      "notes": "Nao plantar em sequencia no mesmo canteiro especies da mesma familia botanica: evita esgotar o solo e acumular doencas. 'avoid_after' lista as culturas DESTA base que compartilham a familia; a regra vale para qualquer especie da mesma familia, inclusive fora das 20."
+    },
     "sources": [
       {
         "source_id": "embrapa_catalogo_hortalicas",
@@ -1469,9 +2160,8 @@
         "pages": "27"
       }
     ],
-    "validation_status": "draft",
-    "notes": "Colher antes do tamanho máximo para não ficar esponjoso.",
-    "companion_roles": []
+    "validation_status": "validated_by_atd",
+    "notes": "Colher antes do tamanho máximo para não ficar esponjoso."
   },
   {
     "id": "cebolinha",
@@ -1594,22 +2284,6 @@
         "pages": "4"
       }
     },
-    "sources": [
-      {
-        "source_id": "embrapa_catalogo_hortalicas",
-        "pages": "24"
-      },
-      {
-        "source_id": "embrapa_ct47_cultivo_hortalicas",
-        "pages": "2"
-      },
-      {
-        "source_id": "embrapa_horta_pequenos_espacos",
-        "pages": "27"
-      }
-    ],
-    "validation_status": "draft",
-    "notes": "O Catálogo agrupa as duas espécies como cebolinha. Rebrota: várias colheitas. 'Cheiro-verde' (cebolinha + salsa) deve ser tratado no NLU, não como alias. CONFLITO menor: HPE indica ciclo de 70-90 dias.",
     "companion_roles": [
       {
         "role": "pest_repellent",
@@ -1627,7 +2301,80 @@
           "pages": "30"
         }
       }
-    ]
+    ],
+    "germination": {
+      "temp_min_c": 2,
+      "temp_max_c": 35,
+      "temp_ideal_c": 24,
+      "temp_ideal_min_c": 10,
+      "temp_ideal_max_c": 35,
+      "emergence_days_min": null,
+      "emergence_days_max": null,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "35"
+      },
+      "notes": "Tabela 8 do Boletim Didatico 107 (Epagri/SC). temp_ideal_c e a temperatura otima pontual; a faixa otima vai de temp_ideal_min_c a temp_ideal_max_c."
+    },
+    "sowing_depth_cm": {
+      "min": null,
+      "max": null,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "38"
+      },
+      "notes": "Sem valor por especie. Regra geral da fonte: profundidade igual a tres vezes o maior diametro da semente."
+    },
+    "irrigation": {
+      "turn_days_min": null,
+      "turn_days_max": null,
+      "blade_mm_net": null,
+      "source": null,
+      "notes": "LACUNA de turno/lamina. Epagri BD 107 (p.14) da 250-500 mm/ciclo para o GRUPO folhosas, nao por especie."
+    },
+    "soil_ph": {
+      "min": null,
+      "max": null,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "30"
+      },
+      "notes": "Sem valor por especie. Regra geral da fonte: pH 6,0 e o mais indicado para hortalicas."
+    },
+    "sun": {
+      "requirement": "full_sun",
+      "hours_min": null,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "44"
+      },
+      "notes": "Sem horas por especie. Regra geral da fonte: area onde o sol incida sobre as plantas durante todo o dia."
+    },
+    "rotation": {
+      "rotation_group": "Amaryllidaceae",
+      "avoid_after": [],
+      "source": {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "10-11"
+      },
+      "notes": "Nao plantar em sequencia no mesmo canteiro especies da mesma familia botanica. Nenhuma outra cultura DESTA base pertence a esta familia, mas a regra vale para qualquer especie da mesma familia fora das 20."
+    },
+    "sources": [
+      {
+        "source_id": "embrapa_catalogo_hortalicas",
+        "pages": "24"
+      },
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "2"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "27"
+      }
+    ],
+    "validation_status": "validated_by_atd",
+    "notes": "O Catálogo agrupa as duas espécies como cebolinha. Rebrota: várias colheitas. 'Cheiro-verde' (cebolinha + salsa) deve ser tratado no NLU, não como alias. CONFLITO menor: HPE indica ciclo de 70-90 dias."
   },
   {
     "id": "salsa",
@@ -1725,6 +2472,67 @@
         "pages": "4"
       }
     },
+    "companion_roles": [],
+    "germination": {
+      "temp_min_c": 4,
+      "temp_max_c": 32,
+      "temp_ideal_c": 24,
+      "temp_ideal_min_c": 10,
+      "temp_ideal_max_c": 29,
+      "emergence_days_min": null,
+      "emergence_days_max": null,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "35"
+      },
+      "notes": "Tabela 8 do Boletim Didatico 107 (Epagri/SC). temp_ideal_c e a temperatura otima pontual; a faixa otima vai de temp_ideal_min_c a temp_ideal_max_c."
+    },
+    "sowing_depth_cm": {
+      "min": null,
+      "max": null,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "38"
+      },
+      "notes": "Sem valor por especie. Regra geral da fonte: profundidade igual a tres vezes o maior diametro da semente."
+    },
+    "irrigation": {
+      "turn_days_min": null,
+      "turn_days_max": null,
+      "blade_mm_net": null,
+      "source": null,
+      "notes": "LACUNA de turno/lamina. Epagri BD 107 (p.14) da 250-500 mm/ciclo para o GRUPO folhosas, nao por especie."
+    },
+    "soil_ph": {
+      "min": null,
+      "max": null,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "30"
+      },
+      "notes": "Sem valor por especie. Regra geral da fonte: pH 6,0 e o mais indicado para hortalicas."
+    },
+    "sun": {
+      "requirement": "full_sun",
+      "hours_min": null,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "44"
+      },
+      "notes": "Sem horas por especie. Regra geral da fonte: area onde o sol incida sobre as plantas durante todo o dia."
+    },
+    "rotation": {
+      "rotation_group": "Apiaceae",
+      "avoid_after": [
+        "cenoura",
+        "coentro"
+      ],
+      "source": {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "10-11"
+      },
+      "notes": "Nao plantar em sequencia no mesmo canteiro especies da mesma familia botanica: evita esgotar o solo e acumular doencas. 'avoid_after' lista as culturas DESTA base que compartilham a familia; a regra vale para qualquer especie da mesma familia, inclusive fora das 20."
+    },
     "sources": [
       {
         "source_id": "embrapa_catalogo_hortalicas",
@@ -1739,9 +2547,8 @@
         "pages": "27"
       }
     ],
-    "validation_status": "draft",
-    "notes": "Catálogo: prefere temperaturas em torno de 20 °C. Germinação lenta (molho de uma noite).",
-    "companion_roles": []
+    "validation_status": "validated_by_atd",
+    "notes": "Catálogo: prefere temperaturas em torno de 20 °C. Germinação lenta (molho de uma noite)."
   },
   {
     "id": "manjericao",
@@ -1848,6 +2655,49 @@
     "frost_tolerance": null,
     "small_space_recommended": true,
     "yield_estimate": null,
+    "companion_roles": [
+      {
+        "role": "pest_repellent",
+        "evidence": "technical",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "12"
+        }
+      }
+    ],
+    "germination": {
+      "source": null,
+      "notes": "LACUNA: nenhuma fonte institucional consultada traz este dado para esta cultura. Mantidos os dados ja existentes (HPE e Doc. 136). Os campos novos nao constam nas fontes consultadas."
+    },
+    "sowing_depth_cm": {
+      "source": null,
+      "notes": "LACUNA: nenhuma fonte institucional consultada traz este dado para esta cultura. Mantidos os dados ja existentes (HPE e Doc. 136). Os campos novos nao constam nas fontes consultadas."
+    },
+    "irrigation": {
+      "source": null,
+      "notes": "LACUNA: nenhuma fonte institucional consultada traz este dado para esta cultura. Mantidos os dados ja existentes (HPE e Doc. 136). Os campos novos nao constam nas fontes consultadas."
+    },
+    "soil_ph": {
+      "source": null,
+      "notes": "LACUNA: nenhuma fonte institucional consultada traz este dado para esta cultura. Mantidos os dados ja existentes (HPE e Doc. 136). Os campos novos nao constam nas fontes consultadas."
+    },
+    "sun": {
+      "requirement": null,
+      "hours_min": null,
+      "source": null,
+      "notes": "LACUNA: nenhuma fonte institucional consultada traz este dado para esta cultura. Mantidos os dados ja existentes (HPE e Doc. 136). Os campos novos nao constam nas fontes consultadas."
+    },
+    "rotation": {
+      "rotation_group": "Lamiaceae",
+      "avoid_after": [
+        "hortela"
+      ],
+      "source": {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "10-11"
+      },
+      "notes": "Nao plantar em sequencia no mesmo canteiro especies da mesma familia botanica: evita esgotar o solo e acumular doencas. 'avoid_after' lista as culturas DESTA base que compartilham a familia; a regra vale para qualquer especie da mesma familia, inclusive fora das 20."
+    },
     "sources": [
       {
         "source_id": "embrapa_ct47_cultivo_hortalicas",
@@ -1867,17 +2717,7 @@
       }
     ],
     "validation_status": "draft",
-    "notes": "Não consta no Catálogo. Sudeste e Centro-Oeste: época 'ano todo' do HPE (que também vale para o norte do Sul e o sul do Nordeste). Sul: final da primavera (folder Embrapa). Nordeste e Norte sem janela mensal: o Doc. 136 só diz que, em campo aberto, o cultivo deve ser no período quente. Em vasos ou viveiros, o plantio pode ser feito o ano todo (Doc. 136, p. 20). Espaçamento do HPE corroborado pelo Doc. 136 (60 x 30-40 cm, p. 21-23). Propagação por sementes ou estacas (folder; Doc. 136). Colher as folhas pouco antes do florescimento. 'Alfavaca' também designa outras espécies de Ocimum; 'manjericão-doce' ficou fora dos aliases porque o Doc. 136 usa o nome para O. gratissimum.",
-    "companion_roles": [
-      {
-        "role": "pest_repellent",
-        "evidence": "technical",
-        "source": {
-          "source_id": "embrapa_ct47_cultivo_hortalicas",
-          "pages": "12"
-        }
-      }
-    ]
+    "notes": "Não consta no Catálogo. Sudeste e Centro-Oeste: época 'ano todo' do HPE (que também vale para o norte do Sul e o sul do Nordeste). Sul: final da primavera (folder Embrapa). Nordeste e Norte sem janela mensal: o Doc. 136 só diz que, em campo aberto, o cultivo deve ser no período quente. Em vasos ou viveiros, o plantio pode ser feito o ano todo (Doc. 136, p. 20). Espaçamento do HPE corroborado pelo Doc. 136 (60 x 30-40 cm, p. 21-23). Propagação por sementes ou estacas (folder; Doc. 136). Colher as folhas pouco antes do florescimento. 'Alfavaca' também designa outras espécies de Ocimum; 'manjericão-doce' ficou fora dos aliases porque o Doc. 136 usa o nome para O. gratissimum."
   },
   {
     "id": "abobrinha",
@@ -1999,6 +2839,64 @@
         "pages": "4"
       }
     },
+    "companion_roles": [],
+    "germination": {
+      "temp_min_c": 16,
+      "temp_max_c": 38,
+      "temp_ideal_c": 35,
+      "temp_ideal_min_c": 21,
+      "temp_ideal_max_c": 35,
+      "emergence_days_min": null,
+      "emergence_days_max": null,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "34"
+      },
+      "notes": "Tabela 8 do Boletim Didatico 107 (Epagri/SC). temp_ideal_c e a temperatura otima pontual; a faixa otima vai de temp_ideal_min_c a temp_ideal_max_c."
+    },
+    "sowing_depth_cm": {
+      "min": null,
+      "max": null,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "38"
+      },
+      "notes": "Sem valor por especie. Regra geral da fonte: profundidade igual a tres vezes o maior diametro da semente."
+    },
+    "irrigation": {
+      "turn_days_min": null,
+      "turn_days_max": null,
+      "blade_mm_net": null,
+      "source": null,
+      "notes": "LACUNA de turno/lamina. Epagri BD 107 (p.14) da 250-500 mm/ciclo para o GRUPO folhosas, nao por especie."
+    },
+    "soil_ph": {
+      "min": null,
+      "max": null,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "30"
+      },
+      "notes": "Sem valor por especie. Regra geral da fonte: pH 6,0 e o mais indicado para hortalicas."
+    },
+    "sun": {
+      "requirement": "full_sun",
+      "hours_min": null,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "44"
+      },
+      "notes": "Sem horas por especie. Regra geral da fonte: area onde o sol incida sobre as plantas durante todo o dia."
+    },
+    "rotation": {
+      "rotation_group": "Cucurbitaceae",
+      "avoid_after": [],
+      "source": {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "10-11"
+      },
+      "notes": "Nao plantar em sequencia no mesmo canteiro especies da mesma familia botanica. Nenhuma outra cultura DESTA base pertence a esta familia, mas a regra vale para qualquer especie da mesma familia fora das 20."
+    },
     "sources": [
       {
         "source_id": "embrapa_catalogo_hortalicas",
@@ -2013,8 +2911,660 @@
         "pages": "27"
       }
     ],
+    "validation_status": "validated_by_atd",
+    "notes": "Sensível ao transplante e ao excesso de água. Grupo 'fruit' atribuído pelo critério de parte comestível. CONFLITO: HPE indica ciclo de 60-90 dias."
+  },
+  {
+    "id": "coentro",
+    "name_pt": "Coentro",
+    "scientific_name": "Coriandrum sativum",
+    "family": "Apiaceae",
+    "planting_windows": [
+      {
+        "variant": null,
+        "months_by_region": {
+          "sul": [
+            9,
+            10,
+            11,
+            12,
+            1
+          ],
+          "sudeste": [
+            8,
+            9,
+            10,
+            11,
+            12,
+            1,
+            2
+          ],
+          "nordeste": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "centro_oeste": [
+            8,
+            9,
+            10,
+            11,
+            12,
+            1,
+            2,
+            3,
+            4
+          ],
+          "norte": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ]
+        },
+        "harvest_start_days": {
+          "min": 50,
+          "max": 60
+        },
+        "source": {
+          "source_id": "embrapa_catalogo_hortalicas",
+          "pages": "28"
+        },
+        "notes": "Preenchida pelo módulo de IA a partir do Catálogo (p. 28), pendente de conferência da ATD."
+      }
+    ],
+    "companion_roles": [
+      {
+        "role": "pest_repellent",
+        "evidence": "technical",
+        "source": {
+          "source_id": "embrapa_horta_pequenos_espacos",
+          "pages": "30"
+        },
+        "notes": "Consorciado ou ao redor do plantio (origem A34 do grafo)."
+      },
+      {
+        "role": "pest_repellent",
+        "evidence": "technical",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "12"
+        },
+        "notes": "Citado entre as plantas aromaticas repelentes."
+      }
+    ],
+    "germination": {
+      "temp_min_c": 4,
+      "temp_max_c": 32,
+      "temp_ideal_c": 24,
+      "temp_ideal_min_c": 10,
+      "temp_ideal_max_c": 29,
+      "emergence_days_min": null,
+      "emergence_days_max": null,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "35"
+      },
+      "notes": "Tabela 8 do Boletim Didatico 107 (Epagri/SC). temp_ideal_c e a temperatura otima pontual; a faixa otima vai de temp_ideal_min_c a temp_ideal_max_c."
+    },
+    "sowing_depth_cm": {
+      "min": null,
+      "max": null,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "38"
+      },
+      "notes": "Sem valor por especie. Regra geral da fonte: profundidade igual a tres vezes o maior diametro da semente."
+    },
+    "irrigation": {
+      "turn_days_min": null,
+      "turn_days_max": null,
+      "blade_mm_net": null,
+      "source": null,
+      "notes": "LACUNA de turno/lamina. Epagri BD 107 (p.14) da 250-500 mm/ciclo para o GRUPO folhosas, nao por especie."
+    },
+    "soil_ph": {
+      "min": null,
+      "max": null,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "30"
+      },
+      "notes": "Sem valor por especie. Regra geral da fonte: pH 6,0 e o mais indicado para hortalicas."
+    },
+    "sun": {
+      "requirement": "full_sun",
+      "hours_min": null,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "44"
+      },
+      "notes": "Sem horas por especie. Regra geral da fonte: area onde o sol incida sobre as plantas durante todo o dia."
+    },
+    "rotation": {
+      "rotation_group": "Apiaceae",
+      "avoid_after": [
+        "cenoura",
+        "salsa"
+      ],
+      "source": {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "10-11"
+      },
+      "notes": "Nao plantar em sequencia no mesmo canteiro especies da mesma familia botanica: evita esgotar o solo e acumular doencas. 'avoid_after' lista as culturas DESTA base que compartilham a familia; a regra vale para qualquer especie da mesma familia, inclusive fora das 20."
+    },
     "validation_status": "draft",
-    "notes": "Sensível ao transplante e ao excesso de água. Grupo 'fruit' atribuído pelo critério de parte comestível. CONFLITO: HPE indica ciclo de 60-90 dias.",
-    "companion_roles": []
+    "notes": "Familia botanica (Apiaceae) atribuida conforme a classificacao da CT 47 (p.11). Épocas preenchidas pelo módulo de IA a partir do Catálogo (p. 28), pendente de conferência da ATD."
+  },
+  {
+    "id": "espinafre",
+    "name_pt": "Espinafre",
+    "scientific_name": "Spinacia oleracea",
+    "family": "Amaranthaceae",
+    "planting_windows": [
+      {
+        "variant": null,
+        "months_by_region": {
+          "sul": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "sudeste": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "nordeste": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "centro_oeste": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "norte": [
+            3,
+            4,
+            5
+          ]
+        },
+        "harvest_start_days": {
+          "min": 60,
+          "max": 80
+        },
+        "source": {
+          "source_id": "embrapa_catalogo_hortalicas",
+          "pages": "33"
+        },
+        "notes": "Preenchida pelo módulo de IA a partir do Catálogo (p. 33), pendente de conferência da ATD."
+      }
+    ],
+    "germination": {
+      "temp_min_c": 2,
+      "temp_max_c": 29,
+      "temp_ideal_c": 21,
+      "temp_ideal_min_c": 7,
+      "temp_ideal_max_c": 24,
+      "emergence_days_min": null,
+      "emergence_days_max": null,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "35"
+      },
+      "notes": "Tabela 8 do Boletim Didatico 107 (Epagri/SC). temp_ideal_c e a temperatura otima pontual; a faixa otima vai de temp_ideal_min_c a temp_ideal_max_c."
+    },
+    "sowing_depth_cm": {
+      "min": null,
+      "max": null,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "38"
+      },
+      "notes": "Sem valor por especie. Regra geral da fonte: profundidade igual a tres vezes o maior diametro da semente."
+    },
+    "irrigation": {
+      "turn_days_min": null,
+      "turn_days_max": null,
+      "blade_mm_net": null,
+      "source": null,
+      "notes": "LACUNA de turno/lamina. Epagri BD 107 (p.14) da 250-500 mm/ciclo para o GRUPO folhosas, nao por especie."
+    },
+    "soil_ph": {
+      "min": null,
+      "max": null,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "30"
+      },
+      "notes": "Sem valor por especie. Regra geral da fonte: pH 6,0 e o mais indicado para hortalicas."
+    },
+    "sun": {
+      "requirement": "full_sun",
+      "hours_min": null,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "44"
+      },
+      "notes": "Sem horas por especie. Regra geral da fonte: area onde o sol incida sobre as plantas durante todo o dia."
+    },
+    "rotation": {
+      "rotation_group": "Amaranthaceae",
+      "avoid_after": [
+        "beterraba"
+      ],
+      "source": {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "10-11"
+      },
+      "notes": "Nao plantar em sequencia no mesmo canteiro especies da mesma familia botanica: evita esgotar o solo e acumular doencas. 'avoid_after' lista as culturas DESTA base que compartilham a familia; a regra vale para qualquer especie da mesma familia, inclusive fora das 20."
+    },
+    "validation_status": "draft",
+    "notes": "Familia botanica (Amaranthaceae) atribuida conforme a classificacao da CT 47 (p.11). Épocas preenchidas pelo módulo de IA a partir do Catálogo (p. 33), pendente de conferência da ATD. A ficha do Catálogo (p. 33) cobre duas espécies de espinafre; qual delas a base considera é pendência da ATD."
+  },
+  {
+    "id": "brocolis",
+    "name_pt": "Brócolis",
+    "scientific_name": "Brassica oleracea var. italica",
+    "family": "Brassicaceae",
+    "planting_windows": [
+      {
+        "variant": "inverno",
+        "months_by_region": {
+          "sul": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "sudeste": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "nordeste": [],
+          "centro_oeste": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "norte": []
+        },
+        "harvest_start_days": {
+          "min": 90,
+          "max": 100
+        },
+        "source": {
+          "source_id": "embrapa_catalogo_hortalicas",
+          "pages": "22"
+        },
+        "notes": "Preenchida pelo módulo de IA a partir do Catálogo (p. 22), pendente de conferência da ATD."
+      },
+      {
+        "variant": "verao",
+        "months_by_region": {
+          "sul": [
+            10,
+            11,
+            12
+          ],
+          "sudeste": [
+            9,
+            10,
+            11,
+            12,
+            1
+          ],
+          "nordeste": [
+            10,
+            11,
+            12,
+            1,
+            2
+          ],
+          "centro_oeste": [
+            10,
+            11,
+            12,
+            1
+          ],
+          "norte": [
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        "harvest_start_days": {
+          "min": 80,
+          "max": 100
+        },
+        "source": {
+          "source_id": "embrapa_catalogo_hortalicas",
+          "pages": "22"
+        },
+        "notes": "Preenchida pelo módulo de IA a partir do Catálogo (p. 22), pendente de conferência da ATD."
+      }
+    ],
+    "germination": {
+      "temp_min_c": null,
+      "temp_max_c": null,
+      "temp_ideal_min_c": null,
+      "temp_ideal_max_c": null,
+      "emergence_days_min": null,
+      "emergence_days_max": null,
+      "source": {
+        "source_id": "embrapa_plantar_brocolis",
+        "pages": "37"
+      },
+      "notes": "LACUNA de germinacao. Fonte da 30-35 dias da semeadura ao transplantio (mudas de 12-15 cm, 4-6 folhas)."
+    },
+    "sowing_depth_cm": {
+      "min": null,
+      "max": null,
+      "source": null,
+      "notes": "LACUNA: fonte nao informa."
+    },
+    "irrigation": {
+      "turn_days_min": null,
+      "turn_days_max": null,
+      "blade_mm_net": null,
+      "blade_mm_gross": null,
+      "efficiency": null,
+      "kc_initial": 0.65,
+      "kc_mid": 1.05,
+      "kc_final": 0.95,
+      "source": {
+        "source_id": "embrapa_plantar_brocolis",
+        "pages": "37-38, 44, 47"
+      },
+      "notes": "SEM turno ou lamina. Em viveiro, turno por sensor de umidade; em campo, mais frequente na formacao da inflorescencia. Traz coeficientes de cultura (Kc)."
+    },
+    "soil_ph": {
+      "min": 6.5,
+      "max": 7.0,
+      "source": {
+        "source_id": "embrapa_plantar_brocolis",
+        "pages": "29"
+      }
+    },
+    "sun": {
+      "requirement": null,
+      "hours_min": null,
+      "source": null,
+      "notes": "LACUNA: fonte nao informa."
+    },
+    "rotation": {
+      "rotation_group": "Brassicaceae",
+      "avoid_after": [
+        "couve",
+        "rabanete",
+        "repolho",
+        "rucula"
+      ],
+      "source": {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "10-11"
+      },
+      "notes": "Nao plantar em sequencia no mesmo canteiro especies da mesma familia botanica: evita esgotar o solo e acumular doencas. 'avoid_after' lista as culturas DESTA base que compartilham a familia; a regra vale para qualquer especie da mesma familia, inclusive fora das 20."
+    },
+    "dev_temp": {
+      "before_head_min_c": 20,
+      "before_head_max_c": 24,
+      "after_head_min_c": 15,
+      "after_head_max_c": 18,
+      "source": {
+        "source_id": "embrapa_plantar_brocolis",
+        "pages": "23"
+      }
+    },
+    "validation_status": "draft",
+    "notes": "Familia botanica (Brassicaceae) atribuida conforme a classificacao da CT 47 (p.11). Épocas preenchidas pelo módulo de IA a partir do Catálogo (p. 22), pendente de conferência da ATD."
+  },
+  {
+    "id": "pimenta",
+    "name_pt": "Pimenta",
+    "scientific_name": "Capsicum spp.",
+    "family": "Solanaceae",
+    "aliases": [],
+    "names_en": [],
+    "crop_groups": [],
+    "propagation": [],
+    "seedling_days": null,
+    "planting_windows": [
+      {
+        "variant": null,
+        "months_by_region": {
+          "sul": [
+            9,
+            10,
+            11,
+            12,
+            1,
+            2
+          ],
+          "sudeste": [
+            8,
+            9,
+            10,
+            11,
+            12,
+            1,
+            2,
+            3
+          ],
+          "nordeste": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "centro_oeste": [
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "norte": [
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ]
+        },
+        "harvest_start_days": {
+          "min": 90,
+          "max": 120
+        },
+        "source": {
+          "source_id": "embrapa_catalogo_hortalicas",
+          "pages": "48"
+        },
+        "notes": "Preenchida pelo módulo de IA a partir do Catálogo (p. 48), pendente de conferência da ATD."
+      }
+    ],
+    "spacing": null,
+    "optimal_temp_c": null,
+    "frost_tolerance": null,
+    "small_space_recommended": null,
+    "yield_estimate": null,
+    "companion_roles": [],
+    "germination": {
+      "temp_min_c": 16,
+      "temp_max_c": 35,
+      "temp_ideal_c": 29,
+      "temp_ideal_min_c": 18,
+      "temp_ideal_max_c": 35,
+      "emergence_days_min": null,
+      "emergence_days_max": null,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "35"
+      },
+      "notes": "Tabela 8 (Epagri BD 107). Pimenta e pimentao sao linhas separadas na tabela e tem os mesmos valores."
+    },
+    "sowing_depth_cm": {
+      "min": null,
+      "max": null,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "38"
+      },
+      "notes": "Sem valor por especie. Regra geral: profundidade igual a tres vezes o maior diametro da semente."
+    },
+    "irrigation": {
+      "turn_days_min": null,
+      "turn_days_max": null,
+      "blade_mm_net": null,
+      "source": null,
+      "notes": "LACUNA: nenhuma fonte institucional consultada traz este dado para esta cultura."
+    },
+    "soil_ph": {
+      "min": null,
+      "max": null,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "30"
+      },
+      "notes": "Sem valor por especie. Regra geral: pH 6,0."
+    },
+    "sun": {
+      "requirement": "full_sun",
+      "hours_min": null,
+      "source": {
+        "source_id": "epagri_bd107_hortalicas",
+        "pages": "44"
+      },
+      "notes": "Sem horas por especie. Regra geral: sol sobre as plantas durante todo o dia."
+    },
+    "rotation": {
+      "rotation_group": "Solanaceae",
+      "avoid_after": [
+        "batata",
+        "pimentao",
+        "tomate"
+      ],
+      "source": {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "10-11"
+      },
+      "notes": "Nao plantar em sequencia no mesmo canteiro especies da mesma familia botanica: evita esgotar o solo e acumular doencas. 'avoid_after' lista as culturas DESTA base que compartilham a familia; a regra vale para qualquer especie da mesma familia, inclusive fora das 20."
+    },
+    "sources": [],
+    "validation_status": "draft",
+    "notes": "Épocas preenchidas pelo módulo de IA a partir do Catálogo (p. 48), pendente de conferência da ATD."
+  },
+  {
+    "id": "hortela",
+    "name_pt": "Hortelã",
+    "scientific_name": "Mentha spp.",
+    "family": "Lamiaceae",
+    "aliases": [],
+    "names_en": [],
+    "crop_groups": [],
+    "propagation": [],
+    "seedling_days": null,
+    "planting_windows": [],
+    "spacing": null,
+    "optimal_temp_c": null,
+    "frost_tolerance": null,
+    "small_space_recommended": null,
+    "yield_estimate": null,
+    "companion_roles": [
+      {
+        "role": "pest_repellent",
+        "evidence": "technical",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "12"
+        },
+        "notes": "Citada entre as plantas aromaticas repelentes."
+      }
+    ],
+    "germination": {
+      "source": null,
+      "notes": "LACUNA: nenhuma fonte institucional consultada traz este dado para esta cultura. Cultura adicionada ao escopo das 20. Nao aparece nas tabelas por cultura de nenhuma fonte institucional consultada."
+    },
+    "sowing_depth_cm": {
+      "source": null,
+      "notes": "LACUNA: nenhuma fonte institucional consultada traz este dado para esta cultura. Cultura adicionada ao escopo das 20. Nao aparece nas tabelas por cultura de nenhuma fonte institucional consultada."
+    },
+    "irrigation": {
+      "source": null,
+      "notes": "LACUNA: nenhuma fonte institucional consultada traz este dado para esta cultura. Cultura adicionada ao escopo das 20. Nao aparece nas tabelas por cultura de nenhuma fonte institucional consultada."
+    },
+    "soil_ph": {
+      "source": null,
+      "notes": "LACUNA: nenhuma fonte institucional consultada traz este dado para esta cultura. Cultura adicionada ao escopo das 20. Nao aparece nas tabelas por cultura de nenhuma fonte institucional consultada."
+    },
+    "sun": {
+      "requirement": null,
+      "hours_min": null,
+      "source": null,
+      "notes": "LACUNA: nenhuma fonte institucional consultada traz este dado para esta cultura. Cultura adicionada ao escopo das 20. Nao aparece nas tabelas por cultura de nenhuma fonte institucional consultada."
+    },
+    "rotation": {
+      "rotation_group": "Lamiaceae",
+      "avoid_after": [
+        "manjericao"
+      ],
+      "source": {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "10-11"
+      },
+      "notes": "Nao plantar em sequencia no mesmo canteiro especies da mesma familia botanica: evita esgotar o solo e acumular doencas. 'avoid_after' lista as culturas DESTA base que compartilham a familia; a regra vale para qualquer especie da mesma familia, inclusive fora das 20."
+    },
+    "sources": [],
+    "validation_status": "draft",
+    "notes": "Familia botanica (Lamiaceae) atribuida conforme a classificacao da CT 47 (p.11). Sem época de plantio: pendência da ATD."
   }
 ]

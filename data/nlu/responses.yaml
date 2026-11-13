@@ -57,7 +57,10 @@ crop_care:
 companion_planting:
   good: "Plantas que se dão bem com {crop}: {partners}."
   bad: "Evite plantar perto de {crop}: {partners}."
-  traditional_note: "Essas combinações vêm do costume de quem planta. Não são recomendação técnica."
+  # Closing note by the evidence of the combinations shown (decision D9 of the ATD v3 integration).
+  traditional_note: "Essas combinações vêm do costume de quem planta. Não são recomendação técnica."  # all traditional
+  mixed_note: "Algumas dessas combinações têm indicação técnica. As outras vêm do costume de quem planta."
+  technical_note: "Essas combinações têm indicação técnica."  # none traditional
   repellent: "{crop} ajuda a espantar algumas pragas da horta. Isso é recomendado pela Embrapa."
   none: "Não tenho informações sobre plantas que combinam com {crop}."
   rotation: "Depois de {crop}, não plante no mesmo canteiro: {same_family}. São da mesma família e pegam as mesmas doenças."

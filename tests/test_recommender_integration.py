@@ -16,7 +16,7 @@ from starlette.testclient import TestClient
 
 from hort_ia.api.main import app
 from hort_ia.core.geo import Region
-from hort_ia.knowledge import load_knowledge_base
+from hort_ia.knowledge import get_knowledge_base, load_knowledge_base
 from hort_ia.knowledge.loader import kb_dir
 from hort_ia.market.loader import load_market_dataset
 from hort_ia.nlp import Responder, load_templates
@@ -127,6 +127,22 @@ def test_i3_new_companion_relation_reaches_the_api(api_on, kb_copy):
     assert [i["crop_id"] for i in after] == ["manjericao", "cebolinha", "pimentao", "alface"]
 
 
+def test_i3_withheld_relation_does_not_reach_the_companion_route(client, kb_copy):
+    """D6: a research relation is in the base but not in /recommender/companion-crops (same rule as the engine)."""
+    with (kb_copy / "companions.csv").open("a", encoding="utf-8") as f:
+        f.write("rucula,tomate,harms,false,allelopathy,research,embrapa_ct47_cultivo_hortalicas,12,draft,\n")
+    kb = load_knowledge_base(kb_copy)
+    assert any(c.evidence == "research" for c in kb.companions_of("rucula"))
+    app.dependency_overrides[get_knowledge_base] = lambda: kb
+    try:
+        rucula = client.get("/recommender/companion-crops?crop_id=rucula").json()
+        tomate = client.get("/recommender/companion-crops?crop_id=tomate").json()
+    finally:
+        app.dependency_overrides.pop(get_knowledge_base, None)
+    assert rucula["helps"] == rucula["hinders"] == []
+    assert "rucula" not in {p["partner_id"] for p in tomate["helps"] + tomate["hinders"]}
+
+
 # --- I4, I5: profile through POST /recommender/recommendations -------------------------------
 
 
@@ -215,8 +231,8 @@ def test_i7_assistant_hands_off_when_the_engine_has_nothing(kb_copy):
 
 def test_i7_assistant_reference_text(responder):
     assert responder.what_to_plant("sul", 11).text == (
-        "Em novembro, no Sul, dá para plantar: batata, manjericão, cenoura, repolho, pimentão, tomate, "
-        "abobrinha, alface, beterraba e cebolinha."
+        "Em novembro, no Sul, dá para plantar: batata, brócolis, manjericão, cenoura, coentro, repolho, pimenta, "
+        "pimentão, tomate, abobrinha, alface, beterraba e cebolinha."
     )  # case R1 of 9.3.1-3
 
 
@@ -226,7 +242,7 @@ def test_i7_assistant_reference_text(responder):
 def test_i8_nlp_answer_works(client):
     response = client.post("/nlp/answer", json={"intent": "what_to_plant", "region": "sul", "month": 11})
     assert response.status_code == 200
-    assert response.json()["text"].startswith("Em novembro, no Sul, dá para plantar: batata, manjericão")
+    assert response.json()["text"].startswith("Em novembro, no Sul, dá para plantar: batata, brócolis, manjericão")
 
 
 # --- I9: the routes agree with each other ----------------------------------------------------

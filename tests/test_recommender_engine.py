@@ -54,13 +54,16 @@ def test_r1_season_and_region_only(engine):
     result = engine.recommend(Profile(ibge_code=CURITIBA, month=11))
     assert result.region is Region.SUL
     assert [c for c, _ in ranking(result)] == [
-        "batata", "manjericao", "cenoura", "repolho", "pimentao",
+        "batata", "brocolis", "manjericao", "cenoura", "coentro", "repolho", "pimenta", "pimentao",
         "tomate", "abobrinha", "alface", "beterraba", "cebolinha",
     ]  # fmt: skip
     assert {s for _, s in ranking(result)} == {0.0}
-    assert excluded(result) == dict.fromkeys(
-        ["morango", "couve", "rucula", "rabanete", "salsa"], ExclusionReason.OUT_OF_SEASON
-    )
+    assert excluded(result) == {
+        **dict.fromkeys(
+            ["morango", "couve", "rucula", "rabanete", "salsa", "espinafre"], ExclusionReason.OUT_OF_SEASON
+        ),
+        "hortela": ExclusionReason.NO_REGION_DATA,  # no planting window yet (pending with the ATD)
+    }
 
 
 def test_r2_small_space_with_tomato(engine):
@@ -77,7 +80,8 @@ def test_r3_unfavorable_companions_go_last_with_a_warning(engine):
     assert ranking(result) == [
         ("manjericao", 1.5), ("cebolinha", 1.5),
         ("cenoura", 1.0), ("repolho", 1.0), ("pimentao", 1.0), ("abobrinha", 1.0),
-        ("alface", 0.0), ("batata", -1.0), ("beterraba", -1.0),
+        ("coentro", 0.5), ("brocolis", 0.0), ("pimenta", 0.0), ("alface", 0.0),
+        ("batata", -1.0), ("beterraba", -1.0),
     ]  # fmt: skip
     for item in result.recommendations[-2:]:
         assert [w.code for w in item.warnings] == [ReasonCode.COMPANION_BAD]
@@ -87,18 +91,18 @@ def test_r3_unfavorable_companions_go_last_with_a_warning(engine):
 def test_r4_rotation_excludes_the_family_of_the_previous_crop(engine):
     result = engine.recommend(Profile(ibge_code=CURITIBA, month=3, previous_crop="repolho"))
     assert [c for c, _ in ranking(result)] == [
-        "morango", "abobrinha", "cenoura", "salsa", "alface", "beterraba", "cebolinha",
+        "morango", "abobrinha", "cenoura", "espinafre", "salsa", "alface", "beterraba", "cebolinha",
     ]  # fmt: skip
     rotated = [c for c, r in excluded(result).items() if r is ExclusionReason.SAME_FAMILY_AS_PREVIOUS]
-    assert sorted(rotated) == ["couve", "rabanete", "repolho", "rucula"]
+    assert sorted(rotated) == ["brocolis", "couve", "rabanete", "repolho", "rucula"]
 
 
 def test_r5_short_list_is_not_padded(engine):
     result = engine.recommend(Profile(ibge_code=MANAUS, month=11))
     assert result.region is Region.NORTE
-    assert [c for c, _ in ranking(result)] == ["cenoura", "alface"]
+    assert [c for c, _ in ranking(result)] == ["pimenta", "cenoura", "alface"]
     out = excluded(result)
-    assert out.pop("manjericao") is ExclusionReason.NO_REGION_DATA
+    assert out.pop("manjericao") is out.pop("hortela") is ExclusionReason.NO_REGION_DATA
     assert set(out.values()) == {ExclusionReason.OUT_OF_SEASON}
 
 
@@ -116,10 +120,10 @@ def test_r7_unknown_crops_are_ignored_with_a_warning(engine):
     assert ranking(result) == [
         ("manjericao", 1.5), ("cebolinha", 1.5),
         ("cenoura", 1.0), ("repolho", 1.0), ("abobrinha", 1.0),
-        ("alface", 0.0), ("beterraba", -1.0),
+        ("coentro", 0.5), ("brocolis", 0.0), ("alface", 0.0), ("beterraba", -1.0),
     ]  # fmt: skip
     out = excluded(result)
-    assert out["batata"] is out["pimentao"] is ExclusionReason.SAME_FAMILY_AS_PREVIOUS
+    assert out["batata"] is out["pimentao"] is out["pimenta"] is ExclusionReason.SAME_FAMILY_AS_PREVIOUS
     assert result.warnings == ["Planta sem dados na base, ignorada: mandioca."]
 
 
@@ -128,9 +132,12 @@ def test_r8_two_planted_crops(engine):
     assert result.region is Region.SUDESTE
     assert ranking(result) == [
         ("cebolinha", 1.5), ("morango", 1.0), ("beterraba", 1.0), ("tomate", 1.0), ("manjericao", 0.5),
-        ("abobrinha", 0.0), ("couve", 0.0), ("rabanete", 0.0), ("rucula", 0.0),
-        ("batata", -1.0), ("repolho", -1.0), ("salsa", -1.0),
+        ("abobrinha", 0.0), ("brocolis", 0.0), ("couve", 0.0), ("rabanete", 0.0), ("rucula", 0.0),
+        ("espinafre", 0.0), ("batata", -1.0), ("repolho", -1.0), ("salsa", -1.0),
     ]  # fmt: skip
+    # D6: couve -> alface is a research relation (germination test in a Petri dish), so couve stays at 0.0
+    couve = next(i for i in result.recommendations if i.crop_id == "couve")
+    assert not couve.warnings and ReasonCode.COMPANION_GOOD not in [r.code for r in couve.reasons]
     rabanete = next(i for i in result.recommendations if i.crop_id == "rabanete")
     assert ReasonCode.COMPANION_GOOD in [r.code for r in rabanete.reasons]
     assert [w.code for w in rabanete.warnings] == [ReasonCode.COMPANION_BAD]
@@ -237,7 +244,7 @@ def test_u6_properties_hold_for_every_region_month_and_space(engine, kb, profile
 
 @pytest.mark.parametrize("crop_id", sorted(load_knowledge_base().crops))
 def test_u6_rotation_and_planted_hold_for_every_crop(engine, kb, crop_id):
-    """P3 repeated with each of the 15 crops as `planted` and as `previous_crop`, over the 120 profiles."""
+    """P3 repeated with each of the 20 crops as `planted` and as `previous_crop`, over the 120 profiles."""
     for base in ALL_PROFILES:
         for profile in (
             base.model_copy(update={"planted": [crop_id]}),
@@ -248,10 +255,16 @@ def test_u6_rotation_and_planted_hold_for_every_crop(engine, kb, crop_id):
 
 @functools.cache
 def raw_companions() -> tuple[dict[frozenset, set[str]], set[str]]:
-    """Relations by pair and pest-repellent crops, read straight from the files (U7)."""
+    """Relations by pair and pest-repellent crops, read straight from the files (U7).
+
+    Decision D6 is applied here on its own, from the raw files: research relations and relations whose
+    source is not verified in sources.json do not count."""
+    verified = {s["id"] for s in json.loads((KB_DIR / "sources.json").read_text(encoding="utf-8")) if s["verified"]}
     relations: dict[frozenset, set[str]] = {}
     with (KB_DIR / "companions.csv").open(encoding="utf-8") as f:
         for row in csv.DictReader(f):
+            if row["evidence"] == "research" or row["source_id"] not in verified:
+                continue
             relations.setdefault(frozenset((row["crop_a"], row["crop_b"])), set()).add(row["relation"])
     crops = json.loads((KB_DIR / "crops.json").read_text(encoding="utf-8"))
     repellents = {c["id"] for c in crops if any(r["role"] == "pest_repellent" for r in c.get("companion_roles", []))}
@@ -302,7 +315,7 @@ def test_u9_unknown_previous_crop_is_ignored_with_a_warning(engine):
     result = engine.recommend(Profile(ibge_code=CURITIBA, month=11, previous_crop="mandioca"))
     assert result.warnings == ["Planta anterior sem dados na base, ignorada: mandioca."]
     assert ExclusionReason.SAME_FAMILY_AS_PREVIOUS not in {e.reason for e in result.excluded}
-    assert len(result.recommendations) == 10  # same as R1
+    assert len(result.recommendations) == 13  # same as R1
 
 
 @pytest.fixture
@@ -321,6 +334,26 @@ def test_u10_unfavorable_record_wins_over_a_favorable_one(kb_copy):
     assert cebolinha.score == -W_COMPANION + W_REPELLENT  # was +1.5 with the favorable record only
     assert [w.code for w in cebolinha.warnings] == [ReasonCode.COMPANION_BAD]
     assert ReasonCode.COMPANION_GOOD not in [r.code for r in cebolinha.reasons]
+
+
+def test_withheld_relations_do_not_score_nor_explain(kb_copy):
+    """D6: research relations and unverified sources stay in the base, out of score, reasons and warnings."""
+    with (kb_copy / "companions.csv").open("a", encoding="utf-8") as f:
+        f.write("alface,tomate,harms,false,allelopathy,research,embrapa_ct47_cultivo_hortalicas,12,draft,\n")
+        f.write("pimentao,tomate,harms,true,unknown,technical,fonte_pendente,,validated_by_atd,\n")
+    sources = json.loads((kb_copy / "sources.json").read_text(encoding="utf-8"))
+    sources.append({"id": "fonte_pendente", "title": "Pendente", "publisher": "ATD", "verified": False})
+    (kb_copy / "sources.json").write_text(json.dumps(sources, ensure_ascii=False), encoding="utf-8")
+    kb = load_knowledge_base(kb_copy)
+    assert len(kb.companions) == len(load_knowledge_base().companions) + 2
+    assert kb.usable_companions() == load_knowledge_base().usable_companions()
+    profile = Profile(ibge_code=CURITIBA, month=11, planted=["tomate"])
+    with_withheld = Recommender(kb).recommend(profile)
+    assert with_withheld == Recommender(load_knowledge_base()).recommend(profile)  # same as without them
+    assert with_withheld.model_version == "1.1.0"  # the scoring rule changed with D6
+    items = {i.crop_id: i for i in with_withheld.recommendations}
+    assert items["alface"].score == 0.0 and not items["alface"].warnings
+    assert items["pimentao"].score == 1.0 and not items["pimentao"].warnings  # the traditional "helps" stays
 
 
 def test_u11_empty_list_is_an_answer_not_an_error(kb_copy):

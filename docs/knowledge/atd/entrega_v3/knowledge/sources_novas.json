@@ -1,0 +1,252 @@
+[
+  {
+    "id": "embrapa_plantar_cenoura",
+    "title": "A cultura da cenoura (Colecao Plantar, 43)",
+    "publisher": "Embrapa (Vieira, J. V.; Pessoa, H. B. S. V.; Makishima, N.)",
+    "year": 1999,
+    "url": "https://www.infoteca.cnptia.embrapa.br/infoteca/bitstream/doc/101146/1/Aculturadacenoura.pdf",
+    "license": null,
+    "verified": true,
+    "notes": "2a impressao 2004. Traz germinacao, irrigacao com lamina, profundidade de semeadura e pH."
+  },
+  {
+    "id": "embrapa_plantar_tomate",
+    "title": "A cultura do tomateiro (para mesa) (Colecao Plantar, 5)",
+    "publisher": "Embrapa",
+    "year": 1993,
+    "url": "https://www.infoteca.cnptia.embrapa.br/bitstream/doc/100643/1/00013220.pdf",
+    "license": null,
+    "verified": true,
+    "notes": "4a impressao 2006. Traz germinacao, profundidade de semeadura e pH; irrigacao sem lamina fixa."
+  },
+  {
+    "id": "epagri_bd107_hortalicas",
+    "title": "Producao de hortalicas em Santa Catarina (Boletim Didatico 107, ISSN 1414-5219)",
+    "publisher": "Epagri",
+    "year": 2014,
+    "url": "https://publicacoes.epagri.sc.gov.br/BD/article/download/1517/1338/10261",
+    "license": null,
+    "verified": true,
+    "notes": "NAO-EMBRAPA. Clima subtropical (SC), proximo ao de Curitiba. Tabela 8 (pp.34-35): temperatura de germinacao por especie. Tabela 3 (p.14): necessidade hidrica por ciclo."
+  },
+  {
+    "id": "senarpr_hortalicas_ambiente_protegido",
+    "title": "Cultivo de hortalicas em ambiente protegido (PR.0305)",
+    "publisher": "SENAR-PR (Campagnol, R.; Melo, S. C.; Pinheiro, R. R.)",
+    "year": 2015,
+    "url": "https://www.sistemafaep.org.br/wp-content/uploads/2021/11/PR.0305-Cultivo-De-Hortalicas-Em-Ambiente-Protegido_web-1.pdf",
+    "license": null,
+    "verified": true,
+    "notes": "NAO-EMBRAPA. Fonte do Parana. Tabela 4 (p.49): temperaturas de tomate. p.44: alface. ATENCAO: dados de ambiente protegido, nao de campo aberto."
+  },
+  {
+    "id": "embrapa_plantar_batata",
+    "title": "A cultura da batata (Colecao Plantar, 42)",
+    "publisher": "Embrapa",
+    "year": 1999,
+    "url": "https://www.infoteca.cnptia.embrapa.br/infoteca/bitstream/doc/101145/1/Aculturadabatata.pdf",
+    "license": null,
+    "verified": true,
+    "notes": ""
+  },
+  {
+    "id": "embrapa_plantar_morango",
+    "title": "A cultura do morango (Colecao Plantar, 68, 2a ed.)",
+    "publisher": "Embrapa",
+    "year": 2011,
+    "url": "https://www.infoteca.cnptia.embrapa.br/infoteca/bitstream/doc/922970/1/PLANTARMorangoed022011.pdf",
+    "license": null,
+    "verified": true,
+    "notes": ""
+  },
+  {
+    "id": "embrapa_plantar_brocolis",
+    "title": "A cultura dos brocolis (Colecao Plantar, 74)",
+    "publisher": "Embrapa Hortalicas",
+    "year": 2015,
+    "url": "https://www.infoteca.cnptia.embrapa.br/infoteca/bitstream/doc/1044078/1/PLANTARBrocolised012015.pdf",
+    "license": null,
+    "verified": true,
+    "notes": ""
+  },
+  {
+    "id": "embrapa_sp362_repolho",
+    "title": "Sistema de producao para a cultura do repolho (Boletim 362)",
+    "publisher": "Embrapa",
+    "year": 1981,
+    "url": "https://www.infoteca.cnptia.embrapa.br/bitstream/doc/909324/1/Repolho.pdf",
+    "license": null,
+    "verified": true,
+    "notes": "PAGINACAO NAO PRESERVADA na extracao; paginas marcadas como nao confirmadas."
+  },
+  {
+    "id": "poisson_couve_folhas_2026",
+    "title": "Cultivo da Couve-de-folhas (Brassica oleracea L. var. acephala): da evolucao botanica a producao sustentavel",
+    "publisher": "Editora Poisson (orgs. Santos, V. N.; Freire, A. Y. C.; Oliveira, C. R. S. - UNIVASF / Embrapa Semiarido)",
+    "year": 2026,
+    "url": "https://www.infoteca.cnptia.embrapa.br/infoteca/bitstream/doc/1188965/1/Cultivo-da-Couve-de-folhas-Brassica-Oleracea-L.-var.-acephala-da-evolucao-botanica-a-producao-sustentavel.pdf",
+    "license": null,
+    "verified": true,
+    "notes": "NAO-EMBRAPA (obra de editora academica, hospedada na Infoteca). Organizadores ligados ao Semiarido, mas os dados usados vem de SP e de Chapeco/SC. Unica fonte encontrada com pH por cultura para couve-de-folhas."
+  },
+  {
+    "id": "plantseg_in_the_wild",
+    "title": "PlantSeg: A Large-Scale In-the-wild Dataset for Plant Disease Segmentation",
+    "publisher": "Zenodo / Nature Scientific Data",
+    "year": 2025,
+    "url": "https://zenodo.org/records/13762907",
+    "license": "CC BY-NC-ND 4.0 (DECLARADA)",
+    "verified": true,
+    "notes": "MELHOR CANDIDATO: unico com licenca explicita, fotos de campo e 34 especies hospedeiras. PENDENTE: a lista de especies nao esta no artigo nem na pagina do Zenodo; esta no arquivo PlantSeg-Meta.csv (coluna de plantas hospedeiras) do proprio repositorio. Baixar esse CSV e cruzar com as 20 culturas da base antes de adotar. ATENCAO A LICENCA: NC (nao comercial) atende uso academico; ND (sem derivadas) precisa ser avaliado pelo Grupo de IA quanto a treinamento de modelo."
+  },
+  {
+    "id": "plantdoc",
+    "title": "PlantDoc: A Dataset for Visual Plant Disease Detection",
+    "publisher": "GitHub (pratikkayal)",
+    "year": 2020,
+    "url": "https://github.com/pratikkayal/PlantDoc-Dataset",
+    "license": "NAO DECLARADA no artigo",
+    "verified": true,
+    "notes": "DESCARTADO: resolve o problema de laboratorio do PlantVillage (fotos de campo), mas cobre as MESMAS especies. Nenhuma folhosa: sem alface, couve, rucula, repolho, cenoura, beterraba. Nao aumenta a cobertura da base."
+  },
+  {
+    "id": "mendeley_vegetable_leaf_disease",
+    "title": "Comprehensive Vegetable Leaf Disease Image Collection",
+    "publisher": "Mendeley Data (Daffodil International University, Bangladesh)",
+    "year": 2025,
+    "url": "https://data.mendeley.com/datasets/rh8c5tgg5k/1",
+    "license": "CAMPO DE LICENCA VAZIO na pagina",
+    "verified": true,
+    "notes": "Cobre brocolis (mancha de alternaria, podridao negra, sadia) e repolho (alternaria, folha danificada, mofo cinzento, queima das pontas, sadia), 1.923 imagens. Cobre tambem couve-flor e nabo, fora da base. BLOQUEADO: licenca nao declarada. Nao adotar sem contato com os autores. Origem Bangladesh: validar se as doencas sao as mesmas do clima subtropical brasileiro."
+  },
+  {
+    "id": "embrapa_ct96_morango",
+    "title": "Principais doenças do morangueiro no Brasil e seu controle (Circular Técnica 96)",
+    "publisher": "Embrapa Hortaliças",
+    "year": 2011,
+    "url": "https://www.infoteca.cnptia.embrapa.br/bitstream/doc/916685/1/CT96.pdf",
+    "license": null,
+    "verified": true,
+    "notes": "Incluída na v3 (11/2026)."
+  },
+  {
+    "id": "senar_pr0355_morango",
+    "title": "Fruticultura: manejo integrado de doenças do morangueiro (PR.0355)",
+    "publisher": "SENAR-PR",
+    "year": 2022,
+    "url": "https://www.sistemafaep.org.br/wp-content/uploads/2022/09/PR.0355-MID-Morangueiro.pdf",
+    "license": null,
+    "verified": true,
+    "notes": "Incluída na v3 (11/2026)."
+  },
+  {
+    "id": "embrapa_ct121_tomate",
+    "title": "Circular Técnica 121 (doenças do tomateiro)",
+    "publisher": "Embrapa Hortaliças",
+    "year": 2013,
+    "url": "https://www.infoteca.cnptia.embrapa.br/bitstream/doc/957546/1/ct121.pdf",
+    "license": null,
+    "verified": true,
+    "notes": "Incluída na v3 (11/2026)."
+  },
+  {
+    "id": "embrapa_ct84_mancha_bacteriana",
+    "title": "Circular Técnica 84 (mancha-bacteriana)",
+    "publisher": "Embrapa Hortaliças",
+    "year": 2010,
+    "url": "https://www.infoteca.cnptia.embrapa.br/infoteca/bitstream/doc/882148/1/CircularTecnica84.pdf",
+    "license": null,
+    "verified": true,
+    "notes": "Incluída na v3 (11/2026)."
+  },
+  {
+    "id": "embrapa_roraima_doc03_tomate",
+    "title": "Doenças do tomateiro no estado de Roraima (Documentos 03)",
+    "publisher": "Embrapa Roraima",
+    "year": 2006,
+    "url": "https://www.infoteca.cnptia.embrapa.br/infoteca/handle/doc/695204",
+    "license": null,
+    "verified": true,
+    "notes": "Incluída na v3 (11/2026)."
+  },
+  {
+    "id": "embrapa_ct31_cladosporiose",
+    "title": "Circular Técnica 31",
+    "publisher": "Embrapa Agroindústria Tropical",
+    "year": 2010,
+    "url": "https://www.infoteca.cnptia.embrapa.br/infoteca/bitstream/doc/883553/1/CT10002.pdf",
+    "license": null,
+    "verified": true,
+    "notes": "Incluída na v3 (11/2026)."
+  },
+  {
+    "id": "embrapa_cpact_batata_organica",
+    "title": "Cultivo orgânico de batata na região Sul, cap. 11: Doenças e medidas de controle",
+    "publisher": "Embrapa Clima Temperado",
+    "year": 2024,
+    "url": "https://www.alice.cnptia.embrapa.br/alice/bitstream/doc/1172842/1/Doencas-e-medidas-de-controle.pdf",
+    "license": null,
+    "verified": true,
+    "notes": "Incluída na v3 (11/2026)."
+  },
+  {
+    "id": "embrapa_bpd223_pimentao",
+    "title": "Boletim de Pesquisa e Desenvolvimento 223",
+    "publisher": "Embrapa Hortaliças",
+    "year": 2021,
+    "url": "https://www.infoteca.cnptia.embrapa.br/infoteca/bitstream/doc/1133596/1/BPD-223-13jul21.pdf",
+    "license": null,
+    "verified": true,
+    "notes": "Incluída na v3 (11/2026)."
+  },
+  {
+    "id": "senar_pr0306_pragas",
+    "title": "Olericultura: pragas e inimigos naturais (PR.0306)",
+    "publisher": "SENAR-PR (Zawadneak, M. A. C. et al.)",
+    "year": 2015,
+    "url": "https://www.sistemafaep.org.br/wp-content/uploads/2026/01/PR.0306-Pragas-e-inimigos-naturais_web.pdf",
+    "license": null,
+    "verified": true,
+    "notes": "Incluída na v3 (11/2026)."
+  },
+  {
+    "id": "epamig_ct319_pequenos_espacos",
+    "title": "Recomendações para cultivo de hortaliças em pequenos espaços (Circular Técnica 319)",
+    "publisher": "EPAMIG",
+    "year": 2020,
+    "url": "https://livrariaepamig.com.br/wp-content/uploads/2023/02/CT-319.pdf",
+    "license": null,
+    "verified": true,
+    "notes": "Incluída na v3 (11/2026)."
+  },
+  {
+    "id": "embrapa_folder_doru_milho",
+    "title": "Inimigos naturais da lagarta-do-cartucho na cultura do milho: Doru luteipes (folder)",
+    "publisher": "Embrapa Milho e Sorgo",
+    "year": 2000,
+    "url": "https://www.embrapa.br/busca-de-publicacoes/-/publicacao/487353/inimigos-naturais-da-lagarta-do-cartucho-na-cultura-do-milho-doru-luteipes",
+    "license": null,
+    "verified": true,
+    "notes": "Incluída na v3. Ficha catalográfica conferida; conteúdo do folder não consultado."
+  },
+  {
+    "id": "reis_1988_doru_spodoptera",
+    "title": "Biologia e potencial de Doru luteipes no controle de Spodoptera frugiperda",
+    "publisher": "Reis, L. L.; Oliveira, L. J.; Cruz, I. (Embrapa Milho e Sorgo), artigo",
+    "year": 1988,
+    "url": "https://www.embrapa.br/busca-de-publicacoes/-/publicacao/488329/biologia-e-potencial-de-doru-luteipes-no-controle-de-spodoptera-frugiperda",
+    "license": null,
+    "verified": true,
+    "notes": "Incluída na v3. Predadora eficiente em laboratório, com potencial de controle no milho."
+  },
+  {
+    "id": "redoan_2013_doru_seletividade",
+    "title": "Seletividade fisiológica de inseticidas para adultos de Doru luteipes",
+    "publisher": "Redoan, A. C. M. et al. Revista Ciência Agronômica, v. 44, n. 4, p. 842-850",
+    "year": 2013,
+    "url": "https://www.scielo.br/j/rca/a/9TVTFwtwD7SLvXngLVgDnXj/",
+    "license": null,
+    "verified": true,
+    "notes": "Incluída na v3. Descreve a espécie como um dos melhores inimigos naturais da lagarta-do-cartucho."
+  }
+]

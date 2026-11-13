@@ -1,0 +1,1278 @@
+[
+  {
+    "id": "tomate_mancha_bacteriana",
+    "cv_dataset": "new_plant_diseases_dataset",
+    "cv_label": "Tomato___Bacterial_spot",
+    "type": "disease",
+    "name_pt": "Mancha-bacteriana",
+    "causal_agent": "Xanthomonas spp.",
+    "crop_ids": [
+      "tomate"
+    ],
+    "beneficial": null,
+    "symptoms": "Manchas pequenas de aspecto molhado nas folhas mais velhas, que secam e podem furar a folha. No fruto, pintas brancas que ficam marrons, ásperas e afundadas.",
+    "management": [
+      {
+        "action": "Evitar introduzir a doença por sementes ou mudas contaminadas.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11-12"
+        }
+      },
+      {
+        "action": "Arrancar e queimar as plantas contaminadas.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11-12"
+        }
+      },
+      {
+        "action": "Evitar excesso de umidade, que favorece o aparecimento.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11-12"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11"
+      },
+      {
+        "source_id": "embrapa_ct121_tomate",
+        "pages": "7"
+      },
+      {
+        "source_id": "embrapa_ct84_mancha_bacteriana",
+        "pages": "3"
+      }
+    ],
+    "validation_status": "validated_by_atd",
+    "notes": "Manejo GENÉRICO para doença bacteriana (CT 47, p. 11). Pendente manejo específico desta doença em fonte própria. Sintomas (v3): embrapa_ct121_tomate p. 7; embrapa_ct84_mancha_bacteriana p. 3. Sintomas validados pelo grupo em 10/11/2026.",
+    "crop_scope": "specific"
+  },
+  {
+    "id": "tomate_pinta_preta",
+    "cv_dataset": "new_plant_diseases_dataset",
+    "cv_label": "Tomato___Early_blight",
+    "type": "disease",
+    "name_pt": "Pinta-preta",
+    "causal_agent": "Alternaria spp.",
+    "crop_ids": [
+      "tomate"
+    ],
+    "beneficial": null,
+    "symptoms": "Manchas escuras nas folhas mais velhas, com anéis em volta, parecendo um alvo. Às vezes com borda amarela. No caule, manchas compridas; no fruto, manchas escuras perto do cabo.",
+    "management": [
+      {
+        "action": "Equilibrar a adubação, controlar a irrigação e eliminar restos de cultura contaminados.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "action": "Fazer rotação de culturas e plantar na época favorável à hortaliça.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "action": "Usar cultivares resistentes e sementes certificadas.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "action": "Aplicar defensivo natural: calda bordalesa ou calda sulfocálcica.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11, 14"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11"
+      },
+      {
+        "source_id": "embrapa_ct121_tomate",
+        "pages": "5"
+      }
+    ],
+    "validation_status": "validated_by_atd",
+    "notes": "Manejo GENÉRICO para doença fúngica (CT 47, p. 11). Pendente manejo específico desta doença em fonte própria. Sintomas (v3): embrapa_ct121_tomate p. 5. Sintomas validados pelo grupo em 10/11/2026.",
+    "crop_scope": "specific"
+  },
+  {
+    "id": "tomate_requeima",
+    "cv_dataset": "new_plant_diseases_dataset",
+    "cv_label": "Tomato___Late_blight",
+    "type": "disease",
+    "name_pt": "Requeima",
+    "causal_agent": "Phytophthora infestans",
+    "crop_ids": [
+      "tomate"
+    ],
+    "beneficial": null,
+    "symptoms": "Manchas grandes, escuras e com aspecto molhado nas folhas, que depois secam. Caule com manchas escuras que quebram fácil. Fruto com manchas marrons e firmes. Com tempo úmido, aparece um mofo branco.",
+    "management": [
+      {
+        "action": "Equilibrar a adubação, controlar a irrigação e eliminar restos de cultura contaminados.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "action": "Fazer rotação de culturas e plantar na época favorável à hortaliça.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "action": "Usar cultivares resistentes e sementes certificadas.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "action": "Aplicar defensivo natural: calda bordalesa ou calda sulfocálcica.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11, 14"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11"
+      },
+      {
+        "source_id": "embrapa_ct121_tomate",
+        "pages": "5"
+      }
+    ],
+    "validation_status": "validated_by_atd",
+    "notes": "Manejo GENÉRICO para doença fúngica (CT 47, p. 11). Pendente manejo específico desta doença em fonte própria. Sintomas (v3): embrapa_ct121_tomate p. 5. Sintomas validados pelo grupo em 10/11/2026.",
+    "crop_scope": "specific"
+  },
+  {
+    "id": "tomate_cladosporiose",
+    "cv_dataset": "new_plant_diseases_dataset",
+    "cv_label": "Tomato___Leaf_Mold",
+    "type": "disease",
+    "name_pt": "Cladosporiose (mofo-das-folhas)",
+    "causal_agent": "Passalora fulva",
+    "crop_ids": [
+      "tomate"
+    ],
+    "beneficial": null,
+    "symptoms": "Manchas amareladas na parte de cima da folha. Na parte de baixo, aparece um mofo verde-oliva.",
+    "management": [
+      {
+        "action": "Equilibrar a adubação, controlar a irrigação e eliminar restos de cultura contaminados.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "action": "Fazer rotação de culturas e plantar na época favorável à hortaliça.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "action": "Usar cultivares resistentes e sementes certificadas.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "action": "Aplicar defensivo natural: calda bordalesa ou calda sulfocálcica.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11, 14"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11"
+      },
+      {
+        "source_id": "embrapa_ct31_cladosporiose",
+        "pages": "4"
+      }
+    ],
+    "validation_status": "validated_by_atd",
+    "notes": "Manejo GENÉRICO para doença fúngica (CT 47, p. 11). Pendente manejo específico desta doença em fonte própria. Sintomas (v3): embrapa_ct31_cladosporiose p. 4. Sintomas validados pelo grupo em 10/11/2026.",
+    "crop_scope": "specific"
+  },
+  {
+    "id": "tomate_septoriose",
+    "cv_dataset": "new_plant_diseases_dataset",
+    "cv_label": "Tomato___Septoria_leaf_spot",
+    "type": "disease",
+    "name_pt": "Septoriose",
+    "causal_agent": "Septoria lycopersici",
+    "crop_ids": [
+      "tomate"
+    ],
+    "beneficial": null,
+    "symptoms": "Começa nas folhas de baixo, com pintas pequenas de aspecto molhado. Depois ficam com o centro cinza, borda escura e volta amarela. Quase nunca atinge o fruto.",
+    "management": [
+      {
+        "action": "Equilibrar a adubação, controlar a irrigação e eliminar restos de cultura contaminados.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "action": "Fazer rotação de culturas e plantar na época favorável à hortaliça.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "action": "Usar cultivares resistentes e sementes certificadas.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "action": "Aplicar defensivo natural: calda bordalesa ou calda sulfocálcica.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11, 14"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11"
+      },
+      {
+        "source_id": "embrapa_ct121_tomate",
+        "pages": "6"
+      }
+    ],
+    "validation_status": "validated_by_atd",
+    "notes": "Manejo GENÉRICO para doença fúngica (CT 47, p. 11). Pendente manejo específico desta doença em fonte própria. Sintomas (v3): embrapa_ct121_tomate p. 6. Sintomas validados pelo grupo em 10/11/2026.",
+    "crop_scope": "specific"
+  },
+  {
+    "id": "tomate_acaro_rajado",
+    "cv_dataset": "new_plant_diseases_dataset",
+    "cv_label": "Tomato___Spider_mites Two-spotted_spider_mite",
+    "type": "pest",
+    "name_pt": "Ácaro-rajado",
+    "causal_agent": "Tetranychus urticae",
+    "crop_ids": [
+      "tomate"
+    ],
+    "beneficial": false,
+    "symptoms": "Ácaros são pragas microscópicas; sugam a seiva e causam deformação em folhas e brotos.",
+    "management": [
+      {
+        "action": "Aplicar calda sulfocálcica, que tem ação protetora contra ácaros.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "14"
+        }
+      },
+      {
+        "action": "Aplicar preparado à base de sabão neutro, conforme orientação técnica.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "14"
+        }
+      },
+      {
+        "action": "Alternar os produtos usados, para não selecionar populações tolerantes.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "13"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "12-14"
+      }
+    ],
+    "validation_status": "validated_by_atd",
+    "notes": "Classe de praga dentro do dataset de doenças.",
+    "crop_scope": "specific"
+  },
+  {
+    "id": "tomate_mancha_alvo",
+    "cv_dataset": "new_plant_diseases_dataset",
+    "cv_label": "Tomato___Target_Spot",
+    "type": "disease",
+    "name_pt": "Mancha-alvo",
+    "causal_agent": "Corynespora cassiicola",
+    "crop_ids": [
+      "tomate"
+    ],
+    "beneficial": null,
+    "symptoms": "Manchas redondas com uma volta amarela nas folhas. As manchas se juntam e a folha seca, como se estivesse queimada.",
+    "management": [
+      {
+        "action": "Equilibrar a adubação, controlar a irrigação e eliminar restos de cultura contaminados.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "action": "Fazer rotação de culturas e plantar na época favorável à hortaliça.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "action": "Usar cultivares resistentes e sementes certificadas.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "action": "Aplicar defensivo natural: calda bordalesa ou calda sulfocálcica.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11, 14"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11"
+      },
+      {
+        "source_id": "embrapa_roraima_doc03_tomate",
+        "pages": "8"
+      }
+    ],
+    "validation_status": "validated_by_atd",
+    "notes": "Manejo GENÉRICO para doença fúngica (CT 47, p. 11). Pendente manejo específico desta doença em fonte própria. Sintomas (v3): embrapa_roraima_doc03_tomate p. 8. Sintomas validados pelo grupo em 10/11/2026.",
+    "crop_scope": "specific"
+  },
+  {
+    "id": "tomate_begomovirose",
+    "cv_dataset": "new_plant_diseases_dataset",
+    "cv_label": "Tomato___Tomato_Yellow_Leaf_Curl_Virus",
+    "type": "disease",
+    "name_pt": "Begomovirose (TYLCV)",
+    "causal_agent": "Tomato yellow leaf curl virus",
+    "crop_ids": [
+      "tomate"
+    ],
+    "beneficial": null,
+    "symptoms": null,
+    "management": [
+      {
+        "action": "Não há controle depois de detectada: a prevenção é controlar os insetos vetores (pulgão, mosca-branca, tripes).",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "action": "Eliminar imediatamente as plantas infectadas por queima ou enterrio.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "action": "Desinfetar ferramentas e evitar contato com partes de plantas contaminadas.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11"
+      }
+    ],
+    "validation_status": "draft",
+    "notes": "Virose transmitida por mosca-branca; manejo foca no vetor e na remoção de plantas. Manejo GENÉRICO para doença virótica (CT 47, p. 11). Pendente manejo específico desta doença em fonte própria.",
+    "crop_scope": "specific"
+  },
+  {
+    "id": "tomate_mosaico",
+    "cv_dataset": "new_plant_diseases_dataset",
+    "cv_label": "Tomato___Tomato_mosaic_virus",
+    "type": "disease",
+    "name_pt": "Mosaico do tomateiro (ToMV)",
+    "causal_agent": "Tomato mosaic virus",
+    "crop_ids": [
+      "tomate"
+    ],
+    "beneficial": null,
+    "symptoms": null,
+    "management": [
+      {
+        "action": "Não há controle depois de detectada: a prevenção é controlar os insetos vetores (pulgão, mosca-branca, tripes).",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "action": "Eliminar imediatamente as plantas infectadas por queima ou enterrio.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "action": "Desinfetar ferramentas e evitar contato com partes de plantas contaminadas.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11"
+      }
+    ],
+    "validation_status": "draft",
+    "notes": "Manejo GENÉRICO para doença virótica (CT 47, p. 11). Pendente manejo específico desta doença em fonte própria.",
+    "crop_scope": "specific"
+  },
+  {
+    "id": "tomate_saudavel",
+    "cv_dataset": "new_plant_diseases_dataset",
+    "cv_label": "Tomato___healthy",
+    "type": "healthy",
+    "name_pt": "Planta sadia",
+    "causal_agent": null,
+    "crop_ids": [
+      "tomate"
+    ],
+    "beneficial": null,
+    "symptoms": null,
+    "management": [],
+    "sources": [],
+    "validation_status": "draft",
+    "notes": "Classe de controle: planta sadia, sem manejo associado.",
+    "crop_scope": "specific"
+  },
+  {
+    "id": "batata_pinta_preta",
+    "cv_dataset": "new_plant_diseases_dataset",
+    "cv_label": "Potato___Early_blight",
+    "type": "disease",
+    "name_pt": "Pinta-preta",
+    "causal_agent": "Alternaria spp.",
+    "crop_ids": [
+      "batata"
+    ],
+    "beneficial": null,
+    "symptoms": "Manchas pequenas e escuras nas folhas de baixo e mais velhas, que ficam redondas e com anéis. As manchas se juntam e a folha seca.",
+    "management": [
+      {
+        "action": "Equilibrar a adubação, controlar a irrigação e eliminar restos de cultura contaminados.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "action": "Fazer rotação de culturas e plantar na época favorável à hortaliça.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "action": "Usar cultivares resistentes e sementes certificadas.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "action": "Aplicar defensivo natural: calda bordalesa ou calda sulfocálcica.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11, 14"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11"
+      },
+      {
+        "source_id": "embrapa_cpact_batata_organica",
+        "pages": "36"
+      }
+    ],
+    "validation_status": "validated_by_atd",
+    "notes": "Manejo GENÉRICO para doença fúngica (CT 47, p. 11). Pendente manejo específico desta doença em fonte própria. Sintomas (v3): embrapa_cpact_batata_organica p. 36. Sintomas validados pelo grupo em 10/11/2026.",
+    "crop_scope": "specific"
+  },
+  {
+    "id": "batata_requeima",
+    "cv_dataset": "new_plant_diseases_dataset",
+    "cv_label": "Potato___Late_blight",
+    "type": "disease",
+    "name_pt": "Requeima",
+    "causal_agent": "Phytophthora infestans",
+    "crop_ids": [
+      "batata"
+    ],
+    "beneficial": null,
+    "symptoms": "Manchas pardo-esverdeadas nas folhas e hastes, com mofo branco na borda. A batata fica com podridão seca marrom-avermelhada.",
+    "management": [
+      {
+        "action": "Equilibrar a adubação, controlar a irrigação e eliminar restos de cultura contaminados.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "action": "Fazer rotação de culturas e plantar na época favorável à hortaliça.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "action": "Usar cultivares resistentes e sementes certificadas.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "action": "Aplicar defensivo natural: calda bordalesa ou calda sulfocálcica.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11, 14"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11"
+      },
+      {
+        "source_id": "embrapa_cpact_batata_organica",
+        "pages": "35"
+      }
+    ],
+    "validation_status": "validated_by_atd",
+    "notes": "Manejo GENÉRICO para doença fúngica (CT 47, p. 11). Pendente manejo específico desta doença em fonte própria. Sintomas (v3): embrapa_cpact_batata_organica p. 35. Sintomas validados pelo grupo em 10/11/2026.",
+    "crop_scope": "specific"
+  },
+  {
+    "id": "batata_saudavel",
+    "cv_dataset": "new_plant_diseases_dataset",
+    "cv_label": "Potato___healthy",
+    "type": "healthy",
+    "name_pt": "Planta sadia",
+    "causal_agent": null,
+    "crop_ids": [
+      "batata"
+    ],
+    "beneficial": null,
+    "symptoms": null,
+    "management": [],
+    "sources": [],
+    "validation_status": "draft",
+    "notes": "Classe de controle: planta sadia, sem manejo associado.",
+    "crop_scope": "specific"
+  },
+  {
+    "id": "pimentao_mancha_bacteriana",
+    "cv_dataset": "new_plant_diseases_dataset",
+    "cv_label": "Pepper,_bell___Bacterial_spot",
+    "type": "disease",
+    "name_pt": "Mancha-bacteriana",
+    "causal_agent": "Xanthomonas spp.",
+    "crop_ids": [
+      "pimentao"
+    ],
+    "beneficial": null,
+    "symptoms": "Pintas pequenas e acinzentadas nas folhas, que ficam marrons com o centro seco. Também aparece no caule, nas flores e no fruto. As folhas amarelam e caem.",
+    "management": [
+      {
+        "action": "Evitar introduzir a doença por sementes ou mudas contaminadas.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11-12"
+        }
+      },
+      {
+        "action": "Arrancar e queimar as plantas contaminadas.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11-12"
+        }
+      },
+      {
+        "action": "Evitar excesso de umidade, que favorece o aparecimento.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11-12"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11"
+      },
+      {
+        "source_id": "embrapa_bpd223_pimentao",
+        "pages": "10"
+      }
+    ],
+    "validation_status": "validated_by_atd",
+    "notes": "Manejo GENÉRICO para doença bacteriana (CT 47, p. 11). Pendente manejo específico desta doença em fonte própria. Sintomas (v3): embrapa_bpd223_pimentao p. 10. Sintomas validados pelo grupo em 10/11/2026.",
+    "crop_scope": "specific"
+  },
+  {
+    "id": "pimentao_saudavel",
+    "cv_dataset": "new_plant_diseases_dataset",
+    "cv_label": "Pepper,_bell___healthy",
+    "type": "healthy",
+    "name_pt": "Planta sadia",
+    "causal_agent": null,
+    "crop_ids": [
+      "pimentao"
+    ],
+    "beneficial": null,
+    "symptoms": null,
+    "management": [],
+    "sources": [],
+    "validation_status": "draft",
+    "notes": "Classe de controle: planta sadia, sem manejo associado.",
+    "crop_scope": "specific"
+  },
+  {
+    "id": "morango_leaf_scorch",
+    "cv_dataset": "new_plant_diseases_dataset",
+    "cv_label": "Strawberry___Leaf_scorch",
+    "type": "disease",
+    "name_pt": "Mancha-de-diplocarpon (escaldadura da folha)",
+    "causal_agent": "Diplocarpon earlianum",
+    "crop_ids": [
+      "morango"
+    ],
+    "beneficial": null,
+    "symptoms": "Manchas irregulares roxas ou amarronzadas nas folhas, sem o centro claro. Também pode aparecer no cabo da folha, no cabo da flor e nos estolões.",
+    "management": [
+      {
+        "action": "Equilibrar a adubação, controlar a irrigação e eliminar restos de cultura contaminados.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "action": "Fazer rotação de culturas e plantar na época favorável à hortaliça.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "action": "Usar cultivares resistentes e sementes certificadas.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      },
+      {
+        "action": "Aplicar defensivo natural: calda bordalesa ou calda sulfocálcica.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11, 14"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11"
+      },
+      {
+        "source_id": "embrapa_ct96_morango",
+        "pages": "3"
+      },
+      {
+        "source_id": "senar_pr0355_morango",
+        "pages": "18"
+      }
+    ],
+    "validation_status": "validated_by_atd",
+    "notes": "Nome popular: Embrapa CT 96 (p. 3) e SENAR-PR PR.0355 (p. 18). As fontes grafam Diplocarpon earliana; é o mesmo fungo. Manejo GENÉRICO para doença fúngica (CT 47, p. 11). Pendente manejo específico desta doença em fonte própria. Sintomas (v3): embrapa_ct96_morango p. 3; senar_pr0355_morango p. 18. Sintomas validados pelo grupo em 10/11/2026.",
+    "crop_scope": "specific"
+  },
+  {
+    "id": "morango_saudavel",
+    "cv_dataset": "new_plant_diseases_dataset",
+    "cv_label": "Strawberry___healthy",
+    "type": "healthy",
+    "name_pt": "Planta sadia",
+    "causal_agent": null,
+    "crop_ids": [
+      "morango"
+    ],
+    "beneficial": null,
+    "symptoms": null,
+    "management": [],
+    "sources": [],
+    "validation_status": "draft",
+    "notes": "Classe de controle: planta sadia, sem manejo associado.",
+    "crop_scope": "specific"
+  },
+  {
+    "id": "praga_formigas",
+    "cv_dataset": "agricultural_pests_dataset",
+    "cv_label": "ants",
+    "type": "pest",
+    "name_pt": "Formigas",
+    "causal_agent": null,
+    "crop_ids": [
+      "tomate",
+      "batata",
+      "pimentao",
+      "morango",
+      "alface",
+      "couve",
+      "rucula",
+      "repolho",
+      "cenoura",
+      "beterraba",
+      "rabanete",
+      "cebolinha",
+      "salsa",
+      "manjericao",
+      "abobrinha"
+    ],
+    "beneficial": null,
+    "symptoms": "Aparelho bucal cortador: cortam folhas e ramos novos.",
+    "management": [
+      {
+        "action": "Plantar flores em volta da horta para abrigar predadores naturais.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "12"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11-14"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "29"
+      },
+      {
+        "source_id": "senar_pr0306_pragas",
+        "pages": "17"
+      }
+    ],
+    "validation_status": "validated_by_atd",
+    "notes": "Ambíguo: formigas-cortadeiras são pragas, outras são neutras. Definir antes de revisar. AMBÍGUO: a CT 47 (p. 12) descreve formigas como cortadeiras, mas a classe do dataset não distingue espécie. Formigas não cortadeiras são neutras ou predadoras. Confirmar antes de recomendar controle. Fontes v3: HPE (p. 29) lista formigas entre os insetos mastigadores e cortadores; SENAR-PR PR.0306 (p. 17) cita formigas caçadoras como predadoras da larva-minadora. Segue ambígua.",
+    "crop_scope": "all_vegetables"
+  },
+  {
+    "id": "praga_besouros",
+    "cv_dataset": "agricultural_pests_dataset",
+    "cv_label": "beetle",
+    "type": "pest",
+    "name_pt": "Besouros",
+    "causal_agent": null,
+    "crop_ids": [
+      "tomate",
+      "batata",
+      "pimentao",
+      "morango",
+      "alface",
+      "couve",
+      "rucula",
+      "repolho",
+      "cenoura",
+      "beterraba",
+      "rabanete",
+      "cebolinha",
+      "salsa",
+      "manjericao",
+      "abobrinha"
+    ],
+    "beneficial": null,
+    "symptoms": "Mastigadores: comem e perfuram folhas, brotos e frutos. Os mais comuns são os chamados burrinhos e vaquinhas.",
+    "management": [
+      {
+        "action": "Aplicar calda de fumo com pimenta, indicada para vaquinhas.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "14"
+        }
+      },
+      {
+        "action": "Aplicar calda de cebola, que repele vaquinhas.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "14"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11-14"
+      },
+      {
+        "source_id": "embrapa_horta_pequenos_espacos",
+        "pages": "29"
+      },
+      {
+        "source_id": "senar_pr0306_pragas",
+        "pages": "13, 23"
+      }
+    ],
+    "validation_status": "validated_by_atd",
+    "notes": "Ambíguo: a classe pode incluir joaninhas, que são predadoras benéficas. AMBÍGUO: a classe do dataset agrupa besouros-praga (vaquinha, Diabrotica) e predadores benéficos (joaninha). A CT 47 (p. 12) cita a joaninha como predadora de pragas. Não recomendar controle sem confirmar a espécie. Fontes v3: HPE (p. 29) cita burrinhos e vaquinhas como pragas; SENAR-PR PR.0306 traz joaninhas como inimigas naturais dos pulgões (p. 13) e a vaquinha como praga (p. 23). Segue ambíguo.",
+    "crop_scope": "all_vegetables"
+  },
+  {
+    "id": "praga_lagartas",
+    "cv_dataset": "agricultural_pests_dataset",
+    "cv_label": "catterpillar",
+    "type": "pest",
+    "name_pt": "Lagartas",
+    "causal_agent": null,
+    "crop_ids": [
+      "tomate",
+      "batata",
+      "pimentao",
+      "morango",
+      "alface",
+      "couve",
+      "rucula",
+      "repolho",
+      "cenoura",
+      "beterraba",
+      "rabanete",
+      "cebolinha",
+      "salsa",
+      "manjericao",
+      "abobrinha"
+    ],
+    "beneficial": false,
+    "symptoms": "Mastigadores. As menores penetram frutos, folhas e brotos; as maiores comem as folhas. Os ferimentos abrem porta de entrada para doenças. A lagarta-rosca vive enterrada e ataca a planta nova à noite, podendo derrubá-la.",
+    "management": [
+      {
+        "action": "Aplicar defensivo biológico: Bacillus thuringiensis ou baculovírus.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "13"
+        }
+      },
+      {
+        "action": "Aplicar calda de fumo com pimenta ou preparado de sabão neutro.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "14"
+        }
+      },
+      {
+        "action": "Aplicar calda de cebola, que age como repelente.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "14"
+        }
+      },
+      {
+        "action": "Preservar inimigos naturais: vespas do gênero Trichogramma parasitam lagartas.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "13"
+        }
+      },
+      {
+        "action": "Plantar flores em volta da horta para abrigar predadores naturais.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "12"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11-14"
+      }
+    ],
+    "validation_status": "validated_by_atd",
+    "notes": "Rótulo com grafia do dataset original ('catterpillar'); conferir na pasta baixada.",
+    "crop_scope": "all_vegetables"
+  },
+  {
+    "id": "praga_tesourinhas",
+    "cv_dataset": "agricultural_pests_dataset",
+    "cv_label": "earwig",
+    "type": "pest",
+    "name_pt": "Tesourinhas",
+    "causal_agent": null,
+    "crop_ids": [
+      "tomate",
+      "batata",
+      "pimentao",
+      "morango",
+      "alface",
+      "couve",
+      "rucula",
+      "repolho",
+      "cenoura",
+      "beterraba",
+      "rabanete",
+      "cebolinha",
+      "salsa",
+      "manjericao",
+      "abobrinha"
+    ],
+    "beneficial": null,
+    "symptoms": "Inseto que atua como inimigo natural no controle biológico, com evidência para a cultura do milho (preda ovos e lagartas pequenas da lagarta-do-cartucho). Em hortaliças, pode contribuir para o controle natural de algumas pragas.",
+    "management": [],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11-14"
+      },
+      {
+        "source_id": "senar_pr0306_pragas",
+        "pages": "13"
+      },
+      {
+        "source_id": "embrapa_folder_doru_milho",
+        "pages": "1"
+      },
+      {
+        "source_id": "reis_1988_doru_spodoptera",
+        "pages": null
+      },
+      {
+        "source_id": "redoan_2013_doru_seletividade",
+        "pages": "842"
+      }
+    ],
+    "validation_status": "draft",
+    "notes": "Podem atuar como predadoras de pulgões; verificar antes de recomendar controle. AMBÍGUO e SEM FONTE: a CT 47 não descreve a tesourinha. Pendente de levantamento em fonte própria antes de virar recomendação. Fonte v3: SENAR-PR PR.0306 (p. 13) cita a tesourinha Doru luteipes como inimigo natural. Nenhuma fonte consultada a descreve como praga. Reclassificar como benéfica depende de decisão do grupo. Decisão do grupo (10/11/2026): não reclassificar como benéfica para hortaliças. A evidência de inimigo natural é para o milho; não há fonte de controle de pragas específicas das culturas desta base. Não recomendar controle da tesourinha; não afirmar que ela controla pragas de cada cultura.",
+    "crop_scope": "all_vegetables"
+  },
+  {
+    "id": "praga_gafanhotos",
+    "cv_dataset": "agricultural_pests_dataset",
+    "cv_label": "grasshopper",
+    "type": "pest",
+    "name_pt": "Gafanhotos",
+    "causal_agent": null,
+    "crop_ids": [
+      "tomate",
+      "batata",
+      "pimentao",
+      "morango",
+      "alface",
+      "couve",
+      "rucula",
+      "repolho",
+      "cenoura",
+      "beterraba",
+      "rabanete",
+      "cebolinha",
+      "salsa",
+      "manjericao",
+      "abobrinha"
+    ],
+    "beneficial": false,
+    "symptoms": "Mastigadores: comem ramos e folhas das plantas. A CT 47 trata paquinhas, grilos e gafanhotos no mesmo grupo.",
+    "management": [
+      {
+        "action": "Usar armadilha luminosa associada a recipiente com água ou óleo.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "13"
+        }
+      },
+      {
+        "action": "Plantar flores em volta da horta para abrigar predadores naturais.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "12"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11-14"
+      }
+    ],
+    "validation_status": "validated_by_atd",
+    "notes": null,
+    "crop_scope": "all_vegetables"
+  },
+  {
+    "id": "praga_mariposas",
+    "cv_dataset": "agricultural_pests_dataset",
+    "cv_label": "moth",
+    "type": "pest",
+    "name_pt": "Mariposas",
+    "causal_agent": null,
+    "crop_ids": [
+      "tomate",
+      "batata",
+      "pimentao",
+      "morango",
+      "alface",
+      "couve",
+      "rucula",
+      "repolho",
+      "cenoura",
+      "beterraba",
+      "rabanete",
+      "cebolinha",
+      "salsa",
+      "manjericao",
+      "abobrinha"
+    ],
+    "beneficial": false,
+    "symptoms": "O adulto não causa dano direto. A CT 47 cita moscas, besouros, borboletas e mariposas como as fases adultas que originam as larvas e lagartas, estas sim mastigadoras.",
+    "management": [
+      {
+        "action": "Usar armadilha luminosa ou recipiente com melaço ou feromônio para reduzir a população de adultos.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "13"
+        }
+      },
+      {
+        "action": "Tratar como alerta precoce: a presença do adulto antecede o ataque das lagartas.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "11"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11-14"
+      }
+    ],
+    "validation_status": "validated_by_atd",
+    "notes": "O dano é causado pela fase larval (lagarta). O dano é causado pela fase larval.",
+    "crop_scope": "all_vegetables"
+  },
+  {
+    "id": "praga_lesmas",
+    "cv_dataset": "agricultural_pests_dataset",
+    "cv_label": "slug",
+    "type": "pest",
+    "name_pt": "Lesmas",
+    "causal_agent": null,
+    "crop_ids": [
+      "tomate",
+      "batata",
+      "pimentao",
+      "morango",
+      "alface",
+      "couve",
+      "rucula",
+      "repolho",
+      "cenoura",
+      "beterraba",
+      "rabanete",
+      "cebolinha",
+      "salsa",
+      "manjericao",
+      "abobrinha"
+    ],
+    "beneficial": false,
+    "symptoms": "Aparelho bucal raspador: raspam as folhas e os ramos novos das hortaliças.",
+    "management": [
+      {
+        "action": "Armadilha com leite: espalhar estopa ou saco de aniagem molhado com água e leite ao redor das plantas; pela manhã, virar e recolher os animais reunidos embaixo.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "14"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11-14"
+      }
+    ],
+    "validation_status": "validated_by_atd",
+    "notes": "Dano mais relevante em folhosas e em canteiro úmido.",
+    "crop_scope": "all_vegetables"
+  },
+  {
+    "id": "praga_caracois",
+    "cv_dataset": "agricultural_pests_dataset",
+    "cv_label": "snail",
+    "type": "pest",
+    "name_pt": "Caracóis",
+    "causal_agent": null,
+    "crop_ids": [
+      "tomate",
+      "batata",
+      "pimentao",
+      "morango",
+      "alface",
+      "couve",
+      "rucula",
+      "repolho",
+      "cenoura",
+      "beterraba",
+      "rabanete",
+      "cebolinha",
+      "salsa",
+      "manjericao",
+      "abobrinha"
+    ],
+    "beneficial": false,
+    "symptoms": "Aparelho bucal raspador: raspam as folhas e os ramos novos das hortaliças.",
+    "management": [
+      {
+        "action": "Armadilha com leite: espalhar estopa ou saco de aniagem molhado com água e leite ao redor das plantas; pela manhã, virar e recolher os animais reunidos embaixo.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "14"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11-14"
+      }
+    ],
+    "validation_status": "validated_by_atd",
+    "notes": "Mesmo tipo de dano da lesma.",
+    "crop_scope": "all_vegetables"
+  },
+  {
+    "id": "benefico_vespas",
+    "cv_dataset": "agricultural_pests_dataset",
+    "cv_label": "wasp",
+    "type": "beneficial",
+    "name_pt": "Vespas",
+    "causal_agent": null,
+    "crop_ids": [
+      "tomate",
+      "batata",
+      "pimentao",
+      "morango",
+      "alface",
+      "couve",
+      "rucula",
+      "repolho",
+      "cenoura",
+      "beterraba",
+      "rabanete",
+      "cebolinha",
+      "salsa",
+      "manjericao",
+      "abobrinha"
+    ],
+    "beneficial": true,
+    "symptoms": "Inimigo natural. A CT 47 (p. 12) cita a vespa entre os insetos predadores de pragas e (p. 13) registra o uso de Trichogramma pretiosum no controle de traças.",
+    "management": [
+      {
+        "action": "Não controlar. Preservar plantando flores em volta da horta, que servem de abrigo e refúgio.",
+        "source": {
+          "source_id": "embrapa_ct47_cultivo_hortalicas",
+          "pages": "12"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11-14"
+      }
+    ],
+    "validation_status": "validated_by_atd",
+    "notes": "Muitas espécies são predadoras ou parasitoides. Não recomendar controle. Reclassificado de 'pest' para 'beneficial'.",
+    "crop_scope": "all_vegetables"
+  },
+  {
+    "id": "praga_gorgulhos",
+    "cv_dataset": "agricultural_pests_dataset",
+    "cv_label": "weevil",
+    "type": "pest",
+    "name_pt": "Gorgulhos",
+    "causal_agent": null,
+    "crop_ids": [
+      "tomate",
+      "batata",
+      "pimentao",
+      "morango",
+      "alface",
+      "couve",
+      "rucula",
+      "repolho",
+      "cenoura",
+      "beterraba",
+      "rabanete",
+      "cebolinha",
+      "salsa",
+      "manjericao",
+      "abobrinha"
+    ],
+    "beneficial": false,
+    "symptoms": "Não descrito individualmente na CT 47.",
+    "management": [],
+    "sources": [
+      {
+        "source_id": "embrapa_ct47_cultivo_hortalicas",
+        "pages": "11-14"
+      }
+    ],
+    "validation_status": "draft",
+    "notes": "SEM FONTE na base atual e baixa relevância em horta urbana: o gorgulho é associado sobretudo a grãos armazenados. Avaliar se a classe deve permanecer no modelo.",
+    "crop_scope": "all_vegetables"
+  }
+]
