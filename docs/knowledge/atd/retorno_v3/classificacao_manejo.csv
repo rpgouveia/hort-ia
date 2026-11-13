@@ -1,0 +1,63 @@
+id_entrada,nome,acao,tipo_atribuido,regra_que_classificou,aparece_no_assistente,status_da_entrada
+tomate_mancha_bacteriana,Mancha-bacteriana,Evitar introduzir a doença por sementes ou mudas contaminadas.,preventive,preventive: semente,sim,validated_by_atd
+tomate_mancha_bacteriana,Mancha-bacteriana,Arrancar e queimar as plantas contaminadas.,cultural,cultural: nenhuma palavra-chave das outras regras,sim,validated_by_atd
+tomate_mancha_bacteriana,Mancha-bacteriana,"Evitar excesso de umidade, que favorece o aparecimento.",cultural,cultural: nenhuma palavra-chave das outras regras,sim,validated_by_atd
+tomate_pinta_preta,Pinta-preta,"Equilibrar a adubação, controlar a irrigação e eliminar restos de cultura contaminados.",cultural,cultural: nenhuma palavra-chave das outras regras,sim,validated_by_atd
+tomate_pinta_preta,Pinta-preta,Fazer rotação de culturas e plantar na época favorável à hortaliça.,cultural,cultural: nenhuma palavra-chave das outras regras,sim,validated_by_atd
+tomate_pinta_preta,Pinta-preta,Usar cultivares resistentes e sementes certificadas.,preventive,preventive: semente,sim,validated_by_atd
+tomate_pinta_preta,Pinta-preta,Aplicar defensivo natural: calda bordalesa ou calda sulfocálcica.,alternative,alternative: calda,não,validated_by_atd
+tomate_requeima,Requeima,"Equilibrar a adubação, controlar a irrigação e eliminar restos de cultura contaminados.",cultural,cultural: nenhuma palavra-chave das outras regras,sim,validated_by_atd
+tomate_requeima,Requeima,Fazer rotação de culturas e plantar na época favorável à hortaliça.,cultural,cultural: nenhuma palavra-chave das outras regras,sim,validated_by_atd
+tomate_requeima,Requeima,Usar cultivares resistentes e sementes certificadas.,preventive,preventive: semente,sim,validated_by_atd
+tomate_requeima,Requeima,Aplicar defensivo natural: calda bordalesa ou calda sulfocálcica.,alternative,alternative: calda,não,validated_by_atd
+tomate_cladosporiose,Cladosporiose (mofo-das-folhas),"Equilibrar a adubação, controlar a irrigação e eliminar restos de cultura contaminados.",cultural,cultural: nenhuma palavra-chave das outras regras,sim,validated_by_atd
+tomate_cladosporiose,Cladosporiose (mofo-das-folhas),Fazer rotação de culturas e plantar na época favorável à hortaliça.,cultural,cultural: nenhuma palavra-chave das outras regras,sim,validated_by_atd
+tomate_cladosporiose,Cladosporiose (mofo-das-folhas),Usar cultivares resistentes e sementes certificadas.,preventive,preventive: semente,sim,validated_by_atd
+tomate_cladosporiose,Cladosporiose (mofo-das-folhas),Aplicar defensivo natural: calda bordalesa ou calda sulfocálcica.,alternative,alternative: calda,não,validated_by_atd
+tomate_septoriose,Septoriose,"Equilibrar a adubação, controlar a irrigação e eliminar restos de cultura contaminados.",cultural,cultural: nenhuma palavra-chave das outras regras,sim,validated_by_atd
+tomate_septoriose,Septoriose,Fazer rotação de culturas e plantar na época favorável à hortaliça.,cultural,cultural: nenhuma palavra-chave das outras regras,sim,validated_by_atd
+tomate_septoriose,Septoriose,Usar cultivares resistentes e sementes certificadas.,preventive,preventive: semente,sim,validated_by_atd
+tomate_septoriose,Septoriose,Aplicar defensivo natural: calda bordalesa ou calda sulfocálcica.,alternative,alternative: calda,não,validated_by_atd
+tomate_acaro_rajado,Ácaro-rajado,"Aplicar calda sulfocálcica, que tem ação protetora contra ácaros.",alternative,alternative: calda,não,draft
+tomate_acaro_rajado,Ácaro-rajado,"Aplicar preparado à base de sabão neutro, conforme orientação técnica.",alternative,alternative: preparado,não,draft
+tomate_acaro_rajado,Ácaro-rajado,"Alternar os produtos usados, para não selecionar populações tolerantes.",cultural,cultural: nenhuma palavra-chave das outras regras,sim,draft
+tomate_mancha_alvo,Mancha-alvo,"Equilibrar a adubação, controlar a irrigação e eliminar restos de cultura contaminados.",cultural,cultural: nenhuma palavra-chave das outras regras,sim,validated_by_atd
+tomate_mancha_alvo,Mancha-alvo,Fazer rotação de culturas e plantar na época favorável à hortaliça.,cultural,cultural: nenhuma palavra-chave das outras regras,sim,validated_by_atd
+tomate_mancha_alvo,Mancha-alvo,Usar cultivares resistentes e sementes certificadas.,preventive,preventive: semente,sim,validated_by_atd
+tomate_mancha_alvo,Mancha-alvo,Aplicar defensivo natural: calda bordalesa ou calda sulfocálcica.,alternative,alternative: calda,não,validated_by_atd
+tomate_begomovirose,Begomovirose (TYLCV),"Não há controle depois de detectada: a prevenção é controlar os insetos vetores (pulgão, mosca-branca, tripes).",cultural,cultural: nenhuma palavra-chave das outras regras,sim,draft
+tomate_begomovirose,Begomovirose (TYLCV),Eliminar imediatamente as plantas infectadas por queima ou enterrio.,cultural,cultural: nenhuma palavra-chave das outras regras,sim,draft
+tomate_begomovirose,Begomovirose (TYLCV),Desinfetar ferramentas e evitar contato com partes de plantas contaminadas.,cultural,cultural: nenhuma palavra-chave das outras regras,sim,draft
+tomate_mosaico,Mosaico do tomateiro (ToMV),"Não há controle depois de detectada: a prevenção é controlar os insetos vetores (pulgão, mosca-branca, tripes).",cultural,cultural: nenhuma palavra-chave das outras regras,sim,draft
+tomate_mosaico,Mosaico do tomateiro (ToMV),Eliminar imediatamente as plantas infectadas por queima ou enterrio.,cultural,cultural: nenhuma palavra-chave das outras regras,sim,draft
+tomate_mosaico,Mosaico do tomateiro (ToMV),Desinfetar ferramentas e evitar contato com partes de plantas contaminadas.,cultural,cultural: nenhuma palavra-chave das outras regras,sim,draft
+batata_pinta_preta,Pinta-preta,"Equilibrar a adubação, controlar a irrigação e eliminar restos de cultura contaminados.",cultural,cultural: nenhuma palavra-chave das outras regras,sim,validated_by_atd
+batata_pinta_preta,Pinta-preta,Fazer rotação de culturas e plantar na época favorável à hortaliça.,cultural,cultural: nenhuma palavra-chave das outras regras,sim,validated_by_atd
+batata_pinta_preta,Pinta-preta,Usar cultivares resistentes e sementes certificadas.,preventive,preventive: semente,sim,validated_by_atd
+batata_pinta_preta,Pinta-preta,Aplicar defensivo natural: calda bordalesa ou calda sulfocálcica.,alternative,alternative: calda,não,validated_by_atd
+batata_requeima,Requeima,"Equilibrar a adubação, controlar a irrigação e eliminar restos de cultura contaminados.",cultural,cultural: nenhuma palavra-chave das outras regras,sim,validated_by_atd
+batata_requeima,Requeima,Fazer rotação de culturas e plantar na época favorável à hortaliça.,cultural,cultural: nenhuma palavra-chave das outras regras,sim,validated_by_atd
+batata_requeima,Requeima,Usar cultivares resistentes e sementes certificadas.,preventive,preventive: semente,sim,validated_by_atd
+batata_requeima,Requeima,Aplicar defensivo natural: calda bordalesa ou calda sulfocálcica.,alternative,alternative: calda,não,validated_by_atd
+pimentao_mancha_bacteriana,Mancha-bacteriana,Evitar introduzir a doença por sementes ou mudas contaminadas.,preventive,preventive: semente,sim,validated_by_atd
+pimentao_mancha_bacteriana,Mancha-bacteriana,Arrancar e queimar as plantas contaminadas.,cultural,cultural: nenhuma palavra-chave das outras regras,sim,validated_by_atd
+pimentao_mancha_bacteriana,Mancha-bacteriana,"Evitar excesso de umidade, que favorece o aparecimento.",cultural,cultural: nenhuma palavra-chave das outras regras,sim,validated_by_atd
+morango_leaf_scorch,Mancha-de-diplocarpon (escaldadura da folha),"Equilibrar a adubação, controlar a irrigação e eliminar restos de cultura contaminados.",cultural,cultural: nenhuma palavra-chave das outras regras,sim,validated_by_atd
+morango_leaf_scorch,Mancha-de-diplocarpon (escaldadura da folha),Fazer rotação de culturas e plantar na época favorável à hortaliça.,cultural,cultural: nenhuma palavra-chave das outras regras,sim,validated_by_atd
+morango_leaf_scorch,Mancha-de-diplocarpon (escaldadura da folha),Usar cultivares resistentes e sementes certificadas.,preventive,preventive: semente,sim,validated_by_atd
+morango_leaf_scorch,Mancha-de-diplocarpon (escaldadura da folha),Aplicar defensivo natural: calda bordalesa ou calda sulfocálcica.,alternative,alternative: calda,não,validated_by_atd
+praga_formigas,Formigas,Plantar flores em volta da horta para abrigar predadores naturais.,cultural,cultural: nenhuma palavra-chave das outras regras,sim,validated_by_atd
+praga_besouros,Besouros,"Aplicar calda de fumo com pimenta, indicada para vaquinhas.",alternative,alternative: calda,não,validated_by_atd
+praga_besouros,Besouros,"Aplicar calda de cebola, que repele vaquinhas.",alternative,alternative: calda,não,validated_by_atd
+praga_lagartas,Lagartas,Aplicar defensivo biológico: Bacillus thuringiensis ou baculovírus.,biological,biological: Bacillus thuringiensis,sim,draft
+praga_lagartas,Lagartas,Aplicar calda de fumo com pimenta ou preparado de sabão neutro.,alternative,alternative: calda,não,draft
+praga_lagartas,Lagartas,"Aplicar calda de cebola, que age como repelente.",alternative,alternative: calda,não,draft
+praga_lagartas,Lagartas,Preservar inimigos naturais: vespas do gênero Trichogramma parasitam lagartas.,biological,biological: Trichogramma,sim,draft
+praga_lagartas,Lagartas,Plantar flores em volta da horta para abrigar predadores naturais.,cultural,cultural: nenhuma palavra-chave das outras regras,sim,draft
+praga_gafanhotos,Gafanhotos,Usar armadilha luminosa associada a recipiente com água ou óleo.,alternative,alternative: óleo,não,draft
+praga_gafanhotos,Gafanhotos,Plantar flores em volta da horta para abrigar predadores naturais.,cultural,cultural: nenhuma palavra-chave das outras regras,sim,draft
+praga_mariposas,Mariposas,Usar armadilha luminosa ou recipiente com melaço ou feromônio para reduzir a população de adultos.,cultural,cultural: nenhuma palavra-chave das outras regras,sim,draft
+praga_mariposas,Mariposas,Tratar como alerta precoce: a presença do adulto antecede o ataque das lagartas.,cultural,cultural: nenhuma palavra-chave das outras regras,sim,draft
+praga_lesmas,Lesmas,"Armadilha com leite: espalhar estopa ou saco de aniagem molhado com água e leite ao redor das plantas; pela manhã, virar e recolher os animais reunidos embaixo.",cultural,cultural: nenhuma palavra-chave das outras regras,sim,draft
+praga_caracois,Caracóis,"Armadilha com leite: espalhar estopa ou saco de aniagem molhado com água e leite ao redor das plantas; pela manhã, virar e recolher os animais reunidos embaixo.",cultural,cultural: nenhuma palavra-chave das outras regras,sim,draft
+benefico_vespas,Vespas,"Não controlar. Preservar plantando flores em volta da horta, que servem de abrigo e refúgio.",cultural,cultural: nenhuma palavra-chave das outras regras (não gravada: entrada benéfica),não,validated_by_atd
