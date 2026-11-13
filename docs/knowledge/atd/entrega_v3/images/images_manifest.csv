@@ -1,0 +1,72 @@
+cv_dataset,cv_label,tipo,name_pt,kb_id,cultura_alvo,acao,tem_manejo,observacao
+new_plant_diseases_dataset,Tomato___Bacterial_spot,disease,Mancha-bacteriana,tomate_mancha_bacteriana,tomate,manter,sim,
+new_plant_diseases_dataset,Tomato___Early_blight,disease,Pinta-preta,tomate_pinta_preta,tomate,manter,sim,
+new_plant_diseases_dataset,Tomato___Late_blight,disease,Requeima,tomate_requeima,tomate,manter,sim,
+new_plant_diseases_dataset,Tomato___Leaf_Mold,disease,Cladosporiose (mofo-das-folhas),tomate_cladosporiose,tomate,manter,sim,
+new_plant_diseases_dataset,Tomato___Septoria_leaf_spot,disease,Septoriose,tomate_septoriose,tomate,manter,sim,
+new_plant_diseases_dataset,Tomato___Spider_mites Two-spotted_spider_mite,pest,Ácaro-rajado,tomate_acaro_rajado,tomate,manter,sim,
+new_plant_diseases_dataset,Tomato___Target_Spot,disease,Mancha-alvo,tomate_mancha_alvo,tomate,manter,sim,
+new_plant_diseases_dataset,Tomato___Tomato_Yellow_Leaf_Curl_Virus,disease,Begomovirose (TYLCV),tomate_begomovirose,tomate,manter,sim,
+new_plant_diseases_dataset,Tomato___Tomato_mosaic_virus,disease,Mosaico do tomateiro (ToMV),tomate_mosaico,tomate,manter,sim,
+new_plant_diseases_dataset,Tomato___healthy,healthy,Planta sadia,tomate_saudavel,tomate,manter,nao,
+new_plant_diseases_dataset,Potato___Early_blight,disease,Pinta-preta,batata_pinta_preta,batata,manter,sim,
+new_plant_diseases_dataset,Potato___Late_blight,disease,Requeima,batata_requeima,batata,manter,sim,
+new_plant_diseases_dataset,Potato___healthy,healthy,Planta sadia,batata_saudavel,batata,manter,nao,
+new_plant_diseases_dataset,"Pepper,_bell___Bacterial_spot",disease,Mancha-bacteriana,pimentao_mancha_bacteriana,pimentao,manter,sim,
+new_plant_diseases_dataset,"Pepper,_bell___healthy",healthy,Planta sadia,pimentao_saudavel,pimentao,manter,nao,
+new_plant_diseases_dataset,Strawberry___Leaf_scorch,disease,,morango_leaf_scorch,morango,manter,sim,
+new_plant_diseases_dataset,Strawberry___healthy,healthy,Planta sadia,morango_saudavel,morango,manter,nao,
+agricultural_pests_dataset,ants,pest,Formigas,praga_formigas,todas as 20 culturas,revisar,sim,Classe ambigua: agrupa especie-praga e especie benefica. Nao recomendar controle sem confirmar.
+agricultural_pests_dataset,beetle,pest,Besouros,praga_besouros,todas as 20 culturas,revisar,sim,Classe ambigua: agrupa especie-praga e especie benefica. Nao recomendar controle sem confirmar.
+agricultural_pests_dataset,catterpillar,pest,Lagartas,praga_lagartas,todas as 20 culturas,manter,sim,
+agricultural_pests_dataset,earwig,pest,Tesourinhas,praga_tesourinhas,todas as 20 culturas,revisar,nao,Sem manejo em fonte institucional; avaliar se a classe permanece no modelo.
+agricultural_pests_dataset,grasshopper,pest,Gafanhotos,praga_gafanhotos,todas as 20 culturas,manter,sim,
+agricultural_pests_dataset,moth,pest,Mariposas,praga_mariposas,todas as 20 culturas,manter,sim,
+agricultural_pests_dataset,slug,pest,Lesmas,praga_lesmas,todas as 20 culturas,manter,sim,
+agricultural_pests_dataset,snail,pest,Caracóis,praga_caracois,todas as 20 culturas,manter,sim,
+agricultural_pests_dataset,wasp,beneficial,Vespas,benefico_vespas,todas as 20 culturas,manter,sim,"Inimigo natural. Detectar para INFORMAR, nunca para recomendar controle."
+agricultural_pests_dataset,weevil,pest,Gorgulhos,praga_gorgulhos,todas as 20 culturas,revisar,nao,Sem manejo em fonte institucional; avaliar se a classe permanece no modelo.
+agricultural_pests_dataset,bees,beneficial,Abelhas,,,remover,nao,Polinizador. Remocao acordada com o Grupo de IA.
+agricultural_pests_dataset,earthworms,beneficial,Minhocas,,,remover,nao,Beneficas: CT 47 p.12 - 'muito uteis na decomposicao e mineralizacao da materia organica do solo'.
+new_plant_diseases_dataset,Apple___* (4 classes),disease,,,,remover,nao,Especie fora das 20 culturas da base. Nao e cultura de horta urbana comunitaria.
+new_plant_diseases_dataset,Blueberry___* (1 classes),disease,,,,remover,nao,Especie fora das 20 culturas da base. Nao e cultura de horta urbana comunitaria.
+new_plant_diseases_dataset,Cherry_(including_sour)___* (2 classes),disease,,,,remover,nao,Especie fora das 20 culturas da base. Nao e cultura de horta urbana comunitaria.
+new_plant_diseases_dataset,Corn_(maize)___* (4 classes),disease,,,,remover,nao,Especie fora das 20 culturas da base. Nao e cultura de horta urbana comunitaria.
+new_plant_diseases_dataset,Grape___* (4 classes),disease,,,,remover,nao,Especie fora das 20 culturas da base. Nao e cultura de horta urbana comunitaria.
+new_plant_diseases_dataset,Orange___* (1 classes),disease,,,,remover,nao,Especie fora das 20 culturas da base. Nao e cultura de horta urbana comunitaria.
+new_plant_diseases_dataset,Peach___* (2 classes),disease,,,,remover,nao,Especie fora das 20 culturas da base. Nao e cultura de horta urbana comunitaria.
+new_plant_diseases_dataset,Raspberry___* (1 classes),disease,,,,remover,nao,Especie fora das 20 culturas da base. Nao e cultura de horta urbana comunitaria.
+new_plant_diseases_dataset,Soybean___* (1 classes),disease,,,,remover,nao,Especie fora das 20 culturas da base. Nao e cultura de horta urbana comunitaria.
+new_plant_diseases_dataset,Squash___* (1 classes),disease,,,,remover,nao,Especie fora das 20 culturas da base. Nao e cultura de horta urbana comunitaria.
+plantseg_in_the_wild,basil downy mildew,disease,Mildio,,manjericao,candidato,nao,"PlantSeg (campo, CC BY-NC-ND 4.0). Verificado no Metadata.csv do zip oficial. Pendente: criar id na KB e escrever manejo com fonte."
+plantseg_in_the_wild,bell pepper bacterial spot,disease,Mancha-bacteriana,,pimentao,candidato,nao,"PlantSeg (campo, CC BY-NC-ND 4.0). Verificado no Metadata.csv do zip oficial. Pendente: criar id na KB e escrever manejo com fonte."
+plantseg_in_the_wild,bell pepper blossom end rot,disease,Podridao apical,,pimentao,candidato,nao,"PlantSeg (campo, CC BY-NC-ND 4.0). Verificado no Metadata.csv do zip oficial. Pendente: criar id na KB e escrever manejo com fonte."
+plantseg_in_the_wild,bell pepper frogeye leaf spot,disease,Mancha-olho-de-ra,,pimentao,candidato,nao,"PlantSeg (campo, CC BY-NC-ND 4.0). Verificado no Metadata.csv do zip oficial. Pendente: criar id na KB e escrever manejo com fonte."
+plantseg_in_the_wild,bell pepper powdery mildew,disease,Oidio,,pimentao,candidato,nao,"PlantSeg (campo, CC BY-NC-ND 4.0). Verificado no Metadata.csv do zip oficial. Pendente: criar id na KB e escrever manejo com fonte."
+plantseg_in_the_wild,broccoli alternaria leaf spot,disease,Mancha-de-alternaria,,brocolis,candidato,nao,"PlantSeg (campo, CC BY-NC-ND 4.0). Verificado no Metadata.csv do zip oficial. Pendente: criar id na KB e escrever manejo com fonte."
+plantseg_in_the_wild,broccoli downy mildew,disease,Mildio,,brocolis,candidato,nao,"PlantSeg (campo, CC BY-NC-ND 4.0). Verificado no Metadata.csv do zip oficial. Pendente: criar id na KB e escrever manejo com fonte."
+plantseg_in_the_wild,broccoli ring spot,disease,Mancha-anelar,,brocolis,candidato,nao,"PlantSeg (campo, CC BY-NC-ND 4.0). Verificado no Metadata.csv do zip oficial. Pendente: criar id na KB e escrever manejo com fonte."
+plantseg_in_the_wild,cabbage alternaria leaf spot,disease,Mancha-de-alternaria,,repolho,candidato,nao,"PlantSeg (campo, CC BY-NC-ND 4.0). Verificado no Metadata.csv do zip oficial. Pendente: criar id na KB e escrever manejo com fonte."
+plantseg_in_the_wild,cabbage black rot,disease,Podridao-negra,,repolho,candidato,nao,"PlantSeg (campo, CC BY-NC-ND 4.0). Verificado no Metadata.csv do zip oficial. Pendente: criar id na KB e escrever manejo com fonte."
+plantseg_in_the_wild,cabbage downy mildew,disease,Mildio,,repolho,candidato,nao,"PlantSeg (campo, CC BY-NC-ND 4.0). Verificado no Metadata.csv do zip oficial. Pendente: criar id na KB e escrever manejo com fonte."
+plantseg_in_the_wild,carrot alternaria leaf blight,disease,Queima-de-alternaria,,cenoura,candidato,nao,"PlantSeg (campo, CC BY-NC-ND 4.0). Verificado no Metadata.csv do zip oficial. Pendente: criar id na KB e escrever manejo com fonte."
+plantseg_in_the_wild,carrot cavity spot,disease,Mancha-cavitaria,,cenoura,candidato,nao,"PlantSeg (campo, CC BY-NC-ND 4.0). Verificado no Metadata.csv do zip oficial. Pendente: criar id na KB e escrever manejo com fonte."
+plantseg_in_the_wild,carrot cercospora leaf blight,disease,Queima-de-cercospora,,cenoura,candidato,nao,"PlantSeg (campo, CC BY-NC-ND 4.0). Verificado no Metadata.csv do zip oficial. Pendente: criar id na KB e escrever manejo com fonte."
+plantseg_in_the_wild,lettuce downy mildew,disease,Mildio,,alface,candidato,nao,"PlantSeg (campo, CC BY-NC-ND 4.0). Verificado no Metadata.csv do zip oficial. Pendente: criar id na KB e escrever manejo com fonte."
+plantseg_in_the_wild,lettuce mosaic virus,disease,Virus do mosaico,,alface,candidato,nao,"PlantSeg (campo, CC BY-NC-ND 4.0). Verificado no Metadata.csv do zip oficial. Pendente: criar id na KB e escrever manejo com fonte."
+plantseg_in_the_wild,potato early blight,disease,Pinta-preta,,batata,candidato,nao,"PlantSeg (campo, CC BY-NC-ND 4.0). Verificado no Metadata.csv do zip oficial. Pendente: criar id na KB e escrever manejo com fonte."
+plantseg_in_the_wild,potato late blight,disease,Requeima,,batata,candidato,nao,"PlantSeg (campo, CC BY-NC-ND 4.0). Verificado no Metadata.csv do zip oficial. Pendente: criar id na KB e escrever manejo com fonte."
+plantseg_in_the_wild,squash powdery mildew,disease,Oidio,,abobrinha,candidato,nao,"PlantSeg (campo, CC BY-NC-ND 4.0). Verificado no Metadata.csv do zip oficial. Pendente: criar id na KB e escrever manejo com fonte."
+plantseg_in_the_wild,strawberry anthracnose,disease,Antracnose,,morango,candidato,nao,"PlantSeg (campo, CC BY-NC-ND 4.0). Verificado no Metadata.csv do zip oficial. Pendente: criar id na KB e escrever manejo com fonte."
+plantseg_in_the_wild,strawberry leaf scorch,disease,Queima-das-folhas,,morango,candidato,nao,"PlantSeg (campo, CC BY-NC-ND 4.0). Verificado no Metadata.csv do zip oficial. Pendente: criar id na KB e escrever manejo com fonte."
+plantseg_in_the_wild,tomato bacterial leaf spot,disease,Mancha-bacteriana,,tomate,candidato,nao,"PlantSeg (campo, CC BY-NC-ND 4.0). Verificado no Metadata.csv do zip oficial. Pendente: criar id na KB e escrever manejo com fonte."
+plantseg_in_the_wild,tomato early blight,disease,Pinta-preta,,tomate,candidato,nao,"PlantSeg (campo, CC BY-NC-ND 4.0). Verificado no Metadata.csv do zip oficial. Pendente: criar id na KB e escrever manejo com fonte."
+plantseg_in_the_wild,tomato late blight,disease,Requeima,,tomate,candidato,nao,"PlantSeg (campo, CC BY-NC-ND 4.0). Verificado no Metadata.csv do zip oficial. Pendente: criar id na KB e escrever manejo com fonte."
+plantseg_in_the_wild,tomato leaf mold,disease,Cladosporiose,,tomate,candidato,nao,"PlantSeg (campo, CC BY-NC-ND 4.0). Verificado no Metadata.csv do zip oficial. Pendente: criar id na KB e escrever manejo com fonte."
+plantseg_in_the_wild,tomato mosaic virus,disease,Virus do mosaico,,tomate,candidato,nao,"PlantSeg (campo, CC BY-NC-ND 4.0). Verificado no Metadata.csv do zip oficial. Pendente: criar id na KB e escrever manejo com fonte."
+plantseg_in_the_wild,tomato septoria leaf spot,disease,Septoriose,,tomate,candidato,nao,"PlantSeg (campo, CC BY-NC-ND 4.0). Verificado no Metadata.csv do zip oficial. Pendente: criar id na KB e escrever manejo com fonte."
+plantseg_in_the_wild,tomato yellow leaf curl virus,disease,Begomovirose (TYLCV),,tomate,candidato,nao,"PlantSeg (campo, CC BY-NC-ND 4.0). Verificado no Metadata.csv do zip oficial. Pendente: criar id na KB e escrever manejo com fonte."
+plantseg_in_the_wild,zucchini bacterial wilt,disease,Murcha-bacteriana,,abobrinha,candidato,nao,"PlantSeg (campo, CC BY-NC-ND 4.0). Verificado no Metadata.csv do zip oficial. Pendente: criar id na KB e escrever manejo com fonte."
+plantseg_in_the_wild,zucchini downy mildew,disease,Mildio,,abobrinha,candidato,nao,"PlantSeg (campo, CC BY-NC-ND 4.0). Verificado no Metadata.csv do zip oficial. Pendente: criar id na KB e escrever manejo com fonte."
+plantseg_in_the_wild,zucchini powdery mildew,disease,Oidio,,abobrinha,candidato,nao,"PlantSeg (campo, CC BY-NC-ND 4.0). Verificado no Metadata.csv do zip oficial. Pendente: criar id na KB e escrever manejo com fonte."
+plantseg_in_the_wild,zucchini yellow mosaic virus,disease,Virus do mosaico amarelo,,abobrinha,candidato,nao,"PlantSeg (campo, CC BY-NC-ND 4.0). Verificado no Metadata.csv do zip oficial. Pendente: criar id na KB e escrever manejo com fonte."
