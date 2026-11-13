@@ -19,11 +19,18 @@ Approach and decision record: 9.3.1-3 (sections 4 and 9). Engine: 9.3.1-4. Profi
    | F5 | Same botanical family as `previous_crop` | `same_family_as_previous` |
 
    Rotation (F5) is a filter because it has a technical source (Embrapa, Circular Técnica 47).
-   Companion planting only orders the list, because all 37 relations of the base are traditional.
+   Companion planting only orders the list, because every relation that reaches the engine today is
+   traditional.
 2. **Score**: `W_COMPANION` (1.0) per planted crop it combines with, minus 1.0 per planted crop it
-   does not combine with; plus `W_REPELLENT` (0.5) for a pest-repellent crop (cebolinha, manjericão)
-   when something is already planted. One relation per pair, in either direction; an unfavorable
-   record would win over a favorable one.
+   does not combine with; plus `W_REPELLENT` (0.5) for a pest-repellent crop (cebolinha, manjericão,
+   coentro, hortelã) when something is already planted. One relation per pair, in either direction; an
+   unfavorable record would win over a favorable one. **Only usable relations count** (decision D6 of
+   the ATD v3 integration, `MODEL_VERSION` 1.1.0): `research` relations (the ones received are seed
+   germination tests with plant extracts in a Petri dish, not plants grown together) and relations whose
+   source is not verified in `sources.json` stay in the base but out of the score, the reasons and the
+   warnings. The rule lives in one place, `KnowledgeBase.is_usable`, also used by the assistant and by
+   `GET /recommender/companion-crops`, so the three always agree. Today it withholds the 14 relations of
+   the ATD v3 (7 research, 7 technical with sources still without metadata).
 3. **Order**: score, then the season that ends first (consecutive months left in the window; 12 for
    all-year crops), then the name without accents. The same profile always gives the same list.
 4. **Explanation**: every item has `reasons` and `warnings`, each with a `code`, a short Portuguese
@@ -85,11 +92,11 @@ curl -X POST http://localhost:8080/recommender/recommendations \
     }
   ],
   "excluded": [{"crop_id": "tomate", "reason": "already_planted"}, {"crop_id": "batata", "reason": "not_for_small_space"}],
-  "warnings": [], "approach": "knowledge_based", "model_version": "1.0.0"
+  "warnings": [], "approach": "knowledge_based", "model_version": "1.1.0"
 }
 ```
 
-(Abridged: the full answer lists 4 recommendations and 11 exclusions.) Only `month` and one of
+(Abridged: the full answer lists 4 recommendations and 16 exclusions.) Only `month` and one of
 `ibge_code` / `region` matter for a first call; `month` defaults to the current one. `ibge_code` wins
 over `region`. An invalid location, a missing location or a month outside 1-12 returns 422.
 
@@ -99,12 +106,15 @@ over `region`. An invalid location, a missing location or a month outside 1-12 r
   order) and takes its crops from the engine, with `planted` and `previous_crop` empty.
 - `hort_ia.nlp.Responder.what_to_plant` (the conversational assistant) lists the crops in the engine
   order.
+- `GET /recommender/companion-crops` and `Responder.companion_planting` show the same usable relations
+  the engine scores (decision D6).
 
 ## Changing it
 
 | To | Change | Also |
 |---|---|---|
-| Add a crop, a synonym, a planting window or a companion relation | `data/knowledge/` only; the engine reads the base | Re-check the reference cases (they list crops by name) |
+| Add a crop, a synonym, a planting window or a companion relation | `data/knowledge/` only; the engine reads the base | Re-check the reference cases (they list crops by name). A `research` relation or one from an unverified source never scores (D6) |
+| Release or withhold companion relations | `KnowledgeBase.is_usable` in `hort_ia/knowledge/models.py` (or mark the source `verified` in `sources.json`) | Bump `MODEL_VERSION`; update the reference cases and section 6 of 9.3.1-3 |
 | Change a weight or `SEASON_ENDING_MONTHS` | The constants at the top of `engine.py` | Bump `MODEL_VERSION`; update the reference cases and section 6 of 9.3.1-3 |
 | Add or change a filter | `ExclusionReason` in `models.py` and `Recommender._exclusion` | Bump `MODEL_VERSION`; record the decision in 9.3.1-3 |
 | Reword an explanation | `texts.yaml` | Keep the writing rules of `data/nlu/README.md` (short sentences, origin explicit when traditional) |
@@ -116,8 +126,8 @@ with the assistant.
 
 | File | What it covers |
 |---|---|
-| `tests/test_recommender_engine.py` | Reference cases R1-R8, E1-E2 of 9.3.1-3 (section 6); explanations, determinism; properties P1-P6 over the 120 profiles, score recomputed from the raw files, ordering, contradictory and empty bases, CLI (cases U1-U13 of 9.3.2-1) |
-| `tests/test_recommender_integration.py` | Files → loader → engine → routes for the 120 profiles; a change only in the data reaching the API; 422s; `what-to-plant`, the assistant and the calendar/companion routes agreeing with the engine (cases I1-I9 of 9.3.2-1) |
+| `tests/test_recommender_engine.py` | Reference cases R1-R8, E1-E2 of 9.3.1-3 (section 6); explanations, determinism; properties P1-P6 over the 120 profiles, score recomputed from the raw files (applying D6 on its own), ordering, contradictory and empty bases, withheld relations out of score and reasons, CLI (cases U1-U13 of 9.3.2-1) |
+| `tests/test_recommender_integration.py` | Files → loader → engine → routes for the 120 profiles; a change only in the data reaching the API; a withheld relation not reaching the companion route; 422s; `what-to-plant`, the assistant and the calendar/companion routes agreeing with the engine (cases I1-I9 of 9.3.2-1) |
 
 Test plan, coverage target and the definition of a critical failure:
 `docs/recommender/9.3.2-1_Plano_Casos_Teste.md`. `docs/recommender/exploratory_recommender_cases.py` is
@@ -125,11 +135,12 @@ the prototype that fixed the reference cases.
 
 ## Limits
 
-- **15 crops.** Some profiles get a short list (2 crops in Manaus in November); it is never padded with
-  crops out of season.
-- **Traditional companion relations**: they order, never exclude, and the text says so.
-- **No small-space information** for morango, repolho and abobrinha: they leave the list whenever
-  `small_space` is on, until the agronomists confirm (9.4.1-9).
+- **20 crops.** Some profiles get a short list (3 crops in Manaus in November); it is never padded with
+  crops out of season. Hortelã has no planting window yet, so it is never recommended (`no_region_data`).
+- **Traditional companion relations**: they order, never exclude, and the text says so. The technical
+  and research relations of the ATD v3 are withheld until the ATD confirms them (D6).
+- **No small-space information** for morango, repolho, abobrinha and the 5 crops of the ATD v3: they
+  leave the list whenever `small_space` is on, until the agronomists and the ATD confirm (9.4.1-9).
 - **Arbitrated weights**: recalibrate in the UAT (9.3.2-5).
 - **Already planted is always excluded**, which hides staggered planting (alface every few weeks). If
   the UAT points to it, F4 becomes a warning.

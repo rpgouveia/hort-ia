@@ -154,17 +154,21 @@ As respostas de praga e doença têm várias partes e são as únicas escritas u
 item de lista (`action_item: "- {action}"`) e a frase final. Em rascunho, a frase final pede à
 Assistência Técnica a confirmação do problema e o tratamento ("Para confirmar o problema e saber como
 tratar, fale com a Assistência Técnica."), porque o modelo de visão pode errar e porque algumas
-doenças, como as viroses, não têm cura. Revisada pelos agrônomos (`reviewed` ou `validated_by_atd`), a
-resposta usa o mesmo título "O que ajuda:" antes da lista, mostra também as ações `alternative` e
-termina com "Se tiver dúvida sobre o problema, fale com a Assistência Técnica.", que oferece a
-Assistência Técnica sem ligar o `handoff`. As demais intenções continuam num parágrafo só. A interface
+doenças, como as viroses, não têm cura. Conferida pela ATD (`validated_by_atd`), a resposta é a mesma
+do rascunho: o status quer dizer "conferido contra a fonte e a página", não aval agronômico. Só
+revisada por agrônomo (`reviewed`) a resposta usa o mesmo título "O que ajuda:" antes da lista,
+mostra também as ações `alternative` e termina com "Se tiver dúvida sobre o problema, fale com a
+Assistência Técnica.", que oferece a Assistência Técnica sem ligar o `handoff`. As demais intenções continuam num parágrafo só. A interface
 deve preservar as quebras de linha (a app de validação as converte para Markdown na exibição).
 
 **Limitações conhecidas, que viram encaminhamento à Assistência Técnica:**
 
-- Pragas e doenças: o manejo da base é por grupo e ainda está em rascunho. O assistente mostra só a
-  prevenção e encaminha o tratamento; tesourinhas e gorgulhos não têm orientação (ver
-  `data/knowledge/README.md`, "Pragas e doenças").
-- Plantio companheiro: rúcula sem relações.
+- Pragas e doenças: o manejo da base é por grupo e nenhuma entrada foi revisada por agrônomo. O
+  assistente mostra só a prevenção e encaminha o tratamento; besouros, tesourinhas e gorgulhos não têm
+  orientação visível (ver `data/knowledge/README.md`, "Pragas e doenças").
+- Plantio companheiro: só relações tradicionais chegam à resposta; as técnicas e de pesquisa da
+  entrega v3 da ATD ficam de fora até a ATD confirmar (regra D6). A nota final diz de onde vêm as
+  combinações mostradas (`traditional_note`, `mixed_note` ou `technical_note`). Rúcula, espinafre,
+  brócolis e pimenta sem relação utilizável.
 - Preços: só alface, batata, cebola, cenoura e tomate, preço de atacado do mês de referência da Conab.
 - Manjericão sem janela de plantio no Norte e no Nordeste.
