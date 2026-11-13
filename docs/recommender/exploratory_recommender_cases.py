@@ -14,7 +14,7 @@ W_REPELLENT = 0.5  # planta repelente, so quando ja ha algo plantado
 kb = get_knowledge_base()
 
 PAIRS = defaultdict(set)
-for rel in kb.companions:
+for rel in kb.usable_companions():  # decisao D6: pesquisa e fonte nao verificada ficam fora da pontuacao
     PAIRS[frozenset((rel.crop_a, rel.crop_b))].add(rel.relation.value)
 
 REPELLENT = {c.id for c in kb.crops.values() if any(r.role == "pest_repellent" for r in c.companion_roles)}

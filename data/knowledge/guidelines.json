@@ -221,5 +221,102 @@
       "pages": "12"
     },
     "validation_status": "draft"
+  },
+  {
+    "id": "semeadura_profundidade_regra_geral",
+    "topic": "sowing",
+    "statement_pt": "Na ausencia de valor por especie, semear a uma profundidade igual a tres vezes o maior diametro da semente.",
+    "applies_to_groups": [],
+    "applies_to_crops": [],
+    "values": {
+      "factor_seed_diameter": 3
+    },
+    "source": {
+      "source_id": "epagri_bd107_hortalicas",
+      "pages": "38"
+    },
+    "validation_status": "validated_by_atd"
+  },
+  {
+    "id": "solo_ph_regra_geral_epagri",
+    "topic": "soil",
+    "statement_pt": "Para o cultivo de hortalicas em geral, o pH 6,0 e o mais indicado.",
+    "applies_to_groups": [],
+    "applies_to_crops": [],
+    "values": {
+      "ph_target": 6.0
+    },
+    "source": {
+      "source_id": "epagri_bd107_hortalicas",
+      "pages": "30"
+    },
+    "validation_status": "validated_by_atd",
+    "notes": "Converge com a faixa de 6,0 a 6,5 da CT 47 (p.5). Usar quando nao houver pH por especie."
+  },
+  {
+    "id": "sol_incidencia_dia_todo",
+    "topic": "sun",
+    "statement_pt": "A horta deve ficar onde o sol incida sobre as plantas durante todo o dia.",
+    "applies_to_groups": [],
+    "applies_to_crops": [],
+    "values": {},
+    "source": {
+      "source_id": "epagri_bd107_hortalicas",
+      "pages": "44"
+    },
+    "validation_status": "validated_by_atd",
+    "notes": "Regra geral. Nenhuma fonte institucional consultada informa horas de sol POR ESPECIE. Unica excecao: tomate (ver guideline sol_tomate_fotoperiodo)."
+  },
+  {
+    "id": "sol_tomate_fotoperiodo",
+    "topic": "sun",
+    "statement_pt": "Para o tomate, periodos de luz abaixo de 8 horas por dia podem ser prejudiciais.",
+    "applies_to_groups": [],
+    "applies_to_crops": [
+      "tomate"
+    ],
+    "values": {
+      "hours_min": 8
+    },
+    "source": {
+      "source_id": "senarpr_hortalicas_ambiente_protegido",
+      "pages": "49"
+    },
+    "validation_status": "validated_by_atd",
+    "notes": "Unico valor numerico de horas de sol por especie encontrado. Fonte de ambiente protegido."
+  },
+  {
+    "id": "luz_alface_radiacao_maxima",
+    "topic": "sun",
+    "statement_pt": "Para a alface, o crescimento e inibido acima de 19 MJ/m2/dia de radiacao.",
+    "applies_to_groups": [],
+    "applies_to_crops": [
+      "alface"
+    ],
+    "values": {
+      "max_radiation_mj_m2_dia": 19
+    },
+    "source": {
+      "source_id": "senarpr_hortalicas_ambiente_protegido",
+      "pages": "44"
+    },
+    "validation_status": "validated_by_atd",
+    "notes": "ATENCAO: e radiacao acumulada, NAO horas de sol. Nao converter um no outro."
+  },
+  {
+    "id": "rotacao_familia_por_cultura",
+    "topic": "rotation",
+    "statement_pt": "A rotacao por familia botanica esta materializada por cultura no campo 'rotation' de crops.json, com a lista 'avoid_after'.",
+    "applies_to_groups": [],
+    "applies_to_crops": [],
+    "values": {
+      "rule": "different_family"
+    },
+    "source": {
+      "source_id": "embrapa_ct47_cultivo_hortalicas",
+      "pages": "10-11"
+    },
+    "validation_status": "validated_by_atd",
+    "notes": "Complementa a regra geral 'rotacao_por_familia' ja existente. Famílias com mais de uma cultura na base: Brassicaceae (brocolis, couve, rabanete, repolho, rucula), Solanaceae (batata, pimenta, pimentao, tomate), Apiaceae (cenoura, coentro, salsa), Amaranthaceae (beterraba, espinafre) e Lamiaceae (hortela, manjericao)."
   }
 ]

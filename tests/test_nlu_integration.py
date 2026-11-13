@@ -185,18 +185,23 @@ def test_i6_every_cv_label_is_answered(client, entry):
     assert (reply["decision"], reply["intent"], reply["confidence"]) == ("answer", "pest_disease", None)
     if entry.type == "healthy":
         assert reply["text"] == "A planta parece saudável."
-    elif entry.beneficial:
+    elif entry.is_beneficial:  # `type: beneficial` (ATD v3) or `beneficial: true`
         assert entry.name_pt in reply["text"] and "Não precisa combater" in reply["text"] and reply["sources"]
     else:
         lines = reply["text"].split("\n")  # pest and disease answers: one part per line
         assert lines[0] == f"Parece ser: {entry.name_pt or entry.causal_agent or entry.cv_label}."
-        # Draft entries always route treatment to Technical Assistance; with no visible action, too.
-        assert reply["handoff"] == (entry.validation_status == "draft" or not entry.management)
-        if entry.validation_status == "draft" and entry.management:
+        # Entries not reviewed by agronomists (draft or validated_by_atd, decision D1) always route
+        # treatment to Technical Assistance; with no visible action, too.
+        not_reviewed = entry.validation_status != "reviewed"
+        assert reply["handoff"] == (not_reviewed or not entry.management)
+        visible = [m for m in entry.management if m.type != "alternative" or not not_reviewed]
+        if not_reviewed and visible:  # with every action hidden (e.g. beetles: only caldas), no list
             assert "O que ajuda:" in lines and reply["sources"]
             assert lines[-1] == "Para confirmar o problema e saber como tratar, fale com a Assistência Técnica."
             assert any(line.startswith("- ") for line in lines)
-        assert (lines[1].startswith("Como reconhecer:") if entry.symptoms else "Como reconhecer:" not in reply["text"])
+        elif not_reviewed:
+            assert "Ainda não tenho uma orientação conferida para combater isso." in lines and reply["handoff"]
+        assert lines[1].startswith("Como reconhecer:") if entry.symptoms else "Como reconhecer:" not in reply["text"]
 
 
 def test_i6_unknown_label_asks_for_a_photo(client):

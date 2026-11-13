@@ -1,14 +1,19 @@
 """Pydantic models for the Hort.IA agronomic knowledge base.
 
-Every record carries `sources` (traceability) and `validation_status`, so the
-knowledge base can be aligned later with the Technical Assistance team: records
-stay as `draft` until reviewed, and only reviewed records must be complete.
+Every record carries `sources` (traceability) and `validation_status`:
+
+- `draft`: curated by the AI module, not yet checked by anyone else;
+- `validated_by_atd`: checked by the Digital Technical Assistance team (ATD) against the cited source
+  and page. It is NOT an agronomic endorsement (the ATD has no licensed professional), so consumers
+  treat it like `draft`: it does not release homemade preparations nor remove the handoff;
+- `reviewed`: endorsed by an agronomist. Only `reviewed` records must be complete, and only they
+  release the full pest management in the assistant.
 """
 
 from __future__ import annotations
 
 from enum import StrEnum
-from typing import Literal, Self
+from typing import ClassVar, Literal, Self
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
@@ -57,6 +62,14 @@ class EntryType(StrEnum):
     DISEASE = "disease"
     PEST = "pest"
     HEALTHY = "healthy"
+    BENEFICIAL = "beneficial"  # natural enemy (e.g. wasps): never recommend control
+
+
+class CropScope(StrEnum):
+    """Which crops a pest or disease entry covers."""
+
+    ALL_VEGETABLES = "all_vegetables"  # the source speaks of vegetables in general (crop_ids stays empty)
+    SPECIFIC = "specific"  # the crops listed in crop_ids
 
 
 class ManagementType(StrEnum):
@@ -91,6 +104,10 @@ class CompanionMechanism(StrEnum):
 
 class CompanionRoleType(StrEnum):
     PEST_REPELLENT = "pest_repellent"
+
+
+class SunRequirement(StrEnum):
+    FULL_SUN = "full_sun"
 
 
 class KBModel(BaseModel):
@@ -177,6 +194,169 @@ class CompanionRole(KBModel):
     role: CompanionRoleType
     evidence: Evidence
     source: SourceRef
+    notes: str | None = None
+
+
+# Crop facts added with the ATD delivery v3 (germination, irrigation, soil, sun, rotation...). They
+# share one rule: every filled value needs a `source` with a page, and a block with no value must say
+# in `notes` where the search was made and why there is nothing (so nobody repeats the same search).
+
+
+def _has_page(ref: SourceRef | None) -> bool:
+    return ref is not None and bool(ref.pages and ref.pages.strip())
+
+
+class SourcedFacts(KBModel):
+    """Base of the crop fact blocks: subclasses declare the value fields and the (min, max) pairs."""
+
+    source: SourceRef | None = None
+    notes: str | None = None
+
+    NOT_VALUES: ClassVar[frozenset[str]] = frozenset({"source", "notes", "alt_source"})
+    RANGES: ClassVar[tuple[tuple[str, str], ...]] = ()
+
+    def filled(self) -> list[str]:
+        """Value fields with data (an empty list counts as no data)."""
+        return [
+            name
+            for name in type(self).model_fields
+            if name not in self.NOT_VALUES and getattr(self, name) not in (None, [])
+        ]
+
+    @model_validator(mode="after")
+    def _sourced_or_explained(self) -> Self:
+        if self.filled() and not _has_page(self.source):
+            raise ValueError(f"{', '.join(self.filled())} filled without a source with page")
+        if not self.filled() and not (self.notes and self.notes.strip()):
+            raise ValueError("block without values must explain the gap in 'notes'")
+        for low, high in self.RANGES:
+            a, b = getattr(self, low), getattr(self, high)
+            if a is not None and b is not None and a > b:
+                raise ValueError(f"{low} ({a}) is greater than {high} ({b})")
+        return self
+
+
+class GerminationAltSource(KBModel):
+    """Values of a source that lost a conflict, kept for traceability (not used by consumers)."""
+
+    source: SourceRef
+    temp_min_c: float | None = None
+    temp_max_c: float | None = None
+    temp_ideal_min_c: float | None = None
+    temp_ideal_max_c: float | None = None
+    soil_temp_ideal_min_c: float | None = None
+    soil_temp_ideal_max_c: float | None = None
+    notes: str | None = None
+
+    @model_validator(mode="after")
+    def _page(self) -> Self:
+        if not _has_page(self.source):
+            raise ValueError("alt_source needs a source with page")
+        return self
+
+
+class Germination(SourcedFacts):
+    temp_min_c: float | None = None
+    temp_max_c: float | None = None
+    temp_ideal_c: float | None = None  # single optimum, when the source gives one
+    temp_ideal_min_c: float | None = None
+    temp_ideal_max_c: float | None = None
+    emergence_days_min: int | None = Field(default=None, ge=0)
+    emergence_days_max: int | None = Field(default=None, ge=0)
+    alt_source: GerminationAltSource | None = None
+
+    RANGES = (
+        ("temp_min_c", "temp_max_c"),
+        ("temp_ideal_min_c", "temp_ideal_max_c"),
+        ("emergence_days_min", "emergence_days_max"),
+    )
+
+
+class SowingDepth(SourcedFacts):
+    min: float | None = Field(default=None, ge=0)
+    max: float | None = Field(default=None, ge=0)
+
+    RANGES = (("min", "max"),)
+
+
+class Irrigation(SourcedFacts):
+    turn_days_min: int | None = Field(default=None, ge=0)
+    turn_days_max: int | None = Field(default=None, ge=0)
+    blade_mm_net: float | None = Field(default=None, ge=0)  # lâmina líquida por rega
+    blade_mm_gross: float | None = Field(default=None, ge=0)  # lâmina bruta por rega
+    efficiency: float | None = Field(default=None, gt=0, le=1)  # efficiency of the irrigation system
+    blade_mm_mild: str | None = Field(default=None, pattern=r"^\d+([.,]\d+)?(-\d+([.,]\d+)?)?$")  # e.g. "5-6"
+    blade_mm_hot: str | None = Field(default=None, pattern=r"^\d+([.,]\d+)?(-\d+([.,]\d+)?)?$")
+    season_total_mm_min: float | None = Field(default=None, ge=0)  # water need per cycle
+    season_total_mm_max: float | None = Field(default=None, ge=0)
+    root_zone_depth_cm: float | None = Field(default=None, gt=0)
+    first_irrigation_wet_depth_cm: float | None = Field(default=None, gt=0)
+    preplant_blade_mm: float | None = Field(default=None, ge=0)
+    kc_initial: float | None = Field(default=None, gt=0)  # crop coefficients
+    kc_mid: float | None = Field(default=None, gt=0)
+    kc_final: float | None = Field(default=None, gt=0)
+    nursery_liters_m2_min: float | None = Field(default=None, ge=0)
+    nursery_liters_m2_max: float | None = Field(default=None, ge=0)
+
+    RANGES = (
+        ("turn_days_min", "turn_days_max"),
+        ("season_total_mm_min", "season_total_mm_max"),
+        ("nursery_liters_m2_min", "nursery_liters_m2_max"),
+    )
+
+
+class SoilPh(SourcedFacts):
+    min: float | None = Field(default=None, ge=0, le=14)
+    max: float | None = Field(default=None, ge=0, le=14)
+
+    RANGES = (("min", "max"),)
+
+
+class Sun(SourcedFacts):
+    requirement: SunRequirement | None = None
+    hours_min: float | None = Field(default=None, ge=0, le=24)
+    max_radiation_mj_m2_dia: float | None = Field(default=None, gt=0)  # radiation, not hours of sun
+
+
+class Rotation(SourcedFacts):
+    """Rotation by botanical family (CT 47, pp. 10-11), materialized per crop."""
+
+    rotation_group: str  # the botanical family
+    avoid_after: list[str] = []  # crops of this base in the same family (checked against `family`)
+
+
+class DevTemp(SourcedFacts):
+    """Air temperature for plant development (°C)."""
+
+    before_head_min_c: float | None = None  # brócolis: before / after the head forms
+    before_head_max_c: float | None = None
+    after_head_min_c: float | None = None
+    after_head_max_c: float | None = None
+    ideal_min_c: float | None = None
+    ideal_max_c: float | None = None
+    min_c: float | None = None
+    max_c: float | None = None
+    alt_range_min_c: float | None = None  # range from a second study, explained in notes
+    alt_range_max_c: float | None = None
+
+    RANGES = (
+        ("before_head_min_c", "before_head_max_c"),
+        ("after_head_min_c", "after_head_max_c"),
+        ("ideal_min_c", "ideal_max_c"),
+        ("min_c", "max_c"),
+        ("alt_range_min_c", "alt_range_max_c"),
+    )
+
+
+class SoilTemp(SourcedFacts):
+    """Soil temperature (°C)."""
+
+    ideal_min_c: float | None = None
+    ideal_max_c: float | None = None
+    max_c: float | None = None
+    root_damage_above_c: float | None = None
+
+    RANGES = (("ideal_min_c", "ideal_max_c"),)
 
 
 class Crop(KBModel):
@@ -196,6 +376,15 @@ class Crop(KBModel):
     small_space_recommended: bool | None = None
     yield_estimate: YieldEstimate | None = None
     companion_roles: list[CompanionRole] = []  # role in the garden as a whole
+    # Facts added with the ATD delivery v3; not used by the engine nor the assistant yet.
+    germination: Germination | None = None
+    sowing_depth_cm: SowingDepth | None = None
+    irrigation: Irrigation | None = None
+    soil_ph: SoilPh | None = None
+    sun: Sun | None = None
+    rotation: Rotation | None = None
+    dev_temp: DevTemp | None = None
+    soil_temp: SoilTemp | None = None
     sources: list[SourceRef] = []  # sources for the descriptive fields
     validation_status: ValidationStatus = ValidationStatus.DRAFT
     notes: str | None = None
@@ -235,10 +424,20 @@ class Crop(KBModel):
         if self.yield_estimate:
             refs.append(self.yield_estimate.source)
         refs += [r.source for r in self.companion_roles]
+        for block in self.fact_blocks():
+            if block.source:
+                refs.append(block.source)
+            if isinstance(block, Germination) and block.alt_source:
+                refs.append(block.alt_source.source)
         return refs
 
+    def fact_blocks(self) -> list[SourcedFacts]:
+        blocks = (self.germination, self.sowing_depth_cm, self.irrigation, self.soil_ph, self.sun,
+                  self.rotation, self.dev_temp, self.soil_temp)  # fmt: skip
+        return [b for b in blocks if b is not None]
+
     def missing_fields(self) -> list[str]:
-        """Fields that must be filled before the record leaves `draft`."""
+        """Fields that must be filled before the record is `reviewed`."""
         missing = []
         if not self.crop_groups:
             missing.append("crop_groups")
@@ -253,11 +452,11 @@ class Crop(KBModel):
         return missing
 
     @model_validator(mode="after")
-    def _complete_unless_draft(self) -> Self:
-        if self.validation_status != ValidationStatus.DRAFT and (missing := self.missing_fields()):
-            raise ValueError(
-                f"crop '{self.id}' is '{self.validation_status}' but is missing: {', '.join(missing)}"
-            )
+    def _complete_when_reviewed(self) -> Self:
+        # Only an agronomist's review demands a complete record: `validated_by_atd` means "checked
+        # against the source", and a checked record may still have gaps (e.g. hortelã has no window).
+        if self.validation_status == ValidationStatus.REVIEWED and (missing := self.missing_fields()):
+            raise ValueError(f"crop '{self.id}' is '{self.validation_status}' but is missing: {', '.join(missing)}")
         return self
 
 
@@ -275,6 +474,7 @@ class Guideline(KBModel):
     values: dict[str, float | int | str] = {}
     source: SourceRef
     validation_status: ValidationStatus = ValidationStatus.DRAFT
+    notes: str | None = None
 
 
 # --- Pests and diseases ------------------------------------------------------
@@ -294,7 +494,8 @@ class PestDisease(KBModel):
     name_pt: str | None = None
     causal_agent: str | None = None
     crop_ids: list[str] = []  # empty = generic (not tied to a crop)
-    beneficial: bool | None = None  # pests only; True = never recommend control
+    crop_scope: CropScope | None = None  # all_vegetables requires crop_ids empty; specific requires crop_ids
+    beneficial: bool | None = None  # pests and beneficial entries; True = never recommend control
     symptoms: str | None = None
     symptoms_sources: list[SourceRef] = []  # also listed in `sources`; required whenever `symptoms` is set
     management: list[ManagementAction] = []
@@ -302,7 +503,13 @@ class PestDisease(KBModel):
     validation_status: ValidationStatus = ValidationStatus.DRAFT
     notes: str | None = None
 
+    @property
+    def is_beneficial(self) -> bool:
+        """Natural enemy: `type` beneficial (ATD v3) or a pest marked `beneficial: true`."""
+        return self.type == EntryType.BENEFICIAL or self.beneficial is True
+
     def missing_fields(self) -> list[str]:
+        """Fields that must be filled before the entry is `reviewed`."""
         if self.type == EntryType.HEALTHY:
             return []
         missing = []
@@ -312,7 +519,7 @@ class PestDisease(KBModel):
             missing.append("symptoms")
         if self.type == EntryType.PEST and self.beneficial is None:
             missing.append("beneficial")
-        if not self.beneficial and not self.management:
+        if not self.is_beneficial and not self.management:
             missing.append("management")
         if not self.sources:
             missing.append("sources")
@@ -320,16 +527,22 @@ class PestDisease(KBModel):
 
     @model_validator(mode="after")
     def _consistency(self) -> Self:
-        if self.type != EntryType.PEST and self.beneficial is not None:
-            raise ValueError(f"'{self.id}': 'beneficial' only applies to pests")
-        if self.beneficial and self.management:
+        if self.type not in (EntryType.PEST, EntryType.BENEFICIAL) and self.beneficial is not None:
+            raise ValueError(f"'{self.id}': 'beneficial' only applies to pests and beneficial entries")
+        if self.type == EntryType.BENEFICIAL and self.beneficial is False:
+            raise ValueError(f"'{self.id}': type 'beneficial' with beneficial=false")
+        if self.is_beneficial and self.management:
             raise ValueError(f"'{self.id}' is beneficial and must not have control actions")
         if self.symptoms and not self.symptoms_sources:  # any status: the assistant shows symptoms
             raise ValueError(f"'{self.id}' has symptoms without symptoms_sources")
-        if self.validation_status != ValidationStatus.DRAFT and (missing := self.missing_fields()):
-            raise ValueError(
-                f"'{self.id}' is '{self.validation_status}' but is missing: {', '.join(missing)}"
-            )
+        if self.crop_scope == CropScope.ALL_VEGETABLES and self.crop_ids:
+            raise ValueError(f"'{self.id}': crop_scope 'all_vegetables' must leave crop_ids empty")
+        if self.crop_scope == CropScope.SPECIFIC and not self.crop_ids:
+            raise ValueError(f"'{self.id}': crop_scope 'specific' needs crop_ids")
+        # Only an agronomist's review demands a complete entry; `validated_by_atd` keeps the gaps
+        # the ATD could not fill (e.g. ants and beetles still without a pest/beneficial decision).
+        if self.validation_status == ValidationStatus.REVIEWED and (missing := self.missing_fields()):
+            raise ValueError(f"'{self.id}' is '{self.validation_status}' but is missing: {', '.join(missing)}")
         return self
 
 
@@ -388,6 +601,8 @@ class KnowledgeBase(KBModel):
         for crop in self.crops.values():
             for ref in crop.all_source_refs():
                 check_source(ref.source_id, f"crop '{crop.id}'")
+            for other in crop.rotation.avoid_after if crop.rotation else []:
+                check_crop(other, f"crop '{crop.id}' rotation")
 
         for guideline in self.guidelines.values():
             check_source(guideline.source.source_id, f"guideline '{guideline.id}'")
@@ -425,8 +640,29 @@ class KnowledgeBase(KBModel):
         return self
 
     def companions_of(self, crop_id: str) -> list[Companion]:
-        """Relations in which `crop_id` affects or is affected by another crop."""
+        """All relations in which `crop_id` affects or is affected by another crop (raw, for reports).
+
+        Consumers that show or score relations must use `usable_companions_of` instead."""
         return [c for c in self.companions if crop_id in (c.crop_a, c.crop_b)]
+
+    def is_usable(self, relation: Companion) -> bool:
+        """Whether a relation may reach an automatic output (decision D6 of the ATD v3 integration).
+
+        Kept in the base but withheld until the ATD confirms them:
+        - `research` relations: the ones received are germination tests with plant extracts in a Petri
+          dish, without growing the plants together, so they say nothing about planting side by side;
+        - relations whose source is not registered as verified (title, publisher and license confirmed).
+        This is the single point every consumer goes through (engine score, reasons and warnings,
+        assistant and the companion-crops route), so the routes keep agreeing with each other.
+        """
+        source = self.sources.get(relation.source_id)
+        return relation.evidence != Evidence.RESEARCH and source is not None and source.verified
+
+    def usable_companions(self) -> list[Companion]:
+        return [c for c in self.companions if self.is_usable(c)]
+
+    def usable_companions_of(self, crop_id: str) -> list[Companion]:
+        return [c for c in self.companions_of(crop_id) if self.is_usable(c)]
 
     def by_cv_label(self, cv_label: str) -> PestDisease | None:
         """Resolve a CV model output to its knowledge base entry."""

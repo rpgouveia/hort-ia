@@ -34,7 +34,7 @@ def kb_dir() -> Path:
 def _read_json_list(path: Path) -> list[dict[str, Any]]:
     data = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(data, list):
-        raise ValueError(f"{path.name}: expected a JSON list")
+        raise ValueError(f"{path.name}: expected a JSON list")  # noqa: TRY004 - same contract as market/loader.py
     return data
 
 
@@ -50,10 +50,7 @@ def _index_unique(items: list[Any], filename: str) -> dict[str, Any]:
 def _read_companions(path: Path) -> list[Companion]:
     with path.open(encoding="utf-8", newline="") as f:
         rows = list(csv.DictReader(f))
-    return [
-        Companion(**{key: (value.strip() or None) for key, value in row.items()})
-        for row in rows
-    ]
+    return [Companion(**{key: (value.strip() or None) for key, value in row.items()}) for row in rows]
 
 
 def load_knowledge_base(directory: Path | None = None) -> KnowledgeBase:
@@ -97,9 +94,11 @@ def completeness_report(kb: KnowledgeBase) -> str:
     lines.append(f"Complete drafts awaiting review ({len(ready)}): {', '.join(ready)}")
     lines.append(f"Guidelines: {len(kb.guidelines)}")
     evidence = Counter(c.evidence for c in kb.companions)
+    withheld = [c for c in kb.companions if not kb.is_usable(c)]
     lines.append(
         f"Companion relations: {len(kb.companions)} | "
         + " | ".join(f"{e}: {n}" for e, n in sorted(evidence.items()))
+        + f" | withheld from outputs (D6): {len(withheld)}"
     )
     without = [c for c in kb.crops if not kb.companions_of(c)]
     if without:
@@ -107,4 +106,3 @@ def completeness_report(kb: KnowledgeBase) -> str:
     unverified = [s.id for s in kb.sources.values() if not s.verified]
     lines.append(f"Unverified sources ({len(unverified)}): {', '.join(unverified)}")
     return "\n".join(lines)
-

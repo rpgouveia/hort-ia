@@ -42,7 +42,7 @@ def talk(dialogue, *messages, **profile):
 def test_m1_what_to_plant(dialogue):
     (r,) = talk(dialogue, "o que da pra plantar agora?")
     assert (r.decision, r.intent) == ("answer", "what_to_plant")
-    assert r.text.startswith("Em novembro, no Sul, dá para plantar: batata, manjericão")
+    assert r.text.startswith("Em novembro, no Sul, dá para plantar: batata, brócolis, manjericão")
 
 
 def test_m2_market_price_uses_the_state_of_the_profile(dialogue):
@@ -54,7 +54,7 @@ def test_m2_market_price_uses_the_state_of_the_profile(dialogue):
 def test_m3_rotation(dialogue):
     (r,) = talk(dialogue, "o que planto depois do repolho?")
     assert (r.decision, r.intent) == ("answer", "companion_planting") and r.entities.rotation
-    assert r.text.startswith("Depois de repolho, não plante no mesmo canteiro: couve, rabanete")
+    assert r.text.startswith("Depois de repolho, não plante no mesmo canteiro: brócolis, couve, rabanete")
 
 
 def test_m4_container(dialogue):
