@@ -21,4 +21,94 @@
 
 version: 1
 language: pt-BR
-utterances: []
+utterances:
+  - text: "quais plantas fazer consórcio?"
+    intent: companion_planting
+    origin: team
+    author: renato
+    collected_from: agronomo
+    notes: "ensaio 13/11/2026; sem cultura citada"
+  - text: "qual substrato usar para o morango?"
+    intent: crop_care
+    origin: team
+    author: renato
+    collected_from: agronomo
+    notes: "ensaio 13/11/2026; a base não tem substrato: resposta certa é não sei + encaminhamento"
+  - text: "quais os manejos da batata?"
+    intent: crop_care
+    origin: team
+    author: renato
+    collected_from: agronomo
+    notes: "ensaio 13/11/2026; manejo no sentido geral de cultivo, não só de pragas"
+  - text: "Quais os cuidados da batata?"
+    intent: crop_care
+    origin: team
+    author: renato
+    collected_from: agronomo
+    notes: "ensaio 13/11/2026"
+  - text: "Cuidados"
+    intent: crop_care
+    origin: team
+    author: renato
+    collected_from: agronomo
+    notes: "ensaio 13/11/2026; mensagem solta, sem cultura: o esperado é perguntar a planta"
+  - text: "quais os manejos do tomate?"
+    intent: crop_care
+    origin: team
+    author: renato
+    collected_from: agronomo
+    notes: "ensaio 13/11/2026; manejo no sentido geral de cultivo, não só de pragas"
+  - text: "quais os cuidados com o tomate?"
+    intent: crop_care
+    origin: team
+    author: renato
+    collected_from: agronomo
+    notes: "ensaio 13/11/2026"
+  - text: "qual o espaçamento do manjericão?"
+    intent: crop_care
+    origin: team
+    author: renato
+    collected_from: agronomo
+    notes: "ensaio 13/11/2026"
+  - text: "qual o melhor solo para cenoura?"
+    intent: crop_care
+    origin: team
+    author: renato
+    collected_from: agronomo
+    notes: "ensaio 13/11/2026; solo/pH: a base tem soil_ph, mas a resposta de cuidados ainda não usa"
+  - text: "solo para cenoura?"
+    intent: crop_care
+    origin: team
+    author: renato
+    collected_from: agronomo
+    notes: "ensaio 13/11/2026; solo/pH: a base tem soil_ph, mas a resposta de cuidados ainda não usa"
+  - text: "pH do solo para hortelã?"
+    intent: crop_care
+    origin: team
+    author: renato
+    collected_from: agronomo
+    notes: "ensaio 13/11/2026; hortelã sem pH na base (lacuna registrada pela ATD)"
+  - text: "quais as pragas do morango?"
+    intent: pest_disease
+    origin: team
+    author: renato
+    collected_from: agronomo
+    notes: "ensaio 13/11/2026"
+  - text: "doenças da couve?"
+    intent: pest_disease
+    origin: team
+    author: renato
+    collected_from: agronomo
+    notes: "ensaio 13/11/2026"
+  - text: "Minha plantação de alface está com um bichinho estranho preto na folha e o pé está se desenvolvendo muito devagar. já adubei bastante e não resolveu. O que eu devo fazer para melhorar o crescimento do alface?"
+    intent: pest_disease
+    origin: team
+    author: renato
+    collected_from: outro
+    notes: "ensaio 13/11/2026; duas intenções (praga e crescimento); a praga é o que a base pode responder; participante sem formação agronômica no papel de usuário, não leu o intents.yaml"
+  - text: "De quanto em quanto tempo devo regar a cenoura?"
+    intent: crop_care
+    origin: team
+    author: renato
+    collected_from: outro
+    notes: "ensaio 13/11/2026; participante sem formação agronômica no papel de usuário, não leu o intents.yaml"
