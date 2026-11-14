@@ -45,7 +45,7 @@ REFERENCE = [
     ("qual a epoca de plantar alface?", "planting_time", ["alface"], {}),  # C4, 1st turn
     ("e a rega dela?", "crop_care", [], {"care_aspect": "watering"}),  # C4, 2nd turn: crop from the context
     ("a alface ta amarelando", "pest_disease", ["alface"], {}),  # C5
-    ("tem como plantar morango aqui?", "crop_care", ["morango"], {}),  # C6
+    ("tem como plantar morango aqui?", "planting_time", ["morango"], {}),  # C6 (crop_care before 14/11/2026)
     ("alface aguenta frio?", "planting_time", ["alface"], {}),  # C7
     ("como crio galinha?", "fallback", [], {}),  # C8: the typo match to "salsinha" is dropped
 ]
@@ -66,7 +66,7 @@ def test_reference_messages(nlu, message, intent, crops, extra):
         ("o que da pra plantar agora?", "answer"),  # M1, 0.99
         ("e a rega dela?", "answer"),  # C4, 0.56
         ("a alface ta amarelando", "confirm"),  # C5, 0.43
-        ("tem como plantar morango aqui?", "confirm"),  # C6, 0.33
+        ("tem como plantar morango aqui?", "answer"),  # C6, 0.57 (crop_care 0.33 before 14/11/2026)
         ("alface aguenta frio?", "low"),  # C7, 0.27
     ],
 )
@@ -254,12 +254,48 @@ def test_month_inside_a_place_name_is_not_a_month(entities, text, month):
     assert entities.month(text) == month and location is not None and location.uf == "RJ"
 
 
+# --- vocabulary of care and pests (UAT rehearsal, 13/11/2026) ---------------------------------
+
+KNOWN_LIMIT = pytest.mark.xfail(strict=True, reason="help 0.32: known limit, not fixed by training on this probe")
+VOCABULARY_PROBES = [
+    # Written apart from the training examples (other construction, other crop); none is in intents.yaml.
+    ("que cuidados a beterraba precisa?", "crop_care"),
+    ("como é o manejo do coentro?", "crop_care"),
+    pytest.param("que tipo de solo o espinafre prefere?", "crop_care", marks=KNOWN_LIMIT),
+    ("qual o ph ideal pra cultivar morango?", "crop_care"),
+    ("qual substrato usar pra salsinha no vaso?", "crop_care"),
+    ("preciso corrigir a acidez da terra antes do repolho?", "crop_care"),
+    ("como cuidar da batata no canteiro?", "crop_care"),  # was market_price territory: batata
+    ("quais pragas costumam atacar o pimentão?", "pest_disease"),
+    ("a batata pega muita doença?", "pest_disease"),
+    ("como controlar inseto na rúcula?", "pest_disease"),
+    ("o que ataca o pé de abobrinha?", "pest_disease"),
+    ("doença do morango, como evitar?", "pest_disease"),
+    ("quando planto beterraba pra colher no inverno?", "planting_time"),
+    ("em que mês semear cenoura para colher em dezembro?", "planting_time"),
+    ("quanto tá a batata no ceasa?", "market_price"),  # controls: price questions stay price questions
+    ("o quilo da cenoura tá quanto no ceasa?", "market_price"),
+]
+
+
+@pytest.mark.parametrize(("message", "intent"), VOCABULARY_PROBES)
+def test_vocabulary_probes(nlu, message, intent):
+    assert nlu.interpret(message).intent == intent
+
+
+def test_vocabulary_probes_are_not_in_the_training_data():
+    trained = {normalize(t) for t in load_intents().texts_and_labels()[0]}
+    probes = [p.values[0] if hasattr(p, "values") else p[0] for p in VOCABULARY_PROBES]
+    assert not [m for m in probes if normalize(m) in trained]
+
+
 # --- classifier ------------------------------------------------------------------------------
 
 
 def test_classifier_reproduces_the_study():
-    """Model E with the one-way entity rule: 77.2% in the 9.4.1-3 table (mean of 5 partitions).
-    Partition 0 alone is checked here, against the range of the 5 partitions."""
+    """Model E with the one-way entity rule. The range comes from the training data of 14/11/2026 (334
+    examples, with the care and pest vocabulary): 5 partitions from 72.2% to 75.2%, mean 73.6%. Partition 0
+    alone is checked here, against that range."""
     texts, labels = load_intents().texts_and_labels()
     y = np.array(labels)
     entities = EntityExtractor(load_knowledge_base())
@@ -267,7 +303,7 @@ def test_classifier_reproduces_the_study():
     for i, text in enumerate(texts):
         if pred[i] == "what_to_plant" and entities.crops(text).ids:
             pred[i] = "planting_time"
-    assert 0.74 <= accuracy_score(y, pred) <= 0.81
+    assert 0.72 <= accuracy_score(y, pred) <= 0.76
 
 
 def test_same_message_same_result(nlu):

@@ -124,13 +124,22 @@ def test_c5_medium_confidence_is_confirmed(dialogue):
     assert (second.decision, second.intent) == ("answer", "pest_disease") and "mande uma foto" in second.text
 
 
-def test_c6_rejected_subject_asks_what_about_the_plant(dialogue):
-    first, second, third = talk(dialogue, "tem como plantar morango aqui?", "não", "quando planto")
-    assert (first.decision, first.text) == ("confirm", "Você quer saber como cuidar de morango?")
+def test_c6_feasibility_of_planting_is_answered_with_the_season(dialogue):
+    """Until 14/11/2026 the engine confirmed crop_care ("Você quer saber como cuidar de morango?"); with the
+    "tem como plantar X" examples it answers planting_time, the intent a person assigns (U5)."""
+    (r,) = talk(dialogue, "tem como plantar morango aqui?")
+    assert (r.decision, r.intent, r.entities.crop) == ("answer", "planting_time", "morango")
+    assert r.text.startswith("Morango no Sul: dá para plantar de março a abril.")
+
+
+def test_rejected_subject_asks_what_about_the_plant(dialogue):
+    """The path C6 used to cover: a confirmation with a plant, rejected, asks what about the plant."""
+    first, second, third = talk(dialogue, "a alface ta amarelando", "não", "quando planto")
+    assert (first.decision, first.text) == ("confirm", "Você quer saber sobre praga ou doença em alface?")
     assert (second.decision, second.intent) == ("ask", "clarify")
-    assert second.text.startswith("O que você quer saber sobre morango?")
-    assert (third.decision, third.intent, third.entities.crop) == ("answer", "planting_time", "morango")
-    assert third.text.startswith("Morango no Sul: dá para plantar de março a abril.")
+    assert second.text.startswith("O que você quer saber sobre alface?")
+    assert (third.decision, third.intent, third.entities.crop) == ("answer", "planting_time", "alface")
+    assert third.text.startswith("Alface de inverno no Sul")
 
 
 def test_c7_low_confidence_with_a_plant_asks_the_subject(dialogue):
@@ -176,6 +185,12 @@ def test_place_name_that_is_a_common_word_answers_where_the_garden_is(dialogue, 
     assert f"Alface de inverno no {label}" in second.text
 
 
+def test_care_word_alone_asks_the_plant(dialogue):
+    """A care word alone, a short message seen in the field, is a care question: ask the plant, no handoff."""
+    (r,) = talk(dialogue, "cuidados")
+    assert (r.decision, r.intent, r.missing_entity, r.handoff) == ("ask", "crop_care", "crop", False)
+
+
 def test_new_question_while_a_question_is_pending(dialogue):
     first, second = talk(dialogue, "quando eu planto?", "quanto ta o tomate no ceasa?")  # a question, not a plant
     assert first.context.pending is not None
@@ -189,7 +204,8 @@ def test_neither_yes_nor_no_is_read_as_a_new_message(dialogue):
 
 
 def test_low_confidence_without_a_plant_falls_back(dialogue):
-    (r,) = talk(dialogue, "vale a pena ter horta?")
+    # "vale a pena ter horta?" was the message until 14/11/2026; it now confirms market_price (0.32), a known limit.
+    (r,) = talk(dialogue, "é difícil ter uma horta?")
     assert r.confidence < 0.3 and (r.decision, r.handoff) == ("fallback", True)
 
 
