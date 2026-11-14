@@ -20,6 +20,7 @@ What to do with the result (confirm, ask, answer, fall back) is the dialogue man
 from __future__ import annotations
 
 import re
+import unicodedata
 from dataclasses import dataclass
 from functools import lru_cache
 
@@ -91,6 +92,27 @@ REGIONS = {
     "norte": Region.NORTE, "nordeste": Region.NORDESTE, "centro oeste": Region.CENTRO_OESTE,
     "sudeste": Region.SUDESTE, "sul": Region.SUL,
 }  # fmt: skip
+# Place names that are also common words. Missing a place costs nothing, because the profile is used;
+# reading a place that was not named answers with the season of another region (9.4.2-1, section 2).
+# So these names count only in the context given here, a regex over the normalized text, or as the
+# whole answer to "Em qual cidade fica a sua horta?" (`short_reply`, see `EntityExtractor.location`).
+AMBIGUOUS_PLACES = {
+    "para": r"estado do para",  # the preposition; "Pará" with the accent counts anywhere (ACCENTED_PLACES)
+    "acre": r"(?:no|do|ao) acre",  # the unit of area: "um acre", "por acre", "acres"
+    "mato grosso": r"(?:em|no|do|ao) mato grosso",  # thick weeds: "tem um mato grosso no canteiro"
+    "natal": r"em natal",  # Christmas: "no natal", "pro natal", "árvore de natal"
+    "campo grande": r"em campo grande",  # a big field: "tenho um campo grande atrás de casa"
+    "belem": r"em belem",  # the "estrela-de-belém" plant, the nativity scene ("presépio de Belém")
+    "boa vista": r"em boa vista",  # a good view: "a varanda tem uma boa vista"
+    "palmas": r"em palmas",  # the "palma" cactus, the "palma-de-santa-rita" flower, palm leaves, applause
+    "vitoria": r"em vitoria(?! regia)",  # victory, the first name, the "vitória-régia" water lily
+    "norte": r"(?:no|do|regiao) norte",  # where the sun comes from: "canteiro virado para o norte"
+    "sul": r"(?:no|do|regiao) sul",  # idem: "a horta pega sol do lado sul"
+}
+ACCENTED_PLACES = {"para": "pará"}  # written with the accent, the name can only be the place
+SHORT_REPLY_LEAD = r"(?:(?:moro|fico|sou|aqui|aqui e|e) )?(?:(?:em|no|do|de) )?"  # "moro em", "sou do", "é"
+# State and capital names with a month in them ("rio de janeiro"): that month is not a month.
+PLACES_WITH_A_MONTH = [name for name in (*STATES, *CAPITALS) if set(name.split()) & set(MONTHS)]
 
 
 def _contains(text: str, term: str) -> bool:
@@ -100,6 +122,19 @@ def _contains(text: str, term: str) -> bool:
 def _flat(text: str) -> str:
     """`normalize`, with hyphens kept apart so 'centro-oeste' matches 'centro oeste'."""
     return normalize(text.replace("-", " "))
+
+
+def _names_place(text: str, flat: str, name: str, short_reply: bool) -> bool:
+    """Whether the message names this place; names in AMBIGUOUS_PLACES need their context."""
+    context = AMBIGUOUS_PLACES.get(name)
+    if context is None:
+        return _contains(flat, name)
+    if short_reply and re.fullmatch(SHORT_REPLY_LEAD + re.escape(name), flat):
+        return True
+    accented = ACCENTED_PLACES.get(name)
+    if accented and _contains(unicodedata.normalize("NFC", text).lower(), accented):
+        return True
+    return re.search(rf"(?<!\w)(?:{context})(?!\w)", flat) is not None
 
 
 def levenshtein(a: str, b: str) -> int:
@@ -204,7 +239,10 @@ class EntityExtractor:
 
     @staticmethod
     def month(text: str) -> int | None:
+        """First month named in the message. A month inside a place name ("rio de janeiro") is not one."""
         text = _flat(text)
+        for place in PLACES_WITH_A_MONTH:
+            text = re.sub(rf"(?<!\w){re.escape(place)}(?!\w)", lambda m: " " * len(m.group()), text)
         hits = [(m.start(), n) for name, n in MONTHS.items() for m in re.finditer(rf"(?<!\w){name}(?!\w)", text)]
         return min(hits)[1] if hits else None
 
@@ -231,22 +269,28 @@ class EntityExtractor:
         """State or capital name, UF abbreviation, or region name.
 
         UF abbreviations collide with common words ("se", "to", "es", "ma", "pa"), so they count only
-        when written in upper case ("PR") or, with `short_reply`, when the whole message is the
-        abbreviation, as in the answer to "Em qual cidade fica a sua horta?".
+        when written in upper case ("PR") in a message that is not all in upper case ("SE CHOVER",
+        "PE DE ALFACE") or, with `short_reply`, when the whole message is the abbreviation, as in the
+        answer to "Em qual cidade fica a sua horta?".
+
+        Names that collide with common words ("para", "natal", "acre", "campo grande") count only in
+        the context listed in AMBIGUOUS_PLACES ("no Pará", "moro em Natal", "sou do Acre"), or with
+        `short_reply` when the message is just the place ("natal", "moro em natal").
         """
         flat = _flat(text)
         for names in (CAPITALS, STATES):
             for name in sorted(names, key=len, reverse=True):
-                if _contains(flat, name):
+                if _names_place(text, flat, name, short_reply):
                     uf = names[name]
                     return Location(region=region_from_uf(uf), uf=uf)
-        upper = re.findall(r"(?<![A-Za-z])([A-Z]{2})(?![A-Za-z])", text)
+        mixed_case = any(ch.islower() for ch in text)
+        upper = re.findall(r"(?<![A-Za-z])([A-Z]{2})(?![A-Za-z])", text) if mixed_case else []
         candidates = upper + ([flat.upper()] if short_reply and len(flat) == 2 else [])
         for uf in candidates:
             if uf in CODE_BY_UF:
                 return Location(region=region_from_uf(uf), uf=uf)
         for name in sorted(REGIONS, key=len, reverse=True):
-            if _contains(flat, name):
+            if _names_place(text, flat, name, short_reply):
                 return Location(region=REGIONS[name])
         return None
 

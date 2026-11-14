@@ -164,6 +164,18 @@ def test_place_named_in_the_message_wins_over_the_profile(dialogue):
     assert r.entities.region == "nordeste" and "Nordeste" in r.text
 
 
+@pytest.mark.parametrize(
+    ("reply", "region", "label"),
+    [("natal", "nordeste", "Nordeste"), ("moro em natal", "nordeste", "Nordeste"), ("para", "norte", "Norte"),
+     ("Pará", "norte", "Norte"), ("campo grande", "centro_oeste", "Centro-Oeste")],
+)  # fmt: skip
+def test_place_name_that_is_a_common_word_answers_where_the_garden_is(dialogue, reply, region, label):
+    first, second = talk(dialogue, "qual a epoca de plantar alface?", reply, ibge_code=None)
+    assert first.missing_entity == "location"
+    assert (second.decision, second.entities.region) == ("answer", region)
+    assert f"Alface de inverno no {label}" in second.text
+
+
 def test_new_question_while_a_question_is_pending(dialogue):
     first, second = talk(dialogue, "quando eu planto?", "quanto ta o tomate no ceasa?")  # a question, not a plant
     assert first.context.pending is not None
@@ -291,6 +303,42 @@ def test_route_contract_and_context_round_trip(client):
 )
 def test_route_rejects_invalid_requests(client, payload):
     assert client.post("/nlp/message", json=payload).status_code == 422
+
+
+@pytest.mark.parametrize(
+    ("text", "expected"),
+    [
+        ("o que dá para plantar agora?", "Em novembro, no Sul, dá para plantar"),
+        ("o que dá pra plantar agora?", "Em novembro, no Sul, dá para plantar"),
+        ("quando plantar alface para colher?", "Alface de inverno no Sul"),
+        ("quando plantar tomate para colher no natal?", "Tomate no Sul"),
+        ("o que plantar pro natal?", "Em novembro, no Sul, dá para plantar"),
+        ("quero plantar um acre de alface, quando planto?", "Alface de inverno no Sul"),
+        ("o que planto em um campo grande?", "Em novembro, no Sul, dá para plantar"),
+        ("quanto tá o tomate para vender?", "CEASA/PR"),
+    ],
+)
+def test_route_does_not_read_common_words_as_places(client, text, expected):
+    """Messages of the UAT rehearsal (13/11/2026): "para", "natal", "acre" and "campo grande" were read
+    as places and answered with the season of another region, without confirmation."""
+    data = client.post("/nlp/message", json={"text": text, "ibge_code": CURITIBA, "month": 11}).json()
+    assert data["decision"] == "answer" and (data["entities"]["region"], data["entities"]["uf"]) == ("sul", "PR")
+    assert expected in data["text"], data["text"]
+
+
+@pytest.mark.parametrize(
+    ("text", "expected"),
+    [
+        ("o que dá pra plantar no rio de janeiro?", "Em novembro, no Sudeste, dá para plantar"),
+        ("moro no rio de janeiro, quando planto alface?", "Agora em novembro"),
+    ],
+)
+def test_route_does_not_read_the_month_in_a_place_name(client, text, expected):
+    """The "janeiro" of "rio de janeiro" is not January: the month stays the profile's (UAT rehearsal, 13/11/2026)."""
+    data = client.post("/nlp/message", json={"text": text, "ibge_code": CURITIBA, "month": 11}).json()
+    assert data["decision"] == "answer" and data["entities"]["month"] == 11
+    assert (data["entities"]["region"], data["entities"]["uf"]) == ("sudeste", "RJ")
+    assert expected in data["text"] and "Sudeste" in data["text"], data["text"]
 
 
 def test_route_without_profile_still_answers(client):
