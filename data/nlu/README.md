@@ -32,7 +32,9 @@ uv run python scripts/evaluate_nlu_baseline.py
 
 Casos que confundem, e a decisão tomada para cada um:
 
-- **Colheita** ("quando colho a alface?") é `crop_care`, não `planting_time`.
+- **Colheita** ("quando colho a alface?") é `crop_care`, não `planting_time`. Já "quando planto X
+  para colher?" ("quando planto beterraba pra colher no inverno?") é `planting_time`: a pergunta é a
+  época de plantar, e a colheita só diz para quando.
 - **Rotação** ("o que planto no lugar do repolho?") é `companion_planting`: é respondida pela
   diretriz de rotação por família.
 - **Cultura específica × sugestão**: com cultura citada é `planting_time`; sem cultura é
@@ -72,6 +74,19 @@ frases inventadas.
 Os testes (`tests/test_nlu_dataset.py`) barram frase repetida entre treino e teste, intenção
 desconhecida, frase duplicada entre intenções e intenção com menos de 30 ou mais de 50 exemplos.
 
+**Por que de 30 a 50 exemplos por intenção.**
+
+- **Mínimo de 30.** Um classificador TF-IDF precisa de dezenas de frases por intenção (estudo de
+  9.4.1-1) para não ficar preso a poucas construções. A validação cruzada de 5 partes deixa cerca de 6
+  frases por intenção em cada parte de teste, o mínimo para a medida não oscilar com uma frase só. E é
+  o espaço para os três estilos (padrão, informal, com erro de digitação) espalhados pelas 20 culturas.
+- **Máximo de 50.** Mantém as intenções equilibradas: a regressão logística favorece as classes com
+  mais exemplos, e com esse teto a razão entre a maior e a menor fica abaixo de 1,7 para 1. Também freia
+  o rascunho, que sem teto tende a crescer com variações da mesma frase, o que infla a validação cruzada
+  sem ensinar vocabulário novo.
+- **Quando revisar.** Com perguntas reais em volume (mais de 10 por intenção no teste, regra 2), o teto
+  pode subir, desde que o equilíbrio entre intenções se mantenha. Mudar o limite é decisão da equipe.
+
 ## Linha de base (out/2026, rascunho, validação cruzada)
 
 TF-IDF de n-gramas de caracteres + regressão logística: **73% de acurácia** em validação cruzada
@@ -87,6 +102,42 @@ As confusões mais frequentes orientam a abordagem do motor (9.4.1-3):
 - `fallback` é a classe mais fraca: fora do escopo é tudo que não é o resto, sem padrão próprio.
   Um limiar de confiança no classificador tende a funcionar melhor do que tratá-la como classe comum.
 - `help` × `fallback`: perguntas sobre o uso do aplicativo ficam na fronteira entre as duas.
+
+### Vocabulário de cuidados e pragas (14/11/2026)
+
+No ensaio do roteiro de UAT (13/11/2026), as palavras de quem é da área não apareciam no treino:
+"cuidado", "manejo", "solo", "pH" e "substrato" em nenhum exemplo, e "praga" e "doença" em três.
+Sem elas, o modelo decidia pelo nome da cultura: batata estava em 6 exemplos de `market_price`, e uma
+pergunta de cuidados com batata virava preço. O treino ganhou exemplos com essas palavras, escritos a
+partir de uma lista de palavras, com outras culturas e construções, sem abrir o conjunto de teste.
+Também foram retirados exemplos redundantes (a mesma construção com outra cultura) e as culturas foram
+espalhadas: em `market_price`, `companion_planting` e `pest_disease`, o tomate deixou de concentrar os
+exemplos.
+
+**Validação cruzada:** 73,6% (5 partes, regra de entidade em um só sentido, média de 5 partições), sobre
+334 exemplos. Antes eram 76,5% sobre 323. A queda não é piora. Os exemplos retirados eram os
+redundantes, que a validação cruzada acerta com facilidade porque há outro quase igual no treino. E os
+que entraram são mais difíceis: palavras novas, culturas trocadas para o modelo não decidir pelo nome, e
+frases curtas como "dicas de cuidado?". As sondas de vocabulário, frases que não estão no treino
+(`tests/test_nlu_interpreter.py`), passaram de 9 para 15 acertos em 16.
+
+**Marcador de cultura (avaliado e adiado).** A hipótese era trocar o nome da cultura por um marcador fixo
+("cultura") só na entrada do classificador, para tirar o viés de cultura pela raiz. Passou no critério
+de adoção (validação cruzada de 73,6% para 78,4%, nenhuma intenção caindo mais de 5 pontos; 74,9% para
+80,1% numa versão anterior do treino), mas foi adiado. Com o marcador, a palavra "cultura" ganha peso
+para as intenções com planta, e as mensagens sem cultura, sem esse peso, pendem para `what_to_plant` e
+`help`. Num caso de referência isso criou uma resposta direta errada: "planta aguenta frio?" passou a
+responder a lista do que plantar. Também "e a rega dela?" deixou de ser respondida direto. Reavaliar
+depois da UAT, com perguntas reais.
+
+**Limites conhecidos** do treino atual, registrados nos testes:
+
+- "vale a pena ter horta?" confirma `market_price` (0,32), em vez de encaminhar. Não é resposta
+  direta, e o treino não foi ajustado para essa frase.
+- A sonda "que tipo de solo o espinafre prefere?" fica em `help` (0,32). Ela é marcada como falha
+  esperada no teste, e o treino não foi ajustado para ela.
+- "minha vizinha tem horta" recebe uma resposta direta errada (`pest_disease` 0,55). Já acontecia antes
+  do vocabulário novo (0,64), e o treino não foi ajustado para essa frase.
 
 ## Interpretação das mensagens (9.4.1-4)
 

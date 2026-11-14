@@ -26,7 +26,7 @@ from ..core.sources import ID_PATTERN
 # src/hort_ia/nlp/dataset.py -> repository root is parents[3]
 DEFAULT_NLU_DIR = Path(__file__).resolve().parents[3] / "data" / "nlu"
 
-MIN_EXAMPLES, MAX_EXAMPLES = 30, 50
+MIN_EXAMPLES, MAX_EXAMPLES = 30, 50  # why: data/nlu/README.md, "Por que de 30 a 50 exemplos por intenção"
 
 
 def nlu_dir() -> Path:
