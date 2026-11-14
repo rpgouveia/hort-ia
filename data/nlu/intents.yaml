@@ -3,6 +3,8 @@
 # Status: FIRST DRAFT (out/2026), written to be reviewed by the team and replaced or
 # extended with real questions collected from agronomists and garden coordinators.
 # Every example carries `origin`, so drafted examples can be told apart from real ones.
+# Care and pest vocabulary (cuidado, manejo, solo, pH, substrato, praga, doença) was extended after
+# the UAT rehearsal of 13/11/2026, from a list of words, without copying any test question.
 #
 # Rules (enforced by tests/test_nlu_dataset.py):
 # - 30 to 50 examples per intent; no duplicates after normalization (case, accents, punctuation).
@@ -38,7 +40,6 @@ intents:
       - {text: "tá na época de plantar pimentão?", origin: draft}
       - {text: "já dá pra plantar abobrinha?", origin: draft}
       - {text: "ainda dá tempo de plantar rúcula esse mês?", origin: draft}
-      - {text: "quando planto coentro?", origin: draft}
       - {text: "qual a época do espinafre?", origin: draft}
       - {text: "qnd planta pimenta", origin: draft}
       - {text: "quando começa a época do repolho?", origin: draft}
@@ -47,14 +48,10 @@ intents:
       - {text: "qual a época certa pra semear rabanete?", origin: draft}
       - {text: "em que mês se planta batata?", origin: draft}
       - {text: "manjericão se planta em que época do ano?", origin: draft}
-      - {text: "é época de plantar alface agora?", origin: draft}
-      - {text: "qnd planto tomate", origin: draft}
       - {text: "qndo eh epoca d cenoura", origin: draft}
       - {text: "quando planta couve manteiga", origin: draft}
-      - {text: "epoca de plantar morango", origin: draft}
       - {text: "mes certo pra plantar beterraba", origin: draft}
       - {text: "tomate planta quando?", origin: draft}
-      - {text: "posso plantar abobrinha em agosto?", origin: draft}
       - {text: "dá pra plantar pimentão no frio?", origin: draft}
       - {text: "alface de verão planta quando?", origin: draft}
       - {text: "plantar repolho em março é bom?", origin: draft}
@@ -62,7 +59,6 @@ intents:
       - {text: "qual a temporada da rúcula?", origin: draft}
       - {text: "quero plantar cenoura, quando começo?", origin: draft}
       - {text: "to pensando em plantar tomate cereja, qual o mes bom?", origin: draft}
-      - {text: "quando q planta cebolinha", origin: draft}
       - {text: "qnd é a epoca do rabanete", origin: draft}
       - {text: "plantar batata agora pode?", origin: draft}
       - {text: "outubro é bom pra plantar manjericão?", origin: draft}
@@ -72,6 +68,18 @@ intents:
       - {text: "tomatte planta em q mes", origin: draft}
       - {text: "qaundo plantar alfase", origin: draft}
       - {text: "quando é a epoca de plantar mandioca?", origin: draft}
+      - {text: "quando planto abobrinha pra colher no verão?", origin: draft}
+      - {text: "quando eu planto couve para colher em julho?", origin: draft}
+      - {text: "qnd planta rabanete pra colher logo", origin: draft}
+      - {text: "que mês plantar morango para colher no fim do ano?", origin: draft}
+      - {text: "pra colher tomate em dezembro, quando planto?", origin: draft}
+      - {text: "quero colher brócolis no inverno, quando devo plantar?", origin: draft}
+      - {text: "tem como plantar pimentão nessa época?", origin: draft}
+      - {text: "será que dá pra plantar couve agora?", origin: draft}
+      - {text: "consigo plantar coentro agora?", origin: draft}
+      - {text: "tem como planta alface em maio", origin: draft}
+      - {text: "sera q da pra plantar rucula agr", origin: draft}
+      - {text: "consigo plantar espinafre no outono?", origin: draft}
 
   - name: what_to_plant
     description: User asks for suggestions of WHAT to plant (now, in a month, season or space), without a specific crop.
@@ -131,11 +139,8 @@ intents:
       - {text: "de quanto em quanto tempo rego a alface?", origin: draft}
       - {text: "quantas vezes por dia molho a horta?", origin: draft}
       - {text: "qual a distância entre as mudas de alface?", origin: draft}
-      - {text: "quanto espaço deixo entre um pé de couve e outro?", origin: draft}
-      - {text: "quanto tempo demora pra colher cenoura?", origin: draft}
       - {text: "em quantos dias a rúcula fica pronta?", origin: draft}
       - {text: "quando colho o rabanete?", origin: draft}
-      - {text: "posso plantar tomate em vaso?", origin: draft}
       - {text: "dá pra plantar cenoura em vaso?", origin: draft}
       - {text: "alface cresce em apartamento?", origin: draft}
       - {text: "qual o tamanho do vaso pro pimentão?", origin: draft}
@@ -152,15 +157,9 @@ intents:
       - {text: "quanto tempo leva pra salsa nascer?", origin: draft}
       - {text: "tem que regar todo dia?", origin: draft}
       - {text: "rego de manhã ou de tarde?", origin: draft}
-      - {text: "qnto tempo pra colher alface", origin: draft}
-      - {text: "de qnto em qnto tempo molha o tomate", origin: draft}
-      - {text: "qual distancia entre as covas de abobrinha", origin: draft}
       - {text: "quanto rega o manjericao", origin: draft}
-      - {text: "pode plantar morango em vaso?", origin: draft}
       - {text: "cebolinha da em vaso?", origin: draft}
       - {text: "quando ta pronto pra colher o repolho?", origin: draft}
-      - {text: "como sei que a beterraba ta boa pra colher?", origin: draft}
-      - {text: "quantos dias pro pimentão produzir", origin: draft}
       - {text: "como planto batata em casa?", origin: draft}
       - {text: "qual a profundidade pra semear cenoura?", origin: draft}
       - {text: "precisa de adubo pra alface?", origin: draft}
@@ -170,8 +169,17 @@ intents:
       - {text: "rego muito ou pouco a rúcula?", origin: draft}
       - {text: "qto tempo ate colher tomate cereja", origin: draft}
       - {text: "espassamento do repolho", origin: draft}
-      - {text: "quantos litro de agua por canteiro?", origin: draft}
-      - {text: "como plantar rabanete", origin: draft}
+      - {text: "dicas de cuidado?", origin: draft}
+      - {text: "quais os cuidados com a cenoura?", origin: draft}
+      - {text: "cuidado com repolho como faz", origin: draft}
+      - {text: "manejo da batata", origin: draft}
+      - {text: "como manejar o canteiro de alface?", origin: draft}
+      - {text: "como preparar o solo pra abobrinha?", origin: draft}
+      - {text: "ph da terra pra hortelã", origin: draft}
+      - {text: "precisa fazer correção com calcário no canteiro da pimenta?", origin: draft}
+      - {text: "substrato bom pra vaso de manjericao", origin: draft}
+      - {text: "qual adubo usar no brócolis?", origin: draft}
+      - {text: "qnd fazer adubaçao do pimentao", origin: draft}
 
   - name: companion_planting
     description: User asks which crops go well (or badly) together, plants that protect the garden, or what to plant after a crop (rotation).
@@ -187,10 +195,10 @@ intents:
       - {text: "pode plantar cenoura do lado da cebolinha?", origin: draft}
       - {text: "morango e alface combinam?", origin: draft}
       - {text: "o que planto perto do pimentão?", origin: draft}
-      - {text: "quais plantas ajudam o tomate?", origin: draft}
+      - {text: "quais plantas ajudam a abobrinha?", origin: draft}
       - {text: "tem planta que espanta praga se plantar junto?", origin: draft}
       - {text: "que planta afasta inseto da horta?", origin: draft}
-      - {text: "posso misturar couve com tomate no mesmo canteiro?", origin: draft}
+      - {text: "posso misturar couve com cenoura no mesmo canteiro?", origin: draft}
       - {text: "o que é bom plantar ao lado da beterraba?", origin: draft}
       - {text: "qual planta não combina com morango?", origin: draft}
       - {text: "alface e rabanete juntos dá certo?", origin: draft}
@@ -210,13 +218,13 @@ intents:
       - {text: "o que evitar plantar junto da couve?", origin: draft}
       - {text: "posso plantar tudo misturado no mesmo canteiro?", origin: draft}
       - {text: "cebolinha protege as outras plantas?", origin: draft}
-      - {text: "quero fazer um canteiro com tomate, o que coloco junto?", origin: draft}
+      - {text: "quero fazer um canteiro com pimenta, o que coloco junto?", origin: draft}
       - {text: "tem alguma planta que atrai bicho bom pra horta?", origin: draft}
       - {text: "plantas amigas da cenoura", origin: draft}
       - {text: "quem é inimigo do morango na horta?", origin: draft}
       - {text: "beterraba e repolho combinam?", origin: draft}
       - {text: "depois de colher o repolho, o que planto no lugar?", origin: draft}
-      - {text: "posso plantar tomate de novo no mesmo lugar?", origin: draft}
+      - {text: "posso plantar batata de novo no mesmo lugar?", origin: draft}
       - {text: "pimentao e tomate junto da problema?", origin: draft}
       - {text: "o que planto do lado do manjericão?", origin: draft}
       - {text: "qual planta é boa vizinha da couve?", origin: draft}
@@ -237,7 +245,6 @@ intents:
       - {text: "as folhas do tomate estão amarelando e enrolando", origin: draft}
       - {text: "o pimentão tá com umas manchas escuras", origin: draft}
       - {text: "meu morango tá com a folha queimada", origin: draft}
-      - {text: "como combater caracol na horta?", origin: draft}
       - {text: "tem gafanhoto comendo tudo, o que faço?", origin: draft}
       - {text: "a batata tá com as folhas podres", origin: draft}
       - {text: "que doença é essa no meu tomate?", origin: draft}
@@ -254,15 +261,9 @@ intents:
       - {text: "tem besouro na minha alface", origin: draft}
       - {text: "tesourinha estraga a horta?", origin: draft}
       - {text: "mancha marrom na folha da batata", origin: draft}
-      - {text: "folha do tomate com pontinhos amarelos", origin: draft}
       - {text: "ta dando bicho na minha horta", origin: draft}
       - {text: "como espantar mosquinha branca?", origin: draft}
-      - {text: "tomate com mancha preta oq é", origin: draft}
       - {text: "minha couve ta cheia de bixo", origin: draft}
-      - {text: "folha furada na alface oq faço", origin: draft}
-      - {text: "lesma acabando c tudo", origin: draft}
-      - {text: "como mata formiga sem veneno", origin: draft}
-      - {text: "pq meu tomate ta com folha amarela", origin: draft}
       - {text: "minha planta ta doente, me ajuda", origin: draft}
       - {text: "a folha ficou com umas manchas que parecem um alvo", origin: draft}
       - {text: "tem uma teia fininha embaixo da folha do tomate", origin: draft}
@@ -271,6 +272,18 @@ intents:
       - {text: "a cebolinha tá com a ponta seca", origin: draft}
       - {text: "morango com mancha roxa na folha", origin: draft}
       - {text: "a rúcula tá toda furadinha", origin: draft}
+      - {text: "pragas da couve", origin: draft}
+      - {text: "quais pragas dão na alface?", origin: draft}
+      - {text: "quais doenças dão no repolho?", origin: draft}
+      - {text: "o que ataca a cebolinha?", origin: draft}
+      - {text: "como controlar praga na horta sem veneno?", origin: draft}
+      - {text: "meu brócolis tá com doença, o que faço?", origin: draft}
+      - {text: "que inseto é esse no manjericão?", origin: draft}
+      - {text: "bicho comendo a folha da beterraba", origin: draft}
+      - {text: "praga do quiabo, como acabar?", origin: draft}
+      - {text: "doenças da cenoura", origin: draft}
+      - {text: "q doença da na pimenta", origin: draft}
+      - {text: "pragaz no espinafre", origin: draft}
 
   - name: market_price
     description: User asks about the market (Ceasa) price of produce, price trends, or how much to sell for.
@@ -283,12 +296,12 @@ intents:
       - {text: "quanto custa o quilo da batata no Ceasa?", origin: draft}
       - {text: "quanto tão pagando na cenoura?", origin: draft}
       - {text: "preço da cebola esse mês", origin: draft}
-      - {text: "o tomate tá caro ou barato?", origin: draft}
+      - {text: "o pimentão tá caro ou barato?", origin: draft}
       - {text: "por quanto eu consigo vender a alface?", origin: draft}
-      - {text: "qual o preço de referência da batata?", origin: draft}
+      - {text: "qual o preço de referência da cenoura?", origin: draft}
       - {text: "o preço do tomate subiu?", origin: draft}
       - {text: "a cenoura baixou de preço?", origin: draft}
-      - {text: "quanto vale o kg do tomate?", origin: draft}
+      - {text: "quanto vale o kg da beterraba?", origin: draft}
       - {text: "qnto ta a alface", origin: draft}
       - {text: "preco da batata", origin: draft}
       - {text: "qto custa cenoura no ceasa", origin: draft}
@@ -299,13 +312,13 @@ intents:
       - {text: "vale a pena vender tomate agora?", origin: draft}
       - {text: "qual verdura tá com o preço melhor?", origin: draft}
       - {text: "o preço da batata tá bom pra vender?", origin: draft}
-      - {text: "quanto tava o tomate mês passado?", origin: draft}
+      - {text: "quanto tava a abobrinha mês passado?", origin: draft}
       - {text: "como tá o mercado da cenoura?", origin: draft}
       - {text: "qual o valor do quilo da cebola?", origin: draft}
       - {text: "o que tá mais caro na feira agora?", origin: draft}
-      - {text: "quanto o mercado paga na alface", origin: draft}
-      - {text: "preço do tomate caiu?", origin: draft}
-      - {text: "cotação da batata hoje", origin: draft}
+      - {text: "quanto o mercado paga na cebola", origin: draft}
+      - {text: "preço do repolho caiu?", origin: draft}
+      - {text: "cotação da beterraba hoje", origin: draft}
       - {text: "quanto ta valendo a cenora", origin: draft}
       - {text: "qual preço justo pra vender alface na feira?", origin: draft}
       - {text: "quanto custa tomate no atacado?", origin: draft}

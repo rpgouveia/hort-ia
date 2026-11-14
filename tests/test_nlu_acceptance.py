@@ -38,7 +38,7 @@ REFERENCE = [  # 9.4.1-3, section 6, with the intent a person would assign
     team("qual a epoca de plantar alface?", "planting_time"),
     team("e a rega dela?", "crop_care"),
     team("a alface ta amarelando", "pest_disease"),
-    team("tem como plantar morango aqui?", "planting_time"),  # the engine confirms crop_care: wrong
+    team("tem como plantar morango aqui?", "planting_time"),  # confirmed crop_care (wrong) before 14/11/2026
     team("alface aguenta frio?", "crop_care"),  # the engine asks the subject: neither right nor wrong
     team("como crio galinha?", "fallback"),
 ]
@@ -49,10 +49,9 @@ def test_u5_metric_on_the_reference_messages(dialogue):
     assert report.n == 15
     wrong = {o.text: (o.decision, o.predicted) for o in report.outcomes if not o.correct}
     assert wrong == {
-        "tem como plantar morango aqui?": ("confirm", "crop_care"),
         "alface aguenta frio?": ("ask", None),
     }
-    assert report.correct_rate == pytest.approx(13 / 15)
+    assert report.correct_rate == pytest.approx(14 / 15)
     assert report.direct_wrong_rate == 0.0
     assert report.passes
 
