@@ -77,6 +77,25 @@ def test_i1_planting_time_answers_with_the_months_of_the_base(client, crop_id, r
     assert reply["sources"]
 
 
+@pytest.mark.parametrize("crop_id", sorted(KB.crops))
+@pytest.mark.parametrize("region", list(Region), ids=lambda r: r.value)
+def test_i1_common_words_keep_the_region_of_the_profile(client, crop_id, region):
+    """The preposition "para" is not the state of Pará (UAT rehearsal, 13/11/2026): the profile's season.
+    "quando planto rabanete para colher?" is classified as crop_care (the harvest), with no region."""
+    reply = ask(client, f"quando planto {KB.crops[crop_id].name_pt.lower()} para colher?",
+                ibge_code=CITY_BY_REGION[region], month=11)  # fmt: skip
+    assert (reply["entities"]["crop"], reply["entities"]["region"]) == (crop_id, region.value)
+    if reply["intent"] == "planting_time" and KB.crops[crop_id].planting_months(region) is not None:
+        assert region_label(region) in reply["text"], reply["text"]
+
+
+@pytest.mark.parametrize("region", list(Region), ids=lambda r: r.value)
+def test_i5_common_words_keep_the_region_of_the_profile(client, region):
+    reply = ask(client, "o que dá para plantar agora?", ibge_code=CITY_BY_REGION[region], month=11)
+    assert (reply["intent"], reply["entities"]["region"]) == ("what_to_plant", region.value)
+    assert reply["text"].startswith(f"Em novembro, {region_label(region)}, "), reply["text"]
+
+
 # --- I2: every name of the base reaches the right crop through the API -------------------------
 
 

@@ -182,6 +182,78 @@ def test_lowercase_uf_abbreviations_are_not_locations(entities, text):
     assert entities.location(text) is None
 
 
+# Messages of the UAT rehearsal (13/11/2026) and other common words that are also place names.
+COMMON_WORDS_THAT_ARE_NOT_PLACES = [
+    "o que dá para plantar agora?",  # "para", the preposition, is not the state of Pará
+    "o que dá pra plantar agora?",
+    "quando plantar alface para colher?",
+    "quando plantar tomate para colher no natal?",  # Christmas, not the capital of RN
+    "o que plantar pro natal?",
+    "quero plantar um acre de alface, quando planto?",  # the unit of area
+    "o que planto em um campo grande?",  # a big field, not the capital of MS
+    "quanto tá o tomate para vender?",
+    "dá para plantar alface em vaso?",
+    "presente de natal",
+    "árvore de natal",
+    "comprei um acre",
+    "tenho um campo grande atrás de casa",
+    "como plantar vitória-régia?",
+    "a horta fica virada para o norte, o que planto?",
+    "QUANDO PLANTO ALFACE SE CHOVER?",  # all in upper case: "SE" is not Sergipe
+    "QUANTOS PE DE ALFACE POR METRO?",
+]
+
+
+@pytest.mark.parametrize("text", COMMON_WORDS_THAT_ARE_NOT_PLACES)
+def test_common_words_are_not_places(entities, text):
+    assert entities.location(text) is None
+
+
+@pytest.mark.parametrize(
+    ("text", "uf", "region"),
+    [
+        ("quando planto alface no Pará?", "PA", Region.NORTE),
+        ("quando planto alface no estado do para?", "PA", Region.NORTE),
+        ("MORO NO PARÁ", "PA", Region.NORTE),
+        ("moro em Natal", "RN", Region.NORDESTE),
+        ("aqui em Campo Grande", "MS", Region.CENTRO_OESTE),
+        ("sou do Acre", "AC", Region.NORTE),
+        ("moro em mato grosso", "MT", Region.CENTRO_OESTE),
+        ("sou de mato grosso do sul", "MS", Region.CENTRO_OESTE),
+        ("canteiro no sul de minas", "MG", Region.SUDESTE),  # not the Sul region
+        ("moro no norte", None, Region.NORTE),
+        ("região sul", None, Region.SUL),
+    ],
+)
+def test_ambiguous_place_names_count_in_context(entities, text, uf, region):
+    location = entities.location(text)
+    assert location is not None and location.uf == uf and location.region is region
+
+
+@pytest.mark.parametrize(
+    ("text", "uf"),
+    [("natal", "RN"), ("para", "PA"), ("Pará", "PA"), ("campo grande", "MS"), ("em natal", "RN"),
+     ("moro em natal", "RN"), ("aqui é natal", "RN"), ("acre", "AC")],
+)  # fmt: skip
+def test_ambiguous_place_names_count_as_the_answer_to_where_the_garden_is(entities, text, uf):
+    location = entities.location(text, short_reply=True)
+    assert location is not None and location.uf == uf
+
+
+def test_a_new_question_is_not_read_as_the_answer_to_where_the_garden_is(entities):
+    assert entities.location("o que dá para plantar agora?", short_reply=True) is None
+
+
+@pytest.mark.parametrize(
+    ("text", "month"),
+    [("o que dá pra plantar no rio de janeiro?", None), ("moro no rio de janeiro, quando planto alface?", None),
+     ("quando planto alface em janeiro no rio de janeiro?", 1)],
+)  # fmt: skip
+def test_month_inside_a_place_name_is_not_a_month(entities, text, month):
+    location = entities.location(text)
+    assert entities.month(text) == month and location is not None and location.uf == "RJ"
+
+
 # --- classifier ------------------------------------------------------------------------------
 
 
