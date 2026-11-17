@@ -246,3 +246,7 @@ models/*.joblib
 
 # UAT results stay on the facilitator machine (LGPD); only the consolidated report is versioned
 uat_results/
+
+# Ignore references folder 
+#(contains external references, like books and articles for the project)
+references/
