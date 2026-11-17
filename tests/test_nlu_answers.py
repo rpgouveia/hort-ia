@@ -162,14 +162,62 @@ def test_watering_of_carrot_has_the_stage_and_the_group_guideline(r):
     assert a.sources[0].endswith("(Colecao Plantar, 43), p. 37, 39-41") and a.sources[1].endswith("47), p. 9")
 
 
+LEAFY_WATERING = "Folhosas e plantas em fase inicial devem ser irrigadas diariamente."
+GENERAL_WATERING = (
+    "Em geral, as hortaliças precisam de rega quase todo dia. "
+    "A frequência depende do clima, do tipo de solo, da planta e da fase do ciclo."
+)
+CT47_P9 = "(Circular Técnica 47), p. 9"
+
+
+def test_watering_of_spinach_uses_the_leafy_guideline(r):
+    a = r.crop_care("espinafre", "watering")
+    assert a.text == LEAFY_WATERING and not a.handoff
+    assert len(a.sources) == 1 and a.sources[0].endswith(CT47_P9)
+
+
+@pytest.mark.parametrize("crop", ["batata", "brocolis", "coentro", "hortela", "pimenta"])  # tuber, flower, condiments
+def test_watering_without_turn_nor_crop_or_group_guideline_uses_the_general_rule(r, crop):
+    a = r.crop_care(crop, "watering")
+    name = r.kb.crops[crop].name_pt.lower()
+    assert a.text == f"Não tenho a orientação de rega específica de {name}. {GENERAL_WATERING}"
+    assert not a.handoff and len(a.sources) == 1 and a.sources[0].endswith(CT47_P9)
+
+
+def test_watering_of_basil_keeps_its_own_guideline(r):
+    a = r.crop_care("manjericao", "watering")  # condiment, but the crop guideline comes first
+    assert a.text == (
+        "Manjericão deve ser irrigado ao menos uma vez por dia, de preferência no começo da manhã ou no fim da tarde."
+    )
+    assert a.sources == ["Manjericão: cultivo e utilização (Documentos 136, ISSN 2179-8184), p. 20"]
+
+
+def test_watering_never_hands_off_and_always_cites_a_page(r):
+    for crop in r.kb.crops:
+        a = r.crop_care(crop, "watering")
+        assert not a.handoff and a.sources and all(", p. " in s for s in a.sources), (crop, a)
+        assert a.text in r.crop_care(crop).text, crop  # the summary uses the same watering line
+
+
+def test_watering_without_the_general_rule_in_the_base_hands_off(tmp_path):
+    target = tmp_path / "knowledge"
+    shutil.copytree(DEFAULT_KB_DIR, target)
+    path = target / "guidelines.json"
+    rules = [g for g in json.loads(path.read_text(encoding="utf-8")) if g["id"] != "irrigacao_geral"]
+    path.write_text(json.dumps(rules, ensure_ascii=False), encoding="utf-8")
+    r2 = Responder(load_knowledge_base(target), load_templates(), load_market_dataset())
+    a = r2.crop_care("batata", "watering")
+    assert a.text.startswith("Não tenho essa informação sobre batata.") and a.handoff
+
+
 @pytest.mark.parametrize("crop", ["batata", "alface", "repolho"])  # worked example; unconfirmed pages
 def test_turn_of_the_crop_is_not_shown_when_it_does_not_say_what_it_seems(r, crop):
     a = r.crop_care(crop, "watering")
     assert "regue" not in a.text and r.kb.crops[crop].irrigation.user_turn() is None
-    if crop != "batata":  # leafy group guideline; batata (tuber) has no group guideline: no data, handoff
-        assert a.text == "Folhosas e plantas em fase inicial devem ser irrigadas diariamente." and not a.handoff
-    else:
-        assert a.handoff
+    if crop != "batata":  # leafy group guideline
+        assert a.text == LEAFY_WATERING and not a.handoff
+    else:  # batata (tuber) has no group guideline: the general rule, without handoff
+        assert a.text == f"Não tenho a orientação de rega específica de batata. {GENERAL_WATERING}" and not a.handoff
 
 
 SOURCE = {"source_id": "embrapa_plantar_cenoura", "pages": "37"}

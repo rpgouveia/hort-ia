@@ -59,6 +59,8 @@ crop_care:
   turn_daily: "todo dia"
   turn_every: "a cada {n} dias"
   turn_range: "a cada {min} a {max} dias"
+  # No turn nor crop or group guideline: followed by the general rule (irrigacao_geral); {crop} is lower case
+  watering_general: "Não tenho a orientação de rega específica de {crop}."  # no handoff
   # Soil: {crop} is capitalized (start of the sentence), {name} is lower case
   soil_ph_range: "{crop} prefere solo com pH entre {min} e {max}."
   soil_ph_single: "{crop} prefere solo com pH em torno de {min}."

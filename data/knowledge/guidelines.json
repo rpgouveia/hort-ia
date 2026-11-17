@@ -61,6 +61,20 @@
     "validation_status": "draft"
   },
   {
+    "id": "irrigacao_geral",
+    "topic": "irrigation",
+    "statement_pt": "Em geral, as hortaliças precisam de rega quase todo dia. A frequência depende do clima, do tipo de solo, da planta e da fase do ciclo.",
+    "applies_to_groups": [],
+    "applies_to_crops": [],
+    "values": {},
+    "source": {
+      "source_id": "embrapa_ct47_cultivo_hortalicas",
+      "pages": "9"
+    },
+    "validation_status": "draft",
+    "notes": "Regra geral da CT 47, p. 9 (\"As hortaliças requerem irrigações quase que diárias...\"). O assistente a usa na rega só quando a cultura não tem turno utilizável nem diretriz própria ou do grupo (hoje: batata, brócolis, coentro, hortelã e pimenta). Texto a conferir pela ATD (pendências da v3, item 15)."
+  },
+  {
     "id": "irrigacao_volume",
     "topic": "irrigation",
     "statement_pt": "Aplicar a água devagar: de 4 a 10 litros por m² de canteiro ou de 3 a 5 litros por cova. Em dias quentes e solos arenosos, regar com mais frequência.",

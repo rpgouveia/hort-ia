@@ -278,11 +278,11 @@ def test_invalid_month_is_rejected():
 # Crops of the ATD delivery v3 that came without these fields (documented in data/knowledge/README.md).
 # Remove a crop from here when its gap is closed.
 KNOWN_INCOMPLETE_CROPS = {
-    "coentro": ["crop_groups", "propagation", "spacing", "sources"],
-    "espinafre": ["crop_groups", "propagation", "spacing", "sources"],
-    "brocolis": ["crop_groups", "propagation", "spacing", "sources"],
-    "pimenta": ["crop_groups", "propagation", "spacing", "sources"],
-    "hortela": ["crop_groups", "propagation", "planting_windows", "spacing", "sources"],
+    "coentro": ["propagation", "spacing", "sources"],
+    "espinafre": ["propagation", "spacing", "sources"],
+    "brocolis": ["propagation", "spacing", "sources"],
+    "pimenta": ["propagation", "spacing", "sources"],
+    "hortela": ["propagation", "planting_windows", "spacing", "sources"],
 }
 
 
@@ -316,7 +316,9 @@ def test_small_space_spacing_is_smaller_than_conventional(kb):
 # --- Gap coverage -----------------------------------------------------------------
 
 # Known gaps, documented in data/knowledge/README.md. Remove a crop from here when its gap is closed.
-KNOWN_IRRIGATION_GAPS = {"batata", "coentro", "espinafre", "brocolis", "pimenta", "hortela"}  # ATD v3: no crop_groups
+# Tubers, flowers and condiments have no irrigation guideline in CT 47 (manjericão has its own): the answer uses
+# the general rule `irrigacao_geral` (test_nlu_answers.py).
+KNOWN_IRRIGATION_GAPS = {"batata", "coentro", "brocolis", "pimenta", "hortela"}
 
 
 def test_every_crop_has_an_irrigation_guideline(kb):
@@ -331,6 +333,25 @@ def test_every_crop_has_an_irrigation_guideline(kb):
         if not covered:
             uncovered.add(crop.id)
     assert uncovered == KNOWN_IRRIGATION_GAPS
+
+
+def test_v3_crops_are_grouped_as_ct47_page_2(kb):
+    # CT 47, p. 2: espinafre among the leafy, "couve brócolos" among the flowers, coentro, pimenta and hortelã
+    # among the condiments (pimenta only as condiment, as the source puts it). Still draft, for the ATD to check.
+    groups = {"espinafre": ["leafy"], "brocolis": ["flower"], "coentro": ["condiment"], "pimenta": ["condiment"],
+              "hortela": ["condiment"]}  # fmt: skip
+    for crop_id, expected in groups.items():
+        crop = kb.crops[crop_id]
+        assert crop.crop_groups == expected, crop_id
+        assert crop.validation_status == ValidationStatus.DRAFT, crop_id
+
+
+def test_general_irrigation_rule_has_source_and_page(kb):
+    rule = kb.guidelines["irrigacao_geral"]
+    assert rule.topic == "irrigation" and not rule.applies_to_groups and not rule.applies_to_crops
+    assert (rule.source.source_id, rule.source.pages) == ("embrapa_ct47_cultivo_hortalicas", "9")
+    assert rule.validation_status == ValidationStatus.DRAFT
+    assert "quase todo dia" in rule.statement_pt and "fase do ciclo" in rule.statement_pt
 
 
 def test_manjericao_has_window_for_sul(kb):

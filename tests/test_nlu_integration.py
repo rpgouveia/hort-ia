@@ -121,8 +121,8 @@ def test_i1_soil_and_watering_answers_come_from_the_base(client, crop_id, questi
     reply = ask(client, question.format(name=crop.name_pt.lower()), ibge_code=4106902, month=11)
     entities = reply["entities"]
     assert (reply["intent"], entities["crop"], entities["care_aspect"]) == ("crop_care", crop_id, aspect)
-    if not reply["handoff"]:  # batata has no usable watering data: no data, handoff
-        assert reply["sources"] and all(", p. " in source for source in reply["sources"]), reply
+    assert not reply["handoff"], reply  # soil and watering always answer from the base, at worst with a general rule
+    assert reply["sources"] and all(", p. " in source for source in reply["sources"]), reply
     guidelines = [g.model_dump(mode="json") for g in KB.guidelines.values()]
     allowed = _numbers(crop.model_dump(mode="json")) | _numbers(guidelines) | _numbers(TEMPLATES["crop_care"])
     assert _numbers(reply["text"]) <= allowed, (reply["text"], _numbers(reply["text"]) - allowed)

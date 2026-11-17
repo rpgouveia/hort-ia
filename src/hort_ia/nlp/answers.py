@@ -26,6 +26,7 @@ from .dataset import EntityType, nlu_dir
 
 GENERAL_PH_GUIDELINE = "solo_ph_regra_geral_epagri"  # the ATD: "usar quando nao houver pH por especie"
 SOIL_CORRECTION_GUIDELINE = "solo_ph"  # CT 47, p. 5: liming follows a soil analysis
+GENERAL_IRRIGATION_GUIDELINE = "irrigacao_geral"  # CT 47, p. 9: when there is no turn nor crop or group guideline
 
 
 def _decimal(value: float | None) -> str:
@@ -216,7 +217,8 @@ class Responder:
     def _watering(self, crop: Crop) -> tuple[list[str], list[SourceRef]]:
         """The turn of the crop when `Irrigation.user_turn()` allows it, then the group guideline. A turn
         without a stage covers the whole cycle; a turn for a stage ("do plantio ao desbaste") is followed
-        by the group guideline, which covers the rest of the cycle."""
+        by the group guideline, which covers the rest of the cycle. With neither a turn nor a crop or group
+        guideline, the answer says so and gives the general rule of the base, without handoff (like the pH)."""
         t, lines, refs = self._t["crop_care"], [], []
         irrigation = crop.irrigation
         turn = irrigation.user_turn() if irrigation else None
@@ -236,6 +238,9 @@ class Responder:
             if not irrigation.stage_pt:
                 return lines, refs
         guidelines = self._guidelines_for(crop, topic="irrigation")
+        if not turn and not guidelines and (general := self.kb.guidelines.get(GENERAL_IRRIGATION_GUIDELINE)):
+            lines += [t["watering_general"].format(crop=self.crop_name(crop)), general.statement_pt]
+            return lines, [general.source]
         lines += [g.statement_pt for g in guidelines]
         refs += [g.source for g in guidelines]
         return lines, refs
