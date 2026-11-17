@@ -49,7 +49,9 @@ class NlpAnswerRequest(BaseModel):
     ibge_code: int | None = Field(default=None, description="IBGE municipality code (7 digits)")
     region: str | None = Field(default=None, description="Macro-region ('sul', 'sudeste', etc.)")
     month: int = Field(default_factory=lambda: datetime.now().month, ge=1, le=12, description="Reference month (1-12)")
-    aspect: str | None = Field(default=None, description="Crop care aspect: 'spacing', 'harvest', 'watering', 'container'")
+    aspect: str | None = Field(
+        default=None, description="Crop care aspect: 'spacing', 'harvest', 'watering', 'container', 'soil', 'substrate'"
+    )
     small_space: bool = Field(default=False, description="Filter for small space cultivation")
     cv_label: str | None = Field(default=None, description="CV model label for pest/disease")
     entry_id: str | None = Field(default=None, description="Direct ID of pest/disease")

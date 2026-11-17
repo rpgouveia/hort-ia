@@ -154,6 +154,28 @@ def test_care_aspect(entities, text, aspect):
     assert entities.care_aspect(text) == aspect
 
 
+@pytest.mark.parametrize(
+    ("text", "aspect"),
+    [
+        ("qual o ph do solo para tomate?", "soil"),
+        ("qual o melhor solo para cenoura?", "soil"),
+        ("preciso de calcário pra alface?", "soil"),
+        ("terra ácida serve pra couve?", "soil"),
+        ("como fazer a correção do solo?", "soil"),
+        ("que terra é boa pra beterraba?", "soil"),
+        ("qual substrato usar para o morango?", "substrate"),
+        ("que terra pro vaso de salsinha?", "substrate"),  # substrate before soil ("que terra") and container
+        ("terra para vaso de manjericão", "substrate"),
+        ("molhar a terra todo dia?", "watering"),  # "terra" alone is not soil
+        ("molhar o solo de manhã?", "watering"),  # watering before soil
+        ("quanto rego o substrato do vaso?", "watering"),  # watering before substrate
+        ("dá em vaso?", "container"),
+    ],
+)
+def test_soil_and_substrate_aspects(entities, text, aspect):
+    assert entities.care_aspect(text) == aspect
+
+
 def test_small_space_and_rotation(entities):
     assert entities.small_space("moro em apartamento, o que planto?")
     assert not entities.small_space("tenho um quintal grande")
