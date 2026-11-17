@@ -51,9 +51,27 @@ ter lacunas (hortelã sem época, formigas sem decisão entre praga e benéfica)
   `scripts/merge_atd_v3.py`, como a entrega v3 da ATD foi fundida.
 - **Campos da v3 em `crops.json`** (`germination`, `sowing_depth_cm`, `irrigation`, `soil_ph`, `sun`,
   `rotation`, `dev_temp`, `soil_temp`): todo valor preenchido exige `source` com página; um bloco sem
-  valor é aceito desde que `notes` diga onde a busca foi feita e por que não há dado. Ainda não são
-  usados pelo motor nem pelo assistente. `rotation.avoid_after` tem de ser igual às culturas da base da
-  mesma família (`family`), conferido por teste.
+  valor é aceito desde que `notes` diga onde a busca foi feita e por que não há dado. O assistente usa
+  `soil_ph` e `irrigation` nas respostas de cuidados (ver abaixo); os outros ainda não são usados pelo
+  motor nem pelo assistente. `rotation.avoid_after` tem de ser igual às culturas da base da mesma família
+  (`family`), conferido por teste.
+- **Condições da rega (`irrigation`)**: dois campos restabelecem o que a ATD escreveu só em `notes`, sem
+  conteúdo novo e sem mudar o `validation_status` da cultura:
+  - `stage_pt`: a fase a que o turno se aplica, nas palavras da fonte. Hoje só a cenoura ("do plantio ao
+    desbaste");
+  - `from_example` (padrão `false`): os valores são de um exemplo de cálculo da fonte, não recomendação
+    geral. Hoje só a batata (turno de 3 dias calculado para ETc 5,3 mm/dia e solo tipo II).
+
+  O turno da cultura chega ao usuário só quando `Irrigation.user_turn()` permite: turno preenchido, página
+  confirmada (sem "nao confirmada") e `from_example` falso. Hoje só a cenoura passa. A alface e o repolho
+  ficam de fora porque a página não foi confirmada (e o dado da alface é do semiárido); a batata, porque o
+  turno é exemplo de cálculo. Sem turno utilizável, a resposta usa a diretriz do grupo em `guidelines.json`
+  (folhosas: diária; frutos e raízes: a cada 2 ou 3 dias). As três estão nas pendências para a ATD
+  (`docs/knowledge/atd/retorno_v3/pendencias.md`, itens 10 e 11).
+- **pH do solo (`soil_ph`)**: com valor por espécie, a resposta usa a faixa, o valor único ou o limite da
+  cultura; sem valor por espécie, a regra geral da ATD (`solo_ph_regra_geral_epagri`, pH 6,0: "usar quando
+  nao houver pH por especie"). A resposta sempre termina pedindo análise de solo e Assistência Técnica
+  (diretriz `solo_ph`, CT 47, p. 5), sem dose de calcário.
 
 ## Plantio companheiro
 
@@ -257,8 +275,12 @@ germinação com leitura incerta) e os sintomas da requeima e da pinta-preta da 
   - formigas e besouros sem decisão sobre serem pragas (`beneficial: null`), agora com fontes dos dois
     lados; nos besouros todas as ações são caldas, então o assistente não mostra nenhuma;
   - 6 pragas em `draft` porque a ATD propôs sintoma novo sem indicar fonte e página (ver D3 acima).
-- Sol e água por cultura: só parte das culturas tem dado em `crops.json` (campos `sun` e `irrigation`);
-  o assistente continua usando as diretrizes de `guidelines.json`, por grupo.
+- Sol e água por cultura: só parte das culturas tem dado em `crops.json` (campos `sun` e `irrigation`).
+  Na rega, o assistente mostra o turno da cultura só quando ele passa em `Irrigation.user_turn()` (hoje,
+  só a cenoura); nas outras, usa as diretrizes de `guidelines.json`, por grupo. Tomate, morango, couve e
+  brócolis têm só um critério em `notes`, que não é mostrado (pendências, item 12).
+- pH por espécie: 6 culturas têm valor (tomate, batata, morango, couve, cenoura e brócolis); as outras 14
+  recebem a regra geral de pH 6,0.
 
 ## Lacunas resolvidas
 

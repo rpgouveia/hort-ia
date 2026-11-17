@@ -21,12 +21,29 @@ uv run python scripts/evaluate_nlu_baseline.py
 |---|---|---|
 | `planting_time` | "quando planto alface?" | `Crop.planting_months(region)` |
 | `what_to_plant` | "o que dá pra plantar agora?" | janelas de todas as culturas, filtradas por mês e região |
-| `crop_care` | "quanto rego o tomate?", "dá em vaso?" | espaçamento, colheita, `small_space_recommended`, `guidelines.json` |
+| `crop_care` | "quanto rego o tomate?", "dá em vaso?", "qual o pH do solo para a cenoura?" | espaçamento, colheita, `small_space_recommended`, `soil_ph` e `irrigation` de `crops.json`, `guidelines.json` |
 | `companion_planting` | "o que planto junto do tomate?" | `companions.csv`, `companion_roles`, diretrizes de rotação e repelentes |
 | `pest_disease` | "meu tomate tá com mancha preta" | `pests_diseases.json` (+ rótulo do modelo de CV, quando há foto) |
 | `market_price` | "quanto tá o tomate no Ceasa?" | base de mercado (`data/market/`) |
 | `help` | "oi", "o que você sabe fazer?" | texto fixo |
 | `fallback` | fora do escopo, ou pedido de falar com uma pessoa | texto fixo + encaminhamento à Assistência Técnica Digital |
+
+**Aspectos de `crop_care`.** A resposta de cuidados depende do aspecto que a mensagem cita
+(`CARE_ASPECT_TERMS` em `hort_ia.nlp.nlu`), verificado nesta ordem:
+
+| Aspecto | Palavras | Resposta |
+|---|---|---|
+| `watering` | rega, regar, molhar, irrigar, água | turno da cultura, quando `Irrigation.user_turn()` permite (hoje só a cenoura, com a fase "do plantio ao desbaste"), e a diretriz de rega do grupo |
+| `spacing` | espaçamento, distância | espaçamento convencional e, quando indicado, em pouco espaço |
+| `harvest` | colher, colheita | dias até a colheita |
+| `substrate` | substrato, "terra para vaso", "terra pro vaso" | a base não tem dado de substrato: diz isso e encaminha à Assistência Técnica |
+| `soil` | solo, pH, acidez, ácido, calcário, calagem, "correção do solo", "tipo de terra", "que terra", "terra boa" | pH da cultura ou, sem valor por espécie, a regra geral de pH 6,0; sempre termina pedindo análise de solo e Assistência Técnica, sem dose e sem `handoff` |
+| `container` | vaso, varanda, apartamento | se dá em vaso ou pouco espaço |
+
+Rega vem antes de solo porque "molhar o solo" é uma pergunta de rega; substrato vem antes de solo e de
+vaso porque "terra pro vaso" é uma pergunta de substrato. "Terra" sozinha não conta como solo ("molhar a
+terra"). Sem aspecto ("quais os cuidados da batata?"), a resposta resume espaçamento, rega e colheita,
+nessa ordem; o pH só aparece quando perguntado.
 
 ## Fronteiras entre intenções
 

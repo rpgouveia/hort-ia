@@ -374,3 +374,48 @@ mudou o status. Em pragas e doenças, a tabela abaixo mostra cada diferença e o
 | `pests_diseases.json` | 27 entradas, todas `draft`, 10 com sintoma | 27 entradas: 13 `validated_by_atd`, 14 `draft` | 22 com sintoma, 20 com manejo, 19 com alguma ação que aparece no assistente |
 
 Não mexemos em `images_manifest.csv` nem em `image_sources.json`, que são do modelo de visão.
+
+---
+
+## Itens novos (14/11/2026)
+
+O assistente passou a responder sobre o pH do solo e a rega de cada cultura, com os blocos `soil_ph` e
+`irrigation` que vocês mandaram. Para isso, alguns números só podem aparecer quando dizem o que parecem
+dizer. As condições estavam só nas notas; os itens abaixo pedem que vocês confiram o que fizemos e
+completem o que falta.
+
+### 10. Fase da rega da cenoura e exemplo de cálculo da batata
+
+Criamos dois campos em `irrigation`, sem mudar as notas nem o status das culturas:
+
+- `stage_pt`: a fase a que o turno de rega se aplica, nas palavras da fonte. Na cenoura, gravamos "do
+  plantio ao desbaste", tirado da nota de vocês. O assistente responde "Cenoura: do plantio ao desbaste,
+  regue a cada 1 a 2 dias." e completa com a regra do grupo (raízes, a cada 2 ou 3 dias).
+- `from_example`: marca valores de um exemplo de cálculo da fonte, que não são recomendação geral. Na
+  batata, marcamos o turno de 3 dias, que a nota descreve como exemplo (ETc 5,3 mm/dia, solo tipo II). O
+  assistente não mostra esse turno.
+
+**Pedido:** confirmar os dois. Como a batata é do grupo dos tubérculos, que não tem regra de rega, hoje
+ela fica sem resposta de rega e o assistente encaminha à Assistência Técnica. Se houver um critério com
+fonte, ele resolve isso.
+
+### 11. Páginas da rega da alface e do repolho
+
+As páginas da rega da alface (`embrapa_it134_alface_crespa`) e do repolho (`embrapa_sp362_repolho`)
+estão como "nao confirmada". Sem página, o assistente não mostra o turno dessas culturas e responde só
+com a regra das folhosas (rega diária). **Pedido:** a página de cada uma e, para a alface, se o dado do
+Submédio do São Francisco (semiárido) vale para o Sul.
+
+### 12. Critério de rega para tomate, morango, couve e brócolis
+
+Essas culturas não têm turno na fonte, só um critério escrito nas notas, como "manter úmida a camada das
+raízes" (tomate) e "não tolera excesso de umidade" (morango). O assistente não mostra as notas, que são
+internas. **Pedido:** uma frase curta de rega para cada uma, para mostrar ao usuário, com fonte e página.
+A escrita é atribuição de vocês.
+
+### 13. Diretrizes da v3 sem acento
+
+Os textos (`statement_pt`) das diretrizes da v3 estão sem acento, por exemplo "Para o cultivo de
+hortalicas em geral, o pH 6,0 e o mais indicado." Por isso o assistente não os mostra: usa só o valor (pH
+6,0) num texto próprio. **Pedido:** a versão acentuada, caso vocês queiram que esses textos apareçam para
+o usuário.
