@@ -395,9 +395,10 @@ Criamos dois campos em `irrigation`, sem mudar as notas nem o status das cultura
   batata, marcamos o turno de 3 dias, que a nota descreve como exemplo (ETc 5,3 mm/dia, solo tipo II). O
   assistente não mostra esse turno.
 
-**Pedido:** confirmar os dois. Como a batata é do grupo dos tubérculos, que não tem regra de rega, hoje
-ela fica sem resposta de rega e o assistente encaminha à Assistência Técnica. Se houver um critério com
-fonte, ele resolve isso.
+**Pedido:** confirmar os dois. Como a batata é do grupo dos tubérculos, que não tem regra de rega na CT
+47, o assistente responde "Não tenho a orientação de rega específica de batata." seguido da regra geral
+de rega (item 15), sem encaminhar à Assistência Técnica. Se houver um critério de rega da batata com
+fonte e página, ele passa a valer no lugar da regra geral.
 
 ### 11. Páginas da rega da alface e do repolho
 
@@ -419,3 +420,34 @@ Os textos (`statement_pt`) das diretrizes da v3 estão sem acento, por exemplo "
 hortalicas em geral, o pH 6,0 e o mais indicado." Por isso o assistente não os mostra: usa só o valor (pH
 6,0) num texto próprio. **Pedido:** a versão acentuada, caso vocês queiram que esses textos apareçam para
 o usuário.
+
+### 14. Grupos das culturas da v3
+
+As 5 culturas da v3 vieram sem `crop_groups`, então não pegavam nenhuma regra de grupo (a rega delas
+encaminhava à Assistência Técnica). Preenchemos os grupos com a classificação da CT 47, p. 2, sem
+inferência:
+
+| Cultura | Grupo | Trecho da CT 47, p. 2 |
+|---|---|---|
+| espinafre | `leafy` (folhosa) | "Hortaliças-folhosas: alface, almeirão, agrião, espinafre, couve, cebolinha, salsa, rúcula" |
+| brócolis | `flower` (flor) | "Hortaliças-flores: couve-flor, couve brócolos" |
+| coentro, pimenta, hortelã | `condiment` (condimento) | "Hortaliças-condimentos: cebolinha, coentro, pimenta, salsa, manjericão, hortelã" |
+
+A pimenta ficou só como condimento, embora a parte comestível seja o fruto, porque é assim que a fonte a
+classifica. Com isso, a rega do espinafre passou a usar a regra das folhosas (rega diária). As culturas
+continuam em `draft`. **Pedido:** conferir os grupos e dizer se a pimenta deve ser também `fruit`.
+
+### 15. Regra geral de rega (`irrigacao_geral`)
+
+A CT 47 só traz regra de rega por grupo para folhosas, frutos e raízes; tubérculos, flores e condimentos
+ficam sem regra (o manjericão tem a sua, do Doc. 136). Criamos a diretriz `irrigacao_geral`, em `draft`,
+a partir da regra geral da CT 47, p. 9 ("As hortaliças requerem irrigações quase que diárias. As
+irrigações dependem das condições climáticas, tipo de solo, espécie e fase do ciclo da planta."):
+
+> Em geral, as hortaliças precisam de rega quase todo dia. A frequência depende do clima, do tipo de solo,
+> da planta e da fase do ciclo.
+
+O assistente só a usa quando a cultura não tem turno de rega utilizável nem regra própria ou do grupo.
+Hoje: batata, brócolis, coentro, hortelã e pimenta, com a frase "Não tenho a orientação de rega
+específica de {cultura}." antes, a fonte (CT 47, p. 9) e sem encaminhar à Assistência Técnica.
+**Pedido:** conferir o texto contra o trecho e a página.

@@ -65,9 +65,15 @@ ter lacunas (hortelã sem época, formigas sem decisão entre praga e benéfica)
   O turno da cultura chega ao usuário só quando `Irrigation.user_turn()` permite: turno preenchido, página
   confirmada (sem "nao confirmada") e `from_example` falso. Hoje só a cenoura passa. A alface e o repolho
   ficam de fora porque a página não foi confirmada (e o dado da alface é do semiárido); a batata, porque o
-  turno é exemplo de cálculo. Sem turno utilizável, a resposta usa a diretriz do grupo em `guidelines.json`
-  (folhosas: diária; frutos e raízes: a cada 2 ou 3 dias). As três estão nas pendências para a ATD
-  (`docs/knowledge/atd/retorno_v3/pendencias.md`, itens 10 e 11).
+  turno é exemplo de cálculo. Sem turno utilizável, a resposta usa a diretriz da cultura ou do grupo em
+  `guidelines.json` (manjericão: diária; folhosas: diária; frutos e raízes: a cada 2 ou 3 dias). As três
+  estão nas pendências para a ATD (`docs/knowledge/atd/retorno_v3/pendencias.md`, itens 10 e 11).
+- **Regra geral de rega (`irrigacao_geral`)**: sem turno utilizável e sem diretriz da cultura ou do grupo,
+  a resposta diz "Não tenho a orientação de rega específica de {cultura}." e dá a regra geral da CT 47,
+  p. 9 ("as hortaliças requerem irrigações quase que diárias", conforme clima, solo, espécie e fase do
+  ciclo), com a fonte e sem encaminhar à Assistência Técnica, como a regra geral do pH. Hoje vale para
+  batata (tubérculo), brócolis (flor), coentro, hortelã e pimenta (condimentos), grupos sem diretriz de
+  rega na CT 47. O resumo de cuidados usa a mesma linha. A diretriz está em `draft` (pendências, item 15).
 - **pH do solo (`soil_ph`)**: com valor por espécie, a resposta usa a faixa, o valor único ou o limite da
   cultura; sem valor por espécie, a regra geral da ATD (`solo_ph_regra_geral_epagri`, pH 6,0: "usar quando
   nao houver pH por especie"). A resposta sempre termina pedindo análise de solo e Assistência Técnica
@@ -231,6 +237,17 @@ do Catálogo Brasileiro de Hortaliças, no formato das outras culturas, e essas 
 `draft` até a ATD conferir. A ficha do espinafre no Catálogo cobre duas espécies. Hortelã continua sem
 época (pendência da ATD) e, por isso, fica fora de toda recomendação (`no_region_data`).
 
+**Grupos das culturas da v3 (CT 47, p. 2).** As 5 culturas vieram sem `crop_groups`. O módulo de IA os
+preencheu com a classificação da própria fonte citada por `CropGroup`, sem inferência: espinafre em
+`leafy` ("Hortaliças-folhosas: ... espinafre ..."), brócolis em `flower` ("Hortaliças-flores: couve-flor,
+couve brócolos") e coentro, pimenta e hortelã em `condiment` ("Hortaliças-condimentos: cebolinha,
+coentro, pimenta, salsa, manjericão, hortelã"). A pimenta fica só como condimento, embora a parte
+comestível seja fruto, porque é assim que a fonte a classifica. As culturas seguem em `draft` e a
+classificação está nas pendências da ATD (item 14). Além da conferência de completude
+(`missing_fields`), o campo só é lido pela resposta de rega e pela diretriz de pequenos espaços
+(`Responder._guidelines_for`); o motor de recomendação, o filtro de pequeno espaço e o plantio companheiro
+não o usam, e a recomendação não mudou.
+
 **Ajustes de formato** (sem mudar o conteúdo): os nomes "Brocolis" e "Hortela" receberam acento; a
 diretriz `rotacao_familia_por_cultura`, que só aponta para o campo `rotation`, não entra na resposta
 geral do assistente sobre plantio companheiro; a ação proposta para as vespas ("Não controlar.
@@ -258,11 +275,13 @@ germinação com leitura incerta) e os sintomas da requeima e da pinta-preta da 
 - **Adaptação regional**: janelas por macrorregião, não por município (ver acima).
 - **Plantio companheiro**: as 14 relações da v3 (as únicas `research` e `technical` em pares) fora das
   saídas até a ATD confirmar (D6); rúcula, espinafre, brócolis e pimenta sem relação utilizável.
-- **Culturas da v3**: sem `crop_groups`, propagação, espaçamento e indicação para pequeno espaço; por
-  isso ficam sem diretriz de irrigação e fora da lista quando `small_space` está ligado. Hortelã sem
-  época de plantio.
+- **Culturas da v3**: sem propagação, espaçamento e indicação para pequeno espaço; por isso ficam fora da
+  lista quando `small_space` está ligado. Hortelã sem época de plantio. Brócolis, coentro, hortelã e
+  pimenta sem diretriz de rega própria ou do grupo (flores e condimentos não têm na CT 47): a rega usa a
+  regra geral `irrigacao_geral`.
 - **Batata**: sem espaçamento para pequenos espaços (ausente na Tabela 2 do HPE) e sem diretriz de
-  irrigação (grupo "tubérculo" não coberto pelo CT 47).
+  irrigação própria ou do grupo (grupo "tubérculo" não coberto pelo CT 47): a rega usa a regra geral
+  `irrigacao_geral`.
 - **Manjericão**: sem janela mensal para Nordeste e Norte. A única orientação disponível (Doc. 136) é
   cultivar em campo aberto no período quente, ou em vasos o ano todo.
 - **Rúcula e manjericão**: sem produtividade de referência. Para rúcula, só foram encontrados
@@ -277,8 +296,9 @@ germinação com leitura incerta) e os sintomas da requeima e da pinta-preta da 
   - 6 pragas em `draft` porque a ATD propôs sintoma novo sem indicar fonte e página (ver D3 acima).
 - Sol e água por cultura: só parte das culturas tem dado em `crops.json` (campos `sun` e `irrigation`).
   Na rega, o assistente mostra o turno da cultura só quando ele passa em `Irrigation.user_turn()` (hoje,
-  só a cenoura); nas outras, usa as diretrizes de `guidelines.json`, por grupo. Tomate, morango, couve e
-  brócolis têm só um critério em `notes`, que não é mostrado (pendências, item 12).
+  só a cenoura); nas outras, usa as diretrizes de `guidelines.json`, da cultura ou do grupo, e, sem elas, a
+  regra geral `irrigacao_geral`. Tomate, morango, couve e brócolis têm só um critério em `notes`, que não
+  é mostrado (pendências, item 12).
 - pH por espécie: 6 culturas têm valor (tomate, batata, morango, couve, cenoura e brócolis); as outras 14
   recebem a regra geral de pH 6,0.
 
@@ -289,3 +309,4 @@ germinação com leitura incerta) e os sintomas da requeima e da pinta-preta da 
 | 2026-10 | Manjericão sem janela no Sul | Folder Embrapa (2006): final da primavera → nov-dez |
 | 2026-10 | Manjericão sem diretriz de irrigação | Doc. 136, p. 20: irrigação diária |
 | 2026-11 | Sintomas das 10 doenças; nome popular da doença do morango | Entrega v3 da ATD (ver "Integração da entrega v3 da ATD") |
+| 2026-11 | Culturas da v3 sem `crop_groups`; rega sem resposta (encaminhada à Assistência Técnica) para batata, brócolis, coentro, espinafre, hortelã e pimenta | Grupos pela CT 47, p. 2 (espinafre: folhosa, com a diretriz das folhosas; brócolis: flor; coentro, pimenta e hortelã: condimentos) e regra geral `irrigacao_geral` (CT 47, p. 9) para as culturas sem diretriz própria ou do grupo. Em `draft`, a conferir pela ATD (pendências, itens 14 e 15) |
