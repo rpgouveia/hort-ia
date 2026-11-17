@@ -24,6 +24,17 @@ from ..knowledge.models import Crop, Evidence, KnowledgeBase, ManagementType, Va
 from ..recommender import Profile, Recommender
 from .dataset import EntityType, nlu_dir
 
+GENERAL_PH_GUIDELINE = "solo_ph_regra_geral_epagri"  # the ATD: "usar quando nao houver pH por especie"
+SOIL_CORRECTION_GUIDELINE = "solo_ph"  # CT 47, p. 5: liming follows a soil analysis
+
+
+def _decimal(value: float | None) -> str:
+    """A number as the sources write it: 6.0 -> "6,0", 6.25 -> "6,25"."""
+    if value is None:
+        return ""
+    text = f"{value:.2f}".rstrip("0")
+    return (text + "0" if text.endswith(".") else text).replace(".", ",")
+
 
 class Answer(BaseModel):
     """What the dialogue manager receives; the API decides how to display it."""
@@ -153,12 +164,20 @@ class Responder:
         )
 
     def crop_care(self, crop_id: str | None, aspect: str | None = None) -> Answer:
-        """aspect: spacing | harvest | watering | container | None (summary of spacing and harvest)."""
+        """aspect: spacing | harvest | watering | container | soil | substrate | None (summary: spacing,
+        watering and harvest; the soil pH only when asked)."""
         t, intent = self._t["crop_care"], "crop_care"
         crop = self._crop_or_ask(intent, crop_id)
         if isinstance(crop, Answer):
             return crop
         name, lines, refs = self.crop_name(crop), [], []
+        if aspect == "soil":
+            lines, refs = self._soil(crop)
+            return self._answer(intent, lines, sources=self.cite(refs))
+        if aspect == "substrate":  # no substrate data in the base
+            return self._answer(
+                intent, [t["substrate_no_info"].format(crop=name), self._t["common"]["handoff"]], handoff=True
+            )
         if aspect in (None, "spacing", "container") and crop.spacing:
             if aspect != "container":
                 conv = crop.spacing.conventional
@@ -179,20 +198,71 @@ class Responder:
             lines.insert(0, t[key].format(crop=name))
             if crop.small_space_recommended is False:
                 lines += [g.statement_pt for g in self._guidelines_for(crop, topic="small_spaces")]
+        if aspect in (None, "watering"):
+            watering, watering_refs = self._watering(crop)
+            lines += watering
+            refs += watering_refs
         if aspect in (None, "harvest") and crop.planting_windows:
             days = [w.harvest_start_days for w in crop.planting_windows]
             template = t["harvest"] if aspect == "harvest" else self._t["planting_time"]["harvest"]
             lines.append(template.format(crop=crop.name_pt, min=min(d.min for d in days), max=max(d.max for d in days)))
             refs += [w.source for w in crop.planting_windows]
-        if aspect == "watering":
-            guidelines = self._guidelines_for(crop, topic="irrigation")
-            lines += [g.statement_pt for g in guidelines]
-            refs += [g.source for g in guidelines]
         if not lines:
             return self._answer(intent, [t["no_info"].format(crop=name), self._t["common"]["handoff"]], handoff=True)
         if not refs:  # only "no information" lines (e.g. container for a crop without spacing): hand off
             return self._answer(intent, [*lines, self._t["common"]["handoff"]], handoff=True)
         return self._answer(intent, lines, sources=self.cite(refs))
+
+    def _watering(self, crop: Crop) -> tuple[list[str], list[SourceRef]]:
+        """The turn of the crop when `Irrigation.user_turn()` allows it, then the group guideline. A turn
+        without a stage covers the whole cycle; a turn for a stage ("do plantio ao desbaste") is followed
+        by the group guideline, which covers the rest of the cycle."""
+        t, lines, refs = self._t["crop_care"], [], []
+        irrigation = crop.irrigation
+        turn = irrigation.user_turn() if irrigation else None
+        if turn:
+            low, high = turn
+            if high <= 1:
+                when = t["turn_daily"]
+            elif low == high:
+                when = t["turn_every"].format(n=low)
+            else:
+                when = t["turn_range"].format(min=low, max=high)
+            if irrigation.stage_pt:
+                lines.append(t["watering_turn_stage"].format(crop=crop.name_pt, stage=irrigation.stage_pt, turn=when))
+            else:
+                lines.append(t["watering_turn"].format(crop=crop.name_pt, turn=when))
+            refs.append(irrigation.source)
+            if not irrigation.stage_pt:
+                return lines, refs
+        guidelines = self._guidelines_for(crop, topic="irrigation")
+        lines += [g.statement_pt for g in guidelines]
+        refs += [g.source for g in guidelines]
+        return lines, refs
+
+    def _soil(self, crop: Crop) -> tuple[list[str], list[SourceRef]]:
+        """pH of the crop, or the general rule of the base when there is no value per species; always closed by
+        the soil correction line (soil analysis and Technical Assistance), which does not set handoff. The
+        statements of the v3 guidelines have no accents, so only their `values` reach the user."""
+        t, lines, refs = self._t["crop_care"], [], []
+        ph = crop.soil_ph
+        low, high = (ph.min, ph.max) if ph else (None, None)
+        names = {"crop": crop.name_pt, "name": self.crop_name(crop), "min": _decimal(low), "max": _decimal(high)}
+        if low is not None and high is not None:
+            lines.append(t["soil_ph_single" if low == high else "soil_ph_range"].format(**names))
+        elif high is not None:
+            lines.append(t["soil_ph_max"].format(**names))
+        elif low is not None:
+            lines.append(t["soil_ph_min"].format(**names))
+        if lines:
+            refs.append(ph.source)  # a pH value always has a source with page (SourcedFacts)
+        elif rule := self.kb.guidelines.get(GENERAL_PH_GUIDELINE):
+            lines.append(t["soil_ph_general"].format(name=names["name"], ph=_decimal(rule.values["ph_target"])))
+            refs.append(rule.source)
+        if correction := self.kb.guidelines.get(SOIL_CORRECTION_GUIDELINE):
+            lines.append(t["soil_correction"])
+            refs.append(correction.source)
+        return lines, refs
 
     def _guidelines_for(self, crop: Crop, topic: str) -> list:
         """Most specific guidelines for a crop: crop-specific first, else by crop group."""

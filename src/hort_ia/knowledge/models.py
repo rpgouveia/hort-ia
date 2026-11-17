@@ -297,12 +297,30 @@ class Irrigation(SourcedFacts):
     kc_final: float | None = Field(default=None, gt=0)
     nursery_liters_m2_min: float | None = Field(default=None, ge=0)
     nursery_liters_m2_max: float | None = Field(default=None, ge=0)
+    # Conditions of the values above, which the ATD wrote only in `notes` (data/knowledge/README.md):
+    stage_pt: str | None = None  # phase the turn applies to, in the source's words ("do plantio ao desbaste")
+    from_example: bool = False  # values of a worked example of the source, not a general recommendation
 
+    NOT_VALUES = SourcedFacts.NOT_VALUES | {"stage_pt", "from_example"}
     RANGES = (
         ("turn_days_min", "turn_days_max"),
         ("season_total_mm_min", "season_total_mm_max"),
         ("nursery_liters_m2_min", "nursery_liters_m2_max"),
     )
+
+    def user_turn(self) -> tuple[int, int] | None:
+        """Days between waterings that can be shown to the user, as (min, max), or None.
+
+        The turn of the crop reaches the user only when it says what it seems to say: a turn is filled,
+        the page of the source is confirmed (not "nao confirmada"), and the values are not a worked
+        example of the source (`from_example`). Otherwise the answer keeps to the group guideline.
+        """
+        low, high = self.turn_days_min, self.turn_days_max
+        if (low is None and high is None) or self.from_example or not _has_page(self.source):
+            return None
+        if "confirmada" in self.source.pages.lower():  # "nao confirmada" / "não confirmada"
+            return None
+        return (low if low is not None else high, high if high is not None else low)
 
 
 class SoilPh(SourcedFacts):

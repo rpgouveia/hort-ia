@@ -53,6 +53,20 @@ crop_care:
   container_no: "Plantar {crop} em vaso ou pouco espaço não é indicado."
   container_unknown: "Não tenho informação se {crop} vai bem em vaso."
   no_info: "Não tenho essa informação sobre {crop}."
+  # Watering: the turn of the crop, only when Irrigation.user_turn() allows it; {crop} is capitalized
+  watering_turn: "{crop}: regue {turn}."
+  watering_turn_stage: "{crop}: {stage}, regue {turn}."
+  turn_daily: "todo dia"
+  turn_every: "a cada {n} dias"
+  turn_range: "a cada {min} a {max} dias"
+  # Soil: {crop} is capitalized (start of the sentence), {name} is lower case
+  soil_ph_range: "{crop} prefere solo com pH entre {min} e {max}."
+  soil_ph_single: "{crop} prefere solo com pH em torno de {min}."
+  soil_ph_max: "Para {name}, o pH do solo não deve passar de {max}."
+  soil_ph_min: "Para {name}, o pH do solo não deve ficar abaixo de {min}."
+  soil_ph_general: "Não tenho o pH específico de {name}. Para hortaliças em geral, o pH mais indicado é {ph}."
+  soil_correction: "Para corrigir o solo, faça antes uma análise de solo e peça orientação à Assistência Técnica."  # no handoff
+  substrate_no_info: "Não tenho informação sobre substrato para {crop}."
 
 companion_planting:
   good: "Plantas que se dão bem com {crop}: {partners}."

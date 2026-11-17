@@ -7,6 +7,7 @@ answer (critical failure 1) fails here. Calls go through the whole FastAPI app i
 """
 
 import json
+import re
 import shutil
 from pathlib import Path
 
@@ -94,6 +95,38 @@ def test_i5_common_words_keep_the_region_of_the_profile(client, region):
     reply = ask(client, "o que dá para plantar agora?", ibge_code=CITY_BY_REGION[region], month=11)
     assert (reply["intent"], reply["entities"]["region"]) == ("what_to_plant", region.value)
     assert reply["text"].startswith(f"Em novembro, {region_label(region)}, "), reply["text"]
+
+
+def _numbers(value) -> set[float]:
+    """Every number in a value of the base (nested dicts and lists, numbers written inside strings)."""
+    if isinstance(value, bool):
+        return set()
+    if isinstance(value, int | float):
+        return {float(value)}
+    if isinstance(value, str):
+        return {float(n.replace(",", ".")) for n in re.findall(r"\d+(?:[.,]\d+)?", value)}
+    items = value.values() if isinstance(value, dict) else value if isinstance(value, list) else []
+    return set().union(*(_numbers(v) for v in items)) if items else set()
+
+
+DOSE = re.compile(r"\d\s*(kg|g|mg|t|ton|toneladas?|gramas?)\b|calcário.*\d|\d.*calcário|adubo.*\d", re.IGNORECASE)
+
+
+@pytest.mark.parametrize("crop_id", sorted(KB.crops))
+@pytest.mark.parametrize(
+    ("question", "aspect"), [("qual o ph do solo para {name}?", "soil"), ("de quanto em quanto tempo rego {name}?", "watering")]
+)  # fmt: skip
+def test_i1_soil_and_watering_answers_come_from_the_base(client, crop_id, question, aspect):
+    crop = KB.crops[crop_id]
+    reply = ask(client, question.format(name=crop.name_pt.lower()), ibge_code=4106902, month=11)
+    entities = reply["entities"]
+    assert (reply["intent"], entities["crop"], entities["care_aspect"]) == ("crop_care", crop_id, aspect)
+    if not reply["handoff"]:  # batata has no usable watering data: no data, handoff
+        assert reply["sources"] and all(", p. " in source for source in reply["sources"]), reply
+    guidelines = [g.model_dump(mode="json") for g in KB.guidelines.values()]
+    allowed = _numbers(crop.model_dump(mode="json")) | _numbers(guidelines) | _numbers(TEMPLATES["crop_care"])
+    assert _numbers(reply["text"]) <= allowed, (reply["text"], _numbers(reply["text"]) - allowed)
+    assert not DOSE.search(reply["text"]), reply["text"]
 
 
 # --- I2: every name of the base reaches the right crop through the API -------------------------

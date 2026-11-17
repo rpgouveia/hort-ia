@@ -332,6 +332,7 @@
       "season_total_mm_min": 350,
       "season_total_mm_max": 600,
       "preplant_blade_mm": 20,
+      "from_example": true,
       "source": {
         "source_id": "embrapa_plantar_batata",
         "pages": "96, 99, 102, 104-107"
@@ -1742,6 +1743,7 @@
       "blade_mm_gross": 14.3,
       "efficiency": 0.7,
       "first_irrigation_wet_depth_cm": 20,
+      "stage_pt": "do plantio ao desbaste",
       "source": {
         "source_id": "embrapa_plantar_cenoura",
         "pages": "37, 39-41"

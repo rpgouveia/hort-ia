@@ -357,6 +357,25 @@ def test_route_does_not_read_the_month_in_a_place_name(client, text, expected):
     assert expected in data["text"] and "Sudeste" in data["text"], data["text"]
 
 
+@pytest.mark.parametrize(
+    ("text", "expected", "handoff"),
+    [
+        ("De quanto em quanto tempo devo regar a cenoura?", "Cenoura: do plantio ao desbaste, regue a cada 1 a 2 dias.", False),
+        ("qual o ph do solo para tomate?", "Tomate prefere solo com pH entre 6,0 e 6,5.", False),  # confirmed first (0.45)
+        ("pH do solo para hortelã?", "Não tenho o pH específico de hortelã. Para hortaliças em geral", False),
+        ("qual substrato usar para o morango?", "Não tenho informação sobre substrato para morango.", True),  # confirmed
+    ],
+)  # fmt: skip
+def test_route_answers_soil_substrate_and_watering_of_the_crop(client, text, expected, handoff):
+    profile = {"ibge_code": CURITIBA, "month": 11}
+    data = client.post("/nlp/message", json={"text": text, **profile}).json()
+    if data["decision"] == "confirm":
+        data = client.post("/nlp/message", json={"text": "sim", "context": data["context"], **profile}).json()
+    assert (data["decision"], data["intent"], data["handoff"]) == ("answer", "crop_care", handoff)
+    assert data["text"].startswith(expected), data["text"]
+    assert handoff or all(", p. " in source for source in data["sources"]) and data["sources"]
+
+
 def test_route_without_profile_still_answers(client):
     data = client.post("/nlp/message", json={"text": "oi, o que você faz?"}).json()
     assert data["decision"] in ("answer", "confirm") and data["text"]

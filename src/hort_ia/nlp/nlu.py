@@ -51,7 +51,15 @@ CARE_ASPECT_TERMS = {
     "watering": ["rega", "regar", "rego", "rega-la", "regando", "aguar", "agua", "molhar", "irrigar", "irrigacao"],
     "spacing": ["espacamento", "distancia", "espaco entre", "quanto de espaco", "longe uma da outra"],
     "harvest": ["colher", "colheita", "colho", "colhe", "colhendo", "ponto de colheita"],
-}
+    # Checked in this order. Substrate before soil and before "vaso" (container): "terra pro vaso" is a
+    # substrate question. Soil after watering, spacing and harvest, whose words are more specific than
+    # "solo" ("molhar o solo" is watering). "terra" alone is not a soil word: "molhar a terra" is watering.
+    "substrate": ["substrato", "substratos", "terra para vaso", "terra pro vaso"],
+    "soil": [
+        "solo", "ph", "acidez", "acido", "acida", "calcario", "calagem", "correcao do solo", "corrigir o solo",
+        "tipo de terra", "que terra", "terra boa",
+    ],
+}  # fmt: skip
 ROTATION_TERMS = ["depois", "no lugar", "rodizio", "rotacao", "em seguida", "apos", "sucessao", "na sequencia"]
 STATES = {
     "acre": "AC", "alagoas": "AL", "amapa": "AP", "amazonas": "AM", "bahia": "BA", "ceara": "CE",

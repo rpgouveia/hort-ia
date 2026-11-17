@@ -87,6 +87,136 @@ def test_crop_care_container_for_roots_is_not_recommended(r):
     assert "não é indicado" in a.text and "Raízes" in a.text
 
 
+# --- crop_care: soil pH, substrate and watering by crop ---------------------------------------
+
+SOIL_CORRECTION = "Para corrigir o solo, faça antes uma análise de solo e peça orientação à Assistência Técnica."
+CT47_P5 = "(Circular Técnica 47), p. 5"
+
+
+def responder_with_crop(tmp_path, crop_id: str, block: str, values: dict) -> Responder:
+    """Copy of the base with some fields of one block of one crop replaced."""
+    target = tmp_path / "knowledge"
+    shutil.copytree(DEFAULT_KB_DIR, target)
+    path = target / "crops.json"
+    crops = json.loads(path.read_text(encoding="utf-8"))
+    next(c for c in crops if c["id"] == crop_id)[block].update(values)
+    path.write_text(json.dumps(crops, ensure_ascii=False), encoding="utf-8")
+    return Responder(load_knowledge_base(target), load_templates(), load_market_dataset())
+
+
+def test_soil_ph_with_min_and_max(r):
+    a = r.crop_care("cenoura", "soil")
+    assert a.text == f"Cenoura prefere solo com pH entre 6,0 e 6,5. {SOIL_CORRECTION}"
+    assert a.sources[0].endswith("(Colecao Plantar, 43), p. 20, 22") and a.sources[1].endswith(CT47_P5)
+    assert not a.handoff
+
+
+def test_soil_ph_with_max_only(r):
+    a = r.crop_care("batata", "soil")
+    assert a.text == f"Para batata, o pH do solo não deve passar de 6,0. {SOIL_CORRECTION}"
+    assert a.sources[0].endswith("p. 70")
+
+
+@pytest.mark.parametrize("crop", ["beterraba", "rucula"])  # "Sem valor por especie" and a block with no source
+def test_soil_ph_without_a_value_per_species_uses_the_general_rule(r, crop):
+    a = r.crop_care(crop, "soil")
+    name = r.kb.crops[crop].name_pt.lower()
+    assert a.text == (
+        f"Não tenho o pH específico de {name}. Para hortaliças em geral, o pH mais indicado é 6,0. {SOIL_CORRECTION}"
+    )
+    assert a.sources == [
+        "Producao de hortalicas em Santa Catarina (Boletim Didatico 107, ISSN 1414-5219), p. 30",
+        "Recomendações técnicas para o cultivo de hortaliças em agricultura familiar (Circular Técnica 47), p. 5",
+    ]
+
+
+def test_soil_ph_single_ideal_value(tmp_path):
+    r2 = responder_with_crop(tmp_path, "salsa", "soil_ph", {"min": 5.5, "max": 5.5})
+    assert r2.crop_care("salsa", "soil").text == f"Salsa prefere solo com pH em torno de 5,5. {SOIL_CORRECTION}"
+
+
+def test_soil_ph_with_min_only(tmp_path):
+    r2 = responder_with_crop(tmp_path, "salsa", "soil_ph", {"min": 5.5})
+    expected = f"Para salsa, o pH do solo não deve ficar abaixo de 5,5. {SOIL_CORRECTION}"
+    assert r2.crop_care("salsa", "soil").text == expected
+
+
+def test_soil_answer_always_ends_with_the_correction_line_without_handoff(r):
+    for crop in r.kb.crops:
+        a = r.crop_care(crop, "soil")
+        assert a.text.endswith(SOIL_CORRECTION) and not a.handoff, crop
+        assert a.sources[-1].endswith(CT47_P5) and all(", p. " in s for s in a.sources), crop
+
+
+def test_substrate_without_data_hands_off(r):
+    a = r.crop_care("morango", "substrate")
+    assert a.text.startswith("Não tenho informação sobre substrato para morango.") and a.handoff and not a.sources
+
+
+def test_watering_of_carrot_has_the_stage_and_the_group_guideline(r):
+    a = r.crop_care("cenoura", "watering")
+    assert a.text == (
+        "Cenoura: do plantio ao desbaste, regue a cada 1 a 2 dias. "
+        "Hortaliças de frutos e de raízes podem ser irrigadas a cada 2 ou 3 dias."
+    )
+    assert a.sources[0].endswith("(Colecao Plantar, 43), p. 37, 39-41") and a.sources[1].endswith("47), p. 9")
+
+
+@pytest.mark.parametrize("crop", ["batata", "alface", "repolho"])  # worked example; unconfirmed pages
+def test_turn_of_the_crop_is_not_shown_when_it_does_not_say_what_it_seems(r, crop):
+    a = r.crop_care(crop, "watering")
+    assert "regue" not in a.text and r.kb.crops[crop].irrigation.user_turn() is None
+    if crop != "batata":  # leafy group guideline; batata (tuber) has no group guideline: no data, handoff
+        assert a.text == "Folhosas e plantas em fase inicial devem ser irrigadas diariamente." and not a.handoff
+    else:
+        assert a.handoff
+
+
+SOURCE = {"source_id": "embrapa_plantar_cenoura", "pages": "37"}
+
+
+@pytest.mark.parametrize(
+    ("fields", "turn"),
+    [
+        ({"turn_days_min": 1, "turn_days_max": 2, "source": SOURCE}, (1, 2)),
+        ({"turn_days_max": 3, "source": SOURCE}, (3, 3)),  # only one end filled
+        ({"turn_days_min": 1, "turn_days_max": 2, "stage_pt": "do plantio ao desbaste", "source": SOURCE}, (1, 2)),
+        ({"blade_mm_net": 4, "source": SOURCE}, None),  # no turn
+        ({"turn_days_min": 2, "source": {"source_id": "x", "pages": "nao confirmada"}}, None),
+        ({"turn_days_min": 2, "source": {"source_id": "x", "pages": "Não confirmada"}}, None),
+        ({"turn_days_min": 3, "turn_days_max": 3, "from_example": True, "source": SOURCE}, None),
+        ({"notes": "LACUNA: sem dado."}, None),  # no source
+    ],
+)
+def test_user_turn(fields, turn):
+    from hort_ia.knowledge.models import Irrigation
+
+    assert Irrigation(**fields).user_turn() == turn
+
+
+def test_stage_and_example_flags_are_not_values():
+    from hort_ia.knowledge.models import Irrigation
+
+    assert Irrigation(stage_pt="x", from_example=True, notes="sem dado").filled() == []
+
+
+@pytest.mark.parametrize(
+    ("turn", "text"),
+    [((1, 1), "Tomate: regue todo dia."), ((3, 3), "Tomate: regue a cada 3 dias."), ((2, 4), "Tomate: regue a cada 2 a 4 dias.")],
+)  # fmt: skip
+def test_turn_without_stage_covers_the_whole_cycle(tmp_path, turn, text):
+    r2 = responder_with_crop(tmp_path, "tomate", "irrigation", {"turn_days_min": turn[0], "turn_days_max": turn[1]})
+    assert r2.crop_care("tomate", "watering").text == text  # no stage: the group guideline is not added
+
+
+def test_summary_has_spacing_watering_and_harvest_in_this_order(r):
+    text = r.crop_care("cenoura").text
+    spacing, watering, harvest = (text.index(s) for s in ("deixe 10 cm", "regue a cada 1 a 2 dias", "A colheita"))
+    assert spacing < watering < harvest
+    assert "pH" not in text  # the soil only when asked
+    assert "irrigadas diariamente" in r.crop_care("alface").text  # summary with the group guideline only
+
+
 # --- companion_planting -------------------------------------------------------------------
 
 
@@ -440,7 +570,7 @@ def test_u9_every_crop_region_month_and_aspect(r):
     for crop in r.kb.crops:
         for region, month in itertools.product([*Region, None], range(1, 13)):
             _check(r.planting_time(crop, region, month))
-        for aspect in (None, "spacing", "harvest", "watering", "container"):
+        for aspect in (None, "spacing", "harvest", "watering", "container", "soil", "substrate"):
             _check(r.crop_care(crop, aspect))
         for rotation in (False, True):
             _check(r.companion_planting(crop, rotation))
