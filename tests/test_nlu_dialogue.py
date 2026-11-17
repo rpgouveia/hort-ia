@@ -361,6 +361,7 @@ def test_route_does_not_read_the_month_in_a_place_name(client, text, expected):
     ("text", "expected", "handoff"),
     [
         ("De quanto em quanto tempo devo regar a cenoura?", "Cenoura: do plantio ao desbaste, regue a cada 1 a 2 dias.", False),
+        ("como rego a pimenta?", "Não tenho a orientação de rega específica de pimenta. Em geral, as hortaliças", False),
         ("qual o ph do solo para tomate?", "Tomate prefere solo com pH entre 6,0 e 6,5.", False),  # confirmed first (0.45)
         ("pH do solo para hortelã?", "Não tenho o pH específico de hortelã. Para hortaliças em geral", False),
         ("qual substrato usar para o morango?", "Não tenho informação sobre substrato para morango.", True),  # confirmed

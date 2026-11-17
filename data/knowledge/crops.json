@@ -2921,6 +2921,9 @@
     "name_pt": "Coentro",
     "scientific_name": "Coriandrum sativum",
     "family": "Apiaceae",
+    "crop_groups": [
+      "condiment"
+    ],
     "planting_windows": [
       {
         "variant": null,
@@ -3075,6 +3078,9 @@
     "name_pt": "Espinafre",
     "scientific_name": "Spinacia oleracea",
     "family": "Amaranthaceae",
+    "crop_groups": [
+      "leafy"
+    ],
     "planting_windows": [
       {
         "variant": null,
@@ -3199,6 +3205,9 @@
     "name_pt": "Brócolis",
     "scientific_name": "Brassica oleracea var. italica",
     "family": "Brassicaceae",
+    "crop_groups": [
+      "flower"
+    ],
     "planting_windows": [
       {
         "variant": "inverno",
@@ -3368,7 +3377,9 @@
     "family": "Solanaceae",
     "aliases": [],
     "names_en": [],
-    "crop_groups": [],
+    "crop_groups": [
+      "condiment"
+    ],
     "propagation": [],
     "seedling_days": null,
     "planting_windows": [
@@ -3512,7 +3523,9 @@
     "family": "Lamiaceae",
     "aliases": [],
     "names_en": [],
-    "crop_groups": [],
+    "crop_groups": [
+      "condiment"
+    ],
     "propagation": [],
     "seedling_days": null,
     "planting_windows": [],
